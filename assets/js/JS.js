@@ -12,6 +12,21 @@ $('.datepicker').pickadate({
     //$('#listaArticulosCatalogoActual').openModal();
     $('select').material_select();
 
+/*METODOS PARA BUSCAR CON LOS INPUT SUPERIORES EN LAS TABLAS*/
+ 
+// #myInput is a <input type="text"> element
+$('#searchUsuarios').on( 'keyup', function () {
+    var table = $('#TbCatalogo').DataTable();
+    table.search( this.value ).draw();
+} );
+
+$('#searchClientes').on( 'keyup', function () {
+    var table = $('#ClienteAdd').DataTable();
+    table.search( this.value ).draw();
+} );
+
+
+
 $('#txtimagen').change(function(){
     //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
     var file = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
@@ -94,9 +109,9 @@ $('#tblCatalogoActualModal').DataTable( {
     $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblEliminar,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblpRODUCTOS,#tblModals,#tblCatalogo2').DataTable(
         {
             "info":    false,
-            "searching": false,
+            //"searching": false,
             "bLengthChange": false,
-            "lengthMenu": [[5,16,32,100,-1], [5,16,32,100,"Todo"]],
+            "lengthMenu": [[8,15,32,100,-1], [8,15,32,100,"Todo"]],
             "language": {
                 "paginate": {
                     "first":      "Primera",
@@ -106,7 +121,7 @@ $('#tblCatalogoActualModal').DataTable( {
                 },
                 "lengthMenu":"MOSTRAR _MENU_",
                 "emptyTable": "No hay datos disponibles en la tabla",
-                "search":     "<i class='material-icons'>search</i>" 
+                "search":     "" 
             }
         }
     );
@@ -158,24 +173,25 @@ $('#tblCatalogoActualModal').DataTable( {
 /* FUNCIONES */
 //ENVIO DE DATOS DEL FORMULARIO
 function EnviodeDatos(){
-    $('#labelCodigo').hide();
-    $('#labelDescripcion').hide();
-    $('#labelPuntos').hide();
-    $('#labelImagen').hide();
-    if ($('#NombreUser').val()=="") {$('#labelNombre').show(); return false;}
-    if ($('#Contra').val()=="") {$('#labelPass').show();return false;}
-    if ($('#rol').val()==null) {$('#labelRol').show();return false;}
-    //if ($('#vendedorid').val()==null) {$('#labelVendedor').show();return false;}
-    else{
-        var user = $('#NombreUser').val();/*LA INGRID TENIA VALUE Y getelementById DE JAVASCRIPT INGRID POR DIOS!!*/
-        var clave = $('#Contra').val();/*LA INGRID TENIA VALUE Y getelementById DE JAVASCRIPT INGRID POR DIOS!!*/
-        var rol = $('#rol').val();/*LA INGRID TENIA VALUE Y getelementById DE JAVASCRIPT INGRID POR DIOS!!*/
-        var vendedores = $("#vendedorid option:selected").text();/*LA INGRID TENIA VALUE Y getelementById DE JAVASCRIPT INGRID POR DIOS!!*/
+    $('#labelCodigo').hide();$('#labelDescripcion').hide();
+    $('#labelPuntos').hide();$('#labelImagen').hide();$('#labelRol').hide();
+    var user = $('#NombreUser').val();var nombre = $('#NombreUser2').val();
+    var clave = $('#Contra').val();var clave2 = $('#Contra2').val();
+    var rol = $('#rol option:selected').val();var idVendedor = $("#vendedorid option:selected").val();
+    var vendedores = $("#vendedorid option:selected").text();
+    alert(rol);
+    if (user=="") {$('#labelNombre').show(); return false;}
+    if (clave=="") {$('#labelPass').show();return false;}
+    if (clave2=="") {$('#labelPass2').show();return false;}
+    if (rol=="") {$('#labelRol').show();return false;}
+    if (clave!=clave2) {$('#labelPass2').show();return false;}
+    if (rol == 3 && idVendedor =="") {$('#labelVendedor').show();return false;}
+    else{        
         if(vendedores=='SELECCIONE VENDEDOR'){
-            vendedores = '0';
+            vendedores = '0';idVendedor='0';
         }$('#Adduser').hide();$('.progress').show();
         $.ajax({
-            url: "NuevoUsuario/"+user+"/"+clave+"/"+rol+"/"+vendedores,
+            url: "NuevoUsuario/"+user+"/"+nombre+"/"+clave+"/"+rol+"/"+vendedores+"/"+idVendedor,
             type: "post",
             async:true,
             success:
@@ -205,6 +221,8 @@ function DellUsers(IdUser, Estado){
     }
 
     $("#DellUsers").click(function(){
+        $('#progressActUser').show();
+        $('#TbCatalogo').hide();
         $.ajax({
             url: "ActUser/"+IdUser+"/"+Estado,
             type: "post",

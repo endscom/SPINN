@@ -26,15 +26,6 @@ class Vista_controller extends CI_Controller
         $this->load->view('footer/footer');
     }
 
-    public function Clientes(){
-        $query = $this->cliente_model->LoadClients();// Cargar Clientes
-
-        $this->load->view('header/header');
-        $this->load->view('pages/menu');
-        $this->load->view('pages/Clientes',$query);
-        $this->load->view('footer/footer');
-    }
-
     public  function BajaClientes(){
         $this->load->view('header/header');
         $this->load->view('pages/menu');

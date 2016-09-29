@@ -73,6 +73,11 @@
 #nuevoArticulo{
   width: 83%;
 }
+/*OCULTO EL CAMPO DE BUSQUEDA DE LOS DATATABLES*/
+.dataTables_filter{
+  display: none!important;
+}
+/*ESTILOS PARA TEXTOS IMPORTANTE!!*/
 .negra{
   font-family: 'robotoblack'!important;
 }
@@ -86,6 +91,7 @@
 .mediana{
   font-family: 'robotomedium'!important;
 }
+/*----------------------------------*/
 .text{
     font-family: 'robotoblack';
     font-size: 17px;
@@ -232,6 +238,8 @@
 /**********************************************************
 ***********************************************************
 */
+
+/*ESTILOS DE LOGIN*/
 .container-login{
   margin-top: 5%;
 }
@@ -269,6 +277,7 @@ img.login-logo{
     background-color: #831f82!important;
     background: url('/SPINN/assets/img/textura.png');
 }
+/*-------------------------------*/
 
 #nombre{
     font-family: 'robotoblack';
@@ -294,11 +303,7 @@ img.login-logo{
     width: 100%;
     text-align: center;
 }
-#remember-me[type="checkbox"]:checked + label:before{
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
 
-}
 #NombreU{
     width: 100%;
     text-align: center;
@@ -310,18 +315,10 @@ img.login-logo{
     font-size: 14px;
     border-radius: 10px;
 }
-#logos{
-    margin-left: -15%;
-}
-#logos1{
-    margin-right: -15%;
-}
 #conTIcon{
-    /*position: absolute;*/
     bottom: 5px;
     right: 20%;
     left: 20%;
-    /*margin-top:10%;*/
 }
 .Centrado
 {
@@ -358,19 +355,16 @@ img.login-logo{
     font-family: 'robotoregular';
     font-size: 14px;
     color: #866FD5;
-
 }
 #buscar{
     width: 100%;
     text-align: center;
-
 }
 .ColorHeader{
     color: #fff;
     margin-top: 20px;
     text-align: center;
 }
-
 .margen
 {
     margin-top: 20px;
@@ -381,7 +375,6 @@ img.login-logo{
     font-size: 16px;
     text-transform: uppercase;
     font-weight: 500;
-
 }
 .TextColor
   {
@@ -399,7 +392,7 @@ img.login-logo{
 .Loggen
 {
     color: #fff;
-    margin-left: 20px;
+    margin-left: 4px;
     font-family: 'robotoblack';
     text-transform: uppercase;
 }
@@ -410,6 +403,8 @@ img.login-logo{
 #user
 {
     margin: 11px -6px 15px;
+    text-align: center;
+    margin-top: 0px;
 }
 .activo
 {
@@ -560,7 +555,6 @@ img.login-logo{
     font-family: 'robotoblack';
     font-size: 13px;
 }
-
 table{
     border-collapse: separate;
     border-spacing: 1px;
@@ -571,20 +565,19 @@ table th{
     font-size: 14px;
     font-family: 'robotobold';
 }
-
+table td
+{
+    font-family: 'robotoregular';
+    color: #831F82;
+    font-size: 12px;
+}
 .datos1{
     font-family: 'robotoblack';
-    color: #402C82;
+    color: #831f82;
     font-size: 17px;
 }
 .DatoFrp{
     font-family: 'robotoblack';
-    color: #831F82;
-    font-size: 12px;
-}
-table td
-{
-    font-family: 'robotoregular';
     color: #831F82;
     font-size: 12px;
 }
@@ -597,14 +590,12 @@ table tr:nth-child(even) {
 .select{
     background: red;
 }
-
 table tr:nth-child(odd) {
     background-color: #e7e2f7;
 }
 #Inactiva{
     color: #ff0000;
 }
-
 /****** Tabla zebra ********/
 #search{margin-top: -20px;}
 #TPts{margin-top: 40px;}
@@ -637,8 +628,7 @@ table tr:nth-child(odd) {
      font-weight: 500;
      height: 40px;
      font-size: 12px;
-
- }
+}
 #ImgContenedor{
     border: 2px solid #831F82;
     box-shadow: none;
@@ -659,8 +649,6 @@ table tr:nth-child(odd) {
     width: 98%;
     padding: 10px;
 }
-
-
 #ListCliente{
     color:#831F82;
     font-size: 14px;
@@ -681,20 +669,15 @@ table tr:nth-child(odd) {
     background: rgba(0, 128, 0, 0.6);
     transition: 0.5s;
 }
-
-#Nfarmacia{
-    font-size: 22px;
-}
 #titulM{
     font-size: 22px;
 }
-
 #acumulado{
     font-size: 12px;
 }
 #AcuT{
     font-family: 'robotoblack';
-    color: #866FD5;
+    color: #831f82;
     font-size: 20px;
 }
 #contenedor{
@@ -844,39 +827,6 @@ table tr:nth-child(odd) {
     font-size: 22px;
     text-transform: uppercase;
     opacity: 0.5;
-}
-/*impresion de frp*/
-
-.Color{
-    color: #831F82;
-}
-#numFrp{
-    font-size: 17px;
-    text-align: center;
-}
-#fechafrp{
-    text-align: center;
-    font-size: 15px;
-    margin: -16px 15px 12px;
-}
-#Farmafre{
-    text-align: center;
-    font-size: 15px;
-    text-transform: uppercase;
-
-}
-#NomFaramacia{
-    color: #6a4ad5;
-    font-size: 14px;
-    text-transform: uppercase;
-    text-align: center;
-}
-#ruc{
-    color: #866FD5;
-    font-size: 12px;
-    text-align: center;
-    text-transform: uppercase;
-    margin: -16px 15px 12px;
 }
 
 .detallesFrp thead{
@@ -1090,9 +1040,8 @@ select{
 label>select {
     display: table-cell!important;
 }
-/*estilos para los toast flotantes*/
+/*estilos para los toast flotantes ekisde*/
 .toast.error{
-    /* border-radius: 2px; */
     top: 0;
     width: auto;
     clear: both;

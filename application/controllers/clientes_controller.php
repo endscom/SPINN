@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cliente_controller extends CI_Controller
+class Clientes_controller extends CI_Controller
 {
     public function __construct(){
         parent::__construct();
@@ -11,7 +11,13 @@ class Cliente_controller extends CI_Controller
             redirect(base_url().'index.php/login','refresh');
         }
     }
-
+    public function Clientes(){
+        $data['Clientes'] = $this->hana_model->LoadClients();// Cargar Clientes
+        $this->load->view('header/header');
+        $this->load->view('pages/menu');
+        $this->load->view('pages/Clientes',$data);
+        $this->load->view('footer/footer');
+    }
     public function FindClient($cond){
          $this->cliente_model($cond);
     }

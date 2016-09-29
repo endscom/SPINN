@@ -14,12 +14,12 @@
             </div>
         </div>
         <div class="container">
-            <div class="Buscar row column">
+            <div class="Buscar row column">               
                 <div class="col s1 m1 l1 offset-l3">
                     <i class="material-icons ColorS">search</i>
                 </div>
                 <div class="input-field col s6 m6 l4">
-                    <input  id="search" type="text" placeholder="Buscar" class="validate">
+                    <input  id="searchUsuarios" type="text" placeholder="Buscar" class="validate">
                     <label for="search"></label>
                 </div>
             </div>
@@ -29,6 +29,9 @@
                 <a href="#AUsuario" class="BtnBlue waves-effect  btn modal-trigger ">AGREGAR</a>
             </div>
         </div>
+        <div class="progress" id="progressActUser" style="display:none">
+                          <div class="indeterminate violet"></div>
+                    </div>
         <table id="TbCatalogo" class="TblDatos center">
             <thead>
             <tr>
@@ -50,7 +53,7 @@
                             $MColor="#831F82";
                             $mIcono = "#ff0000";
                             $activo='Activo';
-                            if($user['Estado']==1)
+                            if($user['Estado']==0)
                             {
                                 $activo='Inactivo';
                                 $MColor="#ff0000";
@@ -62,7 +65,7 @@
                                  <tr>
                                     <td>".date('d/m/Y',strtotime(substr($user['FechaCreacion'], 0,10)))."</td>
                                     <td>".$user['IdUsuario']."</td>
-                                    <td class='negra'> <a href='#Duser' class='modal-trigger'>".$user['Nombre']."</td></a>
+                                    <td class='negra'><a href=''>".$user['Nombre']."</td></a>
                                     <td id='activo' style='color:".$MColor."'>".$activo."</td>
                                     <td><a data-tooltip='$Mmensaje' class='btn-flat tooltipped' onclick='DellUsers(".'"'.$user['IdUsuario'].'",'.'"'.$user['Estado'].'"'.")'><i style='color:".$mIcono."' class=' material-icons'>$Micono</i></td></a>
                                  </tr>
@@ -92,24 +95,33 @@
             <form class="col s12"  method="post" name="formAddUser">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input name="user" placeholder="Nombre de Usuario" id="NombreUser" type="text" class="required">
-                        <label id="labelNombre" class="labelValidacion">DIGITE EL NOMBRE</label>
+                        <input name="user" placeholder="NOMBRE DE USUARIO" id="NombreUser" type="text" class="required">
+                        <label id="labelNombre" class="labelValidacion">DIGITE EL USUARIO</label>
                     </div>
-
                     <div class="input-field col s6">
-                        <input name="pass" placeholder="Contraseña" id="Contra" type="password" class="validate">
+                        <input name="user2" placeholder="NOMBRE COMPLETO" id="NombreUser2" type="text" class="required">
+                        <label id="labelNombre2" class="labelValidacion">DIGITE EL NOMBRE COMPLETO</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input name="pass" placeholder="CONTRASEÑA" id="Contra" type="password" class="validate">
                         <label id="labelPass" class="labelValidacion">DIGITE LA CONTRASEÑA</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input name="pass2" placeholder="REPITA CONTRASEÑA" id="Contra2" type="password" class="validate">
+                        <label id="labelPass2" class="labelValidacion">REPITA LA CONTRASEÑA</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
                         <select name="rol" id="rol">
-                            <option value="" disabled selected>SELECCIONE USUARIO</option>
+                            <option value="" disabled selected>SELECCIONE UN ROL</option>
                             <?PHP
                                 if(!($Lrol)){
                                 } else {
                                      foreach($Lrol as $rol) {
-                                          echo '<option value="'.$rol['Descripcion'].'">'.$rol['Descripcion'].'</option>';
+                                          echo '<option value="'.$rol['IdRol'].'">'.$rol['Descripcion'].'</option>';
                                      }
                                  }
                             ?>
@@ -135,7 +147,7 @@
                           <div class="indeterminate violet"></div>
                     </div>
                     <div class="col offset-l3 s12 l6">
-                        <a  class="Btnadd btn" id="Adduser"  onclick="EnviodeDatos()">GENERAR</a>
+                        <a  class="Btnadd btn" id="Adduser"  onclick="EnviodeDatos()">GUARDAR</a>
                     </div>
                 </div>
             </form>
@@ -168,28 +180,3 @@
     </div>
 </div>
 <!-- MODAL DETALLES USUARIO -->
-<!-- Modal Structure -->
-<div id="Duser" class="modal">
-    <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>
-        <h6 class="center Mcolor AdUser">INFORMACIÓN DEL CLIENTE</h6>
-        <p class="center datos1 cod "> COD. CLIENTE: 00449</p>
-        <h6  class="center datos1 user linea">00449 FARMACIA CASTELLÓN</h6>
-        <p class="center datos1 ruc linea"> RUC 4412000183001H</p>
-        <p id="acumulado" class="center Datos">ACUMULADO: <span id="AcuT">250,000</span>  Pts.</p>
-        <div class="row">
-            <div class="col s3 m2 l3 offset-l2">
-                <p id="ModalFeet"  class="datos1 "> VENDEDOR: <br> Esperanza Castillo</p>
-            </div>
-            <div class="col s3 m2 l3 offset-l3">
-                <p id="ModalFeet"  class="datos1"> ZONA: <br>F14</p>
-            </div>
-        </div>
-    </div><!-- fin del contenido del modal -->
-</div>

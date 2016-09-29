@@ -3284,7 +3284,7 @@ nav ul a span.badge {
 }
 
 .progress .indeterminate {
-  background-color: #26a69a;
+  background-color: #dfa6e9;
 }
 
 .progress .indeterminate:before {
@@ -4744,7 +4744,7 @@ small {
   line-height: 1.5em;
   word-break: break-all;
   font-family: 'robotoregular';
-  background: rgba(31, 10, 113, 0.74);
+  background: rgba(131, 31, 130, 0.64);
   padding: 10px 25px;
   font-size: 1.1rem;
   font-weight: 300;

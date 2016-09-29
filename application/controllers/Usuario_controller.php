@@ -19,19 +19,16 @@ class Usuario_controller extends CI_Controller
         $this->load->view('footer/footer');
     }
     // AGREGAR USUARIO
-    public function addUser($user, $clave, $rol, $vendedor)
+    public function addUser($user, $nombre, $clave, $rol, $vendedor, $idVendedor)
     {
-        echo $rol;
-        $fecha = date('Y-m-d H:i:s');
+        //echo $user." - ".$clave." - ".$rol." - ".$vendedor." - ".$idVendedor."<br>";
         if ($rol == 'Vendedor') {
             echo "entro a vendedor";
-            $this->usuario_model->BuscarVdor($user, $clave, $rol, $fecha, $vendedor);
-        } else if ($rol == 'Cliente') {
-            echo "entro a cliente";
-            $this->usuario_model->BuscarCl($user, $clave, $rol, $fecha, $vendedor);
-        } else {
+            $this->usuario_model->guardarVdor($user, $nombre, $clave, $rol,  $vendedor, $idVendedor);
+        } 
+        else {
             echo "entro al ultimo";
-            $this->usuario_model->addUser($user, $clave, $rol, $fecha, $vendedor);
+            $this->usuario_model->addUser($user, $nombre, $clave, $rol, $vendedor, $idVendedor);
         }
     }
     public function ActUser($IdUser, $Estado)

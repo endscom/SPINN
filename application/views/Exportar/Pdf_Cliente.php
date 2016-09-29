@@ -5,11 +5,14 @@
         <style>
         tbody td, thead th{ padding: 8px 10px;}
         #ClienteAdd{border-collapse: separate;border-spacing: 1px;color: white; font-family: 'robotoblack';}
-        #ClienteAdd tbody td{color:#1F0A71;font-size: 11px;}
-        #ClienteAdd tr:nth-child(even){background: #e7e2f7;}
-        #ClienteAdd tr:nth-child(odd){ background: #ffffff; }
-        #ClienteAdd th{ background: #1F0A71;color: #fff; font-size: 14px;}
+        #ClienteAdd tbody td{color:#831f82;font-size: 11px;}
+        #ClienteAdd tr:nth-child(even){background: #ffffff;}
+        #ClienteAdd tr:nth-child(odd){ background: #e7e2f7; }
+        #ClienteAdd th{ background: #831f82;color: #fff; font-size: 14px;}
         #logo{margin: 10px 15px 10px;}
+        .negra{
+            font-family: 'robotoblack'!important;
+        }
         @font-face {
             font-family: 'robotoblack';
             src: url('roboto-black-webfont.eot');
@@ -20,12 +23,7 @@
             url('roboto-black-webfont.svg#robotoblack') format('svg');
             font-weight: normal;
             font-style: normal;
-
         }
-
-
-
-
         @font-face {
             font-family: 'robotobold';
             src: url('roboto-bold-webfont.eot');
@@ -36,12 +34,7 @@
             url('roboto-bold-webfont.svg#robotobold') format('svg');
             font-weight: normal;
             font-style: normal;
-
         }
-
-
-
-
         @font-face {
             font-family: 'robotomedium';
             src: url('roboto-medium-webfont.eot');
@@ -52,12 +45,7 @@
             url('roboto-medium-webfont.svg#robotomedium') format('svg');
             font-weight: normal;
             font-style: normal;
-
         }
-
-
-
-
         @font-face {
             font-family: 'robotoregular';
             src: url('roboto-regular-webfont.eot');
@@ -77,43 +65,40 @@
 <div class="row" style="margin-bottom:0">
 
     <div class="col l2" style="margin-left:35%;" >
-        <img id="logo" src="<?PHP echo base_url();?>assets/img/Logo-Visys-color.png" width="30%" style="opacity: 0.5; ">
+        <img id="logo" src="<?PHP echo base_url();?>assets/img/sp_logo_para_impresion.png" width="30%">
     </div>
 
 </div>
 <br>
 
-<h3 style="font-family: 'robotoblack';font-size: 18px; color: #1F0A71; font-weight:bold;margin-left:15%;" >CLIENTES QUE APLICAN AL SISTEMA DE PUNTOS</h3>
-
+<h3 style="font-family: 'robotoblack';font-size: 18px; color: #831f82; font-weight:bold;margin-left:15%;" >CLIENTES QUE APLICAN AL SISTEMA DE PUNTOS</h3>
 <table id="ClienteAdd">
 
     <thead>
-    <tr>
-        <th>CLIENTE</th>
-        <th>RUC</th>
-        <th>DIRECCIÓN</th>
-    </tr>
+        <tr>
+            <th>CÓDIGO</th>
+            <th>CLIENTE</th>
+            <th>RUC</th>
+            <th>DIRECCIÓN</th>
+        </tr>
     </thead>
 
     <tbody>
     <?PHP
-    if(!($query)){
-        echo "fallo";
-    }
-    else{
-        $i=0;
-
-        foreach($query AS $cliente)
-        {
-            echo "<tr>
-                                   <td id='NomCliente'>".$query[$i]['NOMBRE']."</td>
-                                   <td>".$query[$i]['RUC']."</td>
-                                   <td>".$query[$i]['DIRECCION']."</td>
-                              </tr>";
-            $i++;
-        }
-    }
-    ?>
+                if(!($Clientes)){
+                    } else {
+                        foreach($Clientes as $cliente){
+                            echo "
+                                 <tr>
+                                    <td>".$cliente['CODIGO']."</td>
+                                    <td class='negra'>".$cliente['NOMBRE']."</td>
+                                    <td>".$cliente['RUC']."</td>
+                                    <td>".$cliente['DIRECCION']."</td>
+                                 </tr>
+                            ";
+                        }
+                    }
+                ?>
     </tbody>
 </table>
 

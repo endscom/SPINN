@@ -14,8 +14,9 @@ class Exportacion_controller extends CI_Controller
     }
 
     public function ExpoPdf(){
-        $query = $this->cliente_model->LoadClients();// Cargar Clientes
+        $query['Clientes'] = $this->hana_model->LoadClients();// Cargar Clientes
         $PdfCliente = new mPDF('utf-8','A4');
+        $PdfCliente->SetFooter("Página {PAGENO} de {nb}");//PARA PONER EL NUMERO DE PAGINA EKISDE
         $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_Cliente',$query,true));
         $PdfCliente->Output();
     }

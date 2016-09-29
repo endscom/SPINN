@@ -1,6 +1,5 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
-
         <span class=" title">CLIENTES</span>
 
     </div>
@@ -26,7 +25,7 @@
                 </div>
 
                 <div class="input-field col s5 m4 l4">
-                    <input  id="search" type="text" placeholder="Buscar" class="validate">
+                    <input  id="searchClientes" type="text" placeholder="Buscar" class="validate">
                     <label for="search"></label>
                 </div>
 
@@ -45,41 +44,35 @@
 
      <form action="" name="FrmClientes" id="FrmClientes" method="post"> <!--Exportar datos a EXCEL -->
         <table id="ClienteAdd" class="table TblDatos">
-
             <thead>
             <tr>
+                <th>CÓDIGO</th>
                 <th>CLIENTE</th>
                 <th>RUC</th>
                 <th>DIRECCIÓN</th>
             </tr>
             </thead>
-
             <tbody>
-                <?PHP
-                if(!($query)){
-                    echo "fallo";
-                }
-                else{
-                    $i=0;
-
-                    foreach($query AS $cliente)
-                    {
-                        echo "<tr>
-                                   <td id='NomCliente'>".$query[$i]['NOMBRE']."</td>
-                                   <td>".$query[$i]['RUC']."</td>
-                                   <td>".$query[$i]['DIRECCION']."</td>
-                              </tr>";
-                        $i++;
+               <?PHP
+                if(!($Clientes)){
+                    } else {
+                        foreach($Clientes as $cliente){
+                            echo "
+                                 <tr>
+                                    <td>".$cliente['CODIGO']."</td>
+                                    <td class='negra'>".$cliente['NOMBRE']."</td>
+                                    <td>".$cliente['RUC']."</td>
+                                    <td>".$cliente['DIRECCION']."</td>
+                                 </tr>
+                            ";
+                        }
                     }
-                }
                 ?>
             </tbody>
         </table>
         </form>
     </div><!-- Fin Contenedor -->
 </main>
-
-
 <!--///////////////////////////////////////////////////////////////////////
                         MODALES
 ////////////////////////////////////////////////////////////////////////-->

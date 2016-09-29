@@ -67,16 +67,7 @@ class Usuario_model extends CI_Model
         $this->sqlsrv->close();
     }
 
-    public function BuscarCl($user,$clave,$rol,$fecha,$cond){
-        $consulta = str_replace('%20', ' ', $cond);
-        $buscar = $this->sqlsrv->fetchArray("SELECT * from vtVS2_Clientes where NOMBRE ='".$consulta."'",SQLSRV_FETCH_ASSOC);
-
-        $id=$buscar[0]['CLIENTE'];
-        $cliente=$buscar[0]['NOMBRE'];
-        $zona=$buscar[0]['VENDEDOR'];
-
-        $this->sqlsrv->close();
-
+    public function BuscarCl($user, $nombre, $clave, $rol, $vendedor, $idVendedor){
         $user = array(
             'Usuario'=> $user,
             'Clave' => $clave,
@@ -96,51 +87,39 @@ class Usuario_model extends CI_Model
         }
     }
 
-    public function BuscarVdor($user,$clave,$rol,$fecha,$cond){
-        $consulta = str_replace('%20', ' ', $cond);
-        $buscar = $this->sqlsrv->fetchArray("SELECT * from vtVS2_Vendedor where NOMBRE ='".$consulta."'",SQLSRV_FETCH_ASSOC);
-
-        $ids= $buscar [0]['VENDEDOR'];
-        $vendedores=$buscar [0]['NOMBRE'];
-
-        $this->sqlsrv->close();
-
-        $user = array(
+    public function guardarVdor($user,$nombre,$clave,$rol,$vendedor,$idVendedor){
+        $nombre = str_replace('%20', ' ', $nombre);
+        $vendedor = str_replace('%20', ' ', $vendedor);
+        $user = str_replace('%20', ' ', $user);
+        $fecha = date('Y-m-d H:i:s');
+        $data = array(
             'Usuario'=> $user,
+            'Nombre' => $nombre,
             'Clave' => $clave,
-            'Rol' => $rol,
+            'IdRol' => $rol,
             'FechaCreacion' => $fecha,
-            'Estado'=>0,
-            'Zona' => $ids,
-            'Nombre' => $consulta
+            'Estado'=>1,
+            'Zona' => $idVendedor,
+            'NombreVendedor' =>$vendedor
         );
-
-        $query = $this->db->insert('usuario', $user);
-
-        if ($query) {
-            return 1;
-        } else {
-            return 0;
-        }
+        $query = $this->db->insert('tblusuario', $data);
     }
 
-    public function addUser($user, $clave, $rol, $fecha, $vendedor) {/*CREACIÓN DE USUARIOS*/
-        $consulta = str_replace('%20', ' ', $vendedor);
-        $Usuario = array(
-            'Usuario' => $user,
+    public function addUser($user, $nombre, $clave, $rol, $vendedor, $idVendedor) {/*CREACIÓN DE USUARIOS*/
+        $nombre = str_replace('%20', ' ', $nombre);
+        $vendedor = str_replace('%20', ' ', $vendedor);
+        $user = str_replace('%20', ' ', $user); $fecha = date('Y-m-d H:i:s');
+        $data = array(
+            'Usuario'=> $user,
+            'Nombre' => $nombre,
             'Clave' => $clave,
-            'Rol' => $rol,
-            'Estado' =>0,
+            'IdRol' => $rol,
             'FechaCreacion' => $fecha,
-            'Nombre' => $user);
-
-        $query = $this->db->insert('usuario', $Usuario);
-
-        if ($query) {
-            return 1;
-        } else {
-            return 0;
-        }
+            'Estado'=>1,
+            'Zona' => $idVendedor,
+            'NombreVendedor' =>$vendedor
+        );
+        $query = $this->db->insert('tblusuario', $data);
     }
 
     public function ActUser($cod,$estado){ /* CAMBIAR ESTADO DEL USUARIO*/
