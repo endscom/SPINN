@@ -29,8 +29,11 @@ class Hana_model extends CI_Model
     }
     public function LoadClients()
     {
-        $conn = $this->OPen_database_odbcSAp();  
-        $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES';
+        $conn = $this->OPen_database_odbcSAp(); $query = '';
+        if ($this->session->userdata('IdRol')==3) {
+            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES WHERE VENDEDOR = '.$this->session->userdata('IdVendedor').'';
+        }
+        else{$query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES';}
         $resultado =  odbc_exec($conn,$query);
         $json = array();  
         $i=0;      

@@ -1,7 +1,6 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
         <span class=" title">CLIENTES</span>
-
     </div>
 </header>
 <!--//////////////////////////////////////////////////////////
@@ -50,6 +49,7 @@
                 <th>CLIENTE</th>
                 <th>RUC</th>
                 <th>DIRECCIÓN</th>
+                <th>VENDEDOR</th>
             </tr>
             </thead>
             <tbody>
@@ -63,6 +63,7 @@
                                     <td class='negra'>".$cliente['NOMBRE']."</td>
                                     <td>".$cliente['RUC']."</td>
                                     <td>".$cliente['DIRECCION']."</td>
+                                    <td>".$cliente['VENDEDOR']."</td>
                                  </tr>
                             ";
                         }

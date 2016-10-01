@@ -41,7 +41,8 @@ class Login_controller extends CI_Controller
                 $sessiondata = array(
                     'id' => $data['user'][0]['IdUsuario'],
                     'UserN' => $data['user'][0]['Nombre'],
-                    'RolUser'=>$data['user'][0]['Rol'],
+                    'IdRol'=>$data['user'][0]['IdRol'],
+                    'IdVendedor'=>$data['user'][0]['Zona'],
                     'logged' => 1
                 );
                 $this->session->set_userdata($sessiondata);
@@ -49,8 +50,6 @@ class Login_controller extends CI_Controller
                 if($this->session->userdata){
                     redirect('Main');
                 }
-
-
             }
         }
     }//fin de la funcion Acreditar
