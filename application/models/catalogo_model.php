@@ -75,6 +75,9 @@ class Catalogo_model extends CI_Model
         if ($query->num_rows()>0) {
             $R = $query->row();
         }
+        else{
+            return 1;
+        }
         $fecha = date_format(date_create(date('Y-m-d')),'Y');
         $fecha2 = date_format(date_create($R->Fecha),'Y');
         if (date_format(date_create(date('Y-m-d')),'Y')>date_format(date_create($R->Fecha),'Y')) {

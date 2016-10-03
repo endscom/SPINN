@@ -36,14 +36,25 @@ class Hana_model extends CI_Model
         else{$query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES';}
         $resultado =  odbc_exec($conn,$query);
         $json = array();  
-        $i=0;      
-        while ($fila = odbc_fetch_array($resultado)){
-            $json[$i]['CODIGO'] = $fila['CODIGO'];  
-            $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);  
-            $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);
-            $json[$i]['RUC'] = utf8_encode($fila['RUC']);
-            $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
-            $i++;
+        $i=0;
+        $arr = odbc_fetch_array($resultado);
+        echo count($arr);
+        if (count($arr)==0) {
+            $json[$i]['CODIGO'] = "";  
+            $json[$i]['VENDEDOR'] = "";
+            $json[$i]['NOMBRE'] = "";
+            $json[$i]['RUC'] = "";
+            $json[$i]['DIRECCION'] = "";
+        }
+        else{
+            while ($fila = odbc_fetch_array($resultado)){
+                $json[$i]['CODIGO'] = $fila['CODIGO'];  
+                $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);  
+                $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);
+                $json[$i]['RUC'] = utf8_encode($fila['RUC']);
+                $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
+                $i++;
+            }
         }
         return $json;
     }

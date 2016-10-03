@@ -16,6 +16,7 @@ class Catalogo_controller extends CI_Controller
       $this->load->view('pages/menu');
       $data['catalogo'] = $this->catalogo_model->traerCatalogoImg();
       $data['catalogos'] = $this->catalogo_model->traerCatalogo();
+      $data['bandera'] = $this->catalogo_model->bandera();
       $this->load->view('pages/catalogo/Catalogo',$data);
       $this->load->view('footer/footer');
     }

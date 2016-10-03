@@ -13,7 +13,12 @@
             </div>
         </div>
         <div class="row right">
-          <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">add</i>AGREGAR</a>
+          <?php if($bandera!=0) { 
+          echo '<a href="#modalNuevoCatalogo" id="aa" class="waves-effect waves-light btn BtnBlue modal-trigger">
+                <i class="material-icons right">insert_invitation</i>CREAR</a>';
+          } ?>
+          <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">format_indent_decrease</i>REUTILIZAR</a>
+          <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>
         </div>
         <div class="row center">
           <table id="tblCatalogo2">
@@ -127,7 +132,7 @@
                ingreso de artículo
             </div>
       </div>
-               <div>
+              <div>
                    <form id="formimagen" enctype="multipart/form-data" class="col s6 m6 l6" action="<?PHP echo base_url('index.php/subirImg');?>" method="post" name="formNuevoArto">
                       <div class="articulos">
                           <div id="articulo" class="row">
@@ -178,7 +183,7 @@
                            </div>
                        </div>
                    </form>
-               </div>
+              </div>
     </div>
   </div>
        <!-- Modal Structure DAR DE BAJA-->
