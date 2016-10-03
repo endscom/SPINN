@@ -12,11 +12,26 @@
                catálogo de premios
             </div>
         </div>
+        <div class="row noMargen valign-wrapper ">
+          <div class="bold noMargen left col s5 m8 l8">
+              <h6>ARTÍCULOS EN CATÁLOGO DE <?php
+              $Fecha = date_format(date_create($catActual[0]['Fecha']),'m');
+              switch ($Fecha) {
+                case '01':echo "ENERO";break;case '02':echo "FEBRERO";break;case '03':echo "MARZO";break;
+                case '04':echo "ABRIL";break;case '05':echo "MAYO";break;case '06':echo "JUNIO";break;
+                case '07':echo "JULIO";break;case '08':echo "AGOSTO";break;case '09':echo "SEPTIEMBRE";break;
+                case '10':echo "OCTUBRE";break;case '11':echo "NOVIEMBRE";break;case '12':echo "DICIEMBRE";break;
+                case '': echo "asasa";break;
+                default: echo "";}
+               ?>
+              </h6>
+          </div>      
+    </div>
         <div class="row right">
           <?php if($bandera!=0) { 
           echo '<a href="#modalNuevoCatalogo" id="aa" class="waves-effect waves-light btn BtnBlue modal-trigger">
                 <i class="material-icons right">insert_invitation</i>CREAR</a>';
-          } ?>
+          }?>
           <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">format_indent_decrease</i>REUTILIZAR</a>
           <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>
         </div>
@@ -202,3 +217,32 @@
       </div>         
     </div>
   </div>
+
+   <!--Modal Structure nuevo catalogo-->
+<div id="modalNuevoCatalogo" class="modal">
+    <div class="btnCerrar right">
+      <i  style='color:red;' class="material-icons modal-action modal-close">highlight_off</i>
+    </div>
+    <div class="modal-content">
+      <div class="row TextColor center">
+            <div class="col s5 m8 l12 offset-m1">
+               creación de nuevo catalogo
+            </div>
+      </div>
+    <form id="formNuevoCatalogo" action="<?PHP echo base_url('index.php/crearCatalogo');?>" method="post" name="formNuevoArto">
+      <div class="row TextColor center">
+            <div class="input-field offset-l1 col s12 m5 l5 ">
+              <input name="descripcion" id="descripcionCat" type="text" class="validate">
+              <label for="descripcionCat">DESCRIPCIÓN:</label><label id="labelDescripcion2" class="labelValidacion">DIGITE LA DESCRIPCIÓN</label>
+            </div>
+            <div class="input-field col s2 m6 l5">
+                <input id="fechaCat2" name="fecha" type="date" class="datepicker">
+              <label for="fechaCat">FECHA:</label><label id="labelFecha2" class="labelValidacion">SELECCIONE UNA FECHA</label>
+            </div> 
+      </div>
+    </form>
+      <div class="row center">
+            <a id="CrearCatalogo" class="redondo waves-effect waves-light btn">GUARDAR</a>
+      </div>
+    </div>
+</div>

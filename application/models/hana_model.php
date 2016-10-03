@@ -31,15 +31,14 @@ class Hana_model extends CI_Model
     {
         $conn = $this->OPen_database_odbcSAp(); $query = '';
         if ($this->session->userdata('IdRol')==3) {
-            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES WHERE VENDEDOR = '.$this->session->userdata('IdVendedor').'';
+            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
         }
         else{$query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES';}
-        $resultado =  odbc_exec($conn,$query);
+        $resultado =  @odbc_exec($conn,$query);
+        //echo $query;
         $json = array();  
         $i=0;
-        $arr = odbc_fetch_array($resultado);
-        echo count($arr);
-        if (count($arr)==0) {
+        if (count($resultado)==0) {
             $json[$i]['CODIGO'] = "";  
             $json[$i]['VENDEDOR'] = "";
             $json[$i]['NOMBRE'] = "";
@@ -47,7 +46,7 @@ class Hana_model extends CI_Model
             $json[$i]['DIRECCION'] = "";
         }
         else{
-            while ($fila = odbc_fetch_array($resultado)){
+            while ($fila = @odbc_fetch_array($resultado)){
                 $json[$i]['CODIGO'] = $fila['CODIGO'];  
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);  
                 $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);

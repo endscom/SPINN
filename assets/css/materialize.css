@@ -5117,6 +5117,8 @@ button.btn-floating {
   line-height: 22px;
   padding: 14px 16px;
   font-family: 'robotomedium';
+  padding: 0px;
+  text-transform: uppercase;
 }
 
 .dropdown-content li > span > label {

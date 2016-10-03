@@ -179,7 +179,7 @@ function EnviodeDatos(){
     var clave = $('#Contra').val();var clave2 = $('#Contra2').val();
     var rol = $('#rol option:selected').val();var idVendedor = $("#vendedorid option:selected").val();
     var vendedores = $("#vendedorid option:selected").text();
-    alert(rol);
+    //alert(rol);
     if (user=="") {$('#labelNombre').show(); return false;}
     if (clave=="") {$('#labelPass').show();return false;}
     if (clave2=="") {$('#labelPass2').show();return false;}
@@ -478,9 +478,10 @@ function subirimagen()
             } );
     }
     $("#CrearCatalogo").on('click',function(){
-        $('#labelDescripcion').hide();  $('#labelFecha').hide();
-        if ($('#descripcionCat').val()=="") {$('#labelDescripcion').show(); return false;}   
-        if ($('#fechaCat').val()=="") {$('#labelFecha').show();return false;}
+        $('#labelDescripcion').hide();  $('#labelFecha2').hide();
+        $('#labelDescripcion2').hide();
+        if ($('#descripcionCat').val()=="") {$('#labelDescripcion2').show(); return false;}   
+        if ($('#fechaCat2').val()=="") {$('#labelFecha2').show();return false;}
     else{
         $('#CrearCatalogo').hide();
         $('#formNuevoCatalogo').submit();
