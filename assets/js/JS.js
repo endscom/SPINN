@@ -110,8 +110,8 @@ $('#tblCatalogoActualModal').DataTable( {
         {
             "info":    false,
             //"searching": false,
-            "bLengthChange": false,
-            "lengthMenu": [[8,15,32,100,-1], [8,15,32,100,"Todo"]],
+            "bLengthChange": true,
+            "lengthMenu": [[10,15,32,100,-1], [10,15,32,100,"Todo"]],
             "language": {
                 "paginate": {
                     "first":      "Primera",
@@ -119,7 +119,7 @@ $('#tblCatalogoActualModal').DataTable( {
                     "next":       "Siguiente",
                     "previous":   "Anterior"
                 },
-                "lengthMenu":"MOSTRAR _MENU_",
+                "lengthMenu":"_MENU_",
                 "emptyTable": "No hay datos disponibles en la tabla",
                 "search":     "" 
             }

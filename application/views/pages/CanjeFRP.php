@@ -1,8 +1,6 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
-
         <span class=" title">frp</span>
-
     </div>
 </header>
 <!--//////////////////////////////////////////////////////////
@@ -37,47 +35,35 @@
         </div>
 
         <table id="FRP" class=" TblDatos">
-
             <thead>
-            <tr>
-                <th>FECHA</th>
-                <th>#FRP</th>
-                <th>COD. CLIENTE</th>
-                <th>NOMBRE</th>
-                <th>ELIMINAR</th>
-            </tr>
+                <tr>
+                    <th>FECHA</th>
+                    <th>#FRP</th>
+                    <th>COD. CLIENTE</th>
+                    <th>NOMBRE</th>
+                    <th>ELIMINAR</th>
+                </tr>
             </thead>
-
             <tbody>
-
-            <tr>
-                <td> 14/07/2015</td>
-                <td>00351</td>
-                <td>01003</td>
-                <td id="NomCliente">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
-                <td>
-                    <a href="#Dell" class="Icono modal-trigger">
-                        <i class="material-icons">highlight_off</i>
-                    </a>
-                </td>
-            </tr>
-
-            <tr>
-                <td> 14/07/2015</td>
-                <td>00351</td>
-                <td>01003</td>
-                <td id="NomCliente">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
-                <td>
-                    <a href="#Dell" class="Icono modal-trigger">
-                        <i class="material-icons">highlight_off</i>
-                    </a>
-                </td>
-            </tr>
-
+                    <?php
+                        for ($i = 1; $i <= 100; $i++) {
+                            echo '
+                            <tr>
+                                <td> 14/07/2015</td>
+                                <td>00351</td>
+                                <td>01003</td>
+                                <td id="NomCliente">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
+                                <td>
+                                    <a href="#Dell" class="Icono modal-trigger">
+                                        <i class="material-icons">highlight_off</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            ';
+                        }
+                    ?>
             </tbody>
-
         </table>
-
     </div>
 </main>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,7 +73,6 @@
                 Modal Structure -->
 <div id="MFrp" class="modal">
     <div class="modal-content">
-
         <div class="right row">
             <div class="col s1 m1 l1">
                 <a href="#!" class=" BtnClose modal-action modal-close ">
@@ -98,21 +83,21 @@
 
         <h6 id="Format" class="center Mcolor">FORMATO DE REMISIÓN DE PUNTOS</h6>
 
-        <h6 id="Format" class="center Mcolor">CLIENTE</h6>
-
-        <div class=" row">
-            <div class="DatoFrp input-field line col s3 m3 l2">
-                 N° FRP:<input id="frp" type="text" class="validate">
+        <div class="row">
+            <div class=" DatoFrp col s2">
+                N° FRP: <input id="frp" type="text" class="validate">
             </div>
 
-
-            <div class=" line col s3 m3 l3 offset-l5 offset-s4 offset-m4">
-                <p id="fecha" class="DatoFrp">FECHA: </p>  <input type="text" id="date1" class="datepicker1"><br>
+            <div class="col s5 offset-s1" >
+                <h6 id="Format" class="center Mcolor">CLIENTE</h6>
             </div>
 
+            <div class="DatoFrp col s2 offset-s2">
+                FECHA:<input  type="text" id="date1" class="datepicker1">
+            </div>
         </div>
 
-        <div class="center row text">
+        <div class="center row text" >
             <div class="col s5 m5 l5">
                 <p class="Datos">PUNTOS CANJE: <span class="datos1">0 Pts.</span></p>
             </div>
@@ -121,8 +106,8 @@
             </div>
         </div>
 
-        <div class="row ">
-            <div class=" DatoFrp line input-field col s3 m3 l3">
+        <div class="row" >
+            <div class=" DatoFrp input-field line col s2 offset-s1">
                COD. CLIENTE:<input id="frp" type="text" class="validate">
             </div>
 
@@ -135,7 +120,7 @@
                 </select>
             </div>
 
-            <div class="input-field col s3 m3 l3">
+            <div class="input-field col s2 m3 l3">
                 <input  id="frp" type="text" class="validate">
             </div>
         </div>
@@ -202,7 +187,7 @@
                     <div class="DatoFrp line input-field col s2 m2 l2">
                         COD. PREMIO:<input   id="frp" type="text" class="validate">
                     </div>
-                            <div class="input-field col s2 m2 l4">
+                            <div class="input-field col s4">
                                 <select name="PREMIO" id="ListCliente">
                                     <option value="" disabled selected>PREMIO</option>
                                     <option value="1">Option 1</option>
@@ -213,7 +198,7 @@
                                 <div class="input-field col s2 m2 l2">
                                     <input  id="frp"  type="text" class="validate">
                                 </div>
-                                    <div id="Btnadd"class="col s2 m2 l2">
+                                    <div id="Btnadd"class="col s2 m2 l2 right-align">
                                         <a href="#" class="BtnBlue waves-effect  btn ">agregar</a>
                                     </div>
             </div>
