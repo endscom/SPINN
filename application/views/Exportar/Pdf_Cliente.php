@@ -56,24 +56,18 @@
             url('roboto-regular-webfont.svg#robotoregular') format('svg');
             font-weight: normal;
             font-style: normal;
-
         }
     </style>
 </head>
 <body>
-
 <div class="row" style="margin-bottom:0">
-
     <div class="col l2" style="margin-left:35%;" >
         <img id="logo" src="<?PHP echo base_url();?>assets/img/sp_logo_para_impresion.png" width="30%">
     </div>
-
 </div>
 <br>
-
 <h3 style="font-family: 'robotoblack';font-size: 18px; color: #831f82; font-weight:bold;margin-left:15%;" >CLIENTES QUE APLICAN AL SISTEMA DE PUNTOS</h3>
 <table id="ClienteAdd">
-
     <thead>
         <tr>
             <th>CÓDIGO</th>
@@ -82,7 +76,6 @@
             <th>DIRECCIÓN</th>
         </tr>
     </thead>
-
     <tbody>
     <?PHP
                 if(!($Clientes)){
@@ -101,7 +94,6 @@
                 ?>
     </tbody>
 </table>
-
 </div>
 </body>
 </html>

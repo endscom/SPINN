@@ -57,7 +57,13 @@
   }
 }
 .mdl-layout__content{
-      background: url('/SPINN/assets/img/trama_blanca.png');
+    background: url('/SPINN/assets/img/trama_blanca.png');
+}
+#sac{
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    margin-top: 15%;
 }
 .noOverflow{
   overflow: hidden!important;
@@ -322,6 +328,11 @@ img.login-logo{
     bottom: 5px;
     right: 20%;
     left: 20%;
+}
+#conTIcon2{
+    position: fixed;
+    bottom: 15px;
+    width: 100%;
 }
 .Centrado
 {

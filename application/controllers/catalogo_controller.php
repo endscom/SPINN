@@ -17,6 +17,7 @@ class Catalogo_controller extends CI_Controller
       $data['catalogo'] = $this->catalogo_model->traerCatalogoImg();
       $data['catalogos'] = $this->catalogo_model->traerCatalogo();
       $data['bandera'] = $this->catalogo_model->bandera();
+      $data['catActual'] = $this->catalogo_model->traerCatalogosActual();
       $this->load->view('pages/catalogo/Catalogo',$data);
       $this->load->view('footer/footer');
     }
@@ -48,16 +49,16 @@ class Catalogo_controller extends CI_Controller
     public function actualizarPuntos($codImagen,$codCatalogo,$puntos)
     {
         $this->catalogo_model->actualizarPuntos($codImagen,$codCatalogo,$puntos);
-        //redirect('NuevoCatalogo','refresh');
     }
     public function crearCatalogo()
     {
         $Descripcion = $this->input->post('descripcion');
         $fecha = $this->input->post('fecha');
+        //echo $Descripcion." -- ".$fecha;
         if ($Descripcion != "" and $fecha != "") {
           $this->catalogo_model->crearCatalogo($Descripcion,$fecha);
         }
-        $this->NuevoCatalogo();
+        redirect(base_url().'index.php/Catalogo','refresh');
 
     }
    	public function subirImg()
