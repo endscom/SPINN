@@ -119,7 +119,7 @@ $('#tblCatalogoActualModal').DataTable( {
                     "next":       "Siguiente",
                     "previous":   "Anterior"
                 },
-                "lengthMenu":"_MENU_",
+                "lengthMenu":"Mostrar _MENU_",
                 "emptyTable": "No hay datos disponibles en la tabla",
                 "search":     "" 
             }
