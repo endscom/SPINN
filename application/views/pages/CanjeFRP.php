@@ -308,27 +308,33 @@
                 Modal Structure -->
 <div id="Dfrp" class="modal">
     <div class="modal-content">
+            <div class="container center">
+                <div class="col s1" style="height: 10px;">
+                    <div class="row">
+                        <div class="col s11" >
+                            <span id="titulM" class="Mcolor"> DETALLE FRP</span>
+                        </div>
+                        <div class="col s1 m1 l1"  >
+                            <a href="#!" class=" BtnClose modal-action modal-close ">
+                                <i class="material-icons">highlight_off</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s5">
+                    <span class="center datos1 frpT"> N° FRP 38389</span><br>
+                    <span class="center datos1 lineas"> 24/12/2016</span>
+                </div>
+                <div class="col s1">
+                    <span id="Nfarmacia" class="center Mcolor">COD# 00449 NOMBRE: FARMACIA CASTELLÓN</span>
+                    <br>
+                    <span class="center Datos linea ruc"> Nº RUC 4412000183001H </span>
+                </div>
 
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
-                    <i class="material-icons">highlight_off</i>
-                </a>
             </div>
-        </div>
-        <h6 id="titulM" class="center Mcolor"> DETALLE FRP</h6>
-
-       <div class="container">
-           <p class="center datos1 frpT"> N° FRP 38389</p>
-           <p class="center datos1 lineas"> 24/12/2016</p>
-       </div>
-        <h6 id="Nfarmacia" class="center Mcolor">00449 FARMACIA CASTELLÓN</h6>
-        <p class="center Datos linea ruc"> RUC 4412000183001H</p>
 
 
-
-
-            <table id="tblModal1" class="TheadColor">
+            <table id="tblModal1" class="TableBlank">
                 <thead>
                 <tr>
                     <th>FECHA</th>
@@ -365,7 +371,7 @@
 
 
 
-        <table id="tblModal1" class="TheadColor">
+        <table id="tblModal1" class="TableBlank">
             <thead>
             <tr>
                 <th>CANT.</th>
@@ -397,15 +403,10 @@
 
         <h6 class="center Mcolor dat">TOTAL <span class="dato">363,522 Pts.</span> </h6>
 
-        <div class="row">
-            <div class="col s2 m2 l2 offset-l5 offset-s4 offset-m4">
-                <a  target="_blank"   href="DetalleFRP"  class=" BtnClose ">
-                    <i class="medium material-icons">print</i>
-                </a>
-            </div>
-            <div class="col s2 m2 l1">
-                <a href="#"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png " width="35px" ></a>
-            </div>
+        <div class="row center">
+
+                <a href="<?PHP echo base_url('index.php/ExpFRP');?>"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
+
         </div>
     </div>
 

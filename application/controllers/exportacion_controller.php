@@ -20,4 +20,9 @@ class Exportacion_controller extends CI_Controller
         $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_Cliente',$query,true));
         $PdfCliente->Output();
     }
+    public function ExpoFrp(){
+
+        $this->load->view('Exportar/Pdf_FRP');
+
+    }
 }
