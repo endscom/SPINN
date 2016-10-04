@@ -13,13 +13,13 @@ class Catalogo_model extends CI_Model
         $i=0;
         if($query->num_rows() <> 0){
             foreach ($query->result_array() as $row){                   
-                    $json['data'][$i]['CodigoImg'] = $row['CodigoImg'];
+                    $json['data'][$i]['CodigoImg'] = $row['IdIMG'];
                     $json['data'][$i]['Nombre'] = $row['Nombre'];
                     $json['data'][$i]['Imagen'] = '<img class="btn-floating materialboxed" data-caption='.$row['Nombre']." ".number_format($row['Puntos'])." PTOS'
-                                                    width='250' src=".base_url().'assets/img/catalogo/'.$row['Imagen'].'>';
+                                                    width='250' src=".base_url().'assets/img/catalogo/'.$row['IMG'].'>';
                     $json['data'][$i]['Puntos'] = $row['Puntos'];
-                    $json['data'][$i]['check'] = '<input type="checkbox" id="chk-'.$row['CodigoImg'].'" />
-                                                    <label for="chk-'.$row['CodigoImg'].'"></label>';
+                    $json['data'][$i]['check'] = '<input type="checkbox" id="chk-'.$row['IdIMG'].'" />
+                                                    <label for="chk-'.$row['IdIMG'].'"></label>';
                     $json['data'][$i]['idCT'] = $row['IdCT'];
                     $i++;
                 }
@@ -40,21 +40,42 @@ class Catalogo_model extends CI_Model
         $this->db->where('Estado',0);$R;
         $query = $this->db->get('catalogo');
         $codImg = explode(".", $imagen);
-        //echo $codImg[0];
+        //echo $codImg[0]; 
         if ($query->num_rows()>0) {
             $R = $query->row();
-            echo $imagen;
-            /*$data = array('idCT'    =>  $R->IdCT,
-                    'IdIMG'   =>  $codImg,
-                    'Nombre'   =>  strtoupper($nombre),
-                    'IMG'   =>  $IMG,
+            $data = array('IdCT'    =>  $R->IdCT,
+                    'IdIMG'   =>  $codImg[0],
+                    'Nombre'   =>  strtoupper($this->nombreUTF8($nombre)),
+                    'IMG'   =>  $imagen,
                     'Puntos'   =>  $puntos,
                     'Estado'   =>  0);
-                    $this->db->insert('detallect',$data);*/
-        }    	
+                    $this->db->insert('detallect',$data);
+        }
+    }
+    public function ActualizarEstadoArticulo($idarticulo,$idcatalogo)
+    {
+        echo $idarticulo." ".$idcatalogo;
+        $data = array('Estado' => 1);
+        $this->db->where('IdCT',$idcatalogo);
+        $this->db->where('IdIMG',$idarticulo);
+        $this->db->update('detallect',$data);
+    }
+    public function nombreUTF8($nombre)
+    {
+        
+        $nombre = str_replace(array("á", "é", "í","ó","ú","ñ"), array("/A%", "/E%","/I%","/O%","/U%","/-%"), $nombre);
+        return $nombre;
     }
     public function traerCatalogoImg()
     {
+        $this->db->where('Estado',0);
+        $query = $this->db->get('catalogo');
+        if ($query->num_rows() >0) {
+            $R = $query->row();
+            //echo strtoupper(utf8_decode('ñaña'));
+            $this->db->query("SET NAMES 'utf8'");
+            $this->db->query('call pc_Catalogo ('.$R->IdCT.')');
+        }
     	$query = $this->db->get('tmp_catalogo');
     	if ($query->num_rows() >0) {
     		return $query->result_array();
@@ -140,16 +161,15 @@ class Catalogo_model extends CI_Model
     public function actualizarCatalogo($codigo,$articulo,$puntos,$idCatalogo,$idCatalogoArticulo)
     {
         $this->db->where('IdCT',$idCatalogoArticulo);
-        $this->db->where('CodigoImg',$codigo);
-        $query = $this->db->get('detallect');
-        
+        $this->db->where('IdIMG',$codigo);
+        $query = $this->db->get('detallect');        
         if($query->num_rows() > 0){
              $R = $query->row();
              $data = array(
                'IdCT' => $idCatalogo,
-               'CodigoImg' => $codigo,
+               'IdIMG' => $codigo,
                'Nombre' => $articulo,
-               'Imagen' => $R->Imagen,
+               'IMG' => $R->Imagen,
                'Puntos' => $puntos,
                'Estado' => 0
             );

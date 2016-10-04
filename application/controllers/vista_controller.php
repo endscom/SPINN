@@ -13,9 +13,10 @@ class Vista_controller extends CI_Controller
     }
 
     public function main(){
+        $data['catalogo'] = $this->catalogo_model->traerCatalogoImg();
         $this->load->view('header/header');
         $this->load->view('pages/menu');
-        $this->load->view('pages/main');
+        $this->load->view('pages/main',$data);
         $this->load->view('footer/footer');
     }
 

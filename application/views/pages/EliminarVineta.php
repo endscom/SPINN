@@ -28,19 +28,19 @@
         <div class="datos">
             <div class="row text">
                 <div class="col s4 m4 l4">
-                    <p>CÓDIGO: <span class="Datos">55555</span></p>
+                    <p>CÓDIGO: <span class="Datos">7777</span></p>
                 </div>
                 <div class="col s4 m4 l4">
-                    <p>FACTURA: <span class="Datos">55555</span></p>
+                    <p>FACTURA: <span class="Datos">7777</span></p>
                 </div>
                 <div class="col s4 m4 l4">
-                    <p>FECHA: <span class="Datos">55555</span></p>
+                    <p>FECHA: <span class="Datos">7777</span></p>
                 </div>
             </div>
 
             <div class="row text">
                 <div class="col s8 m8 l8">
-                    <p>CLIENTE: <span class="Datos">55555 55555 555555 55555555555555</span></p>
+                    <p>CLIENTE: <span class="Datos">7777 7777 7777</span></p>
                 </div>
                 <div class="col s4 m4 l4">
                     <p>RUC: <span class="Datos">55555</span></p>
@@ -114,16 +114,10 @@
                 <p class="TextTotal">Total Pts.Cliente: <span>325,766 Pts.</span> </p>
             </div>
         </div>
-
         </div><!-- fin de Contenedor-->
-
-
     </div>
 </main>
-
-
 <!-- MODALES-->
-
 <!-- Modal#1 Structure  muestra los datos a eliminar-->
 <div id="modal1" class="modal">
     <div class="modal-content">
@@ -137,7 +131,6 @@
         </div>
 
         <h6  class="center Mcolor">DESEA ELIMINAR LAS VIÑETAS:</h6>
-
 <!--///////////////////////////////////////////////////////////
                         TABLA MODAL
 ////////////////////////////////////////////////////////////-->
@@ -161,7 +154,7 @@
                     <tr>
                         <td>7</td>
                         <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
-                        <td>LUNAN</td>
+                        <td>5155</td>
                         <td>70 pts</td>
                         <td>
                             <i class=" BtnClose material-icons">highlight_off</i>

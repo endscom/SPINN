@@ -36,7 +36,7 @@
           <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>
         </div>
         <div class="row center">
-          <table id="tblCatalogo2">
+          <table id="tblCatalogo2" class="TableBlank">
             <thead>
               <tr>
                   <th></th>
@@ -55,12 +55,12 @@
                       echo "<td>
                               <div class='images_ca'>
                                 <div class='row right'>
-                                  <a href='#' onclick='darBaja(".'"'.$key['v_CodImg1'].'","'.$key['v_IdCT1'].'"'.")'><i class='material-icons'>highlight_off</i></a>
+                                  <a href='#' onclick='darBaja(".'"'.$key['v_IdIMG1'].'","'.$key['v_IdCT1'].'"'.")'><i class='material-icons'>highlight_off</i></a>
                                 </div>
-                                   <img src=".base_url()."assets/img/catalogo/".$key['v_Imagen1']." alt=''>
+                                   <img src=".base_url()."assets/img/catalogo/".$key['v_IMG1']." alt=''>
                                 <div class='descripImg'>
-                                    <p class='codP'>COD-".$key['v_CodImg1']."</p>
-                                    <p class='descript'>".$key['v_Nombre1']."</p>
+                                    <p class='codP'>COD: ".$key['v_IdIMG1']."</p>
+                                    <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre1'])."</p>
                                     <p class='ptsdes'>".$key['v_Puntos1']." puntos</p>
                                 </div>
                                 <a href='#' id='modificar' class='btn'>modificar</a>
@@ -71,12 +71,12 @@
                       echo "<td>
                             <div class='images_ca'>
                               <div class='row right'>
-                                  <a href='#' onclick='darBaja(".'"'.$key['v_CodImg2'].'","'.$key['v_IdCT2'].'"'.")'><i class='material-icons'>highlight_off</i></a>
+                                  <a href='#' onclick='darBaja(".'"'.$key['v_IdIMG2'].'","'.$key['v_IdCT2'].'"'.")'><i class='material-icons'>highlight_off</i></a>
                               </div>
-                                 <img src=".base_url()."assets/img/catalogo/".$key['v_Imagen2']." alt=''>
+                                 <img src=".base_url()."assets/img/catalogo/".$key['v_IMG2']." alt=''>
                               <div class='descripImg'>
-                                  <p class='codP'>COD-".$key['v_CodImg2']."</p>
-                                  <p class='descript'>".$key['v_Nombre2']."</p>
+                                  <p class='codP'>COD: ".$key['v_IdIMG2']."</p>
+                                  <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre2'])."</p>
                                   <p class='ptsdes'>".$key['v_Puntos2']." puntos</p>
                               </div>
                               <a href='#' id='modificar' class='btn'>modificar</a>
@@ -87,12 +87,12 @@
                       echo"<td>
                             <div class='images_ca'>
                               <div class='row right'>
-                                  <a href='#' onclick='darBaja(".'"'.$key['v_CodImg3'].'","'.$key['v_IdCT3'].'"'.")'><i class='material-icons'>highlight_off</i></a>
+                                  <a href='#' onclick='darBaja(".'"'.$key['v_IdIMG3'].'","'.$key['v_IdCT3'].'"'.")'><i class='material-icons'>highlight_off</i></a>
                               </div>
-                                 <img src=".base_url()."assets/img/catalogo/".$key['v_Imagen3']." alt=''>
+                                 <img src=".base_url()."assets/img/catalogo/".$key['v_IMG3']." alt=''>
                               <div class='descripImg'>
-                                  <p class='codP'>COD-".$key['v_CodImg3']."</p>
-                                  <p class='descript'>".$key['v_Nombre3']."</p>
+                                  <p class='codP'>COD: ".$key['v_IdIMG3']."</p>
+                                  <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre3'])."</p>
                                   <p class='ptsdes'>".$key['v_Puntos3']." puntos</p>
                               </div>
                               <a href='#' id='modificar' class='btn'>modificar</a>
@@ -103,12 +103,12 @@
                       echo"<td>
                             <div class='images_ca'>
                               <div class='row right'>
-                                  <a href='#' onclick='darBaja(".'"'.$key['v_CodImg4'].'","'.$key['v_IdCT4'].'"'.")'><i class='material-icons'>highlight_off</i></a>
+                                  <a href='#' onclick='darBaja(".'"'.$key['v_IdIMG4'].'","'.$key['v_IdCT4'].'"'.")'><i class='material-icons'>highlight_off</i></a>
                               </div>
-                                 <img src=".base_url()."assets/img/catalogo/".$key['v_Imagen4']." alt=''>
+                                 <img src=".base_url()."assets/img/catalogo/".$key['v_IMG4']." alt=''>
                               <div class='descripImg'>
-                                  <p class='codP'>COD-".$key['v_CodImg4']."</p>
-                                  <p class='descript'>".$key['v_Nombre4']."</p>
+                                  <p class='codP'>COD: ".$key['v_IdIMG4']."</p>
+                                  <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre4'])."</p>
                                   <p class='ptsdes'>".$key['v_Puntos4']." puntos</p>
                               </div>
                               <a href='#' id='modificar' class='btn'>modificar</a>
@@ -193,7 +193,7 @@
                                    <span id="cargar" class="btn btn-default btn-file"><span class="fileinput-new">cargar imagen</span>
                                        <span id="cancel" class="fileinput-exists">cambiar</span>
                                        <input id="txtimagen" type="file" name="txtimagen"></span>
-                                   <a id="cargar" href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">cancelar</a>
+                                   <a id="cargar22" href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">cancelar</a>
                                </div>
                            </div>
                        </div>
@@ -213,6 +213,17 @@
             </div>
       </div>
       <div class="row center">
+        <div id="EditEstado" style="display:none" class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
             <a id="darBajaOK" class="redondo waves-effect waves-light btn">ACEPTAR</a>
       </div>         
     </div>
@@ -279,7 +290,7 @@
         </div>
         <div class="progress progress2" style="display:none">
           <div class="indeterminate violet"></div>
-    </div>
+        </div>
       <div class="row noMargen TextColor center">
            <table id="tblCatalogoActualModal" class="table TblDatos">
             <thead>
