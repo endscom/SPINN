@@ -32,7 +32,7 @@
           echo '<a href="#modalNuevoCatalogo" id="aa" class="waves-effect waves-light btn BtnBlue modal-trigger">
                 <i class="material-icons right">insert_invitation</i>CREAR</a>';
           }?>
-          <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">format_indent_decrease</i>REUTILIZAR</a>
+          <a onclick=" $('#listaArticulosCatalogoActual').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">format_indent_decrease</i>REUTILIZAR</a>
           <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>
         </div>
         <div class="row center">
@@ -156,7 +156,7 @@
                                   <label for="codigoArto">CODIGO:</label><label id="labelCodigo" class="labelValidacion">DIGITE EL CODIGO</label>
                               </div>
                               <div class="input-field col s2 m6 l6">
-                                  <input name="nombre" id="NombArto" type="text" class="validate">
+                                  <input name="nombre" id="NombArto" type="text" class="validate mayuscula">
                                   <label for="NombArto">DESCRIPCIÓN</label><label id="labelDescripcion" class="labelValidacion">DIGITE LA DESCRIPCIÓN</label>
                               </div>
                           </div>
@@ -232,7 +232,7 @@
     <form id="formNuevoCatalogo" action="<?PHP echo base_url('index.php/crearCatalogo');?>" method="post" name="formNuevoArto">
       <div class="row TextColor center">
             <div class="input-field offset-l1 col s12 m5 l5 ">
-              <input name="descripcion" id="descripcionCat" type="text" class="validate">
+              <input name="descripcion" id="descripcionCat" type="text" class="validate mayuscula">
               <label for="descripcionCat">DESCRIPCIÓN:</label><label id="labelDescripcion2" class="labelValidacion">DIGITE LA DESCRIPCIÓN</label>
             </div>
             <div class="input-field col s2 m6 l5">
@@ -244,5 +244,90 @@
       <div class="row center">
             <a id="CrearCatalogo" class="redondo waves-effect waves-light btn">GUARDAR</a>
       </div>
+    </div>
+</div>
+
+ <!--Modal Structure lista de articulos DE CATALOGO ACTUAL-->
+  <div id="listaArticulosCatalogoActual" class="modal">
+    <div class="btnCerrar right">
+      <i  style='color:red;' class="material-icons modal-action modal-close">highlight_off</i>
+    </div>
+    <div class="modal-content">
+      <div class="row noMargen TextColor center">
+            <div class="col s5 m8 l12 offset-m1">
+               AGREGAR ARTÍCULOS A CATALOGO ACTUAL
+            </div>
+            <div class="row noMargen">
+              <div class="input-field col s12 l3">
+              <select id="cmbCatalogos" class="negra">
+                <option value="" disabled selected>AGREGAR ARTÍCULOS DE:</option>
+                <?php 
+                      if (!($catalogos)) {}
+                        else{
+                            foreach ($catalogos as $key) {
+                                echo "<option value='".$key['IdCT']."'>".$key['Descripcion']."</option>";
+                            }
+                        }
+                      ?>
+              </select>
+            </div>
+            <div class="input-field offset-l6 col s12 l3">
+              <a id="btnborrarSeleccionados" class="waves-effect waves-light btn BtnBlue">
+              <i class="material-icons right">delete_forever</i>BORRAR</a>
+            </div>
+        </div>
+        </div>
+        <div class="progress progress2" style="display:none">
+          <div class="indeterminate violet"></div>
+    </div>
+      <div class="row noMargen TextColor center">
+           <table id="tblCatalogoActualModal" class="table TblDatos">
+            <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>ARTÍCULO</th>
+                <th>MINIATURA</th>
+                <th>PUNTOS</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>      
+      </div><br>
+      <div class="row center">
+            <a id="guardarCatalogo" class="redondo waves-effect waves-light btn">GUARDAR</a>
+      </div>         
+    </div>
+</div>
+
+       <!--Modal Structure lista de articulos-->
+  <div id="listaArticulos" class="modal">
+    <div class="btnCerrar right">
+      <i  style='color:red;' class="material-icons modal-action modal-close">highlight_off</i>
+    </div>
+    <div class="modal-content">
+      <div class="row TextColor center">
+            <div class="col s5 m8 l12 offset-m1">
+               reutilización de catálogo
+            </div>
+      </div>
+      <div class="row TextColor center">
+            <table id="tblCatalogoPasado" class="table TblDatos">
+            <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>ARTÍCULO</th>
+                <th>MINIATURA</th>
+                <th>PUNTOS</th>
+                <th>SELECCIONAR</th>
+            </tr>
+            </thead>
+          <tbody>              
+          </tbody>
+        </table>
+      </div>
+      <div class="row center">
+            <a id="addCatalogoAntiguo" class="redondo waves-effect waves-light btn">AGREGAR</a>
+      </div>         
     </div>
 </div>
