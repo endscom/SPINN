@@ -487,3 +487,35 @@ function subirimagen()
         $('#formNuevoCatalogo').submit();
         }
     });
+
+
+
+    $("#BtnFiltroReporte").click(function() {
+
+        var isCliente,isFecha;
+        var Cls = $("#idCliente").val();
+        var f1  = $("#fecha1").val();
+        var f2  = $("#fecha2").val();
+
+        $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2,#divFecha,#divFecha2").show();
+        if(Cls == 0){
+            $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").hide();
+
+        }
+        if((jQuery.isEmptyObject(f1) == true) || (jQuery.isEmptyObject(f2) == true)){
+            $("#divFecha,#divFecha2").hide();
+        }
+
+        if($("#R1").is(':checked')) {
+
+            $("#Modal1Fecha1").html(f1);
+            $("#Modal1Fecha2").html(f2);
+
+            $('#EstadoFactura').openModal();
+        } else {
+            $("#Modal2CodCliente").html(Cls)
+            $("#Modal2Fecha1").html(f1)
+            $("#Modal2Fecha2").html(f2)
+            $('#DisponiblePuntos').openModal();
+        }
+    });

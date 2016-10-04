@@ -1095,3 +1095,7 @@ label>select {
     padding: 10px;
     text-align: center;
 }
+/*ESTA CLASE SOLO ES PARA EFECTO DE PRUEBA SE PUEDE ELIMINAR*/
+.border{
+    border-style: solid;
+}
