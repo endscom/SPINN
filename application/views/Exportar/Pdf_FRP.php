@@ -44,14 +44,11 @@
                 <div class="col s12" >
                     <img src="<?PHP echo base_url();?>assets/img/sp_logo_para_impresion.png">
                 </div>
-
             </div>
-
             <div class="right row">
                 <div class="col s12" >
                     <span id="titulM" class="Mcolor"> DETALLE FRP</span>
                 </div>
-
             </div>
         </div>
         <div class="col s1">

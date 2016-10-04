@@ -72,7 +72,8 @@ class Vista_controller extends CI_Controller
     public function Reportes(){
         $this->load->view('header/header');
         $this->load->view('pages/menu');
-        $this->load->view('pages/Reportes');
+        $data['Clientes'] = $this->hana_model->LoadClients();// Cargar Clientes
+        $this->load->view('pages/Reportes',$data);
         $this->load->view('footer/footer');
     }
 
