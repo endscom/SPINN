@@ -37,12 +37,21 @@ class Catalogo_model extends CI_Model
     }
     public function guardarIMG($codigo,$nombre,$imagen,$puntos)
     {
-    	$data = array('Codigo'	=>	$codigo,
-    				 'Nombre'	=>	strtoupper($nombre),
-    				 'Imagen' 	=>	$imagen,
-    				 'Puntos'	=>	$puntos,
-    				 'Estado'	=>	0);
-    	$this->db->insert('catalogo',$data);
+        $this->db->where('Estado',0);$R;
+        $query = $this->db->get('catalogo');
+        $codImg = explode(".", $imagen);
+        //echo $codImg[0];
+        if ($query->num_rows()>0) {
+            $R = $query->row();
+            echo $imagen;
+            /*$data = array('idCT'    =>  $R->IdCT,
+                    'IdIMG'   =>  $codImg,
+                    'Nombre'   =>  strtoupper($nombre),
+                    'IMG'   =>  $IMG,
+                    'Puntos'   =>  $puntos,
+                    'Estado'   =>  0);
+                    $this->db->insert('detallect',$data);*/
+        }    	
     }
     public function traerCatalogoImg()
     {

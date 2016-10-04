@@ -67,8 +67,8 @@ class Catalogo_controller extends CI_Controller
   		$uploadfile_temporal=$_FILES['txtimagen']['tmp_name']; 
   		$uploadfile_nombre=$ruta.$_FILES['txtimagen']['name'];
   		if (strlen($_FILES['txtimagen']['name'])>35) {
-  			echo "El nombre de la imagen es demasiado largo";
-  			return false;
+  			 echo "El nombre de la imagen es demasiado largo";
+  			 return false;
 		  }
 		  $this->saveIMG($uploadfile_temporal,$uploadfile_nombre);
    	}
@@ -78,7 +78,7 @@ class Catalogo_controller extends CI_Controller
   		if (is_uploaded_file($uploadfile_temporal)){ 
   		    move_uploaded_file($uploadfile_temporal,$uploadfile_nombre); 
           $this->catalogo_model->guardarIMG($_POST['codigo'],$_POST['nombre'],$_FILES['txtimagen']['name'],$_POST['puntos']);
-  		    redirect('Catalogo','refresh');
+  		    //redirect('Catalogo','refresh');
   		} 
   		else{ 
         redirect('Catalogo','refresh');  
