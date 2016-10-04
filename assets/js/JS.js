@@ -13,9 +13,7 @@ $('.datepicker').pickadate({
     $('select').material_select();
 
 /*METODOS PARA BUSCAR CON LOS INPUT SUPERIORES EN LAS TABLAS*/
- 
-// #myInput is a <input type="text"> element
-$('#searchUsuarios').on( 'keyup', function () {
+ $('#searchUsuarios').on( 'keyup', function () {
     var table = $('#TbCatalogo').DataTable();
     table.search( this.value ).draw();
 } );
@@ -24,7 +22,10 @@ $('#searchClientes').on( 'keyup', function () {
     var table = $('#ClienteAdd').DataTable();
     table.search( this.value ).draw();
 } );
-
+$('#searchCatalogo').on( 'keyup', function () {
+    var table = $('#tblCatalogo2').DataTable();
+    table.search( this.value ).draw();
+} );
 
 
 $('#txtimagen').change(function(){
@@ -61,6 +62,22 @@ $('#tblCatalogoPasado').DataTable( {
                     "previous":   "Anterior"
                 },
                 "lengthMenu": "MOSTRAR _MENU_ REGISTROS",
+                "search":     "BUSCAR"
+            }
+        });
+$('#tblCatalogo2').DataTable( {
+            "info":    false,
+            "bPaginate": false,
+            "lengthMenu": [[10,20,50,100,-1], [10,20,50,100,"Todo"]],
+            "language": {
+                "paginate": {
+                    "first":      "Primera",
+                    "last":       "Última ",
+                    "next":       "Siguiente",
+                    "previous":   "Anterior"
+                },
+                "lengthMenu": "MOSTRAR _MENU_ REGISTROS",
+                "emptyTable": "No hay datos disponibles en la tabla",
                 "search":     "BUSCAR"
             }
         });
@@ -106,7 +123,7 @@ $('#tblCatalogoActualModal').DataTable( {
     /****** Seccíon del Menú ******/
 
     /**** DATATABLES ****/
-    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblEliminar,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblpRODUCTOS,#tblModals,#tblCatalogo2').DataTable(
+    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblEliminar,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblpRODUCTOS,#tblModals').DataTable(
         {
             "info":    false,
             //"searching": false,
@@ -208,7 +225,7 @@ function myTimer() {
 }
 function myTimer2() {
     Materialize.toast('SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE..', 3000);
-    $(location).attr('href',"NuevoCatalogo");
+    $(location).attr('href',"Catalogo");
 }
 //CAMBIAR DE ESTADO AL USUARIO EKISDE
 function DellUsers(IdUser, Estado){
@@ -268,6 +285,7 @@ function AddClients(){
     }
 function subirimagen()
 {    
+    $('#txtimagen').hide(); $('#cargar22').hide();
     $('#labelCodigo').hide();   $('#labelDescripcion').hide();
     $('#labelPuntos').hide();   $('#labelImagen').hide();
     if ($('#txtimagen').val()=="") {$('#labelImagen').show(); return false;}   
@@ -399,18 +417,34 @@ function subirimagen()
         });
         //$('#tblCatalogoActual').show();
     }
-     $("#darBajaOK").on('click',function(){
-        $('#tblCatalogoActualModal').hide();
-        $('.progress2').show();
-        $('#guardarCatalogo').hide();
-        $('#darBaja').closeModal();
+    $("#darBajaOK").on('click',function(){
+
+    $('#EditEstado').show();$('#darBajaOK').hide();
+    var form_data = {
+                idarticulo: idImagenGlobal,
+                catalogo: IdCatalogoGlobal
+                };
+        $.ajax({
+                url: "ActualizarEstadoArticulo",
+                type: "post",
+                async:true,
+                data: form_data,
+                success:
+                    function(json){
+                        var myVar = setInterval(myTimer3, 2000);
+                    }
+                });
     });
+    function myTimer3() {
+        Materialize.toast('SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE..', 1000);
+        $(location).attr('href',"Catalogo");
+    }
      /*metodo para guardar el catalogo, con los nuevos articulos agregados*/
     $("#guardarCatalogo").on('click',function(){
             var codigo = ""; var articulo = ""; 
             var puntos = ""; var IdCatalogoArticulo = ""; var bandera = 0; 
             var IdCatalogo = $('#IdCatalogoActual').val(); $('#guardarCatalogo').hide();
-            var table = $('#tblCatalogoActual').DataTable();
+            var table = $('#tblCatalogo2').DataTable();
             $('.progress2').show();$('#tblCatalogoActualModal').hide();
             $("#tblCatalogoActualModal tbody tr").each(function(index) {
                 $(this).children("td").each(function(index2){/*metodo para recorrer la tabla*/
@@ -462,6 +496,7 @@ function subirimagen()
     });
 
     function darBaja(r){
+        alert("ekisde");
          var table = $('#tblCatalogoActualModal').DataTable();
          
             $('#tblCatalogoActualModal tbody').on( 'click', 'tr', function () {
@@ -477,6 +512,11 @@ function subirimagen()
                 table.row('.selected').remove().draw( false );
             } );
     }
+    function darBaja(idImagen,IdCatalogo){
+         $('#darBaja').openModal();
+         idImagenGlobal = idImagen;
+         IdCatalogoGlobal = IdCatalogo;
+      } 
     $("#CrearCatalogo").on('click',function(){
         $('#labelDescripcion').hide();  $('#labelFecha2').hide();
         $('#labelDescripcion2').hide();

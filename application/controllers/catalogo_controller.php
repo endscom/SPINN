@@ -42,6 +42,12 @@ class Catalogo_controller extends CI_Controller
       //echo $codigo." ".$articulo." ".$puntos." ".$idCatalogo."<br>";
       $this->catalogo_model->actualizarCatalogo($codigo,$articulo,$puntos,$idCatalogo,$idCatalogoArticulo);
     }
+    public function ActualizarEstadoArticulo()
+    {
+      $idarticulo = $this->input->post('idarticulo');
+      $idcatalogo = $this->input->post('catalogo');
+      $this->catalogo_model->ActualizarEstadoArticulo($idarticulo,$idcatalogo);
+    }
     public function CatalogoPasado($idCatalogo)
     {
         $data = $this->catalogo_model->CatalogoPasado($idCatalogo);
@@ -78,7 +84,7 @@ class Catalogo_controller extends CI_Controller
   		if (is_uploaded_file($uploadfile_temporal)){ 
   		    move_uploaded_file($uploadfile_temporal,$uploadfile_nombre); 
           $this->catalogo_model->guardarIMG($_POST['codigo'],$_POST['nombre'],$_FILES['txtimagen']['name'],$_POST['puntos']);
-  		    //redirect('Catalogo','refresh');
+  		    redirect('Catalogo','refresh');
   		} 
   		else{ 
         redirect('Catalogo','refresh');  
