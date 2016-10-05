@@ -538,7 +538,7 @@ img.login-logo{
 .BtnEliminar
 {
     border-radius: 40px;
-    background: #ff0000;
+    background: #831F82;
     font-family: 'robotoregular';
     font-weight: 500;
     font-size: 13px;
@@ -547,8 +547,8 @@ img.login-logo{
 
 .BtnEliminar:hover
 {
-   background:rgba(255, 0, 0, 0.6);
-    transition: 0.5s;
+    background: #cb6eca;
+    color: #fff;
 }
 .BtnBlue
 {
@@ -606,12 +606,19 @@ table td
 /****** Tabla zebra ********/
 
 table tr:nth-child(odd) {
-    background-color: #ffffff;
+    background-color: #e6e2f6;
 }
+
+#tblCatalogoActualModal tr:nth-child(odd) {
+    background-color: #e7e2f7!important;
+}
+#tblCatalogoActualModal tr:nth-child(even) {
+    background-color: #e7e2f7!important;
+}
+
 table tr:nth-child(even) {
     background-color: #e7e2f7;
 }
-
 
 .select{
     background: red;
@@ -1100,7 +1107,21 @@ label>select {
     justify-content: space-between;
 }
 
+/*ESTILOS TABLAS PLANA*/
+.TableBlank th,td{
+    padding: 10px;
+    text-align: center;
+}
+
+.selectRow{
+    background-color:#831f82;
+
+}
 /*ESTA CLASE SOLO ES PARA EFECTO DE PRUEBA SE PUEDE ELIMINAR*/
 .border{
     border-style: solid;
+}
+
+.hide{
+    display: none;
 }

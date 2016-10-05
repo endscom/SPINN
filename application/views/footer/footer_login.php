@@ -1,7 +1,7 @@
 <footer class="page-footer">
         <div id="conTIcon" class="row center">           
                 <div class="regular container white-text">
-		             Copyright © 2014 Todos los Derechos Reservados - INNOVA INDUSTRIAS S.A
+		             Copyright © <?php echo date('Y')?> Todos los Derechos Reservados - INNOVA INDUSTRIAS S.A
 	            </div>
         </div>
 </footer>
