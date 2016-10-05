@@ -96,10 +96,12 @@ $('#tblCatalogoActualModal').DataTable({
                     $(this).toggleClass('selected');
                 } );
             } );         
-            $('#btnborrarSeleccionados').click( function () {
-                var table2 = $('#tblCatalogoActualModal').DataTable();
-                table2.row('.selected').remove().draw( false );
-            } );
+    $('#btnborrarSeleccionados').click( function () {
+        var table = $('#tblCatalogoActualModal').DataTable();
+        $("#tblCatalogoActualModal .selected").each(function (index){   
+            table.row('.selected').remove().draw(false);
+        })
+    });
     /******Agregar clase Activo a items del Menú******/
  $('#tblCatalogo').DataTable();
     $(".nav li a").each(function() {

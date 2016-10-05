@@ -36,7 +36,7 @@
           <a onclick=" $('#nuevoArticulo').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>
         </div>
         <div class="row center">
-          <table id="tblCatalogo2" class="TableBlank">
+          <table id="tblCatalogo2 transparente" class="TableBlank">
             <thead>
               <tr>
                   <th></th>

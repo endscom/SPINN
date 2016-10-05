@@ -612,7 +612,9 @@ table tr:nth-child(even) {
     background-color: #e7e2f7;
 }
 
-
+.transparente th{
+  opacity: 0.0;
+}
 .select{
     background: red;
 }
