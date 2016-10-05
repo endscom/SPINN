@@ -8,6 +8,7 @@ class Catalogo_model extends CI_Model
     public function CatalogoPasado($idCatalogo)
     {
         $this->db->where('IdCT',$idCatalogo);
+        $this->db->where('Estado',0);
         $query = $this->db->get('detallect');
         $json = array();
         $i=0;
@@ -72,8 +73,6 @@ class Catalogo_model extends CI_Model
         $query = $this->db->get('catalogo');
         if ($query->num_rows() >0) {
             $R = $query->row();
-            //echo strtoupper(utf8_decode('ñaña'));
-            $this->db->query("SET NAMES 'utf8'");
             $this->db->query('call pc_Catalogo ('.$R->IdCT.')');
         }
     	$query = $this->db->get('tmp_catalogo');
@@ -162,18 +161,25 @@ class Catalogo_model extends CI_Model
     {
         $this->db->where('IdCT',$idCatalogoArticulo);
         $this->db->where('IdIMG',$codigo);
-        $query = $this->db->get('detallect');        
+        $query = $this->db->get('detallect');
+        $R;
         if($query->num_rows() > 0){
-             $R = $query->row();
-             $data = array(
-               'IdCT' => $idCatalogo,
-               'IdIMG' => $codigo,
-               'Nombre' => $articulo,
-               'IMG' => $R->Imagen,
-               'Puntos' => $puntos,
-               'Estado' => 0
-            );
-            $this->db->insert('detallect', $data);
+            $R = $query->row();
+            $this->db->where('IdCT',$idCatalogo);
+            $this->db->where('IdIMG',$codigo);
+            $this->db->where('Estado',0);
+            $query = $this->db->get('detallect');
+        if($query->num_rows() == 0){
+                 $data = array(
+                   'IdCT' => $idCatalogo,
+                   'IdIMG' => $codigo,
+                   'Nombre' => $articulo,
+                   'IMG' => $R->IMG,
+                   'Puntos' => $puntos,
+                   'Estado' => 0
+                );
+                $this->db->insert('detallect', $data);
+            }           
         }
     }
 }

@@ -85,6 +85,9 @@
 #nuevoArticulo{
   width: 83%;
 }
+#EditarArticulo {
+    width: 83%;
+}
 /*OCULTO EL CAMPO DE BUSQUEDA DE LOS DATATABLES*/
 .dataTables_filter{
   display: none!important;
@@ -1106,7 +1109,7 @@ label>select {
 }
 
 
-/*ESTILOS TABLAS PLANA*/
+/*ESTILOS TABLAS PLANA*//*HAY QUE ELIMINAR ESTA REGLA PARA IMPLEMENTAR LAS ZEBRAS*/
 .TableBlank th,td{
     background: #fafafa;
     color: #831f82;
