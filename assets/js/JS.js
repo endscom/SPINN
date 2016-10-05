@@ -100,14 +100,12 @@ $('#tblCatalogoActualModal').DataTable( {
             }
         });
          $('#tblCatalogoActualModal tbody').on( 'click', 'tr', function () {
-                var table2 = $('#tblCatalogoActualModal').DataTable();
                 $('#tblCatalogoActualModal tbody').on( 'click', 'tr', function () {
                     $(this).toggleClass('selected');
                 } );
             } );         
             $('#btnborrarSeleccionados').click( function () {
-                var table2 = $('#tblCatalogoActualModal').DataTable();
-                table2.row('.selected').remove().draw( false );
+                $('#tblCatalogoActualModal').DataTable().row('.selected').remove().draw( false );
             } );
     /******Agregar clase Activo a items del Menú******/
  $('#tblCatalogo').DataTable();
@@ -123,7 +121,7 @@ $('#tblCatalogoActualModal').DataTable( {
     /****** Seccíon del Menú ******/
 
     /**** DATATABLES ****/
-    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblEliminar,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblpRODUCTOS,#tblModals').DataTable(
+    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblFacturas,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblpRODUCTOS,#tblModals').DataTable(
         {
             "info":    false,
             //"searching": false,
@@ -496,7 +494,6 @@ function subirimagen()
     });
 
     function darBaja(r){
-        alert("ekisde");
          var table = $('#tblCatalogoActualModal').DataTable();
          
             $('#tblCatalogoActualModal tbody').on( 'click', 'tr', function () {
@@ -559,3 +556,34 @@ function subirimagen()
             $('#DisponiblePuntos').openModal();
         }
     });
+
+
+    $('#sFactura').on( 'keyup', function () {
+        $('#tblFacturas').DataTable().search( this.value ).draw();
+    } );
+
+    $('#tblFacturas tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    } );
+
+    /*$("#idPreloader,#getOneFactura,#getAllFactura").hide();
+    $("#search").keypress(function(e) {
+        if(e.which == 13) {
+            var filtro = $("#search").val();
+            $("#getOneFactura,#getAllFactura").hide();
+            if ((!jQuery.isEmptyObject(filtro)) && (filtro.length > 5)) {
+                $("#idImgBack").hide();
+                $("#idPreloader").show();
+                if (filtro.toUpperCase().indexOf('CL') != -1) {
+                    $("#getAllFactura").show();
+                } else {
+                    $("#getOneFactura").show();
+                }
+                $("#idPreloader").hide();
+            } else{
+                $("#idImgBack").show();
+                alert("Contenido esta vacio o menor a 5 caracteres");
+            }
+
+        }
+    });*/
