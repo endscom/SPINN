@@ -94,7 +94,13 @@ $('#tblCatalogoActualModal').DataTable({
                 $('#tblCatalogoActualModal tbody').on( 'click', 'tr', function () {
                     $(this).toggleClass('selected');
                 } );
-            } );         
+            } );  
+        $('#btnborrarSeleccionados').click( function () {
+        var table = $('#tblCatalogoActualModal').DataTable();
+        $("#tblCatalogoActualModal .selected").each(function (index){   
+            table.row('.selected').remove().draw(false);
+        })
+    });
             $('#btnborrarSeleccionados').click( function () {
                 $('#tblCatalogoActualModal').DataTable().row('.selected').remove().draw( false );
             } );
