@@ -605,21 +605,13 @@ table td
 
 /****** Tabla zebra ********/
 
-table tr:nth-child(even) {
+table tr:nth-child(odd) {
     background-color: #ffffff;
 }
-table tr:nth-child(odd) {
+table tr:nth-child(even) {
     background-color: #e7e2f7;
 }
-.odd{
-  background-color: black!important;
-}
-#tblCatalogoActualModal tr:nth-child(odd) {
-    background-color: #e7e2f7!important;
-}
-#tblCatalogoActualModal tr:nth-child(even) {
-    background-color: #e7e2f7!important;
-}
+
 
 .select{
     background: red;
@@ -1108,14 +1100,6 @@ label>select {
     justify-content: space-between;
 }
 
-
-/*ESTILOS TABLAS PLANA*//*HAY QUE ELIMINAR ESTA REGLA PARA IMPLEMENTAR LAS ZEBRAS*/
-.TableBlank th,td{
-    background: #fafafa;
-    color: #831f82;
-    padding: 10px;
-    text-align: center;
-}
 /*ESTA CLASE SOLO ES PARA EFECTO DE PRUEBA SE PUEDE ELIMINAR*/
 .border{
     border-style: solid;
