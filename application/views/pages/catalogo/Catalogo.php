@@ -63,7 +63,7 @@
                                     <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre1'])."</p>
                                     <p class='ptsdes'>".$key['v_Puntos1']." puntos</p>
                                 </div>
-                                <a href='#' id='modificar' class='btn'>modificar</a>
+                                <a href='#' onclick = 'editarArticulo()' id='modificar' class='btn'>modificar</a>
                             </div>
                             </td>";
                     }else{echo "<td></td>";}
@@ -79,7 +79,7 @@
                                   <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre2'])."</p>
                                   <p class='ptsdes'>".$key['v_Puntos2']." puntos</p>
                               </div>
-                              <a href='#' id='modificar' class='btn'>modificar</a>
+                              <a href='#' onclick = 'editarArticulo()' id='modificar' class='btn'>modificar</a>
                           </div>
                           </td>";
                     }else{echo "<td></td>";}
@@ -95,7 +95,7 @@
                                   <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre3'])."</p>
                                   <p class='ptsdes'>".$key['v_Puntos3']." puntos</p>
                               </div>
-                              <a href='#' id='modificar' class='btn'>modificar</a>
+                              <a href='#' onclick = 'editarArticulo()' id='modificar' class='btn'>modificar</a>
                           </div>
                           </td>";
                     }else{echo "<td></td>";}
@@ -111,7 +111,7 @@
                                   <p class='descript'>".str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre4'])."</p>
                                   <p class='ptsdes'>".$key['v_Puntos4']." puntos</p>
                               </div>
-                              <a href='#' id='modificar' class='btn'>modificar</a>
+                              <a href='#' onclick = 'editarArticulo()' id='modificar' class='btn'>modificar</a>
                           </div>
                           </td>";
                     }else{echo "<td></td>";}
@@ -125,6 +125,17 @@
     </div>
     </div>
 </main>
+<div class="row center">
+<?php
+     if(!($catalogo2)){}
+      else{
+        foreach($catalogo2 AS $row)
+        {
+          echo "<input id='IdCatalogoActual' type='text' value=".$row['IdCT'].">";break;
+        }
+      }
+    ?>
+</div>
 <!-- FIN CONTENIDO PRINCIPAL -->
   <!-- Modal Structure -->
   <div id="modalIMG" class="modal">
@@ -144,7 +155,7 @@
     <div class="modal-content">
       <div class="row TextColor center">
             <div class="col s5 m8 l12">
-               ingreso de artículo
+               ingreso de artículo<i class="material-icons">playlist_add</i>
             </div>
       </div>
               <div>
@@ -318,8 +329,14 @@
     </div>
     <div class="modal-content">
       <div class="row TextColor center">
-            <div class="col s5 m8 l12 offset-m1">
+            <div class="col s12 m8 l18 offset-m1 offset-l2">
                reutilización de catálogo
+            </div>
+            <div class="col s12 m4 l2 offset-m1">
+               <p>
+                <input type="checkbox" id="checkTodos" />
+                <label for="checkTodos">TODOS</label>
+              </p>
             </div>
       </div>
       <div class="row TextColor center">
@@ -342,3 +359,69 @@
       </div>         
     </div>
 </div>
+
+  <!--EDITAR ARTICULO Modal Structure -->
+  <div id="EditarArticulo" class="modal">
+    <div class="btnCerrar right">
+      <i  style='color:red;' class="material-icons modal-action modal-close">highlight_off</i>
+    </div>
+    <div class="modal-content">
+      <div class="row TextColor center">
+            <div class="col s5 m8 l12">
+               edición de artículo<i class="material-icons">edit</i>
+            </div>
+      </div>
+              <div>
+                   <form id="formimagen" enctype="multipart/form-data" class="col s6 m6 l6" action="<?PHP echo base_url('index.php/subirImg');?>" method="post" name="formNuevoArto">
+                      <div class="articulos">
+                          <div id="articulo" class="row">
+                              <div class="input-field col s2 m5 l5 ">
+                                  <input onmousedown="return false" onkeydown="return false" name="codigo" id="codigoArto" type="text" class="validate">
+                                  <label for="codigoArto">CODIGO:</label><label id="labelCodigo" class="labelValidacion">DIGITE EL CODIGO</label>
+                              </div>
+                              <div class="input-field col s2 m6 l6">
+                                  <input name="nombre" id="NombArto" type="text" class="validate mayuscula">
+                                  <label for="NombArto">DESCRIPCIÓN</label><label id="labelDescripcion" class="labelValidacion">DIGITE LA DESCRIPCIÓN</label>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="input-field col s2 m5 l5">
+                                  <input name="puntos" min=0 step="any" id="PtArto" type="number" class="validate">
+                                  <label for="PtArto">PUNTOS</label><label id="labelPuntos" class="labelValidacion">DIGITE LOS PUNTOS</label>
+                              </div>
+                              <div id="BtnAddArto" class="col s3 m2 l6 center">
+                                  <a id="agregar" class="waves-effect btn-file waves-light btn" onclick="subirimagen()">AGREGAR</a>
+                                   <div id="loadIMG" style="display:none" class="preloader-wrapper big active">
+                                    <div class="spinner-layer spinner-blue-only">
+                                      <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                      </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                      </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                       <div class="cosa">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                               <div id="ImgContenedor" class="fileinput-new thumbnail" style="width: 250px; height: 150px; padding: 5px 0 10px !important;">
+                               </div>
+                               <div id="ImgContenedor" class="fileinput-preview fileinput-exists thumbnail" style="max-width:250px; max-height:150px;"></div>
+                               <div class="center">
+                                  <label id="labelImagen" class="labelValidacion">SELECCIONE UNA IMAGEN</label>
+                               </div>
+                               <div class="center">
+                                   <span id="cargar" class="btn btn-default btn-file"><span class="fileinput-new">cargar imagen</span>
+                                       <span id="cancel" class="fileinput-exists">cambiar</span>
+                                       <input id="txtimagen2" type="file" name="txtimagen"></span>
+                                   <a id="cargar22" href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">cancelar</a>
+                               </div>
+                           </div>
+                       </div>
+                   </form>
+              </div>
+    </div>
+  </div>

@@ -85,6 +85,9 @@
 #nuevoArticulo{
   width: 83%;
 }
+#EditarArticulo {
+    width: 83%;
+}
 /*OCULTO EL CAMPO DE BUSQUEDA DE LOS DATATABLES*/
 .dataTables_filter{
   display: none!important;
@@ -602,9 +605,6 @@ table td
 
 /****** Tabla zebra ********/
 
-table tr:nth-child(even) {
-    background-color: #ffffff;
-}
 table tr:nth-child(odd) {
     background-color: #e6e2f6;
 }
@@ -614,6 +614,10 @@ table tr:nth-child(odd) {
 }
 #tblCatalogoActualModal tr:nth-child(even) {
     background-color: #e7e2f7!important;
+}
+
+table tr:nth-child(even) {
+    background-color: #e7e2f7;
 }
 
 .select{
@@ -1102,7 +1106,6 @@ label>select {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-
 
 /*ESTILOS TABLAS PLANA*/
 .TableBlank th,td{

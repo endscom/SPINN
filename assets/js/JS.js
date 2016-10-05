@@ -1,6 +1,5 @@
 var activo = false;
 $(document).ready(function() {
-
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -8,10 +7,7 @@ $('.datepicker').pickadate({
         weekdaysFull: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
         showMonthsShort: undefined,showWeekdaysFull: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],today: 'Hoy',
         clear: 'BORRAR',close: 'CERRAR' });
-
-    //$('#listaArticulosCatalogoActual').openModal();
-    $('select').material_select();
-
+$('select').material_select();
 /*METODOS PARA BUSCAR CON LOS INPUT SUPERIORES EN LAS TABLAS*/
  $('#searchUsuarios').on( 'keyup', function () {
     var table = $('#TbCatalogo').DataTable();
@@ -26,7 +22,15 @@ $('#searchCatalogo').on( 'keyup', function () {
     var table = $('#tblCatalogo2').DataTable();
     table.search( this.value ).draw();
 } );
-
+$('#checkTodos').change(function () {//funcion para seleccionar todos los checks
+    var oTable = $('#tblCatalogoPasado').dataTable();
+    var nNodes = oTable.fnGetNodes( );    
+    if($(this).is(':checked') ) {
+    $("label").trigger("click");
+    }else{
+        $("label").trigger("click");
+   }
+});
 
 $('#txtimagen').change(function(){
     //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
@@ -35,24 +39,11 @@ $('#txtimagen').change(function(){
 });
 var idImagenGlobal;
 var IdCatalogoGlobal;
-$('#tblCatalogoActual').DataTable( {
-            "info":    false,
-            "bPaginate": false,
-            "lengthMenu": [[5,10,50,100,-1], [5,10,50,100,"Todo"]],
-            "language": {
-                "paginate": {
-                    "first":      "Primera",
-                    "last":       "Última ",
-                    "next":       "Siguiente",
-                    "previous":   "Anterior"
-                },
-                "lengthMenu": "MOSTRAR _MENU_ REGISTORS",
-                "search":     "BUSCAR"
-            }
-        });
+var rowCount;
 $('#tblCatalogoPasado').DataTable( {
             "info":    false,
-            "bPaginate": true,
+            "bPaginate": false,
+            "paging": false,
             "lengthMenu": [[5,10,50,100,-1], [5,10,50,100,"Todo"]],
             "language": {
                 "paginate": {
@@ -65,7 +56,8 @@ $('#tblCatalogoPasado').DataTable( {
                 "search":     "BUSCAR"
             }
         });
-$('#tblCatalogo2').DataTable( {
+
+$('#tblCatalogo2,#tblCatalogoActual').DataTable( {
             "info":    false,
             "bPaginate": false,
             "lengthMenu": [[10,20,50,100,-1], [10,20,50,100,"Todo"]],
@@ -81,11 +73,10 @@ $('#tblCatalogo2').DataTable( {
                 "search":     "BUSCAR"
             }
         });
-$('#tblCatalogoActualModal').DataTable( {
-            "scrollY":        "280px",
-            "scrollCollapse": true,
-            "paging":         false,
+$('#tblCatalogoActualModal').DataTable({            
             "info":    false,
+            "bPaginate": false,
+            "paging": false,
             "lengthMenu": [[5,10,50,100,-1], [5,10,50,100,"Todo"]],
             "language": {
                 "paginate": {
@@ -221,10 +212,7 @@ function EnviodeDatos(){
 function myTimer() {
     $(location).attr('href',"Usuarios");
 }
-function myTimer2() {
-    Materialize.toast('SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE..', 3000);
-    $(location).attr('href',"Catalogo");
-}
+
 //CAMBIAR DE ESTADO AL USUARIO EKISDE
 function DellUsers(IdUser, Estado){
     $('#CsUser').openModal();
@@ -321,9 +309,11 @@ function subirimagen()
             Objtable.clear();
             Objtable.draw();
             $('#tblCatalogoPasado').DataTable({
-                "order": [[ 3, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 ajax: "AjaxCatalogoPasado/"+ this.value,
-                "info": false,
+                "info":    false,
+                "bPaginate": false,
+                "paging": false,
                 "pagingType": "full_numbers",
                 "lengthMenu": [[10, -1], [10, "Todo"]],
                 "language": {
@@ -393,7 +383,7 @@ function subirimagen()
                         campo3,
                         campo4
                     ]).draw(false);var $toastContent = $('<span class"center">ARTÍCULO AGREGADO</span>');
-            Materialize.toast($toastContent, 3500,'rounded');
+            Materialize.toast($toastContent, 2500,'rounded');
             }
             else{
                 var $toastContent = $('<span class="center">EL ARTICULO: <h6 class="negra noMargen">"'+campo2+'"</h6> YA ESTA AGREGADO</span>');
@@ -439,10 +429,12 @@ function subirimagen()
     }
      /*metodo para guardar el catalogo, con los nuevos articulos agregados*/
     $("#guardarCatalogo").on('click',function(){
+            var contador = 0; var table2 = $('#tblCatalogoActualModal').DataTable();
+            var rowCount = table2.page.info().recordsTotal;
             var codigo = ""; var articulo = ""; 
             var puntos = ""; var IdCatalogoArticulo = ""; var bandera = 0; 
             var IdCatalogo = $('#IdCatalogoActual').val(); $('#guardarCatalogo').hide();
-            var table = $('#tblCatalogo2').DataTable();
+            var table = $('#tblCatalogo2').DataTable();            
             $('.progress2').show();$('#tblCatalogoActualModal').hide();
             $("#tblCatalogoActualModal tbody tr").each(function(index) {
                 $(this).children("td").each(function(index2){/*metodo para recorrer la tabla*/
@@ -463,6 +455,7 @@ function subirimagen()
                         default: 
                     }
                 });
+                
             table.cells().eq(0).each( function ( index ) {/*VALIDO SI EL ARTICULO YA ESTA AGREGADO EN LA TABLA*/
                 var cell = table.cell(index);             
                 var data = cell.data();
@@ -483,15 +476,21 @@ function subirimagen()
                 data: form_data,
                 success:
                     function(json){
-                        var myVar = setInterval(myTimer2, 2000);
+                        contador++;
+                        alert(rowCount+" contador "+ contador);
+                        if (contador==rowCount) {var myVar = setInterval(myTimer2, 3500);};
                     }
                 });}
              else{
                 var $toastContent = $('<span class="center">EL ARTICULO: <h6 class="negra noMargen">"'+articulo+'"</h6> YA EXISTE Y NO SE AGREGO</span>');
                 Materialize.toast($toastContent, 3500,'rounded error');
-                var myVar = setInterval(myTimer2, 2000);}
+                }
             });
     });
+    function myTimer2() {
+        Materialize.toast('SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE...', 3000);
+        $(location).attr('href',"Catalogo");
+    }
 
     function darBaja(r){
          var table = $('#tblCatalogoActualModal').DataTable();
@@ -525,10 +524,7 @@ function subirimagen()
         }
     });
 
-
-
     $("#BtnFiltroReporte").click(function() {
-
         var isCliente,isFecha;
         var Cls = $("#idCliente").val();
         var f1  = $("#fecha1").val();
@@ -537,7 +533,6 @@ function subirimagen()
         $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2,#divFecha,#divFecha2").show();
         if(Cls == 0){
             $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").hide();
-
         }
         if((jQuery.isEmptyObject(f1) == true) || (jQuery.isEmptyObject(f2) == true)){
             $("#divFecha,#divFecha2").hide();
@@ -556,6 +551,7 @@ function subirimagen()
             $('#DisponiblePuntos').openModal();
         }
     });
+
 
 
     $('#sFactura').on( 'keyup', function () {
@@ -587,3 +583,9 @@ function subirimagen()
 
         }
     });*/
+
+    function editarArticulo() {
+        $('#EditarArticulo').openModal();
+        $('#txtimagen2').attr('src', '../SPINN/assets/img/catalogo/101100.jpg');
+        $('#ImgContenedor').attr('src', '../SPINN/assets/img/catalogo/101100.jpg'); 
+    }

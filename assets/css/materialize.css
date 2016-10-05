@@ -2668,8 +2668,9 @@ a {
 }
 a:hover
 {
-  color: #cb6eca;
+  color: #ffffff;
   transition: 0.5s;
+  background-color: #cb6eca;
 }
 .valign-wrapper {
   display: -webkit-flex;
@@ -4944,6 +4945,7 @@ small {
   letter-spacing: .5px;
   transition: .2s ease-out;
   cursor: pointer;
+  font-family: 'robotoregular';
 }
 
 .btn:hover, .btn-large:hover {
