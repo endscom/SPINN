@@ -33,7 +33,7 @@ table.dataTable tfoot td {
   padding: 10px 18px 6px 18px;
   border-top: 1px solid #111;
 }
-/*table.dataTable thead .sorting,
+table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc {
   cursor: pointer;
@@ -62,7 +62,7 @@ table.dataTable thead .sorting_asc_disabled {
 }
 table.dataTable thead .sorting_desc_disabled {
   background-image: url("../images/sort_desc_disabled.png");
-}
+}/*
 table.dataTable tbody tr {
   background-color: #ffffff;
 }*/

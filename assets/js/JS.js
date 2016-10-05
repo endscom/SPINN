@@ -95,9 +95,12 @@ $('#tblCatalogoActualModal').DataTable({
                     $(this).toggleClass('selected');
                 } );
             } );         
-            $('#btnborrarSeleccionados').click( function () {
-                $('#tblCatalogoActualModal').DataTable().row('.selected').remove().draw( false );
-            } );
+    $('#btnborrarSeleccionados').click( function () {
+        var table = $('#tblCatalogoActualModal').DataTable();
+        $("#tblCatalogoActualModal .selected").each(function (index){   
+            table.row('.selected').remove().draw(false);
+        })
+    } );
     /******Agregar clase Activo a items del Menú******/
  $('#tblCatalogo').DataTable();
     $(".nav li a").each(function() {
@@ -164,16 +167,6 @@ $('#tblCatalogoActualModal').DataTable({
         }
     });// FIN CARGAR LOS CLIENTES Y/O VENDEDORES EN EL SELECT (AGREGAR USUAARIO AL SISTEMA
 
-    /********/
-    $('#ClienteAdd tbody').on( 'click', 'tr', function () {
-        if($(this).hasClass('odd')){
-            $(this).removeClass('odd');
-            $(this).toggleClass('selected');
-        }else{
-            $(this).removeClass('even');
-            $(this).toggleClass('selected');
-        }
-    } );
 } );//Fin Document ready
 
 /* FUNCIONES */
