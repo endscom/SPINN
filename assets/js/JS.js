@@ -550,9 +550,9 @@ function subirimagen()
 
             $('#EstadoFactura').openModal();
         } else {
-            $("#Modal2CodCliente").html(Cls)
-            $("#Modal2Fecha1").html(f1)
-            $("#Modal2Fecha2").html(f2)
+            $("#Modal2CodCliente").html(Cls):
+            $("#Modal2Fecha1").html(f1);
+            $("#Modal2Fecha2").html(f2);
             $('#DisponiblePuntos').openModal();
         }
     });
