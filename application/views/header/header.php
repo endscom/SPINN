@@ -28,7 +28,8 @@
     <!--
     <link rel="canonical" href="http://www.example.com/">
     -->
-
+    <!--Import Google Icon Font localmente by Alder-->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/fuente.css" >
     <link rel="stylesheet"href="<?PHP echo base_url();?>assets/css/materialize.css">
     <link rel="stylesheet" href="<?PHP echo base_url();?>assets/css/material.cyan-light_blue.min.css">
     <link rel="stylesheet" href="<?PHP echo base_url();?>assets/media/icon.css">

@@ -82,6 +82,9 @@
 .noMargen{
   margin: 0!important;
 }
+.derecha{
+  text-align: right!important;
+}
 #nuevoArticulo{
   width: 83%;
 }
