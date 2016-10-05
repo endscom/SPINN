@@ -1,7 +1,7 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
 
-        <span class=" title">ELIMINAR VIÑETA</span>
+        <span class=" title">ELIMINAR BOUCHER</span>
 
     </div>
 </header>
@@ -9,6 +9,7 @@
 <!--//////////////////////////////////////////////////////////
                 CONTENIDO
 ///////////////////////////////////////////////////////////-->
+
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor ">
 
@@ -18,110 +19,68 @@
                    <i class="material-icons ColorS">search</i>
                </div>
                <div id="InputSearch" class="input-field col s6 m16 l5">
-                   <input  id="search" type="text" placeholder="Buscar Facturas o Viñetas" class="validate">
+                   <input  id="sFactura" type="text" placeholder="Buscar Facturas o Cliente" class="validate">
                    <label for="search"></label>
                </div>
            </div>
        </div>
 
-
-        <div class="datos">
-            <div class="row text">
-                <div class="col s4 m4 l4">
-                    <p>CÓDIGO: <span class="Datos">7777</span></p>
-                </div>
-                <div class="col s4 m4 l4">
-                    <p>FACTURA: <span class="Datos">7777</span></p>
-                </div>
-                <div class="col s4 m4 l4">
-                    <p>FECHA: <span class="Datos">7777</span></p>
-                </div>
-            </div>
-
-            <div class="row text">
-                <div class="col s8 m8 l8">
-                    <p>CLIENTE: <span class="Datos">7777 7777 7777</span></p>
-                </div>
-                <div class="col s4 m4 l4">
-                    <p>RUC: <span class="Datos">55555</span></p>
-                </div>
-            </div>
+        <div id="getAllFactura" >
 
             <div class="right row">
                 <div class="col s2 m2 l2">
                     <a href="#modal1" class="BtnEliminar waves-effect  btn modal-trigger">ELIMINAR</a>
                 </div>
             </div>
-<!--//////////////////////////////////////////////////////////////////////////////////
-                                TABLA
-///////////////////////////////////////////////////////////////////////////////////-->
-                    <table id="tblEliminar" class="TblDatos">
-                        <thead>
-                        <tr>
-                            <th>CANT.</th>
-                            <th>DESCRIPCIÓN</th>
-                            <th>LABORATORIO</th>
-                            <th>PUNTOS</th>
-                        </tr>
-                        </thead>
+            <table id="tblFacturas">
+                <thead>
+                <tr>
+                    <th>FECHA.</th>
+                    <th>FACTURA</th>
+                    <th>CLIENTE</th>
+                    <th>NOMBRE</th>
+                    <th>P.ACUMULADO</th>
+                    <th>P.DISPONIBLE</th>
+                    <th>VENDEDOR</th>
+                    <th>ELIMINAR</th>
+                </tr>
+                </thead>
 
-                        <tbody>
-                        <tr>
-                            <td>xxxx</td>
-                            <td>xxx xxxx xxxx</td>
-                            <td>xxx</td>
-                            <td>100000 pts</td>
-                        </tr>
+                <tbody>
+                <?php
+                for($i=0;$i<10;$i++){
+                    echo "
+                                 <tr>
+                                    <td>xxxx</td>
+                                    <td>Valor ".$i."</td>
+                                    <td>CLiente ".$i."</td>
+                                    <td>xxxx</td>
+                                    <td>xxxx</td>
+                                    <td>xxxx</td>
+                                    <td>xxxx</td>
+                                    <td><a href='#modal3' class='modal-trigger'> <i class='material-icons'>&#xE417;</i></a></td>
+                                 </tr>
+                            ";
+                }
+                ?>
+                </tbody>
+            </table>
 
-                        <tr>
-                            <td>xxxx</td>
-                            <td>xxx xxxx xxxx</td>
-                            <td>xxx</td>
-                            <td>100000 pts</td>
-                        </tr>
-
-                        <tr>
-                            <td>xxxx</td>
-                            <td>xxx xxxx xxxx</td>
-                            <td>xxx</td>
-                            <td>100000 pts</td>
-                        </tr>
-                        <tr>
-                            <td>xxxx</td>
-                            <td>xxx xxxx xxxx</td>
-                            <td>xxx</td>
-                            <td>100000 pts</td>
-                        </tr>
-                        <tr>
-                            <td>xxxx</td>
-                            <td>xxx xxxx xxxx</td>
-                            <td>xxx</td>
-                            <td>100000 pts</td>
-                        </tr>
-                        <tr>
-                            <td>xxxx</td>
-                            <td>xxx xxxx xxxx</td>
-                            <td>xxx</td>
-                            <td>100000 pts</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-
-        </div><!-- div Datos-->
-        <div class="right row">
-            <div class="col s12 m12 l12">
-                <p class="TextTotal">Total Pts.Cliente: <span>325,766 Pts.</span> </p>
+            <div class="right row">
+                <div class="col s12 m12 l12">
+                    <p class="TextTotal">Total Pts.Cliente: <span>325,766 Pts.</span> </p>
+                </div>
             </div>
         </div>
-        </div><!-- fin de Contenedor-->
+
+        </div>
     </div>
 </main>
-<!-- MODALES-->
-<!-- Modal#1 Structure  muestra los datos a eliminar-->
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                            Modales Facturas Commpleta
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <div id="modal1" class="modal">
     <div class="modal-content">
-
         <div class=" row">
             <div class="right col s1 m1 l1">
                 <a href="#!" class=" BtnClose modal-action modal-close ">
@@ -129,62 +88,37 @@
                 </a>
             </div>
         </div>
-
-        <h6  class="center Mcolor">DESEA ELIMINAR LAS VIÑETAS:</h6>
-<!--///////////////////////////////////////////////////////////
-                        TABLA MODAL
-////////////////////////////////////////////////////////////-->
-
+        <h6  class="center Mcolor">DESEA ELIMINAR EL BOUCHER:</h6>
         <div class="row">
             <div class="col s12">
-
-                <table id="tblModal1" class="TheadColor">
-
+                <table id="tblModal1">
                     <thead>
-                    <tr>
-                        <th>CANT.</th>
-                        <th>DESCRIPCIÓN</th>
-                        <th>LAB.</th>
-                        <th>PUNTOS</th>
-                        <th>ELIMINAR</th>
-                    </tr>
+                        <tr>
+                            <th>CANT.</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>LAB.</th>
+                            <th>PUNTOS</th>
+                        </tr>
                     </thead>
-
                     <tbody>
-                    <tr>
-                        <td>7</td>
-                        <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
-                        <td>5155</td>
-                        <td>70 pts</td>
-                        <td>
-                            <i class=" BtnClose material-icons">highlight_off</i>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
+                            <td>5155</td>
+                            <td>70 pts</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
-
     </div>
-
-    <div class="row">
-        <div class="col s6">
-            <a href="#modal2" class="Btndell modal-action modal-close btn modal-trigger">ELIMINAR</a>
-        </div>
+    <div class="center row">
+        <a href="#modal2" class="BtnEliminar modal-action modal-close btn modal-trigger">ELIMINAR</a>
     </div>
-
 </div>
-<!-- Fin de Modal#1-->
 
-<!--///////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////-->
-
-<!-- Modal #2-->
-<!-- Modal Structure -->
 <div id="modal2" class="modal">
     <div class="modal-content">
-
             <div class="right row">
                 <div class="col s1 m1 l1">
                     <a href="#!" class=" BtnClose modal-action modal-close ">
@@ -192,8 +126,52 @@
                     </a>
                 </div>
             </div>
-
-            <h6 class="center Mcolor1">LAS VIÑETAS FUERON ELIMINADAS</h6>
-
-        </div>
+        <h6 class="center Mcolor1">EL BOUCHER FUE ELIMINADO</h6>
+    </div>
 </div>
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                            Fin Modales Facturas Commpleta
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                            Modales Detalles Facturas
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<div id="modal3" class="modal">
+    <div class="modal-content">
+        <div class=" row">
+            <div class="right col s1 m1 l1">
+                <a href="#!" class=" BtnClose modal-action modal-close ">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>
+        <h6  class="center Mcolor">FACTURA:</h6>
+        <div class="row">
+            <div class="col s12">
+                <table id="tblModal1">
+                    <thead>
+                    <tr>
+                        <th>CANT.</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>LAB.</th>
+                        <th>PUNTOS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>7</td>
+                        <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
+                        <td>5155</td>
+                        <td>70 pts</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="center row">
+        <a href="#modal2" class="BtnEliminar modal-action modal-close btn modal-trigger">ELIMINAR</a>
+    </div>
+</div>
+
