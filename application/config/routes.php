@@ -13,7 +13,7 @@ $route['salir'] = 'login_controller/Salir';
 
 // RUTAS MENU
 $route['Main'] = 'vista_controller/main';
-$route['EliminarVineta'] = 'vista_controller/EliminarVineta';
+$route['Facturas'] = 'vista_controller/Facturas';
 
 /* CLIENTES */
 $route['Clientes'] = 'clientes_controller/Clientes';
@@ -23,6 +23,7 @@ $route['BajaClientes'] = 'vista_controller/BajaClientes';
 $route['PuntosCliente/(:any)'] = 'clientes_controller/puntosCliente/$1';
 $route['DetalleFact'] = 'vista_controller/DetalleFact';
 $route['Frp'] = 'vista_controller/CanjeFrp';
+$route['viewPtsItemCatalogo'] = 'vista_controller/getPuntosArticulosCatalogo';
 $route['FRE'] = 'vista_controller/CanjeFre';
 
 /*USUARIOS*/

@@ -545,7 +545,7 @@ img.login-logo{
 .BtnEliminar
 {
     border-radius: 40px;
-    background: #ff0000;
+    background: #831f82;
     font-family: 'robotoregular';
     font-weight: 500;
     font-size: 13px;
@@ -554,7 +554,7 @@ img.login-logo{
 
 .BtnEliminar:hover
 {
-   background:rgba(255, 0, 0, 0.6);
+   background:rgba(155, 89, 182, 0.7);
     transition: 0.5s;
 }
 .BtnBlue
@@ -651,7 +651,7 @@ table tr:nth-child(even) {
     color: #831F82;
     font-weight: 500;
 }
-#frp{
+#ClienteFRP,#PtsClientefrp,#ClienteFRPPremio,#CodPremioFRP,#ValorPtsPremioFRP{
      border: 1px solid #6a4ad5;
      box-shadow: none;
      text-align: center;
