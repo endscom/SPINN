@@ -10,24 +10,21 @@
 
     <div class="contenedor">
 
-        <div class=" row TextColor">
+        <div class="center row TextColor">
             <div class="col s12 m12 l12">
-               CLIENTES PARA AGREGAR AL PROGRAMA DE PUNTOS
+               CLIENTES PARA EL PROGRAMA DE PUNTOS
             </div>
         </div>
 
         <div class="container">
             <div class=" Buscar row column">
-
                 <div class="col s1 m1 l1 offset-l3 offset-s1 offset-m2">
                     <i class="material-icons ColorS">search</i>
                 </div>
-
                 <div class="input-field col s5 m4 l4">
                     <input  id="searchClientes" type="text" placeholder="Buscar" class="validate">
                     <label for="search"></label>
                 </div>
-
                 <div class="col s2 m1 l1">
                     <a href="Exp_Clientes" onclick="generar_reporte_excel();"> <img src="<?PHP echo base_url();?>assets/img/icono_excel.png " width="30px"></a>
                 </div>
@@ -36,11 +33,6 @@
                 </div>
             </div>
         </div>
-
-        <!--<div class="right row">
-                <a href="#modal1" id="btngenerar"  onclick="AddClients()" class="BtnBlue waves-effect  btn modal-trigger ">AGREGAR</a>
-        </div>-->
-
      <form action="" name="FrmClientes" id="FrmClientes" method="post"> <!--Exportar datos a EXCEL -->
         <table id="ClienteAdd" class="table TblDatos">
             <thead>
@@ -60,7 +52,9 @@
                             echo "
                                  <tr>
                                     <td>".$cliente['CODIGO']."</td>
-                                    <td class='negra'>".$cliente['NOMBRE']."</td>
+                                    <td class='negra'>
+                                    <a href='#modalPtsCliente' onclick='clientesPuntos(".'"'.$cliente['NOMBRE'].'",'.'"'.$cliente['VENDEDOR'].'",'.'"'.$cliente['RUC'].'",'.'"'.$cliente['CODIGO'].'"'.")' class='modal-trigger'>".$cliente['NOMBRE']."</a>
+                                    </td>
                                     <td>".$cliente['RUC']."</td>
                                     <td>".$cliente['DIRECCION']."</td>
                                     <td>".$cliente['VENDEDOR']."</td>
@@ -77,105 +71,66 @@
 <!--///////////////////////////////////////////////////////////////////////
                         MODALES
 ////////////////////////////////////////////////////////////////////////-->
-
-<!-- Modal #1
-                Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-
-        <div class=" row">
-
+<!--Modal Structure -->
+<div id="modalPtsCliente" class="modal">
+    <div  class="modal-content">
+    <div class="row noMargen center"><div id="loadIMG" style="display:none;" class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div></div>
+    <div id="detalleCliente" class="row noMargen">
+        <div class="row">
             <div class="right col s3 m3 l3">
                 <a href="#!" class=" BtnClose modal-action modal-close ">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
-        </div>
-        <h6 class="center Mcolor">DESEA AGREGAR:</h6>
-
-    <div class="row">
-        <div class="col s12">
-
-            <table id="tblModal1" class="TheadColor">
-
-                <thead>
-                <tr>
-                    <th>CLIENTE.</th>
-                    <th>COD.UNIMARK</th>
-                    <th>ELIMINAR</th>
-                </tr>
-                </thead>
-
-                <tbody>
-
-                <tr>
-                    <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
-                    <td id="black">03195</td>
-                    <td>
-                        <i class=" BtnClose material-icons">highlight_off</i>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
-                    <td id="black">03195</td>
-                    <td>
-                        <i class=" BtnClose material-icons">highlight_off</i>
-                    </td>
-                </tr>
-                </tbody>
-
-            </table>
-        </div>
-    </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col s6">
-            <a href="#modal2" class="Btnadd modal-action modal-close btn modal-trigger">GENERAR</a>
-        </div>
-    </div>
-
-</div>
-<!-- Fin de Modal#1-->
-
-<!--///////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////-->
-
-<!-- Modal #2-->
-<!-- Modal Structure -->
-<div id="modal2" class="modal">
-    <div class="modal-content">
-        <div class=" row">
-            <div class="right col s3 m3 l3">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
-                    <i class="material-icons">highlight_off</i>
-                </a>
+            <div class="center col s12 m12 l12">
+                <h6 class="Mcolor noMargen">INFORMACIÓN DEL CLIENTE</h6>        
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col s12"><br>
+                <div class="col s12">
+                    <p id="codCliente" class="center datos1 cod noMargen"></p>
+                </div>
+                <div class="col s12">
+                    <h6 id="nomCliente" class="center datos1 user noMargen"></h6>
+                </div>
+                <div class="col s12">
+                    <p id="rucCliente" class="center datos1 ruc"> RUC 4412000183001H</p>
+                </div>
+                <div class="col s12">     
+                    <p id="acumulado" class="center Datos negra noMargen">DISPONIBLE: <span id="Disp"></span> Pts.</p>
+                </div>
+                <div class="col s12">
+                    <p id="acumulado" class="center Datos negra noMargen">ACUMULADO: <span id="AcuT"></span> Pts.</p>
+                </div>
+                <div class="col s12">
+                    <p id="acumulado" class="center Datos negra">CANJEADO: <span id="AcuT"></span> Pts.</p>
+                </div>
+            <div class="row noMargen">
+                <div class="col s12 m12 l12">
+                    <p id="ModalFeet"  class="datos1 negra">VENDEDOR:<br><span id="vendedorCliente">250,000</span></p>
+                </div>
+            </div>
             </div>
         </div>
-        <h6 class="center Mcolor">CLIENTES AGREGADOS:</h6>
-
-        <table id="tblModal2" class="TheadColor">
-            <thead>
-            <tr>
-                <th>CLIENTE</th>
-                <th>USUARIO VISYS</th>
-                <th>CONTRASEÑA</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr>
-                <td>xxxxxxx</td>
-                <td id="black">xxxxxx</td>
-                <td id="black">xxxx</td>
-            </tr>
-            </tbody>
-        </table>
-
     </div>
-
-
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l12 center">
+            <a href="#" class="Btnadd modal-action modal-close btn">ACEPTAR</a>
+        </div>
+    </div>
 </div>
 

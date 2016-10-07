@@ -66,7 +66,9 @@
     </div>
 </div>
 <br>
-<h3 style="font-family: 'robotoblack';font-size: 18px; color: #831f82; font-weight:bold;margin-left:15%;" >CLIENTES QUE APLICAN AL SISTEMA DE PUNTOS</h3>
+<div style="text-align:center" class="">
+<h3 style="font-family: 'robotoblack';font-size: 18px; color: #831f82; font-weight:bold;" >CLIENTES REGISTRADOS EN EL SISTEMA DE PUNTOS INNOVA (SPINN)</h3>
+</div>
 <table id="ClienteAdd">
     <thead>
         <tr>

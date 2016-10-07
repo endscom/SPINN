@@ -113,8 +113,8 @@ class Catalogo_controller extends CI_Controller
         redirect('Catalogo','refresh');
   		}
    	}
-    function verificarImg(){
-      if($_POST['bandera']==0){
+    function verificarImg($bandera){
+      if($bandera==0){
         $file = $_FILES["txtimagen"];
         $nombre = $file["name"];
         $tipo = $file["type"];

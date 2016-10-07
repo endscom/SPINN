@@ -265,7 +265,6 @@ function AddClients(){
         document.getElementById('FrmClientes').submit();
     }
 
-
 /*funcion para ingresar un nuevo articulo al catalogo*/
 function subirimagen()
 {    
@@ -276,22 +275,21 @@ function subirimagen()
     // $('#cargar22').hide();
     $('#labelCodigo').hide();   $('#labelDescripcion').hide();
     $('#labelPuntos').hide();   $('#labelImagen').hide();
-
     if ($('#bandera')==0){
     if ($('#txtimagen').val()=="") {$('#labelImagen').show(); return false;}
+    if(codigo[0]!=$('#codigoArto').val()){$('#labelImagen3').show();return false;}
     }
-
-    if(codigo[0]!=$('#codigoArto').val()){$('#labelImagen3').show();return false;/*$('#cargar22').trigger('click');*/}
+    
     if ($('#codigoArto').val()=="") {$('#labelCodigo').show();return false;}
     if ($('#NombArto').val()=="") {$('#labelDescripcion').show();return false;}
     if ($('#PtArto').val()=="") {$('#labelPuntos').show();return false;} 
     else{   
     $('#agregar').hide();$('#loadIMG').show();
     //var file = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
-            var formData = new FormData($("#formimagen")[0]);
-            //alert(formData);
+            var formData = new FormData($('#formimagen')[0]);
+            //alert(formData[0]);
             $.ajax({
-                url: "verificarImg",
+                url: "verificarImg/"+$('#bandera').val(),
                 type: "POST",
                 data: formData,
                 contentType: false,
@@ -304,7 +302,7 @@ function subirimagen()
                     $('#agregar').show();
                     $('#loadIMG').hide();
                     }else{
-                        //$('#formimagen').submit();
+                        $('#formimagen').submit();
                     }
                 }
             });
@@ -679,4 +677,26 @@ function subirimagen()
         $('#nuevoArticulo').openModal();        
         $("#cargar22").trigger("click");
         document.getElementById("ImgContenedor").innerHTML = ['<img id="quitar" src="../assets/img/catalogo/'+imagen+'" title="', escape('Imagen_Actual'), '"/>'].join('');
+    }
+    function clientesPuntos(cliente,vendedor,ruc,codigo) {
+        $('#loadIMG').show();$('#detalleCliente').hide();$('#modalPtsCliente').openModal();
+        $('#nomCliente').text(cliente);$('#codCliente').text("COD: "+codigo);$('#rucCliente').text("RUC: "+ruc);
+        $('#vendedorCliente').text(vendedor);
+        $.ajax({//AJAX PARA TRAER LOS PUNTOS TOTALES DEL CLIENTE
+                url: "PuntosCliente/"+codigo,
+                type: "GET",
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {                    
+                    //$("#AcuT").html(datos[0]['ACUMULADO']);
+                    $.each(datos, function(i, item) {
+                        $("#AcuT").html(item.ACUMULADO);
+                        $("#Disp").html(item.DISPONIBLE);
+                    });
+                    $('#detalleCliente').show();
+                    $('#loadIMG').hide();
+                }
+            });
     }
