@@ -55,7 +55,6 @@ class Hana_model extends CI_Model
         }
         return $json;
     }
-
     public function Factuas()
     {
         $conn = $this->OPen_database_odbcSAp();
@@ -75,6 +74,42 @@ class Hana_model extends CI_Model
             $i++;
         }
         return $json;
+        }
+
+    public function PuntosCliente($IdCliente)
+    {
+        $json = array();  
+        $i=0;
+        $conn = $this->OPen_database_odbcSAp();
+        $query = 'SELECT count(*) AS "CONTADOR" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
+        $resultado =  @odbc_exec($conn,$query);
+        if (count($resultado)==0) {echo " ERROR AL CARGAR LOS PUNTOS ";
+        }else{  
+            while ($fila = @odbc_fetch_array($resultado)){
+                if($fila['CONTADOR']==0){
+                    $json[$i]['DISPONIBLE'] = 0;
+                    $json[$i]['ACUMULADO'] = 0;
+                }
+                else{
+                    $query = 'SELECT "DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
+                    $resultado =  @odbc_exec($conn,$query);
+                    if (count($resultado)==0) {
+                        }
+                        else{
+                            while ($fila = @odbc_fetch_array($resultado)){
+                                if ($fila['DISPONIBLE']=='') {
+                                    $json[$i]['DISPONIBLE'] = 0;
+                                    $json[$i]['ACUMULADO'] = 0;
+                                }else{
+                                    $json[$i]['DISPONIBLE'] = $fila['DISPONIBLE'];
+                                    $json[$i]['ACUMULADO'] = $fila['ACUMULADO'];$i++;
+                                }
+                            }
+                        }
+                }                    
+            }
+            echo json_encode($json);
+        }        
     }
 }
 ?>

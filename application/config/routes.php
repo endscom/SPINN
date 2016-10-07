@@ -41,7 +41,7 @@ $route['NuevoCatalogo'] = 'catalogo_controller/NuevoCatalogo';
 $route['Catalogo'] = 'catalogo_controller/index';
 $route['subirImg'] = 'catalogo_controller/subirImg';
 $route['crearCatalogo'] = 'catalogo_controller/crearCatalogo';
-$route['verificarImg'] = 'catalogo_controller/verificarImg';//verifico si la imagen existe ekisde
+$route['verificarImg/(:any)'] = 'catalogo_controller/verificarImg/$1';//verifico si la imagen existe ekisde
 $route['ActualizarEstadoArticulo'] = 'catalogo_controller/ActualizarEstadoArticulo';
 $route['AjaxCatalogoPasado/(:any)'] = 'catalogo_controller/CatalogoPasado/$1';
 $route['actualizarPuntos/(:any)/(:any)/(:any)'] = 'catalogo_controller/actualizarPuntos/$1/$2/$3';
@@ -58,4 +58,3 @@ $route['Exp_Clientes'] = 'exportacion_controller/ExpoClients';
 $route['ExpPDF'] = 'exportacion_controller/ExpoPdf';
 $route['ExpFRP'] = 'exportacion_controller/ExpoFrp';
 // FIN EXPORTACIÓN
-
