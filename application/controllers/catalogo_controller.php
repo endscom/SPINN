@@ -69,29 +69,52 @@ class Catalogo_controller extends CI_Controller
 
     }
    	public function subirImg()
-   	{   		
-   		$ruta='assets/img/catalogo/';//ruta carpeta donde queremos copiar las imágenes 
-  		$uploadfile_temporal=$_FILES['txtimagen']['tmp_name']; 
-  		$uploadfile_nombre=$ruta.$_FILES['txtimagen']['name'];
-  		if (strlen($_FILES['txtimagen']['name'])>35) {
-  			 echo "El nombre de la imagen es demasiado largo";
-  			 return false;
-		  }
-		  $this->saveIMG($uploadfile_temporal,$uploadfile_nombre);
+   	{
+      $ruta='assets/img/catalogo/';//ruta carpeta donde queremos copiar las imágenes        
+      if(!@$_FILES['txtimagen']['tmp_name']){
+          $uploadfile_temporal='';
+          $uploadfile_nombre='';
+        }
+      else{
+        $uploadfile_temporal=$_FILES['txtimagen']['tmp_name'];
+        $uploadfile_nombre=$ruta.$_FILES['txtimagen']['name'];
+      }
+      if($_POST['bandera']==0){     //echo "entro a nueva imagen"."<br>";
+    		if (strlen($_FILES['txtimagen']['name'])>35) {
+    			echo "El nombre de la imagen es demasiado largo";
+    			redirect('Catalogo','refresh');
+  		  }   //echo "entro al guardaro"."<br>";
+  		  $this->saveIMG($uploadfile_temporal,$uploadfile_nombre);
+      }
+      else{     //echo "entro a edicion imagen"."<br>";      
+        $this->guardarEditarArticulo($uploadfile_temporal,$uploadfile_nombre);
+      }
    	}
-
+    public function guardarEditarArticulo($uploadfile_temporal,$uploadfile_nombre)
+    {
+      if (is_uploaded_file($uploadfile_temporal)){//echo "encontro imagen"."<br>";
+          move_uploaded_file($uploadfile_temporal,$uploadfile_nombre);
+          $this->catalogo_model->editarArticulo($_POST['codigo'],$_POST['nombre'],$_FILES['txtimagen']['name'],$_POST['puntos']);
+          redirect('Catalogo','refresh');
+      } 
+      else{     //echo "no encontro imagen"."<br>";
+        $this->catalogo_model->editarArticulo($_POST['codigo'],$_POST['nombre'],0,$_POST['puntos']);
+        redirect('Catalogo','refresh');
+      }
+    }
    	function saveIMG($uploadfile_temporal,$uploadfile_nombre)
    	{
-  		if (is_uploaded_file($uploadfile_temporal)){ 
+  		if (is_uploaded_file($uploadfile_temporal)){    //echo "entro al guardaro 2 sin problemas"."<br>";
   		    move_uploaded_file($uploadfile_temporal,$uploadfile_nombre); 
           $this->catalogo_model->guardarIMG($_POST['codigo'],$_POST['nombre'],$_FILES['txtimagen']['name'],$_POST['puntos']);
   		    redirect('Catalogo','refresh');
   		} 
   		else{ 
-        redirect('Catalogo','refresh');  
+        redirect('Catalogo','refresh');
   		}
    	}
     function verificarImg(){
+      if($_POST['bandera']==0){
         $file = $_FILES["txtimagen"];
         $nombre = $file["name"];
         $tipo = $file["type"];
@@ -113,6 +136,7 @@ class Catalogo_controller extends CI_Controller
         {
           echo "Error, el tamaño máximo permitido es un 1MB";return false;
         }
+      }
         else{echo 0;}
     }
 }
