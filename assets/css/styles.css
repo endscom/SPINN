@@ -56,6 +56,10 @@
       /* margin-top: 10%; */
   }
 }
+.thumb{
+  width: 86%;
+  border: 2px solid #831F82;
+}
 .mayuscula{
   text-transform: uppercase!important;
 }
@@ -951,6 +955,14 @@ li img{
     display: inline-block;
     width: 289px !important;
 }
+.cosa2{
+    display: inline-block;
+    width: 289px !important;
+}
+.cosaEdicion{
+    display: inline-block;
+    width: 289px !important;
+}
 #cargar{
     background:#831F82;
     border-radius: 20px;
@@ -1031,14 +1043,32 @@ li img{
 #agregar{
   border-radius: 20px;
   background-color: #831F82;
+  font-family: 'robotoregular';
+  font-size:12px;
 }
 #agregar:hover{
   background: #cb6eca;
   color: #fff;
 }
-#agregar{
+#cargar22:hover{
+  background: #cb6eca;
+  color: #fff;
+}
+#agregar2{
+  border-radius: 20px;
+  background-color: #831F82;
   font-family: 'robotoregular';
   font-size:12px;
+}
+#cambiarImagen{
+  border-radius: 20px;
+  background-color: #831F82;
+  font-family: 'robotoregular';
+  font-size:12px;
+}
+#cambiarImagen:hover{
+  background: #cb6eca;
+  color: #fff;
 }
 .redondo{
     border-radius: 20px;

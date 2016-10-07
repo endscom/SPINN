@@ -53,6 +53,24 @@ class Catalogo_model extends CI_Model
                     $this->db->insert('detallect',$data);
         }
     }
+    public function editarArticulo($codigo,$nombre,$imagen,$puntos)
+    {
+        $this->db->where('Estado',0);$R;
+        $query = $this->db->get('catalogo');
+        //$codImg = explode(".", $imagen);
+        //echo $codImg[0]; 
+        if ($query->num_rows()>0) {
+            //echo "entro updetear solo nombre y puntos"."<br>";
+            $R = $query->row();
+                $data = array('IdCT'    =>  $R->IdCT,
+                    'Nombre'   =>  strtoupper($this->nombreUTF8($nombre)),
+                    'Puntos'   =>  $puntos,
+                    'Estado'   =>  0);
+            $this->db->where('IdCT', $R->IdCT);
+            $this->db->where('IdIMG', $codigo);
+            $this->db->update('detallect',$data);
+        }
+    }
     public function ActualizarEstadoArticulo($idarticulo,$idcatalogo)
     {
         echo $idarticulo." ".$idcatalogo;

@@ -35,7 +35,9 @@ $('#checkTodos').change(function () {//funcion para seleccionar todos los checks
 $('#txtimagen').change(function(){
     //var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
     var file = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
-    var codigo = file.split(".");$('#codigoArto').val(codigo[0]);
+    if ($('#bandera').val()==0){
+        var codigo = file.split(".");$('#codigoArto').val(codigo[0]);
+    }
 });
 var idImagenGlobal;
 var IdCatalogoGlobal;
@@ -262,19 +264,32 @@ function AddClients(){
     function  generar_reporte_pdf(){
         document.getElementById('FrmClientes').submit();
     }
+
+
+/*funcion para ingresar un nuevo articulo al catalogo*/
 function subirimagen()
 {    
-    $('#txtimagen').hide(); $('#cargar22').hide();
+    var file2 = $('#txtimagen').val().replace(/C:\\fakepath\\/i, '');
+    //alert(file);
+    var codigo = file2.split(".");
+    //$('#txtimagen').hide(); 
+    // $('#cargar22').hide();
     $('#labelCodigo').hide();   $('#labelDescripcion').hide();
     $('#labelPuntos').hide();   $('#labelImagen').hide();
-    if ($('#txtimagen').val()=="") {$('#labelImagen').show(); return false;}   
+
+    if ($('#bandera')==0){
+    if ($('#txtimagen').val()=="") {$('#labelImagen').show(); return false;}
+    }
+
+    if(codigo[0]!=$('#codigoArto').val()){$('#labelImagen3').show();return false;/*$('#cargar22').trigger('click');*/}
     if ($('#codigoArto').val()=="") {$('#labelCodigo').show();return false;}
     if ($('#NombArto').val()=="") {$('#labelDescripcion').show();return false;}
     if ($('#PtArto').val()=="") {$('#labelPuntos').show();return false;} 
     else{   
-    $('#agregar').hide();$('#loadIMG').show(); 
-    var file = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
+    $('#agregar').hide();$('#loadIMG').show();
+    //var file = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
             var formData = new FormData($("#formimagen")[0]);
+            //alert(formData);
             $.ajax({
                 url: "verificarImg",
                 type: "POST",
@@ -289,12 +304,48 @@ function subirimagen()
                     $('#agregar').show();
                     $('#loadIMG').hide();
                     }else{
-                        $('#formimagen').submit();
+                        //$('#formimagen').submit();
                     }
                 }
             });
         }
 }
+/*funcion para editar un articulo*/
+/*function guardarEditarArticulo()
+{    
+    $('#txtimagen2').hide(); $('#cargar222').hide();
+    var file = $('#txtimagen2').val().replace(/C:\\fakepath\\/i, '');
+    var codigo = file.split(".");
+    $('#labelCodigo2').hide();   $('#labelDescripcion2').hide();
+    $('#labelPuntos2').hide();   $('#labelImagen2').hide();
+    if ($('#txtimagen2').val()=="") {$('#labelImagen2').show(); return false;}   
+    if ($('#codigoArto2').val()=="") {$('#labelCodigo2').show();return false;}
+    if ($('#NombArto2').val()=="") {$('#labelDescripcion2').show();return false;}
+    if ($('#PtArto2').val()=="") {$('#labelPuntos2').show();return false;}
+    if(codigo[0]!=$('#codigoArto2').val()){$('#labelImagen3').show();return false;}
+    else{   
+    $('#agregar2').hide();$('#loadIMG2').show(); 
+            var formData = new FormData($("#formimagen2")[0]);
+            $.ajax({
+                url: "verificarImg",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    if (datos!=0) {
+                    $("#mensajeIMG2").html(datos);
+                    $('#modalIMG2').openModal(); 
+                    $('#agregar2').show();
+                    $('#loadIMG').hide();
+                    }else{
+                        $('#formimagen2').submit();
+                    }
+                }
+            });
+        }
+}*/
 /*funcion para mandar a traer el catalogo de productos pasado EKISDE*/
     $('#cmbCatalogos').change(function(){
         Objtable = $('#tblCatalogoPasado').DataTable();
@@ -331,10 +382,12 @@ function subirimagen()
             });
         $('#listaArticulos').openModal();
     });
-
+    $("#aceptarIMG2").click(function(){
+        $('#formimagen2').submit();
+    });
     $("#aceptarIMG").click(function(){
         $('#formimagen').submit();
-    });      
+    });
     /*RECORRER LAS FILAS CHEKEADAS Y AGREGARLAS A LA TABLA DE CATALOGO ACTUAL EKISDE*/
     $('#addCatalogoAntiguo').click(function(){
          $("#tblCatalogoPasado input:checkbox:checked").each(function(index) {
@@ -545,8 +598,6 @@ function subirimagen()
         }
     });
 
-
-
     $('#sFactura').on( 'keyup', function () {
         $('#tblFacturas').DataTable().search( this.value ).draw();
     } );
@@ -576,9 +627,23 @@ function subirimagen()
 
         }
     });*/
-
-    function editarArticulo() {
-        $('#EditarArticulo').openModal();
-        $('#txtimagen2').attr('src', '../SPINN/assets/img/catalogo/101100.jpg');
-        $('#ImgContenedor').attr('src', '../SPINN/assets/img/catalogo/101100.jpg'); 
+    $("#cambiarImagen").on('click',function(){
+        $('.cosaEdicion').hide();
+        $('.cosa2').show();
+        $(this).hide();
+    });
+     $('#subir').click( function () {
+        $('#nuevoArticulo').openModal();$('#bandera').val(0);
+        //$('#cargar22').trigger('click');
+        $( 'img' ).remove( '#quitar' );
+        $('#codigoArto').val("");$('#NombArto').val("");$('#PtArto').val("");
+    } );
+    function editarArticulo(imagen,codigo,descripcion,puntos) {
+        $('#bandera').val(1);
+        $('#codigoArto').val(codigo);
+        $('#NombArto').val(descripcion);
+        $('#PtArto').val(puntos);
+        $('#nuevoArticulo').openModal();        
+        $("#cargar22").trigger("click");
+        document.getElementById("ImgContenedor").innerHTML = ['<img id="quitar" src="../assets/img/catalogo/'+imagen+'" title="', escape('Imagen_Actual'), '"/>'].join('');
     }
