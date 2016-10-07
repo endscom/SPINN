@@ -180,7 +180,7 @@
        </div>
      </div>
      <div>
-       <form id="formimagen" enctype="multipart/form-data" class="col s6 m6 l6" action="<?PHP echo base_url('index.php/subirImg');?>" method="post" name="formNuevoArto">
+       <form id="formimagen" name="formNuevoArto" enctype="multipart/form-data" class="col s6 m6 l6" action="<?PHP echo base_url('index.php/subirImg');?>" method="post">
         <input id="bandera" name="bandera" type="text" value="0">
         <div class="articulos">
           <div id="articulo" class="row">

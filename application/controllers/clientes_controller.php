@@ -11,7 +11,7 @@ class Clientes_controller extends CI_Controller
         }
     }
     public function Clientes(){
-        $data['Clientes'] = $this->hana_model->LoadClients();// Cargar Clientes
+        $data['Clientes'] = $this->hana_model->LoadClients();// Cargar Clientes        
         $this->load->view('header/header');
         $this->load->view('pages/menu');
         $this->load->view('pages/Clientes',$data);
@@ -19,5 +19,9 @@ class Clientes_controller extends CI_Controller
     }
     public function FindClient($cond){
          $this->cliente_model($cond);
+    }
+    public function puntosCliente($IdCliente)
+    {
+        $this->hana_model->puntosCliente($IdCliente);
     }
 }

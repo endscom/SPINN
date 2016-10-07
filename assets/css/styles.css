@@ -706,11 +706,16 @@ table tr:nth-child(even) {
     font-size: 22px;
 }
 #acumulado{
-    font-size: 12px;
+    font-size: 14px;
 }
 #AcuT{
     font-family: 'robotoblack';
-    color: #831f82;
+    color: #4CAF50;
+    font-size: 20px;
+}
+#Disp{
+    font-family: 'robotoblack';
+    color: #4CAF50;
     font-size: 20px;
 }
 #contenedor{
@@ -1134,8 +1139,10 @@ label>select {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-
 /*ESTA CLASE SOLO ES PARA EFECTO DE PRUEBA SE PUEDE ELIMINAR*/
 .border{
     border-style: solid;
+}
+#modalPtsCliente{
+  width: 50%;
 }

@@ -9,8 +9,8 @@ class Exportacion_controller extends CI_Controller
     }
 
     public function ExpoClients(){
-        $query = $this->cliente_model->LoadClients();// Cargar Clientes
-        $this->load->view('Exportar/Excel_Cliente',$query);
+        $data['Clientes'] = $this->hana_model->LoadClients();// Cargar Clientes
+        $this->load->view('Exportar/Excel_Cliente',$data);
     }
 
     public function ExpoPdf(){
