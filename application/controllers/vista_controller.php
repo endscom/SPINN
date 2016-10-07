@@ -20,10 +20,11 @@ class Vista_controller extends CI_Controller
         $this->load->view('footer/footer');
     }
 
-    public function EliminarVineta(){
+    public function Facturas(){
         $this->load->view('header/header');
         $this->load->view('pages/menu');
-        $this->load->view('pages/EliminarVineta');
+        $data['Facturas'] = $this->hana_model->Factuas();
+        $this->load->view('pages/Facturas',$data);
         $this->load->view('footer/footer');
     }
 
@@ -51,7 +52,9 @@ class Vista_controller extends CI_Controller
     public function CanjeFrp(){
         $this->load->view('header/header');
         $this->load->view('pages/menu');
-        $this->load->view('pages/CanjeFRP');
+        $data['Clientes'] = $this->hana_model->LoadClients();
+        $data['Catalogo'] = $this->catalogo_model->traerCatalogoImgActual();
+        $this->load->view('pages/CanjeFRP',$data);
         $this->load->view('footer/footer');
     }
 
@@ -60,6 +63,10 @@ class Vista_controller extends CI_Controller
         $this->load->view('pages/menu');
         $this->load->view('pages/CanjeEfec');
         $this->load->view('footer/footer');
+    }
+    public function getPuntosArticulosCatalogo()
+    {
+        $data['PtsItem'] = $this->catalogo_model->getPtsItem($this->input->post('codigo'));
     }
 
     public function Catalogo(){

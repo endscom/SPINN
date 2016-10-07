@@ -606,6 +606,7 @@ function subirimagen()
         $(this).toggleClass('selected');
     } );
 
+
     /*$("#idPreloader,#getOneFactura,#getAllFactura").hide();
     $("#search").keypress(function(e) {
         if(e.which == 13) {
@@ -627,6 +628,38 @@ function subirimagen()
 
         }
     });*/
+    $( "#ListCliente").change(function() {
+        var Cls = $(this).val();
+        if(Cls !=0){
+            $("#ClienteFRP,#ClienteFRPPremio").val(Cls);
+        }else{
+            alert("No Selecciono ningun cliente");
+        }
+
+    });
+    $( "#ListCatalogo").change(function() {
+        if ($("#ListCliente").val()!=0){
+            var Prm = $(this).val();
+            $("#CodPremioFRP").val(Prm);
+
+            var form_data = {
+                codigo: Prm
+            };
+            $.ajax({
+                url: "viewPtsItemCatalogo",
+                type: "post",
+                async:true,
+                data: form_data,
+                success:
+                    function(json){
+                        $("#ValorPtsPremioFRP").val(json)
+                    }
+            });
+
+        }else{
+            alert("Seleccione un CLiente primero")
+        }
+    });
     $("#cambiarImagen").on('click',function(){
         $('.cosaEdicion').hide();
         $('.cosa2').show();

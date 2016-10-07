@@ -107,6 +107,18 @@ class Catalogo_model extends CI_Model
         }
         return 0;
     }
+    public function getPtsItem($codigo)
+    {
+        $valor = 0;
+        $this->db->where('IdIMG',$codigo);
+        $query = $this->db->get('view_catalogo_activo');
+        if ($query->num_rows() >0) {
+            foreach ($query->result_array() as $row){
+                $valor =  $row['Puntos'];
+            }
+        }
+        echo $valor;
+    }
     public function traerCatalogo()
     {
         $query = $this->db->get('catalogo');

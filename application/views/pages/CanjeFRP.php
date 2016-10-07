@@ -108,20 +108,25 @@
 
         <div class="row" >
             <div class=" DatoFrp input-field line col s2 offset-s1">
-               COD. CLIENTE:<input id="frp" type="text" class="validate">
+               COD. CLIENTE:<input id="ClienteFRP" type="text" class="validate">
             </div>
 
             <div class="input-field col s4 m4 l4"  >
                 <select name="cliente" id="ListCliente">
-                    <option value="" disabled selected>CLIENTE</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="0" selected>CLIENTES...</option>
+                    <?PHP
+                    if(!$Clientes){
+                    } else {
+                        foreach($Clientes as $cliente){
+                            echo '<option value="'.$cliente['CODIGO'].'">'.$cliente['NOMBRE'].'</option>';
+                        }
+                    }
+                    ?>
                 </select>
             </div>
 
             <div class="input-field col s2 m3 l3">
-                <input  id="frp" type="text" class="validate">
+                <input  id="PtsClientefrp" type="text" class="validate">
             </div>
         </div>
 
@@ -182,21 +187,25 @@
         <!-- datos de los premios a canjear  -->
         <div class="row">
             <div class=" DatoFrp line input-field col s2 m2 l2">
-                COD. CLIENTE:<input id="frp" type="text" class="validate">
+                COD. CLIENTE:<input id="ClienteFRPPremio" type="text" class="validate">
             </div>
                     <div class="DatoFrp line input-field col s2 m2 l2">
-                        COD. PREMIO:<input   id="frp" type="text" class="validate">
+                        COD. PREMIO:<input   id="CodPremioFRP" type="text" class="validate">
                     </div>
                             <div class="input-field col s4">
-                                <select name="PREMIO" id="ListCliente">
-                                    <option value="" disabled selected>PREMIO</option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
+                                <select name="PREMIO" id="ListCatalogo">
+                                    <?PHP
+                                    if(!$Catalogo){
+                                    } else {
+                                        foreach($Catalogo as $premios){
+                                            echo '<option value="'.$premios['IdIMG'].'">'.$premios['Nombre'].'</option>';
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </div>
                                 <div class="input-field col s2 m2 l2">
-                                    <input  id="frp"  type="text" class="validate">
+                                    <input  id="ValorPtsPremioFRP"  type="text" class="validate">
                                 </div>
                                     <div id="Btnadd"class="col s2 m2 l2 right-align">
                                         <a href="#" class="BtnBlue waves-effect  btn ">agregar</a>

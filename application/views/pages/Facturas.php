@@ -1,7 +1,7 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
 
-        <span class=" title">ELIMINAR BOUCHER</span>
+        <span class=" title">FACTURAS</span>
 
     </div>
 </header>
@@ -48,21 +48,22 @@
 
                 <tbody>
                 <?php
-                for($i=0;$i<10;$i++){
-                    echo "
+                    foreach($Facturas as $fac){
+                        echo "
                                  <tr>
-                                    <td>xxxx</td>
-                                    <td>Valor ".$i."</td>
-                                    <td>CLiente ".$i."</td>
-                                    <td>xxxx</td>
-                                    <td>xxxx</td>
-                                    <td>xxxx</td>
-                                    <td>xxxx</td>
+                                    <td>".substr($fac['FECHA'],0,10)."</td>
+                                    <td>".$fac['FACTURA']." </td>
+                                    <td>".$fac['COD_CLIENTE']."</td>
+                                    <td>".utf8_encode($fac['CLIENTE'])."</td>
+                                    <td>".number_format($fac['ACUMULADO'])." Pts.</td>
+                                    <td>".number_format($fac['DISPONIBLE'])." Pts.</td>
+                                    <td>".utf8_encode($fac['VENDEDOR'])."</td>
                                     <td><a href='#modal3' class='modal-trigger'> <i class='material-icons'>&#xE417;</i></a></td>
                                  </tr>
                             ";
-                }
+                    }
                 ?>
+
                 </tbody>
             </table>
 

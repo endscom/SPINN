@@ -12,7 +12,7 @@
           <?php if ($this->session->userdata('IdRol')==1){
             echo '<ul class="nav menu demo-navigation mdl-navigation__link" >
                     <a href="Main"><li><i class="material-icons">home</i> inicio</li></a>
-                    <a href="EliminarVineta"><li><i class="material-icons">remove_circle</i> eliminar boucher</li></a>
+                    <a href="Facturas"><li><i class="material-icons">remove_circle</i> Facturas</li></a>
                     <a href="Clientes"><li><i class="material-icons">supervisor_account</i> clientes</li></a>
                     <a href="PuntosClientes"><li><i class="material-icons">content_copy</i> puntos clientes</li></a>
                     <a href="Frp"><li><i class="material-icons">payment</i> canje puntos (frp)</li></a>

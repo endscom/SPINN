@@ -5,7 +5,6 @@ class Hana_model extends CI_Model
     public function __construct(){
         parent::__construct();
         $this->load->database();
-
     }
     public $BD = 'INNOVA201608';
 
@@ -35,7 +34,6 @@ class Hana_model extends CI_Model
         }
         else{$query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES';}
         $resultado =  @odbc_exec($conn,$query);
-        //echo $query;
         $json = array();  
         $i=0;
         if (count($resultado)==0) {
@@ -54,6 +52,27 @@ class Hana_model extends CI_Model
                 $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
                 $i++;
             }
+        }
+        return $json;
+    }
+
+    public function Factuas()
+    {
+        $conn = $this->OPen_database_odbcSAp();
+        $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS';
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+        while ($fila = odbc_fetch_array($resultado)){
+            $json[$i]['FECHA'] = $fila['FECHA'];
+            $json[$i]['FACTURA'] = $fila['FACTURA'];
+            $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
+            $json[$i]['CLIENTE'] = $fila['CLIENTE'];
+            $json[$i]['COD_VENDEDOR'] = $fila['COD_VENDEDOR'];
+            $json[$i]['VENDEDOR'] = $fila['VENDEDOR'];
+            $json[$i]['DISPONIBLE'] = $fila['DISPONIBLE'];
+            $json[$i]['ACUMULADO'] = $fila['ACUMULADO'];
+            $i++;
         }
         return $json;
     }
