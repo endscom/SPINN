@@ -75,6 +75,23 @@ class Hana_model extends CI_Model
         }
         return $json;
         }
+    public function DFacturas($ID)
+    {
+        $conn = $this->OPen_database_odbcSAp();
+        $query = "SELECT * from ".$this->BD.".SPINN_FACTURA_PUNTOS WHERE FACTURA='".$ID."'";
+
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+        while ($fila = odbc_fetch_array($resultado)){
+            $json['data'][$i]['COD_ARTICULO'] = $fila['COD_ARTICULO'];
+            $json['data'][$i]['ARTICULO'] = $fila['ARTICULO'];
+            $json['data'][$i]['CANTIDAD'] = $fila['CANTIDAD'];
+            $json['data'][$i]['TT_PUNTOS'] = $fila['TT_PUNTOS'];
+            $i++;
+        }
+        echo json_encode($json);
+    }
 
     public function PuntosCliente($IdCliente)
     {

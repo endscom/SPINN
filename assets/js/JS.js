@@ -600,11 +600,6 @@ function subirimagen()
         $('#tblFacturas').DataTable().search( this.value ).draw();
     } );
 
-    $('#tblFacturas tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
-
-
     /*$("#idPreloader,#getOneFactura,#getAllFactura").hide();
     $("#search").keypress(function(e) {
         if(e.which == 13) {
@@ -633,8 +628,25 @@ function subirimagen()
         }else{
             alert("No Selecciono ningun cliente");
         }
-
     });
+
+    function DFactura(factura){
+        $("#codFactura").text(factura);
+        Objtable = $('#tblModal1').DataTable();
+        Objtable.destroy();
+        Objtable.clear();
+        Objtable.draw();
+        $('#tblModal1').DataTable({
+            ajax: "getDetalleFactura/"+ factura,
+            columns: [
+                { "data": "COD_ARTICULO" },
+                { "data": "ARTICULO" },
+                { "data": "CANTIDAD" },
+                { "data": "TT_PUNTOS" }
+            ]
+        });
+
+    }
     $( "#ListCatalogo").change(function() {
         if ($("#ListCliente").val()!=0){
             var Prm = $(this).val();
