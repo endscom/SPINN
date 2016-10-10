@@ -18,10 +18,9 @@ $route['Facturas'] = 'vista_controller/Facturas';
 /* CLIENTES */
 $route['Clientes'] = 'clientes_controller/Clientes';
 $route['FindClient/(:any)'] = 'clientes_controller/FindClient/$1';
-
 $route['BajaClientes'] = 'vista_controller/BajaClientes';
+$route['PuntosClientes'] = 'clientes_controller/facturasClientes';
 
-$route['PuntosClientes'] = 'vista_controller/PuntosClientes';
 $route['PuntosCliente/(:any)'] = 'clientes_controller/puntosCliente/$1';
 $route['DetalleFact'] = 'vista_controller/DetalleFact';
 $route['getDetalleFactura/(:any)'] = 'vista_controller/getDetalleFactura/$1';
@@ -29,6 +28,7 @@ $route['getFacturaFRP/(:any)'] = 'vista_controller/getFacturaFRP/$1';
 $route['Frp'] = 'vista_controller/CanjeFrp';
 $route['viewPtsItemCatalogo'] = 'vista_controller/getPuntosArticulosCatalogo';
 $route['FRE'] = 'vista_controller/CanjeFre';
+$route['ajaxFacturasXcliente/(:any)'] = 'clientes_controller/ajaxFacturasXcliente/$1';
 
 /*USUARIOS*/
 $route['Usuarios'] = 'Usuario_controller/Usuarios'; //cargar usuarios
@@ -61,4 +61,8 @@ $route['DetalleFRE'] = 'impresion_controller/DetalleFRE';
 $route['Exp_Clientes'] = 'exportacion_controller/ExpoClients';
 $route['ExpPDF'] = 'exportacion_controller/ExpoPdf';
 $route['ExpFRP'] = 'exportacion_controller/ExpoFrp';
+
+$route['ExpPDFpuntosCliente'] = 'exportacion_controller/ExpoPdfPuntosClientes';
+$route['ExpEXCELpuntosCliente'] = 'exportacion_controller/ExpoExcelPuntosClientes';
+
 // FIN EXPORTACIÓN
