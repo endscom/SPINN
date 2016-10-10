@@ -625,6 +625,37 @@ function subirimagen()
         var Cls = $(this).val();
         if(Cls !=0){
             $("#ClienteFRP,#ClienteFRPPremio").val(Cls);
+            Objtable = $('#tblFacturaFRP').DataTable();
+            Objtable.destroy();
+            Objtable.clear();
+            Objtable.draw();
+
+            $('#tblFacturaFRP').DataTable({
+                ajax: "getFacturaFRP/"+ Cls,
+                "info":    false,
+                "bPaginate": false,
+                "paging": false,
+                "pagingType": "full_numbers",
+                "initComplete": function () {
+                    var Total=0;
+                    $('#tblFacturaFRP').DataTable().column(2).data().each( function ( value, index ) {
+                        Total += parseInt(value);
+                    } );
+
+                    if (isNaN(Total)){ Total = 0;}
+                    $("#PtsClientefrp").val(parseInt(Total));
+                },
+                columns: [
+                    { "data": "FECHA" },
+                    { "data": "FACTURA" },
+                    { "data": "DISPONIBLE" },
+                    { "data": "CAM1" },
+                    { "data": "CAM2" },
+                    { "data": "CAM3" },
+                    { "data": "CAM4" },
+                ]
+            });
+
         }else{
             alert("No Selecciono ningun cliente");
         }
@@ -649,8 +680,10 @@ function subirimagen()
     }
     $( "#ListCatalogo").change(function() {
         if ($("#ListCliente").val()!=0){
+
             var Prm = $(this).val();
             $("#CodPremioFRP").val(Prm);
+            $("#CantPremioFRP").val("1");
 
             var form_data = {
                 codigo: Prm
@@ -669,6 +702,50 @@ function subirimagen()
         }else{
             alert("Seleccione un CLiente primero")
         }
+    });
+
+    $("#AddPremioTbl").on('click',function(){
+        Objtable = $('#tblpRODUCTOS').DataTable();
+        var cod= $( "#ListCatalogo option:selected" ).val();
+        if (cod != 0){
+            var name = $( "#ListCatalogo option:selected" ).html();
+            var pts    = $("#ValorPtsPremioFRP").val();
+            var cant   = $("#CantPremioFRP").val();
+            var totalPts = parseInt(cant) * parseInt(pts);
+            Objtable.row.add( [
+                cant,
+                cod,
+                name,
+                pts,
+                totalPts,
+                '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
+            ] ).draw( false );
+
+            var ttPts = 0;
+
+            Objtable.column(4).data().each( function ( value, index ) {
+                ttPts += parseInt(value);
+            } );
+
+            $("#idttPtsFRP").text(ttPts);
+
+        }else{
+            alert("Seleccione un Articulo del Catalogo");
+        }
+    });
+    $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
+
+        $(this).toggleClass('selected');
+    } );
+
+
+    $("#tblpRODUCTOS").delegate("a", "click", function(){
+        $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
+        var ttPts = 0;
+        $('#tblpRODUCTOS').DataTable().column(4).data().each( function ( value, index ) {
+            ttPts += parseInt(value);
+        } );
+        $("#idttPtsFRP").text(ttPts);
     });
     $("#cambiarImagen").on('click',function(){
         $('.cosaEdicion').hide();

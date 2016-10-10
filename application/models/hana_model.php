@@ -28,11 +28,11 @@ class Hana_model extends CI_Model
     }
     public function LoadClients()
     {
-        $conn = $this->OPen_database_odbcSAp(); $query = '';
+        $conn = $this->OPen_database_odbcSAp();
         if ($this->session->userdata('IdRol')==3) {
             $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
         }
-        else{$query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES';}
+        else{$query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES ';}
         $resultado =  @odbc_exec($conn,$query);
         $json = array();  
         $i=0;
@@ -83,6 +83,7 @@ class Hana_model extends CI_Model
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
+
         while ($fila = odbc_fetch_array($resultado)){
             $json['data'][$i]['COD_ARTICULO'] = $fila['COD_ARTICULO'];
             $json['data'][$i]['ARTICULO'] = $fila['ARTICULO'];
@@ -90,6 +91,36 @@ class Hana_model extends CI_Model
             $json['data'][$i]['TT_PUNTOS'] = $fila['TT_PUNTOS'];
             $i++;
         }
+        echo json_encode($json);
+    }
+    public function FacturasFRP($ID)
+    {
+        $conn = $this->OPen_database_odbcSAp();
+
+        $query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0";
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+
+        $json['data'][$i]['FECHA']      = "SIN DATOS";
+        $json['data'][$i]['FACTURA']    = "";
+        $json['data'][$i]['DISPONIBLE'] = "";
+        $json['data'][$i]['CAM1']       = "";
+        $json['data'][$i]['CAM2']       = "";
+        $json['data'][$i]['CAM3']       = "";
+        $json['data'][$i]['CAM4']       = "";
+
+        while ($fila = odbc_fetch_array($resultado)){
+            $json['data'][$i]['FECHA']      = substr($fila['FECHA'],0,10);
+            $json['data'][$i]['FACTURA']    = $fila['FACTURA'];
+            $json['data'][$i]['DISPONIBLE'] = $fila['DISPONIBLE'];
+            $json['data'][$i]['CAM1']       = "";
+            $json['data'][$i]['CAM2']       = "";
+            $json['data'][$i]['CAM3']       = "<p><input type='checkbox' id='test1' /><label for='test1'></label></p>";
+            $json['data'][$i]['CAM4']       = "";
+            $i++;
+        }
+
         echo json_encode($json);
     }
 

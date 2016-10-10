@@ -25,6 +25,7 @@ $route['PuntosClientes'] = 'vista_controller/PuntosClientes';
 $route['PuntosCliente/(:any)'] = 'clientes_controller/puntosCliente/$1';
 $route['DetalleFact'] = 'vista_controller/DetalleFact';
 $route['getDetalleFactura/(:any)'] = 'vista_controller/getDetalleFactura/$1';
+$route['getFacturaFRP/(:any)'] = 'vista_controller/getFacturaFRP/$1';
 $route['Frp'] = 'vista_controller/CanjeFrp';
 $route['viewPtsItemCatalogo'] = 'vista_controller/getPuntosArticulosCatalogo';
 $route['FRE'] = 'vista_controller/CanjeFre';
