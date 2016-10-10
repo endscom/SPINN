@@ -599,6 +599,9 @@ table td
     color: #831F82;
     font-size: 12px;
 }
+#tblReportDetalles th{
+  background: #3e8432;
+}
 .datos1{
     font-family: 'robotoblack';
     color: #831f82;
@@ -736,6 +739,13 @@ table tr:nth-child(even) {
 .iconoCenter{
     width: 100%;
     text-align: center;
+}
+.iconoCenter:hover{
+  color: #C162C0!important;
+}
+.noHover:hover{
+  color: #831F82;
+  background-color: rgba(203, 110, 202, 0)!important;
 }
 .AdUser{font-size: 22px}
 #NomCliente{
@@ -1094,7 +1104,30 @@ li img{
 .dataTables_length label select{
   width: 70%;
 }
+.detallesFactura{
+  cursor: pointer;
+}
+.detallesFactura:hover{
+  color: orange!important;
+}
+.detallesFacturOrange{
+  color: orange!important;
+}
 
+.loadFlotante{
+    position: fixed;
+    left: 0;
+    right: 0;
+    padding: 0;
+    max-height: 70%;
+    margin: auto;
+    border-radius: 2px;
+    will-change: top, opacity;
+    z-index: 1003;
+    display: block;
+    opacity: 1;
+    top: 50%;
+}
 select{
   text-transform: uppercase!important;
 }

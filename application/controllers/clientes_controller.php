@@ -10,6 +10,14 @@ class Clientes_controller extends CI_Controller
             redirect(base_url().'index.php/login','refresh');
         }
     }
+    public function facturasClientes()
+    {
+        $data['Clientes'] = $this->hana_model->ClientesPuntos();
+        $this->load->view('header/header');
+        $this->load->view('pages/menu');
+        $this->load->view('pages/PuntosClientes',$data);
+        $this->load->view('footer/footer');
+    }
     public function Clientes(){
         $data['Clientes'] = $this->hana_model->LoadClients();// Cargar Clientes        
         $this->load->view('header/header');
@@ -23,5 +31,9 @@ class Clientes_controller extends CI_Controller
     public function puntosCliente($IdCliente)
     {
         $this->hana_model->puntosCliente($IdCliente);
+    }
+    public function ajaxFacturasXcliente($IdCliente)
+    {
+        $this->hana_model->ajaxFacturasXcliente($IdCliente);
     }
 }

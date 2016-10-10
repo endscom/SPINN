@@ -31,9 +31,6 @@ class Cliente_model extends CI_Model
 
         $id=$buscar[0]['CLIENTE'];
         $cliente=$buscar[0]['NOMBRE'];
-
         $this->sqlsrv->close();
-
-
     }
 }

@@ -1,7 +1,7 @@
 
 <?PHP /* CABECERA DEL ARCHIVO EXCELL*/
     header("Content-type:application/charset='UTF-8'");
-    header("Content-Disposition: attachment; filename = CLIENTES_SPINN-".date('d-m-Y').".xls");
+    header("Content-Disposition: attachment; filename = CLIENTES_SPINN ".date('d-m-Y').".xls");
     header("Pragma: no-cache");
     header("Expires: 0");
 ?>

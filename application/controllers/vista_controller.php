@@ -34,14 +34,6 @@ class Vista_controller extends CI_Controller
         $this->load->view('pages/BajaClientes');
         $this->load->view('footer/footer');
     }
-
-    public  function  PuntosClientes(){
-        $this->load->view('header/header');
-        $this->load->view('pages/menu');
-        $this->load->view('pages/PuntosClientes');
-        $this->load->view('footer/footer');
-    }
-
     public function DetalleFact(){
         $this->load->view('header/header');
         $this->load->view('pages/menu');
