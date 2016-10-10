@@ -26,10 +26,10 @@
                     <label for="search"></label>
                 </div>
                 <div class="col s2 m1 l1">
-                    <a href="Exp_Clientes" onclick="generar_reporte_excel();"> <img src="<?PHP echo base_url();?>assets/img/icono_excel.png " width="30px"></a>
+                    <a href="Exp_Clientes" class="noHover" onclick="exportar('FrmClientes');"> <img src="<?PHP echo base_url();?>assets/img/icono_excel.png " width="30px"></a>
                 </div>
                 <div class="col s1 m1 l1 ">
-                    <a href="ExpPDF" target="_blank" onclick="generar_reporte_pdf();"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png " width="30px" ></a>
+                    <a href="ExpPDF" target="_blank" class="noHover" onclick="exportar('FrmClientes');"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png " width="30px" ></a>
                 </div>
             </div>
         </div>
