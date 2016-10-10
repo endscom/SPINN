@@ -97,14 +97,6 @@
             </div>
         </div>
 
-        <div class="center row text" >
-            <div class="col s5 m5 l5">
-                <p class="Datos">PUNTOS CANJE: <span class="datos1">0 Pts.</span></p>
-            </div>
-            <div class="col s7 m7 l7">
-                <p class="Datos">PUNTOS APLICADOS: <span class="datos1">363,522 Pts.</span></p>
-            </div>
-        </div>
 
         <div class="row" >
             <div class=" DatoFrp input-field line col s2 offset-s1">
@@ -115,12 +107,12 @@
                 <select name="cliente" id="ListCliente">
                     <option value="0" selected>CLIENTES...</option>
                     <?PHP
-                    if(!$Clientes){
-                    } else {
-                        foreach($Clientes as $cliente){
-                            echo '<option value="'.$cliente['CODIGO'].'">'.$cliente['NOMBRE'].'</option>';
+                        if(!$Clientes){
+                        } else {
+                            foreach($Clientes as $cliente){
+                                echo '<option value="'.$cliente['CODIGO'].'">'.$cliente['NOMBRE'].'</option>';
+                            }
                         }
-                    }
                     ?>
                 </select>
             </div>
@@ -136,11 +128,11 @@
             </div>
         </div>
 
-                <table id="tblEliminar" class=" TblDatos">
+                <table id="tblFacturaFRP" class=" TblDatos">
                     <thead>
                     <tr>
                         <th>FECHA</th>
-                        <th>BOUCHER</th>
+                        <th>FACTURA</th>
                         <th>Pts.</th>
                         <th>Pts. APLI.</th>
                         <th>Pts. DISP.</th>
@@ -148,41 +140,33 @@
                         <th>ESTADO</th>
                     </tr>
                     </thead>
-
                     <tbody>
-                    <tr>
-                        <td>24/01/2016</td>
-                        <td id="black">067799</td>
-                        <td id="black">30,000 Pts.</td>
-                        <td>30,000</td>
-                        <td>0</td>
-                        <td>
-                            <p >
-                                <input type="checkbox" id="test1" />
-                                <label for="test1"></label>
-                            </p>
-                        </td>
-                        <td>APLICADO</td>
-                    </tr>
-                    <tr>
-                        <td>24/01/2016</td>
-                        <td id="black">067799</td>
-                        <td id="black">30,000 Pts.</td>
-                        <td>30,000</td>
-                        <td>0</td>
-                        <td>
-                            <p >
-                                <input type="checkbox" id="test2" />
-                                <label for="test2"></label>
-                            </p>
-                        </td>
-                        <td id="parcial">PARCIAL</td>
-                    </tr>
-
+                        <tr>
+                           <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
 
-        <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
+
+        <div class="row">
+            <div class="offset-l4 s12 col l4">
+                <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
+            </div>
+            <div id="Total" class="right row">
+                <div class="col s12">
+                    <p class="Dato">TOTAL: <span class="dato" id="idttPtsCLsFRP"></span> Pts.</p>
+                </div>
+            </div>
+        </div>
+
+
+
 
         <!-- datos de los premios a canjear  -->
         <div class="row">
@@ -192,8 +176,9 @@
                     <div class="DatoFrp line input-field col s2 m2 l2">
                         COD. PREMIO:<input   id="CodPremioFRP" type="text" class="validate">
                     </div>
-                            <div class="input-field col s4">
+                            <div class="input-field col s3">
                                 <select name="PREMIO" id="ListCatalogo">
+                                    <option value="0" selected>...</option>
                                     <?PHP
                                     if(!$Catalogo){
                                     } else {
@@ -204,13 +189,19 @@
                                     ?>
                                 </select>
                             </div>
-                                <div class="input-field col s2 m2 l2">
+                                <div class="DatoFrp line input-field col s2  m2 l2 ">
                                     <input  id="ValorPtsPremioFRP"  type="text" class="validate">
                                 </div>
-                                    <div id="Btnadd"class="col s2 m2 l2 right-align">
-                                        <a href="#" class="BtnBlue waves-effect  btn ">agregar</a>
-                                    </div>
+                                <div class="DatoFrp line input-field col s2 m2 l2 ">
+                                    CANTIDAD DE ARTICULOS:<input  id="CantPremioFRP"  type="text" class="validate">
+                                </div>
             </div>
+
+        <div class="right row">
+            <div class="col s2 m2 l2">
+                <a href="#" id="AddPremioTbl" class="BtnBlue waves-effect  btn ">agregar</a>
+            </div>
+        </div>
 
         <table id="tblpRODUCTOS" class=" TblDatos">
             <thead>
@@ -226,39 +217,14 @@
             </thead>
 
             <tbody>
-            <tr>
-                <td>20</td>
-                <td id="black">146790</td>
-                <td id="black">CENTRO ENTRE FAMESA MUNICH</td>
-                <td>17,998</td>
-                <td>359,960</td>
-                <td>
-                    <a href="#!" class=" BtnClose">
-                        <i class="material-icons">highlight_off</i>
-                    </a>
-                </td>
 
-            </tr>
-            <tr>
-                <td>20</td>
-                <td id="black">146790</td>
-                <td id="black">CENTRO ENTRE FAMESA MUNICH</td>
-                <td>17,998</td>
-                <td>359,960</td>
-                <td>
-                    <a href="#!" class=" BtnClose">
-                        <i class="material-icons">highlight_off</i>
-                    </a>
-                </td>
-
-            </tr>
 
             </tbody>
         </table>
 
         <div id="Total" class="right row text">
             <div class="col s12 m12 l12">
-                <p class="Dato">TOTAL: <span class="dato">363,522 Pts.</span></p>
+                <p class="Dato">TOTAL: <span class="dato" id="idttPtsFRP"></span> Pts.</p>
             </div>
 
         </div>

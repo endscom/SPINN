@@ -654,7 +654,7 @@ table tr:nth-child(even) {
     color: #831F82;
     font-weight: 500;
 }
-#ClienteFRP,#PtsClientefrp,#ClienteFRPPremio,#CodPremioFRP,#ValorPtsPremioFRP{
+#ClienteFRP,#PtsClientefrp,#ClienteFRPPremio,#CodPremioFRP,#ValorPtsPremioFRP,#CantPremioFRP{
      border: 1px solid #6a4ad5;
      box-shadow: none;
      text-align: center;

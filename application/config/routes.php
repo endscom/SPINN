@@ -20,8 +20,11 @@ $route['Clientes'] = 'clientes_controller/Clientes';
 $route['FindClient/(:any)'] = 'clientes_controller/FindClient/$1';
 $route['BajaClientes'] = 'vista_controller/BajaClientes';
 $route['PuntosClientes'] = 'clientes_controller/facturasClientes';
+
 $route['PuntosCliente/(:any)'] = 'clientes_controller/puntosCliente/$1';
 $route['DetalleFact'] = 'vista_controller/DetalleFact';
+$route['getDetalleFactura/(:any)'] = 'vista_controller/getDetalleFactura/$1';
+$route['getFacturaFRP/(:any)'] = 'vista_controller/getFacturaFRP/$1';
 $route['Frp'] = 'vista_controller/CanjeFrp';
 $route['viewPtsItemCatalogo'] = 'vista_controller/getPuntosArticulosCatalogo';
 $route['FRE'] = 'vista_controller/CanjeFre';

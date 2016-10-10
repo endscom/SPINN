@@ -27,6 +27,12 @@ class Vista_controller extends CI_Controller
         $this->load->view('pages/Facturas',$data);
         $this->load->view('footer/footer');
     }
+    public function getDetalleFactura($Factura){
+        $this->hana_model->DFacturas($Factura);
+    }
+    public function getFacturaFRP($Cliente){
+        $this->hana_model->FacturasFRP($Cliente);
+    }
 
     public  function BajaClientes(){
         $this->load->view('header/header');

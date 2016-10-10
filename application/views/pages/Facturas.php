@@ -26,12 +26,6 @@
        </div>
 
         <div id="getAllFactura" >
-
-            <div class="right row">
-                <div class="col s2 m2 l2">
-                    <a href="#modal1" class="BtnEliminar waves-effect  btn modal-trigger">ELIMINAR</a>
-                </div>
-            </div>
             <table id="tblFacturas">
                 <thead>
                 <tr>
@@ -58,7 +52,7 @@
                                     <td>".number_format($fac['ACUMULADO'])." Pts.</td>
                                     <td>".number_format($fac['DISPONIBLE'])." Pts.</td>
                                     <td>".utf8_encode($fac['VENDEDOR'])."</td>
-                                    <td><a href='#modal3' class='modal-trigger'> <i class='material-icons'>&#xE417;</i></a></td>
+                                    <td><a href='#modal3' onclick='DFactura(".$fac['FACTURA'].")' class='modal-trigger'> <i class='material-icons'>&#xE417;</i></a></td>
                                  </tr>
                             ";
                     }
@@ -77,62 +71,7 @@
         </div>
     </div>
 </main>
-<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                            Modales Facturas Commpleta
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <div class=" row">
-            <div class="right col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>
-        <h6  class="center Mcolor">DESEA ELIMINAR EL BOUCHER:</h6>
-        <div class="row">
-            <div class="col s12">
-                <table id="tblModal1">
-                    <thead>
-                        <tr>
-                            <th>CANT.</th>
-                            <th>DESCRIPCIÓN</th>
-                            <th>LAB.</th>
-                            <th>PUNTOS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>7</td>
-                            <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
-                            <td>5155</td>
-                            <td>70 pts</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="center row">
-        <a href="#modal2" class="BtnEliminar modal-action modal-close btn modal-trigger">ELIMINAR</a>
-    </div>
-</div>
 
-<div id="modal2" class="modal">
-    <div class="modal-content">
-            <div class="right row">
-                <div class="col s1 m1 l1">
-                    <a href="#!" class=" BtnClose modal-action modal-close ">
-                        <i class="material-icons">highlight_off</i>
-                    </a>
-                </div>
-            </div>
-        <h6 class="center Mcolor1">EL BOUCHER FUE ELIMINADO</h6>
-    </div>
-</div>
-<!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                            Fin Modales Facturas Commpleta
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             Modales Detalles Facturas
@@ -147,32 +86,24 @@
                 </a>
             </div>
         </div>
-        <h6  class="center Mcolor">FACTURA:</h6>
+        <h6  class="center Mcolor">FACTURA: <span id="codFactura">0.00</span></h6>
         <div class="row">
             <div class="col s12">
                 <table id="tblModal1">
                     <thead>
                     <tr>
-                        <th>CANT.</th>
+                        <th>ARTICULO.</th>
                         <th>DESCRIPCIÓN</th>
-                        <th>LAB.</th>
+                        <th>CANTIDAD.</th>
                         <th>PUNTOS</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>7</td>
-                        <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
-                        <td>5155</td>
-                        <td>70 pts</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-    <div class="center row">
-        <a href="#modal2" class="BtnEliminar modal-action modal-close btn modal-trigger">ELIMINAR</a>
     </div>
 </div>
 
