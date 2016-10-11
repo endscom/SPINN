@@ -174,6 +174,7 @@ class Hana_model extends CI_Model
                     $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
                     $i++;
         }
+
         echo json_encode($json);
     }
     public function ajaxDisponibilidadPuntos($IdCliente,$f1,$f2)
