@@ -135,9 +135,8 @@ class Hana_model extends CI_Model
     }
     public function ClientesPuntos()
     {
-        $conn = $this->OPen_database_odbcSAp();
+        $conn = $this->OPen_database_odbcSAp(); $query = '';
         $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES_PUNTOS';
-
         $resultado =  @odbc_exec($conn,$query);
         $json = array();  
         $i=0;
@@ -158,8 +157,6 @@ class Hana_model extends CI_Model
                 $i++;
             }
         }
-        return $json;
-    }
 
     public function DFacturas($ID)
     {
