@@ -15,26 +15,27 @@ class Usuario_model extends CI_Model
 
         if($query->num_rows() > 0){
             return $query->result_array();
-        }else{
+        } else {
             return 0;
         }
     }
-    public  function  LoadRol() {/*CARGAR ROLES*/
+    public function LoadRol() {/*CARGAR ROLES*/
         $this->db->select('*');
         $this->db->from('CatRol');
         $query = $this->db->get();
 
         if($query->num_rows() > 0){
             return $query->result_array();
-        }else{
+        } else {
             return 0;
         }
     }
+
     public function LoadVendedor() {/*CARGAR VENDEDOR*/
         $query= $this->OPen_database_odbcSAp();
     }
+    
     public function LoadClient(){ /* CARGAR CLIENTES */
-
         $this->load->model('cliente_model');
 
         $query = $this->sqlsrv -> fetchArray("SELECT CLIENTE, NOMBRE, VENDEDOR FROM vtVS2_Clientes WHERE CLIENTE NOT IN(".$this->cliente_model->LoadAllClients().") AND(ACTIVO = 'S') AND (RUBRO1_CLI = 'S')",SQLSRV_FETCH_ASSOC);
@@ -42,13 +43,10 @@ class Usuario_model extends CI_Model
         $json = array();
         $i=0;
         echo '<option value="" disabled selected> BUSCAR... </option>';
-         foreach ($query as $key)
-         {
-             //$json['query'][$i]['NOMBRE']=$key['NOMBRE'];
+        foreach ($query as $key){
             echo '<option value="'.$key['NOMBRE'].'">'.$key['NOMBRE'].'</option>';
-             $i++;
-         }
-       //return $json;
+            $i++;
+        }
         $this->sqlsrv->close();
     }
 
@@ -57,13 +55,11 @@ class Usuario_model extends CI_Model
         $json= array();
         $i=0;
         echo '<option value="" disabled selected> BUSCAR... </option>';
-        foreach ($query as $key)
-        {
-            //$json['query'][$i]['NOMBRE']=$key['NOMBRE'];
+        
+        foreach ($query as $key){
             echo '<option value="'.$key['NOMBRE'].'">'.$key['NOMBRE'].'</option>';
             $i++;
         }
-        //return $json;
         $this->sqlsrv->close();
     }
 
@@ -79,6 +75,7 @@ class Usuario_model extends CI_Model
             'Zona' => $zona,
             'Nombre' => $consulta
         );
+
         $query = $this->db->insert('usuario', $user);
         if ($query) {
             return 1;
@@ -109,6 +106,7 @@ class Usuario_model extends CI_Model
         $nombre = str_replace('%20', ' ', $nombre);
         $vendedor = str_replace('%20', ' ', $vendedor);
         $user = str_replace('%20', ' ', $user); $fecha = date('Y-m-d H:i:s');
+        
         $data = array(
             'Usuario'=> $user,
             'Nombre' => $nombre,
@@ -123,7 +121,6 @@ class Usuario_model extends CI_Model
     }
 
     public function ActUser($cod,$estado){ /* CAMBIAR ESTADO DEL USUARIO*/
-
         $data = array(
             'Estado' => !$estado,
             'FechaBaja' =>date('Y-m-d H:i:s')

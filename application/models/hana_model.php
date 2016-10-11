@@ -6,6 +6,7 @@ class Hana_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+
     public $BD = 'INNOVA201608';
 
     public  function OPen_database_odbcSAp(){/*conexion a hana innova*/
@@ -16,8 +17,9 @@ class Hana_model extends CI_Model
         $conn = $this->OPen_database_odbcSAp();
         $query = 'SELECT * from '.$this->BD.'.SPINN_VENDEDORES';
         $resultado =  odbc_exec($conn,$query);
-        $json = array();
-        $i=0;
+        $json = array();  
+        $i=0;      
+
         while ($fila = odbc_fetch_array($resultado)){
             $json[$i]['CODIGO'] = $fila['CODIGO'];
             $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);
@@ -26,13 +28,15 @@ class Hana_model extends CI_Model
         }
         return $json;
     }
-    public function LoadClients()
-    {
+
+    public function LoadClients(){
         $conn = $this->OPen_database_odbcSAp();
         if ($this->session->userdata('IdRol')==3) {
             $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
+        } else {
+            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES ';
         }
-        else{$query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES ';}
+        
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
@@ -42,8 +46,7 @@ class Hana_model extends CI_Model
             $json[$i]['NOMBRE'] = "";
             $json[$i]['RUC'] = "";
             $json[$i]['DIRECCION'] = "";
-        }
-        else{
+        } else {
             while ($fila = @odbc_fetch_array($resultado)){
                 $json[$i]['CODIGO'] = $fila['CODIGO'];
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
@@ -55,8 +58,8 @@ class Hana_model extends CI_Model
         }
         return $json;
     }
-    public function Factuas()
-    {
+
+    public function Factuas(){
         $conn = $this->OPen_database_odbcSAp();
         $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS';
         $resultado =  @odbc_exec($conn,$query);
@@ -75,8 +78,8 @@ class Hana_model extends CI_Model
         }
         return $json;
     }
-    public function ajaxFacturasXcliente($IdCliente)
-    {
+
+    public function ajaxFacturasXcliente($IdCliente){
         $conn = $this->OPen_database_odbcSAp();
         $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS WHERE "COD_CLIENTE" = '."'".$IdCliente."'".'';
         $resultado =  @odbc_exec($conn,$query);
@@ -89,7 +92,7 @@ class Hana_model extends CI_Model
             $json['data'][$i]["VENDEDOR"] = "";
             $json['data'][$i]["ACUMULADO"] = "";
             $json['data'][$i]["DISPONIBLE"] = "";
-        }else{
+        } else {
             while ($fila = odbc_fetch_array($resultado)){
                 $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
                 $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
@@ -102,8 +105,8 @@ class Hana_model extends CI_Model
         }
         echo json_encode($json);
     }
-    public function PdfFacturasXcliente()
-    {
+
+    public function PdfFacturasXcliente(){
         $conn = $this->OPen_database_odbcSAp();
         $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS';
         $resultado =  @odbc_exec($conn,$query);
@@ -116,8 +119,8 @@ class Hana_model extends CI_Model
             $json[$i]["VENDEDOR"] = "";
             $json[$i]["ACUMULADO"] = "";
             $json[$i]["DISPONIBLE"] = "";
-        }else{
-            while ($fila = odbc_fetch_array($resultado)){
+        } else {
+            while ($fila = odbc_fetch_array($resultado)){        
                 $fecha = strtotime($fila['FECHA']);
                 $newFecha = date('d-m-Y',$fecha)."<br>";
                 $json[$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
@@ -131,12 +134,13 @@ class Hana_model extends CI_Model
         }
         return $json;
     }
-    public function formatFechaPHP($fecha)//funcion para formatear la fecha en d-m-Y para mostrarlo en vistas
-    {
+
+    public function formatFechaPHP($fecha){//funcion para formatear la fecha en d-m-Y para mostrarlo en vistas
         $fecha = strtotime($fecha);
         $newFecha = date('d-m-Y',$fecha);
         return $newFecha;
     }
+
     public function formatFechaHana($fecha)//funcion para formatear la fecha en Ymd para que hana lo acepte
     {
         $date = date_create($fecha);
@@ -144,6 +148,7 @@ class Hana_model extends CI_Model
         $date = str_replace("-","",$date);
         return $date;
     }
+
     public function ajaxEstadoFacturas($IdCliente,$f1,$f2)
     {
         $query = 'SELECT * FROM '.$this->BD.'."SPINN_TTFACTURAS_PUNTOS" WHERE '."'".'0'."'"."='"."0'";
@@ -223,8 +228,7 @@ class Hana_model extends CI_Model
         }
         echo json_encode($json);
     }
-    public function ClientesPuntos()
-    {
+    public function ClientesPuntos(){
         $conn = $this->OPen_database_odbcSAp(); $query = '';
         $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES_PUNTOS';
         $resultado =  @odbc_exec($conn,$query);
@@ -236,8 +240,7 @@ class Hana_model extends CI_Model
             $json[$i]['VENDEDOR'] = "";
             $json[$i]['ACUMULADO'] = "";
             $json[$i]['DISPONIBLE'] = "";
-        }
-        else{
+        } else {
             while ($fila = @odbc_fetch_array($resultado)){
                 $json[$i]['CODIGO'] = $fila['COD_CLIENTE'];
                 $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
@@ -249,15 +252,15 @@ class Hana_model extends CI_Model
         }
         return $json;
     }
-    public function DFacturas($ID)
-    {
+
+    public function DFacturas($ID){
+
         $conn = $this->OPen_database_odbcSAp();
         $query = "SELECT * from ".$this->BD.".SPINN_FACTURA_PUNTOS WHERE FACTURA='".$ID."'";
 
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
-
         while ($fila = odbc_fetch_array($resultado)){
             $json['data'][$i]['COD_ARTICULO'] = $fila['COD_ARTICULO'];
             $json['data'][$i]['ARTICULO'] = $fila['ARTICULO'];
@@ -267,8 +270,8 @@ class Hana_model extends CI_Model
         }
         echo json_encode($json);
     }
-    public function FacturasFRP($ID)
-    {
+
+    public function FacturasFRP($ID){
         $conn = $this->OPen_database_odbcSAp();
 
         $query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0";
@@ -294,47 +297,44 @@ class Hana_model extends CI_Model
             $json['data'][$i]['CAM4']       = "";
             $i++;
         }
-
         echo json_encode($json);
-
         return $json;
-
     }
 
-    public function PuntosCliente($IdCliente)
-    {
+    public function PuntosCliente($IdCliente){
         $json = array();
         $i=0;
         $conn = $this->OPen_database_odbcSAp();
         $query = 'SELECT count(*) AS "CONTADOR" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
         $resultado =  @odbc_exec($conn,$query);
-        if (count($resultado)==0) {echo " ERROR AL CARGAR LOS PUNTOS ";
-        }else{
+        
+        if (count($resultado)==0){
+            echo " ERROR AL CARGAR LOS PUNTOS ";
+        } else {  
+
             while ($fila = @odbc_fetch_array($resultado)){
                 if($fila['CONTADOR']==0){
                     $json[$i]['DISPONIBLE'] = 0;
                     $json[$i]['ACUMULADO'] = 0;
-                }
-                else{
+                } else {
                     $query = 'SELECT "DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
                     $resultado =  @odbc_exec($conn,$query);
                     if (count($resultado)==0) {
-                    }
-                    else{
-                        while ($fila = @odbc_fetch_array($resultado)){
-                            if ($fila['DISPONIBLE']=='') {
-                                $json[$i]['DISPONIBLE'] = 0;
-                                $json[$i]['ACUMULADO'] = 0;
-                            }else{
-                                $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE']);
-                                $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO']);
+                    } else {
+                            while ($fila = @odbc_fetch_array($resultado)){
+                                if ($fila['DISPONIBLE']=='') {
+                                    $json[$i]['DISPONIBLE'] = 0;
+                                    $json[$i]['ACUMULADO'] = 0;
+                                } else {
+                                    $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE']);
+                                    $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO']);
+                                }
                             }
-                        }
-                    }
                 }
             }
             echo json_encode($json);
         }
+    }
     }
 }
 ?>
