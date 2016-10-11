@@ -13,7 +13,6 @@ class Clientes_controller extends CI_Controller
     public function facturasClientes()
     {
         $data['Clientes'] = $this->hana_model->ClientesPuntos();
-
         $this->load->view('header/header');
         $this->load->view('pages/menu');
         $this->load->view('pages/PuntosClientes',$data);

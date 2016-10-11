@@ -14,6 +14,7 @@ class Reportes_controller extends CI_Controller
 
     public function ajaxEstadoFacturas($IdCliente,$f1,$f2)
     {
+
     	$this->hana_model->ajaxEstadoFacturas($IdCliente,$f1,$f2);
     }
     public function ajaxDisponibilidadPuntos($IdCliente,$f1,$f2)
