@@ -1,18 +1,13 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
-
         <span class=" title">fre</span>
-
     </div>
 </header>
 <!--//////////////////////////////////////////////////////////
                 CONTENIDO
 ///////////////////////////////////////////////////////////-->
-
 <main class="mdl-layout__content mdl-color--grey-100">
-
     <div class="contenedor">
-
         <div id="search" class=" right Buscar row column">
             <div class="col s1 m1 l2">
                 <i class="material-icons ColorS">search</i>
@@ -37,53 +32,48 @@
         </div>
 
         <table id="FRP" class=" TblDatos">
-
             <thead>
-            <tr>
-                <th>FECHA</th>
-                <th># FRP</th>
-                <th>COD. CLIENTE</th>
-                <th>NOMBRE</th>
-                <th>Pts.</th>
-                <th>EFECTIVO</th>
-                <th>ELIMINAR</th>
-            </tr>
+                <tr>
+                    <th>FECHA</th>
+                    <th># FRP</th>
+                    <th>COD. CLIENTE</th>
+                    <th>NOMBRE</th>
+                    <th>Pts.</th>
+                    <th>EFECTIVO</th>
+                    <th>ELIMINAR</th>
+                </tr>
             </thead>
 
             <tbody>
+                <tr>
+                    <td> 14/07/2015</td>
+                    <td id="black">fc002332</td>
+                    <td>00022</td>
+                    <td  id="Codigo">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
+                    <td  id="Codigo">2,742 Pts.</td>
+                    <td  id="Codigo">C$ 1,371</td>
+                    <td>
+                        <a href="#Dell" class="Icono modal-trigger">
+                            <i class="material-icons">highlight_off</i>
+                        </a>
+                    </td>
+                </tr>
 
-            <tr>
-                <td> 14/07/2015</td>
-                <td id="black">fc002332</td>
-                <td>00022</td>
-                <td  id="Codigo">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
-                <td  id="Codigo">2,742 Pts.</td>
-                <td  id="Codigo">C$ 1,371</td>
-                <td>
-                    <a href="#Dell" class="Icono modal-trigger">
-                        <i class="material-icons">highlight_off</i>
-                    </a>
-                </td>
-            </tr>
-
-            <tr>
-                <td> 14/07/2015</td>
-                <td id="black">fc002332</td>
-                <td>00022</td>
-                <td  id="Codigo">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
-                <td  id="Codigo">2,742 Pts.</td>
-                <td  id="Codigo">C$ 1,371</td>
-                <td>
-                    <a href="#Dell" class="Icono modal-trigger">
-                        <i class="material-icons">highlight_off</i>
-                    </a>
-                </td>
-            </tr>
-
+                <tr>
+                    <td> 14/07/2015</td>
+                    <td id="black">fc002332</td>
+                    <td>00022</td>
+                    <td  id="Codigo">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
+                    <td  id="Codigo">2,742 Pts.</td>
+                    <td  id="Codigo">C$ 1,371</td>
+                    <td>
+                        <a href="#Dell" class="Icono modal-trigger">
+                            <i class="material-icons">highlight_off</i>
+                        </a>
+                    </td>
+                </tr>
             </tbody>
-
         </table>
-
     </div>
 </main>
 
@@ -101,6 +91,7 @@
                 </a>
             </div>
         </div>
+
         <h6 class="center Mcolor1">DESEA ELIMINAR EL FRE <span class="redT1">#fc02258</span></h6>
         <div class="row">
             <div class="col s2 m2 l2 offset-l4 offset-s3 offset-m4">
@@ -123,13 +114,12 @@
         </div>
         <h6 class="center Mcolor1">ELIMINADO CORRECTAMENTE FRE <span class="redT1">#fc02258</span></h6>
     </div>
-    </div>
+</div>
 </div>
 <!--////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     MODAL PRINCIPAL
 /////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<!-- Modal #1
-                Modal Structure -->
+<!-- Modal #1 Modal Structure -->
 <div id="Efec" class="modal">
     <div class="modal-content">
         <div class="right row">
@@ -141,16 +131,15 @@
         </div>
 
         <h6 class="center Mcolor">FORMATO DE REMISIÓN DE EFECTIVO</h6>
-
         <div class="row">
             <div class="Datos input-field line col s3 m3 l3">
                COD.FRE:<input id="fre" type="text" class="validate">
             </div>
+            
             <div class="Datos line col s3 m3 l3 offset-l5 offset-s4 offset-m4">
                 <p id="fecha" class="Datos">FECHA:</p>  <input type="text" id="date1" class="datepicker1">
             </div>
         </div>
-
 
         <div class="row ">
             <div class=" DatoFrp line input-field col s3 m3 l3">
@@ -179,44 +168,44 @@
 
         <table id="tblEliminar" class=" TblDatos">
             <thead>
-            <tr>
-                <th>FECHA</th>
-                <th>#FATURA</th>
-                <th>Pts.</th>
-                <th>Pts. a EFECT.</th>
-                <th><i class="material-icons">done</i> </th>
-                <th>ESTADO</th>
-            </tr>
+                <tr>
+                    <th>FECHA</th>
+                    <th>#FATURA</th>
+                    <th>Pts.</th>
+                    <th>Pts. a EFECT.</th>
+                    <th><i class="material-icons">done</i> </th>
+                    <th>ESTADO</th>
+                </tr>
             </thead>
 
             <tbody>
-            <tr>
-                <td>24/01/2016</td>
-                <td id="black">067799</td>
-                <td id="black">30,000 Pts.</td>
-                <td id="black">C$ 30,000</td>
-                <td>
-                    <p >
-                        <input type="checkbox" id="test1" />
-                        <label for="test1"></label>
-                    </p>
-                </td>
-                <td id="dispo">DISPONIBLE</td>
-            </tr>
-            <tr>
-                <td>24/01/2016</td>
-                <td id="black">067799</td>
-                <td id="black">30,000 Pts.</td>
-                <td id="black">C$ 30,000</td>
-                <td>
-                    <p >
-                        <input type="checkbox" id="test2" />
-                        <label for="test2"></label>
-                    </p>
-                </td>
-                <td id="dispo">DISPONIBLE</td>
-            </tr>
+                <tr>
+                    <td>24/01/2016</td>
+                    <td id="black">067799</td>
+                    <td id="black">30,000 Pts.</td>
+                    <td id="black">C$ 30,000</td>
+                    <td>
+                        <p>
+                            <input type="checkbox" id="test1" />
+                            <label for="test1"></label>
+                        </p>
+                    </td>
+                    <td id="dispo">DISPONIBLE</td>
+                </tr>
 
+                <tr>
+                    <td>24/01/2016</td>
+                    <td id="black">067799</td>
+                    <td id="black">30,000 Pts.</td>
+                    <td id="black">C$ 30,000</td>
+                    <td>
+                        <p>
+                            <input type="checkbox" id="test2" />
+                            <label for="test2"></label>
+                        </p>
+                    </td>
+                    <td id="dispo">DISPONIBLE</td>
+                </tr>
             </tbody>
         </table>
 
@@ -224,37 +213,27 @@
             <div class="col s8 m8 l12">
                 <p class="Dato">TOTAL EFECTIVO: <span class="dato">C$ 363,522 </span></p>
             </div>
-
         </div>
+
         <div class="row">
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
                         <p class="Datos">OBSERVACIONES</p>
                         <textarea id="obser" class="materialize-textarea"></textarea>
-
                     </div>
                 </div>
             </form>
         </div>
-
     </div>
-
-
-
-
-
 </div>
 <!-- FIN MODAL -->
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                         MODAL DETALLE FRE
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-<!-- Modal #4
-                Modal Structure -->
+<!-- Modal #4 Modal Structure -->
 <div id="Dfre" class="modal">
     <div class="modal-content">
-
         <div class="right row">
             <div class="col s1 m1 l1">
                 <a href="#!" class=" BtnClose modal-action modal-close ">
@@ -264,18 +243,18 @@
         </div>
 
         <h6 id="titulM" class="center Mcolor">DETALLE FRE</h6>
-
         <div class="container">
             <p class="center datos1 frpT"> N°FRE FC02389</p>
             <p class="center datos1 lineas"> 24/12/2016</p>
         </div>
+
         <h6  class="center datos1">00449 FARMACIA CASTELLÓN</h6>
         <p class="center Datos linea ruc"> RUC 4412000183001H</p>
-
         <div class="row text">
             <div class="col col s4 m4 l3">
                 <p class="Datos ruc Cblack">CANJE: 100,000 Pts</p>
             </div>
+            
             <div class="col s4 m4 l3 offset-l6 offset-s4 offset-m4">
                 <p class="Datos ruc Cblack">EFECTIVO: C$ 50,000</p>
             </div>
@@ -283,34 +262,34 @@
 
         <table id="tblpRODUCTOS" class=" TblDatos">
             <thead>
-            <tr>
-                <th>FECHA</th>
-                <th>#FACTURA</th>
-                <th>Pts</th>
-                <th>Pts. a EFECT.</th>
-                <th>ESTADO</th>
+                <tr>
+                    <th>FECHA</th>
+                    <th>#FACTURA</th>
+                    <th>Pts</th>
+                    <th>Pts. a EFECT.</th>
+                    <th>ESTADO</th>
 
-            </tr>
+                </tr>
             </thead>
 
             <tbody>
-            <tr>
-                <td>24/01/2016</td>
-                <td id="black">069424</td>
-                <td id="black">25,000 Pts</td>
-                <td>C$ 12,000</td>
-                <td>PAGADO</td>
+                <tr>
+                    <td>24/01/2016</td>
+                    <td id="black">069424</td>
+                    <td id="black">25,000 Pts</td>
+                    <td>C$ 12,000</td>
+                    <td>PAGADO</td>
 
-            </tr>
-            <tr>
-                <td>24/01/2016</td>
-                <td id="black">069424</td>
-                <td id="black">25,000 Pts</td>
-                <td>C$ 12,000</td>
-                <td>PAGADO</td>
+                </tr>
+                
+                <tr>
+                    <td>24/01/2016</td>
+                    <td id="black">069424</td>
+                    <td id="black">25,000 Pts</td>
+                    <td>C$ 12,000</td>
+                    <td>PAGADO</td>
 
-            </tr>
-
+                </tr>
             </tbody>
         </table>
 
@@ -334,16 +313,11 @@
                     <i class="medium material-icons">print</i>
                 </a>
             </div>
+            
             <div class="col s2 m2 l1">
                 <a href="#"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png " width="35px" ></a>
             </div>
         </div>
-
-
-
     </div><!-- fin del contenido del modal -->
-
-
-
 </div>
 <!-- Fin de Modal#4-->

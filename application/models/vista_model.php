@@ -14,7 +14,7 @@ class Vista_model extends CI_Model
 
         if($query->num_rows() > 0){
             return $query->result_array();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -26,7 +26,7 @@ class Vista_model extends CI_Model
 
         if($query->num_rows() > 0){
             return $query->result_array();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -36,9 +36,10 @@ class Vista_model extends CI_Model
         $this->db->from('Vendedor');
         $this->db->where('Estado',0);
         $query = $this->db->get();
+        
         if($query->num_rows() > 0){
             return $query->result_array();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -49,8 +50,7 @@ class Vista_model extends CI_Model
       $json = array();
         $i=0;
 
-         foreach ($query as $key)
-         {
+         foreach ($query as $key){
              $json['data'][$i]['nombre'] = $key['NOMBRE'];
              $i++;
          }
@@ -78,7 +78,6 @@ class Vista_model extends CI_Model
     }
 
     public function ActUser($cod,$estado){ /* CAMBIAR ESTADO DEL USUARIO*/
-
         $data = array(
             'Estado' => !$estado,
             'FechaBaja' =>date('Y-m-d H:i:s')

@@ -25,6 +25,7 @@ class Cliente_model extends CI_Model
         $query = $this->db->get('vt_ClientesUser');
         return $query->row('CLIENTES');
     }
+    
     public function FindClient($cond){
         $consulta = str_replace('%20', ' ', $cond);
         $buscar = $this->sqlsrv->fetchArray("SELECT * from vtVS2_Clientes where NOMBRE ='".$consulta."'",SQLSRV_FETCH_ASSOC);
