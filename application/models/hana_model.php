@@ -91,10 +91,8 @@ class Hana_model extends CI_Model
             $json['data'][$i]["DISPONIBLE"] = "";
         }else{
             while ($fila = odbc_fetch_array($resultado)){        
-                $fecha = strtotime($fila['FECHA']);
-                $newFecha = date('d-m-Y',$fecha)."<br>";
                     $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
-                    $json['data'][$i]["FECHA"] = $newFecha;
+                    $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
                     $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
                     $json['data'][$i]["VENDEDOR"] = $fila['VENDEDOR'];
                     $json['data'][$i]["ACUMULADO"] = number_format($fila['ACUMULADO'],2);
@@ -133,6 +131,87 @@ class Hana_model extends CI_Model
         }
         return $json;
     }
+    public function formatFechaPHP($fecha)//funcion para formatear la fecha en d-m-Y para mostrarlo en vistas
+    {
+        $fecha = strtotime($fecha);
+        $newFecha = date('d-m-Y',$fecha);
+        return $newFecha;
+    }
+    public function formatFechaHana($fecha)//funcion para formatear la fecha en Ymd para que hana lo acepte
+    {
+        $date = date_create($fecha);
+        $date = date_format($date, 'Y-m-d');
+        $date = str_replace("-","",$date);
+        return $date;
+    }
+    public function ajaxEstadoFacturas($IdCliente,$f1,$f2)
+    {
+        $query = 'SELECT * FROM '.$this->BD.'."SPINN_TTFACTURAS_PUNTOS" WHERE '."'".'0'."'"."='"."0'";
+        if ($IdCliente != '0') {
+            $query.=' AND "COD_CLIENTE" = '."'".$IdCliente."'".'';
+        }
+        if ($f1!=0) {
+            $f1 = $this->formatFechaHana($f1);//mando a formatear la fecha en Ymd
+            $f2 = $this->formatFechaHana($f2);
+            $query.=' AND "FECHA" BETWEEN '."'".$f1."'".' AND '."'".$f2."'".'';
+        }
+        $conn = $this->OPen_database_odbcSAp();
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+                    $json['data'][$i]["NUMERO"] = "";
+                    $json['data'][$i]["FECHA"] = "";
+                    $json['data'][$i]["FACTURA"] = "";
+                    $json['data'][$i]["COD_CLIENTE"] = "";
+                    $json['data'][$i]["CLIENTE"] = "";
+                    $json['data'][$i]["ESTADO"] = "";
+            while ($fila = odbc_fetch_array($resultado)){
+                    $json['data'][$i]["NUMERO"] = $i;
+                    $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
+                    $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
+                    $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
+                    $json['data'][$i]["CLIENTE"] = $fila['CLIENTE'];
+                    $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
+                    $i++;
+        }
+        echo json_encode($json);
+    }
+    public function ajaxDisponibilidadPuntos($IdCliente,$f1,$f2)
+    {
+         $query = 'SELECT * FROM '.$this->BD.'."SPINN_TTFACTURAS_PUNTOS" WHERE '."'".'0'."'"."='"."0'";
+        if ($IdCliente != '0') {
+            $query.=' AND "COD_CLIENTE" = '."'".$IdCliente."'".'';
+        }
+        if ($f1!=0) {
+            $f1 = $this->formatFechaHana($f1);//mando a formatear la fecha en Ymd
+            $f2 = $this->formatFechaHana($f2);
+            $query.=' AND "FECHA" BETWEEN '."'".$f1."'".' AND '."'".$f2."'".'';
+        }
+        $conn = $this->OPen_database_odbcSAp();
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+                    $json['data'][$i]["NUMERO"] = "";
+                    $json['data'][$i]["FECHA"] = "";
+                    $json['data'][$i]["FACTURA"] = "";
+                    $json['data'][$i]["COD_CLIENTE"] = "";
+                    $json['data'][$i]["CLIENTE"] = "";
+                    $json['data'][$i]["P_ACUMULADOS"] = "";
+                    $json['data'][$i]["P_DISPONIBLES"] = "";
+                    $json['data'][$i]["ESTADO"] = "";
+            while ($fila = odbc_fetch_array($resultado)){
+                    $json['data'][$i]["NUMERO"] = $i;
+                    $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
+                    $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
+                    $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
+                    $json['data'][$i]["CLIENTE"] = $fila['CLIENTE'];
+                    $json['data'][$i]["P_ACUMULADOS"] = $fila['ACUMULADO'];
+                    $json['data'][$i]["P_DISPONIBLES"] = $fila['DISPONIBLE'];
+                    $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
+                    $i++;
+        }
+        echo json_encode($json);
+    }
     public function ClientesPuntos()
     {
         $conn = $this->OPen_database_odbcSAp(); $query = '';
@@ -157,7 +236,8 @@ class Hana_model extends CI_Model
                 $i++;
             }
         }
-
+        return $json;
+    }
     public function DFacturas($ID)
     {
         $conn = $this->OPen_database_odbcSAp();

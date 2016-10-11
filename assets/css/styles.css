@@ -510,10 +510,15 @@ img.login-logo{
 .Mcolor1
 {
     font-size: 14px;
-   text-align: center;
+    text-align: center;
     color: #6a4ad5;
     font-family: 'robotoblack';
-
+}
+#EstadoFactura{
+  width: 75%;
+}
+#DisponiblePuntos{
+  width: 75%;  
 }
 .BtnClose
  {

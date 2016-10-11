@@ -5262,7 +5262,7 @@ a.waves-effect .waves-ripple {
   width: 55%;
   margin: auto;
   overflow-y: auto;
-  border-radius: 2px;
+  /*border-radius: 2px;*/
   will-change: top, opacity;
 }
  #MFrp.modal
