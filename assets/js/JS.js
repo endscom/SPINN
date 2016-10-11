@@ -573,32 +573,101 @@ function subirimagen()
         }
     });
 
-    $("#BtnFiltroReporte").click(function() {
-        var isCliente,isFecha;
-        var Cls = $("#idCliente").val();
-        var f1  = $("#fecha1").val();
+    $("#BtnFiltroReporte").click(function() {        
+        var Cls = $("#idCliente").val();    var f1  = $("#fecha1").val();
         var f2  = $("#fecha2").val();
-
-        $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2,#divFecha,#divFecha2").show();
+        $("#divFecha,#divFecha2").show(); $("#loadEstadoFactura").show();
+        $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").show();
+        $("#Modal1Fecha1").html(f1);    $("#Modal1Fecha2").html(f2);
+        if (f1=="" || f2==""){
+            f1=0;f2=0;
+            $("#divFecha,#divFecha2").hide();
+        };
         if(Cls == 0){
             $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").hide();
         }
-        if((jQuery.isEmptyObject(f1) == true) || (jQuery.isEmptyObject(f2) == true)){
-            $("#divFecha,#divFecha2").hide();
-        }
-
-        if($("#R1").is(':checked')) {
-
-            $("#Modal1Fecha1").html(f1);
-            $("#Modal1Fecha2").html(f2);
-
+        if($('#R1').is(':checked') ){            
+            Objtable = $('#tblEstadoFactura').DataTable();
+            Objtable.destroy();
+            Objtable.clear();
+            Objtable.draw();
+            $('#tblEstadoFactura').DataTable({
+                "order": [[ 1, "desc" ]],
+                ajax: "ajaxEstadoFacturas/"+Cls+"/"+f1+"/"+f2,
+                "info":    false,
+                "bPaginate": false,
+                "paging": true,
+                "pagingType": "full_numbers",
+                "lengthMenu": [[10, -1], [10, "Todo"]],
+                "language": {
+                    "emptyTable": "No hay datos disponibles en la tabla",
+                    "lengthMenu": '_MENU_ ',
+                    "search": '<i class=" material-icons">search</i>',
+                    "loadingRecords": "",
+                    "paginate": {
+                        "first": "Primera",
+                        "last": "Última ",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                },
+               columns: [
+                    { "data": "NUMERO" },
+                    { "data": "FECHA" },
+                    { "data": "FACTURA" },
+                    { "data": "COD_CLIENTE" },
+                    { "data": "CLIENTE" },
+                    { "data": "ESTADO" }
+              ]
+            });
             $('#EstadoFactura').openModal();
-        } else {
-            $("#Modal2CodCliente").html(Cls)
-            $("#Modal2Fecha1").html(f1);
-            $("#Modal2Fecha2").html(f2);
-            $('#DisponiblePuntos').openModal();
+            $('#tblEstadoFactura').on( 'init.dt', function () {
+                $("#loadEstadoFactura").hide();
+            }).dataTable();
+            
         }
+        if($('#R2').is(':checked') ){
+            $('#loadDisponiblePuntos').show();
+            Objtable = $('#tblDisponibilidadPuntos').DataTable();
+            Objtable.destroy();
+            Objtable.clear();
+            Objtable.draw();
+            $('#tblDisponibilidadPuntos').DataTable({
+                "order": [[ 1, "desc" ]],
+                ajax: "ajaxDisponibilidadPuntos/"+Cls+"/"+f1+"/"+f2,
+                "info":    false,
+                "bPaginate": false,
+                "paging": true,
+                "pagingType": "full_numbers",
+                "lengthMenu": [[10, -1], [10, "Todo"]],
+                "language": {
+                    "emptyTable": "No hay datos disponibles en la tabla",
+                    "lengthMenu": '_MENU_ ',
+                    "search": '<i class=" material-icons">search</i>',
+                    "loadingRecords": "",
+                    "paginate": {
+                        "first": "Primera",
+                        "last": "Última ",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                },
+               columns: [
+                    { "data": "NUMERO" },
+                    { "data": "FECHA" },
+                    { "data": "FACTURA" },
+                    { "data": "COD_CLIENTE" },
+                    { "data": "CLIENTE" },
+                    { "data": "P_ACUMULADOS" },
+                    { "data": "P_DISPONIBLES" },
+                    { "data": "ESTADO" }
+              ]
+            });
+            $('#tblDisponibilidadPuntos').on( 'init.dt', function () {
+                $("#loadDisponiblePuntos").hide();
+            }).dataTable();
+            $('#DisponiblePuntos').openModal();            
+        }        
     });
 
     $('#sFactura').on( 'keyup', function () {
@@ -854,7 +923,4 @@ function subirimagen()
             }
         });
       }
-      /*-*funcion para generar reportes*/
-    $('#BtnFiltroReporte').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
+

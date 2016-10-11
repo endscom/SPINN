@@ -66,3 +66,9 @@ $route['ExpPDFpuntosCliente'] = 'exportacion_controller/ExpoPdfPuntosClientes';
 $route['ExpEXCELpuntosCliente'] = 'exportacion_controller/ExpoExcelPuntosClientes';
 
 // FIN EXPORTACIÓN
+
+// RUTAS REPORTES
+$route['ajaxEstadoFacturas/(:any)/(:any)/(:any)'] = 'reportes_controller/ajaxEstadoFacturas/$1/$2/$3';
+$route['ajaxDisponibilidadPuntos/(:any)/(:any)/(:any)'] = 'reportes_controller/ajaxDisponibilidadPuntos/$1/$2/$3';
+
+
