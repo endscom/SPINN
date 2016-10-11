@@ -169,7 +169,7 @@ class Hana_model extends CI_Model
                     $json['data'][$i]["NUMERO"] = $i;
                     $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
                     $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
-                    $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
+                    $json['data'][$i]["COD_CLIENTE"] = utf8_encode($fila['COD_CLIENTE']);
                     $json['data'][$i]["CLIENTE"] = $fila['CLIENTE'];
                     $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
                     $i++;
@@ -204,7 +204,7 @@ class Hana_model extends CI_Model
                     $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
                     $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
                     $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
-                    $json['data'][$i]["CLIENTE"] = $fila['CLIENTE'];
+                    $json['data'][$i]["CLIENTE"] = utf8_encode($fila['CLIENTE']);
                     $json['data'][$i]["P_ACUMULADOS"] = $fila['ACUMULADO'];
                     $json['data'][$i]["P_DISPONIBLES"] = $fila['DISPONIBLE'];
                     $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
