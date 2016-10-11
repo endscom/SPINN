@@ -20,8 +20,8 @@ class Exportacion_controller extends CI_Controller
         $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_Cliente',$query,true));
         $PdfCliente->Output();
     }
-    public function ExpoPdfPuntosClientes()
-    {
+
+    public function ExpoPdfPuntosClientes(){
         $data['Clientes'] = $this->hana_model->ClientesPuntos();
         $data['Detalles'] = $this->hana_model->PdfFacturasXcliente();//print_r($data['Detalles']);
         $PdfCliente = new mPDF('utf-8','A4');
@@ -29,15 +29,14 @@ class Exportacion_controller extends CI_Controller
         $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_PuntosClientes',$data,true));
         $PdfCliente->Output();
     }
-    public function ExpoExcelPuntosClientes()
-    {
+
+    public function ExpoExcelPuntosClientes(){
         $data['Clientes'] = $this->hana_model->ClientesPuntos();
         $data['Detalles'] = $this->hana_model->PdfFacturasXcliente();//print_r($data['Detalles']);
         $this->load->view('Exportar/Excel_PuntosClientes',$data);
     }
+
     public function ExpoFrp(){
-
         $this->load->view('Exportar/Pdf_FRP');
-
     }
 }
