@@ -169,12 +169,14 @@ class Hana_model extends CI_Model
         $json['data'][$i]["COD_CLIENTE"] = "";
         $json['data'][$i]["CLIENTE"] = "";
         $json['data'][$i]["ESTADO"] = "";
+
         while ($fila = odbc_fetch_array($resultado)){
+
             $json['data'][$i]["NUMERO"] = $i;
             $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
             $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
-            $json['data'][$i]["COD_CLIENTE"] = utf8_encode($fila['COD_CLIENTE']);
-            $json['data'][$i]["CLIENTE"] = $fila['CLIENTE'];
+            $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
+            $json['data'][$i]["CLIENTE"] = utf8_encode($fila['CLIENTE']);
             $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
             $i++;
         }
@@ -205,6 +207,7 @@ class Hana_model extends CI_Model
         $json['data'][$i]["P_ACUMULADOS"] = "";
         $json['data'][$i]["P_DISPONIBLES"] = "";
         $json['data'][$i]["ESTADO"] = "";
+
         while ($fila = odbc_fetch_array($resultado)){
             $json['data'][$i]["NUMERO"] = $i;
             $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
