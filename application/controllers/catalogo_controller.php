@@ -132,7 +132,7 @@ class Catalogo_controller extends CI_Controller
         } else if ($size > 1024*1024) {
           echo "Error, el tamaño máximo permitido es un 1MB";return false;
         }
-      } else{echo 0;}
+      } else { echo 0; }
     }
 }
 ?>

@@ -1,7 +1,6 @@
 var activo = false;
 $(document).ready(function() {
 
-    $('#Filtros').openModal();
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],

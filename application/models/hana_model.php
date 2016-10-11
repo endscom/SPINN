@@ -157,6 +157,8 @@ class Hana_model extends CI_Model
                 $i++;
             }
         }
+        return $json;
+    }
 
     public function DFacturas($ID)
     {
@@ -176,6 +178,7 @@ class Hana_model extends CI_Model
         }
         echo json_encode($json);
     }
+
     public function FacturasFRP($ID)
     {
         $conn = $this->OPen_database_odbcSAp();
