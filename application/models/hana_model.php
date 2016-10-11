@@ -335,5 +335,6 @@ class Hana_model extends CI_Model
             echo json_encode($json);
         }
     }
+    }
 }
 ?>
