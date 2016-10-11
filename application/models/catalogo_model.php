@@ -23,6 +23,7 @@ class Catalogo_model extends CI_Model
                                                        <label for="chk-'.$row['IdIMG'].'"></label>';
                     $json['data'][$i]['idCT']       = $row['IdCT'];
                     $i++;
+
                 }
         } else {   
                 $json['data'][$i]['CodigoImg']  = "";
