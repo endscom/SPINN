@@ -69,9 +69,9 @@ class Hana_model extends CI_Model
             $json[$i]['FECHA'] = $fila['FECHA'];
             $json[$i]['FACTURA'] = $fila['FACTURA'];
             $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
-            $json[$i]['CLIENTE'] = $fila['CLIENTE'];
+            $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
             $json[$i]['COD_VENDEDOR'] = $fila['COD_VENDEDOR'];
-            $json[$i]['VENDEDOR'] = $fila['VENDEDOR'];
+            $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
             $json[$i]['DISPONIBLE'] = $fila['DISPONIBLE'];
             $json[$i]['ACUMULADO'] = $fila['ACUMULADO'];
             $i++;
@@ -97,7 +97,7 @@ class Hana_model extends CI_Model
                 $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
                 $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
                 $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
-                $json['data'][$i]["VENDEDOR"] = $fila['VENDEDOR'];
+                $json['data'][$i]["VENDEDOR"] = utf8_encode($fila['VENDEDOR']);
                 $json['data'][$i]["ACUMULADO"] = number_format($fila['ACUMULADO'],2);
                 $json['data'][$i]["DISPONIBLE"] = number_format($fila['DISPONIBLE'],2);
                 $i++;
@@ -126,7 +126,7 @@ class Hana_model extends CI_Model
                 $json[$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
                 $json[$i]["FECHA"] = $newFecha;
                 $json[$i]["FACTURA"] = $fila['FACTURA'];
-                $json[$i]["VENDEDOR"] = $fila['VENDEDOR'];
+                $json[$i]["VENDEDOR"] = utf8_encode($fila['VENDEDOR']);
                 $json[$i]["ACUMULADO"] = number_format($fila['ACUMULADO'],2);
                 $json[$i]["DISPONIBLE"] = number_format($fila['DISPONIBLE'],2);
                 $i++;
@@ -149,7 +149,7 @@ class Hana_model extends CI_Model
         return $date;
     }
 
-    public function ajaxEstadoFacturas($IdCliente,$f1,$f2)
+    public function ajaxEstadoFacturas($IdCliente,$f1,$f2,$pdf=null)
     {
         $query = 'SELECT * FROM '.$this->BD.'."SPINN_TTFACTURAS_PUNTOS" WHERE '."'".'0'."'"."='"."0'";
         if ($IdCliente != '0') {
@@ -185,10 +185,12 @@ class Hana_model extends CI_Model
             $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
             $i++;
         }
-
+        if ($pdf!=null) {
+            return $json;
+        }
         echo json_encode($json);
     }
-    public function ajaxDisponibilidadPuntos($IdCliente,$f1,$f2)
+    public function ajaxDisponibilidadPuntos($IdCliente,$f1,$f2,$pdf=null)
     {
         $query = 'SELECT * FROM '.$this->BD.'."SPINN_TTFACTURAS_PUNTOS" WHERE '."'".'0'."'"."='"."0'";
         if ($IdCliente != '0') {
@@ -225,8 +227,11 @@ class Hana_model extends CI_Model
             $i++;
 
 
-        }
+        }if ($pdf!=null) {
+            return $json;
+        }else{
         echo json_encode($json);
+        }
     }
     public function ClientesPuntos(){
         $conn = $this->OPen_database_odbcSAp(); $query = '';
@@ -330,11 +335,30 @@ class Hana_model extends CI_Model
                                     $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO']);
                                 }
                             }
+                    }
                 }
-            }
             echo json_encode($json);
+            }
         }
     }
+    public function ajaxDireccionTelefono($IdCliente,$pdf=null)
+    {
+        $conn = $this->OPen_database_odbcSAp();
+        $query = 'SELECT "DIRECCION","TELEFONO" FROM '.$this->BD.'.SPINN_CLIENTES WHERE CODIGO = '."'".$IdCliente."'".'';
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+        $json[0]['DIRECCION'] = 'NO DEFINIDO';
+        $json[0]['TELEFONO'] = 'NO DEFINIDO';
+        while ($fila = odbc_fetch_array($resultado)){
+            $json[0]['DIRECCION'] = $fila['DIRECCION'];
+            $json[0]['TELEFONO'] = $fila['TELEFONO'];
+        }
+        if ($pdf!=null) {
+            return $json;
+        }else{
+        echo json_encode($json);
+        }
     }
 }
 ?>

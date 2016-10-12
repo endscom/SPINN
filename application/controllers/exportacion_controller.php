@@ -39,4 +39,34 @@ class Exportacion_controller extends CI_Controller
     public function ExpoFrp(){
         $this->load->view('Exportar/Pdf_FRP');
     }
+    public function ExpEstadoFactura()
+    {
+        if($_POST['reporte']==0){
+            if ($_POST['tipoReporte']==0) {
+                $data = $this->hana_model->ajaxEstadoFacturas($_POST['Codigo'],$_POST['txtFecha1'],$_POST['txtFecha2'],1);
+                //$data['detalles'] = $this->hana_model->ajaxDireccionTelefono($_POST['Codigo'],1);
+                $this->load->view('Exportar/Excel_EstadoFactura',$data);
+            }else{
+                $data = $this->hana_model->ajaxEstadoFacturas($_POST['Codigo'],$_POST['txtFecha1'],$_POST['txtFecha2'],1);
+                //$data['detalles'] = $this->hana_model->ajaxDireccionTelefono($_POST['Codigo'],1);
+                $PdfCliente = new mPDF('utf-8','A4');
+                $PdfCliente->SetFooter("Página {PAGENO} de {nb}");//PARA PONER EL NUMERO DE PAGINA EKISDE
+                $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_EstadoFactura',$data,true));
+                $PdfCliente->Output();
+            }
+        }else{
+            if ($_POST['tipoReporte']==0) {
+                $data = $this->hana_model->ajaxDisponibilidadPuntos($_POST['Codigo'],$_POST['txtFecha1'],$_POST['txtFecha2'],1);
+                $this->load->view('Exportar/Excel_DisponibilidadPuntos',$data);
+            }else{
+                $data = $this->hana_model->ajaxDisponibilidadPuntos($_POST['Codigo'],$_POST['txtFecha1'],$_POST['txtFecha2'],1);
+                //$data['detalles'] = $this->hana_model->ajaxDireccionTelefono($_POST['Codigo'],1);
+                $PdfCliente = new mPDF('utf-8','A4');
+                $PdfCliente->SetFooter("Página {PAGENO} de {nb}");//PARA PONER EL NUMERO DE PAGINA EKISDE
+                $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_DisponibilidadPuntos',$data,true));
+                $PdfCliente->Output();
+            }
+
+        }        
+    }
 }
