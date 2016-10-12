@@ -35,7 +35,12 @@
             </div>
         </div>
         <div class="row">
-            <form class="" name="frmReport">
+            <form action="ExpPDFEstadoFactura" id="FrmEstadoFactura" name="FrmEstadoFactura"  method="post" target="_blank">
+                <input name="Codigo" type="hidden" id="txtCodigo" value="0">
+                <input name="txtFecha1" type="hidden" id="txtFecha1" value="0">
+                <input name="txtFecha2" type="hidden" id="txtFecha2" value="0">
+                <input name="reporte" type="hidden" id="reporte" value="0">
+                <input name="tipoReporte" type="hidden" id="tipoReporte" value="0">
                 <div class="row">
                     <div class="col s12 s12 m6 l6">
                         <select class="chosen-select browser-default " id="idCliente">
@@ -57,7 +62,6 @@
                     </div>
                     <div class="input-field col s12 m6 l6">
                         <input name="fecha2" placeholder="Hasta" id="fecha2" type="text" class="datepicker1">
-
                     </div>
                 </div>
                 <div class="row">
@@ -109,19 +113,19 @@
         <div class="col s1" id="tituloReport1">  <p class="frpT pts">DATOS DEL CLIENTE</p></div>
 
         <div class="row">
-            <div class="col s5 m3 l6" id="divCliente">
-                <p class="Mcolor cod ">COD# <span id="Modal1CodCliente">000</span> </p>
-                <p class="detalles cod linea"><span class="Mcolor">NOMBRE:</span> FARMACIA VIDA</p>
-                <p class="detalles cod linea"><span class="Mcolor">DIRECCION:</span> Frente a Unión Fenosa, Ocotal</p>
-                <p class="detalles cod linea"><span class="Mcolor">TELEFONO:</span> 27323298</p>
+            <div class="col s11 m12 l6" id="divCliente">
+                <p class="cod Mcolor noMargen">COD: <span id="rpCodCliente" class="linea mediana mayuscula"></span></p>
+                <p class="cod Mcolor noMargen">NOMBRE: <span id="rpNomCliente" class="linea mediana mayuscula"></span></p>
+                <p class="cod Mcolor noMargen">DIRECCION: <span id="rpDireccion" class="linea mediana mayuscula"></span></p>
+                <p class="cod Mcolor noMargen">TELEFONO: <span id="rpTelefono" class="linea mediana mayuscula"></span></p>
             </div>
 
             <div id="divFecha">
-                <div class="col s3 m4 l3 " >
+                <div class="col s12 m6 l3 " >
                     <p class="fecha" id="Modal1Fecha1" >00/00/0000</p>
                     <p class="rango">Desde</p>
                 </div>
-                <div class="col s3 m4 l3">
+                <div class="col s12 m6 l3">
                     <p class="fecha" id="Modal1Fecha2">00/00/0000</p>
                     <p class="rango">Hasta</p>
                 </div>
@@ -130,7 +134,7 @@
         <div id="loadEstadoFactura" class="progress" style='display:none;'>
             <div class="indeterminate"></div>
         </div>
-        <div class="row center">
+        <div class="row center">            
                 <table id="tblEstadoFactura" class=" TblDatos">
                     <thead>
                     <tr>
@@ -152,14 +156,15 @@
                 <a class="noHover" href="ajaxDisponibilidadPuntos/CL008205/0/0"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>
             </div>
             <div class="col s2 l1">
-                <a class="noHover" href="#"><img src="<?PHP echo base_url();?>assets/img/icono_excel.png" width="38px"></a>
+                <a class="noHover" href="#" onclick="exportarEstadoFactura(0)" ><img src="<?PHP echo base_url();?>assets/img/icono_excel.png" width="38px"></a>
             </div>
             <div class="col s2 l1">
-                <a class="noHover" href="#"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png" width="38px"></a>
+                <a class="noHover" href="#" onclick="exportarEstadoFactura(1)"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png" width="38px"></a>
             </div>
         </div>
     </div>
 </div>
+
 
 <div id="DisponiblePuntos" class="modal">
     <div class="modal-content">
@@ -184,20 +189,20 @@
         <div class="col s1" id="tituloReport1">  <p class="frpT pts">DATOS DEL CLIENTE</p></div>
 
         <div class="row">
-            <div class="col s5 m3 l6" id="divCliente">
-                <p class="Mcolor cod ">COD# <span id="Modal1CodCliente">000</span> </p>
-                <p class="detalles cod linea"><span class="Mcolor">NOMBRE:</span> FARMACIA VIDA</p>
-                <p class="detalles cod linea"><span class="Mcolor">DIRECCION:</span> Frente a Unión Fenosa, Ocotal</p>
-                <p class="detalles cod linea"><span class="Mcolor">TELEFONO:</span> 27323298</p>
+            <div class="col s11 m12 l6" id="divCliente">
+                <p class="cod Mcolor noMargen">COD: <span id="rpCodCliente2" class="linea mediana mayuscula"></span></p>
+                <p class="cod Mcolor noMargen">NOMBRE: <span id="rpNomCliente2" class="linea mediana mayuscula"></span></p>
+                <p class="cod Mcolor noMargen">DIRECCION: <span id="rpDireccion2" class="linea mediana mayuscula"></span></p>
+                <p class="cod Mcolor noMargen">TELEFONO: <span id="rpTelefono2" class="linea mediana mayuscula"></span></p>
             </div>
 
             <div id="divFecha">
-                <div class="col s3 m4 l3 " >
-                    <p class="fecha" id="Modal1Fecha1" >00/00/0000</p>
+                <div class="col s6 m6 l3 " >
+                    <p class="fecha" id="Modal1Fecha12" >00/00/0000</p>
                     <p class="rango">Desde</p>
                 </div>
-                <div class="col s3 m4 l3">
-                    <p class="fecha" id="Modal1Fecha2">00/00/0000</p>
+                <div class="col s6 m6 l3">
+                    <p class="fecha" id="Modal1Fecha22">00/00/0000</p>
                     <p class="rango">Hasta</p>
                 </div>
             </div>
@@ -206,26 +211,36 @@
             <div class="indeterminate"></div>
         </div>
         <div class="row center">
-            <table id="tblDisponibilidadPuntos" class=" TblDatos">
-                <thead>
-                <tr>
-                    <th>Nº</th>
-                    <th>FECHA</th>
-                    <th>FACTURA</th>
-                    <th>COD.</th>
-                    <th>CLIENTE</th>
-                    <th>P.ACUMULADOS</th>
-                    <th>P.DISPONIBLES</th>
-                    <th>ESTADO</th>
-                </tr>
-                </thead>
-                <tbody>
-                
-                </tbody>
-            </table>
+            <form action="" name="FrmDisponiblePuntos" id="FrmDisponiblePuntos" method="post">
+                <table id="tblDisponibilidadPuntos" class=" TblDatos">
+                    <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>FECHA</th>
+                        <th>FACTURA</th>
+                        <th>COD.</th>
+                        <th>CLIENTE</th>
+                        <th>P.ACUMULADOS</th>
+                        <th>P.DISPONIBLES</th>
+                        <th>ESTADO</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+            </form>
         </div>
         <div id="Iconos" class="center row">
-                <a class="noHover" href="#"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px" ></a>
+            <div class="col offset-l5 s2 l1">
+                <a class="noHover" href="ajaxDisponibilidadPuntos/CL008205/0/0"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>
+            </div>
+            <div class="col s2 l1">
+                <a class="noHover" href="#" onclick="exportarEstadoFactura(0)"><img src="<?PHP echo base_url();?>assets/img/icono_excel.png" width="38px"></a>
+            </div>
+            <div class="col s2 l1">
+                <a class="noHover" href="#" onclick="exportarEstadoFactura(1)"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png" width="38px"></a>
+            </div>
         </div>
     </div>
 </div>

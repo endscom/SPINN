@@ -1,6 +1,7 @@
 var activo = false;
-$(document).ready(function() {
 
+$(document).ready(function() {
+//$('#Filtros').openModal();
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -50,6 +51,7 @@ $('#txtimagen').change(function(){
 var idImagenGlobal;
 var IdCatalogoGlobal;
 var rowCount;
+    var ttFRP =0;
 $('#tblCatalogoPasado').DataTable( {
             "info":    false,
             "bPaginate": false,
@@ -572,12 +574,57 @@ function subirimagen()
         }
     });
 
-    $("#BtnFiltroReporte").click(function() {        
+
+
+    function traerDireccionTelefono (IdCLiente){
+        $.ajax({//AJAX PARA TRAER LA DIRECCION Y EL TELEFONO DEL CLIENTE
+                url: "ajaxDireccionTelefono/"+IdCLiente,
+                type: "GET",
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {                    
+                    $.each(datos, function(i, item) {
+                        if($('#R1').is(':checked') ){
+                        $("#rpDireccion").html(item.DIRECCION);
+                        $("#rpTelefono").html(item.TELEFONO);
+                        }
+                        else if($('#R2').is(':checked') ){
+                        $("#rpDireccion2").html(item.DIRECCION);
+                        $("#rpTelefono2").html(item.TELEFONO);
+                        }
+                    });
+                }
+            });
+    }
+
+    function exportarEstadoFactura(tipo) {
+        $('#tipoReporte').val(tipo);
+        $('#txtCodigo').val($("#idCliente").val());
+        $('#txtFecha1').val(($("#fecha1").val()=="")? "0":$("#fecha1").val());
+        $('#txtFecha2').val(($("#fecha2").val()=="")? "0":$("#fecha2").val());
+        $('#FrmEstadoFactura').submit();
+    }
+    function ExportardisponibilidadPuntos() {
+        // body...
+    }
+    function limpiar () {
+        $('#rpCodCliente').empty();     $('#rpNomCliente').empty();
+        $('#rpCodCliente2').empty();    $('#rpNomCliente2').empty();
+        $("#Modal1Fecha22").empty();    $("#Modal1Fecha12").empty();
+        $("#Modal1Fecha1").empty();     $("#Modal1Fecha2").empty();
+    }
+
+    $("#BtnFiltroReporte").click(function() {//funcion para generar reporte
+        limpiar();
         var Cls = $("#idCliente").val();    var f1  = $("#fecha1").val();
-        var f2  = $("#fecha2").val();
+        var f2  = $("#fecha2").val();   $('#rpCodCliente').text(Cls);
+        $('#rpNomCliente').text($("#idCliente option:selected").html());
         $("#divFecha,#divFecha2").show(); $("#loadEstadoFactura").show();
         $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").show();
         $("#Modal1Fecha1").html(f1);    $("#Modal1Fecha2").html(f2);
+        if (Cls!=0) {traerDireccionTelefono(Cls);}        
         if (f1=="" || f2==""){
             f1=0;f2=0;
             $("#divFecha,#divFecha2").hide();
@@ -585,7 +632,7 @@ function subirimagen()
         if(Cls == 0){
             $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").hide();
         }
-        if($('#R1').is(':checked') ){            
+        if($('#R1').is(':checked') ){$("#reporte").val(0);
             Objtable = $('#tblEstadoFactura').DataTable();
             Objtable.destroy();
             Objtable.clear();
@@ -625,7 +672,10 @@ function subirimagen()
             }).dataTable();
             
         }
-        if($('#R2').is(':checked') ){
+        if($('#R2').is(':checked') ){$("#reporte").val(1);
+            $("#Modal1Fecha12").html(f1);    $("#Modal1Fecha22").html(f2);
+            $('#rpCodCliente2').text(Cls);   $("#reporte").val(1);
+            $('#rpNomCliente2').text($("#idCliente option:selected").html());
             $('#loadDisponiblePuntos').show();
             Objtable = $('#tblDisponibilidadPuntos').DataTable();
             Objtable.destroy();
@@ -734,6 +784,38 @@ function subirimagen()
         }
     });
 
+    //GET VALUES ROW FORM
+
+
+    function isVerificar(posicion,fact){
+
+        ttFRP = parseInt($("#idttPtsCLsFRP").text());
+        var FACTURA   = $('#tblFacturaFRP').DataTable().row(posicion).data().DISPONIBLE;
+
+        console.log("P: " + posicion + " FACTURA: " + FACTURA + " TOTAL: " + ttFRP);
+
+        if (ttFRP==""){
+            Materialize.toast($('<span class="center">INGRESE EL ARTICULO. </span>'), 3500,'rounded error');
+        }else{
+
+            if (FACTURA > ttFRP){
+                $("#AP1" + fact).html(ttFRP);
+                $("#EST" + fact).html("PARCIAL");
+                sfactura = FACTURA - ttFRP;
+                $("#DIS" + fact).html(sfactura);
+                ttFRP=0;
+            }else{
+                $("#AP1" + fact).html(FACTURA);
+                ttFRP = ttFRP - FACTURA;
+                $("#DIS" + fact).html("0");
+                $("#EST" + fact).html("APLICADO");
+                //$("#EST" + fact).html("APLICADO");
+            }
+
+        }
+        $("#idttPtsCLsFRP").html(ttFRP)
+    }
+
     function DFactura(factura){
         $("#codFactura").text(factura);
         Objtable = $('#tblModal1').DataTable();
@@ -773,43 +855,52 @@ function subirimagen()
             });
 
         }else{
-            alert("Seleccione un CLiente primero")
+            Materialize.toast($('<span class="center">SELECCIONE UN CLIENTE PRIMERO. </span>'), 3500,'rounded error');
         }
     });
 
     $("#AddPremioTbl").on('click',function(){
         Objtable = $('#tblpRODUCTOS').DataTable();
         var cod= $( "#ListCatalogo option:selected" ).val();
+
+        var ttClPts = parseInt($("#PtsClientefrp").val());
+
         if (cod != 0){
             var name = $( "#ListCatalogo option:selected" ).html();
             var pts    = $("#ValorPtsPremioFRP").val();
             var cant   = $("#CantPremioFRP").val();
             var totalPts = parseInt(cant) * parseInt(pts);
-            Objtable.row.add( [
-                cant,
-                cod,
-                name,
-                pts,
-                totalPts,
-                '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
-            ] ).draw( false );
 
-            var ttPts = 0;
+            var ttPts = parseInt($("#idttPtsFRP").text());
+            console.log(ttPts);
+            ttPts = ttPts + totalPts;
 
-            Objtable.column(4).data().each( function ( value, index ) {
-                ttPts += parseInt(value);
-            } );
+            if (ttPts <= ttClPts){
+                $("#idttPtsFRP").text(ttPts);
+                $("#idttPtsCLsFRP").text(ttPts);
 
-            $("#idttPtsFRP").text(ttPts);
+
+                Objtable.row.add( [
+                    cant,
+                    cod,
+                    name,
+                    pts,
+                    totalPts,
+                    '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
+                ] ).draw( false );
+            }else{
+                Materialize.toast($('<span class="center">NO CUENTA CON LOS PUNTOS NECESARIOS. </span>'), 3500,'rounded error');
+            }
 
         }else{
-            alert("Seleccione un Articulo del Catalogo");
+            Materialize.toast($('<span class="center">SELECCIONE UN ARTICULO DEL CATALOGO. </span>'), 3500,'rounded error');
         }
     });
     $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
-
         $(this).toggleClass('selected');
     } );
+
+
 
 
     $("#tblpRODUCTOS").delegate("a", "click", function(){
@@ -819,6 +910,7 @@ function subirimagen()
             ttPts += parseInt(value);
         } );
         $("#idttPtsFRP").text(ttPts);
+        $("#idttPtsCLsFRP").text(ttPts);
     });
     $("#cambiarImagen").on('click',function(){
         $('.cosaEdicion').hide();

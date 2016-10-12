@@ -11,14 +11,17 @@ class Reportes_controller extends CI_Controller
             redirect(base_url().'index.php/login','refresh');
         }
     }
-
+    
     public function ajaxEstadoFacturas($IdCliente,$f1,$f2)
     {
-
     	$this->hana_model->ajaxEstadoFacturas($IdCliente,$f1,$f2);
     }
     public function ajaxDisponibilidadPuntos($IdCliente,$f1,$f2)
     {
     	$this->hana_model->ajaxDisponibilidadPuntos($IdCliente,$f1,$f2);
+    }
+    public function ajaxDireccionTelefono($IdCliente)
+    {
+        $this->hana_model->ajaxDireccionTelefono($IdCliente);
     }
 }
