@@ -132,6 +132,7 @@
                     <th>ESTADO</th>
                 </tr>
             </thead>
+
                 
             <tbody>
                 <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -144,7 +145,7 @@
             </div>
             <div id="Total" class="right row">
                 <div class="col s12">
-                    <p class="Dato">TOTAL: <span class="dato" id="idttPtsCLsFRP"></span> Pts.</p>
+                    <p class="Dato">TOTAL: <span class="dato" id="idttPtsCLsFRP">0</span> Pts.</p>
                 </div>
             </div>
         </div>
@@ -208,7 +209,7 @@
 
         <div id="Total" class="right row text">
             <div class="col s12 m12 l12">
-                <p class="Dato">TOTAL: <span class="dato" id="idttPtsFRP"></span> Pts.</p>
+                <p class="Dato">TOTAL: <span class="dato" id="idttPtsFRP">0</span> Pts.</p>
             </div>
         </div>
     </div>
