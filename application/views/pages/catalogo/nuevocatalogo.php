@@ -1,20 +1,19 @@
 <header class="demo-header mdl-layout__header ">
-    <div class="centrado  ColorHeader">
-        <span class=" title">catálogo</span>
-    </div>
+    <div class="centrado  ColorHeader"><span class=" title">catálogo</span></div>
 </header>
+
 <!--  CONTENIDO PRINCIPAL -->
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">        
-        <div class=" row TextColor center">
-            <div class="col s5 m8 l12 offset-m1">
-               creación de catalogos                
-            </div>
-        </div>
-  	<div class="row noMargen valign-wrapper ">
-          <div class="bold noMargen left col s5 m8 l8">
-              <h6>ARTÍCULOS EN CATÁLOGO DE <?php
-              $Fecha = date_format(date_create($catActual[0]['Fecha']),'m');
+      <div class=" row TextColor center">
+            <div class="col s5 m8 l12 offset-m1">creación de catalogos</div>
+      </div>
+  	  
+      <div class="row noMargen valign-wrapper ">
+        <div class="bold noMargen left col s5 m8 l8">
+          <h6>ARTÍCULOS EN CATÁLOGO DE 
+          <?php
+            $Fecha = date_format(date_create($catActual[0]['Fecha']),'m');
               switch ($Fecha) {
                 case '01':echo "ENERO";break;case '02':echo "FEBRERO";break;case '03':echo "MARZO";break;
                 case '04':echo "ABRIL";break;case '05':echo "MAYO";break;case '06':echo "JUNIO";break;

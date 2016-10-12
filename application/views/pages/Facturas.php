@@ -33,7 +33,7 @@
                         <th>P.ACUMULADO</th>
                         <th>P.DISPONIBLE</th>
                         <th>VENDEDOR</th>
-                        <th>ELIMINAR</th>
+                        <th>VER</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,12 +53,6 @@
                     ?>
                 </tbody>
             </table>
-
-            <div class="right row">
-                <div class="col s12 m12 l12">
-                    <p class="TextTotal">Total Pts.Cliente: <span>325,766 Pts.</span> </p>
-                </div>
-            </div>
         </div>
         </div>
     </div>
