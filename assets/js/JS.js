@@ -1,4 +1,5 @@
 var activo = false;
+
 $(document).ready(function() {
 
 $('.datepicker').pickadate({ 
@@ -50,6 +51,7 @@ $('#txtimagen').change(function(){
 var idImagenGlobal;
 var IdCatalogoGlobal;
 var rowCount;
+    var ttFRP =0;
 $('#tblCatalogoPasado').DataTable( {
             "info":    false,
             "bPaginate": false,
@@ -734,6 +736,38 @@ function subirimagen()
         }
     });
 
+    //GET VALUES ROW FORM
+
+
+    function isVerificar(posicion,fact){
+
+        ttFRP = parseInt($("#idttPtsCLsFRP").text());
+        var FACTURA   = $('#tblFacturaFRP').DataTable().row(posicion).data().DISPONIBLE;
+
+        console.log("P: " + posicion + " FACTURA: " + FACTURA + " TOTAL: " + ttFRP);
+
+        if (ttFRP==""){
+            Materialize.toast($('<span class="center">INGRESE EL ARTICULO. </span>'), 3500,'rounded error');
+        }else{
+
+            if (FACTURA > ttFRP){
+                $("#AP1" + fact).html(ttFRP);
+                $("#EST" + fact).html("PARCIAL");
+                sfactura = FACTURA - ttFRP;
+                $("#DIS" + fact).html(sfactura);
+                ttFRP=0;
+            }else{
+                $("#AP1" + fact).html(FACTURA);
+                ttFRP = ttFRP - FACTURA;
+                $("#DIS" + fact).html("0");
+                $("#EST" + fact).html("APLICADO");
+                //$("#EST" + fact).html("APLICADO");
+            }
+
+        }
+        $("#idttPtsCLsFRP").html(ttFRP)
+    }
+
     function DFactura(factura){
         $("#codFactura").text(factura);
         Objtable = $('#tblModal1').DataTable();
@@ -773,43 +807,52 @@ function subirimagen()
             });
 
         }else{
-            alert("Seleccione un CLiente primero")
+            Materialize.toast($('<span class="center">SELECCIONE UN CLIENTE PRIMERO. </span>'), 3500,'rounded error');
         }
     });
 
     $("#AddPremioTbl").on('click',function(){
         Objtable = $('#tblpRODUCTOS').DataTable();
         var cod= $( "#ListCatalogo option:selected" ).val();
+
+        var ttClPts = parseInt($("#PtsClientefrp").val());
+
         if (cod != 0){
             var name = $( "#ListCatalogo option:selected" ).html();
             var pts    = $("#ValorPtsPremioFRP").val();
             var cant   = $("#CantPremioFRP").val();
             var totalPts = parseInt(cant) * parseInt(pts);
-            Objtable.row.add( [
-                cant,
-                cod,
-                name,
-                pts,
-                totalPts,
-                '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
-            ] ).draw( false );
 
-            var ttPts = 0;
+            var ttPts = parseInt($("#idttPtsFRP").text());
+            console.log(ttPts);
+            ttPts = ttPts + totalPts;
 
-            Objtable.column(4).data().each( function ( value, index ) {
-                ttPts += parseInt(value);
-            } );
+            if (ttPts <= ttClPts){
+                $("#idttPtsFRP").text(ttPts);
+                $("#idttPtsCLsFRP").text(ttPts);
 
-            $("#idttPtsFRP").text(ttPts);
+
+                Objtable.row.add( [
+                    cant,
+                    cod,
+                    name,
+                    pts,
+                    totalPts,
+                    '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
+                ] ).draw( false );
+            }else{
+                Materialize.toast($('<span class="center">NO CUENTA CON LOS PUNTOS NECESARIOS. </span>'), 3500,'rounded error');
+            }
 
         }else{
-            alert("Seleccione un Articulo del Catalogo");
+            Materialize.toast($('<span class="center">SELECCIONE UN ARTICULO DEL CATALOGO. </span>'), 3500,'rounded error');
         }
     });
     $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
-
         $(this).toggleClass('selected');
     } );
+
+
 
 
     $("#tblpRODUCTOS").delegate("a", "click", function(){
@@ -819,6 +862,7 @@ function subirimagen()
             ttPts += parseInt(value);
         } );
         $("#idttPtsFRP").text(ttPts);
+        $("#idttPtsCLsFRP").text(ttPts);
     });
     $("#cambiarImagen").on('click',function(){
         $('.cosaEdicion').hide();
