@@ -43,7 +43,7 @@
                                     <td>".number_format($fac['ACUMULADO'])." Pts.</td>
                                     <td>".number_format($fac['DISPONIBLE'])." Pts.</td>
                                     <td>".utf8_encode($fac['VENDEDOR'])."</td>
-                                    <td><a href='#modal3' onclick='DFactura(".$fac['FACTURA'].")' class='modal-trigger'> <i class='material-icons'>&#xE417;</i></a></td>
+                                    <td class='center'><a href='#' onclick='DFactura(".$fac['FACTURA'].")'> <i class='material-icons'>&#xE417;</i></a></td>
                                   </tr>";
                         }
                     ?>

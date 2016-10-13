@@ -1,7 +1,7 @@
 var activo = false;
 
 $(document).ready(function() {
-//$('#Filtros').openModal();
+//$('#listaArticulosCatalogoActual').openModal();
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -33,12 +33,7 @@ $('#searchCatalogo').on( 'keyup', function () {
 } );
 $('#checkTodos').change(function () {//funcion para seleccionar todos los checks
     var oTable = $('#tblCatalogoPasado').dataTable();
-    var nNodes = oTable.fnGetNodes( );    
-    if($(this).is(':checked') ) {
-    $("label").trigger("click");
-    }else{
-        $("label").trigger("click");
-   }
+    $('input', oTable.fnGetNodes()).prop('checked',this.checked);// change .attr() to .prop()
 });
 
 $('#txtimagen').change(function(){
@@ -127,7 +122,7 @@ $('#tblCatalogoActualModal').DataTable({
     /****** Seccíon del Menú ******/
 
     /**** DATATABLES ****/
-    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblFacturas,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblpRODUCTOS,#tblModals').DataTable(
+    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblFacturas,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblFacturaFRP,#tblpRODUCTOS,#tblModals').DataTable(
         {
             "info":    false,
             //"searching": false,
@@ -526,8 +521,8 @@ function subirimagen()
                 data: form_data,
                 success:
                     function(json){
-                        contador++;
-                        alert(rowCount+" contador "+ contador);
+                        contador++;//alert(bandera);
+                        //alert(rowCount+" contador "+ contador);
                         if (contador==rowCount) {var myVar = setInterval(myTimer2, 3500);};
                     }
                 });}
@@ -783,38 +778,155 @@ function subirimagen()
             alert("No Selecciono ningun cliente");
         }
     });
+    function apliAutomatic(pts){
+        var obj = $('#tblFacturaFRP').DataTable();
+        obj.rows().data().each( function (index) {
 
-    //GET VALUES ROW FORM
+            var FACTURA   = obj.row(index).data().FACTURA;
+            var apl = parseInt($("#AP1" + FACTURA).text());
+            var dis = parseInt($("#DIS" + FACTURA).text());
 
+            if (dis > 0){
+                apl = apl + parseInt(pts);
+                dis = dis - parseInt(pts);
 
-    function isVerificar(posicion,fact){
+                $("#AP1" + FACTURA).html(apl);
+                $("#DIS" + FACTURA).html(dis);
 
-        ttFRP = parseInt($("#idttPtsCLsFRP").text());
-        var FACTURA   = $('#tblFacturaFRP').DataTable().row(posicion).data().DISPONIBLE;
-
-        console.log("P: " + posicion + " FACTURA: " + FACTURA + " TOTAL: " + ttFRP);
-
-        if (ttFRP==""){
-            Materialize.toast($('<span class="center">INGRESE EL ARTICULO. </span>'), 3500,'rounded error');
-        }else{
-
-            if (FACTURA > ttFRP){
-                $("#AP1" + fact).html(ttFRP);
-                $("#EST" + fact).html("PARCIAL");
-                sfactura = FACTURA - ttFRP;
-                $("#DIS" + fact).html(sfactura);
-                ttFRP=0;
-            }else{
-                $("#AP1" + fact).html(FACTURA);
-                ttFRP = ttFRP - FACTURA;
-                $("#DIS" + fact).html("0");
-                $("#EST" + fact).html("APLICADO");
-                //$("#EST" + fact).html("APLICADO");
+            }
+            if (dis == 0){
+                $("#EST" + FACTURA).html("APLICADO");
             }
 
+        });
+
+        $("#idttPtsCLsFRP").html("0");
+    }
+    function isVerificar(posicion,fact){
+        ttFRP = parseInt($("#idttPtsCLsFRP").text());
+
+        ptsFRP = parseInt($("#idttPtsFRP").text());
+
+        var FACTURA   = $('#tblFacturaFRP').DataTable().row(posicion).data().DISPONIBLE;
+        if($("#CHK"+fact).is(':checked') ) {
+
+            if( ptsFRP == 0){
+                ttFRP = 0;
+                $("#CHK"+fact).prop('checked', false);
+                Materialize.toast($('<span class="center">Error: SELECCIONE UN ARTICULO. </span>'), 3500,'rounded error');
+            } else {
+                if (FACTURA > ttFRP){
+                    $("#AP1" + fact).html(ttFRP);
+                    $("#EST" + fact).html("PARCIAL");
+                    sfactura = FACTURA - ttFRP;
+                    $("#DIS" + fact).html(sfactura);
+                    ttFRP=0;
+                }else{
+                    $("#AP1" + fact).html(FACTURA);
+                    ttFRP = ttFRP - FACTURA;
+                    $("#DIS" + fact).html("0");
+                    $("#EST" + fact).html("APLICADO");
+                }
+            }
+        }else{
+            ttFRP = ttFRP + parseInt($("#AP1" + fact).text());
+            $("#AP1" + fact).html("");
+            $("#DIS" + fact).html("");
+            $("#EST" + fact).html("");
         }
         $("#idttPtsCLsFRP").html(ttFRP)
     }
+    $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
+        if ( parseInt($("#idttPtsCLsFRP").text()) != 0 ){
+            $(this).toggleClass('selected');
+        }
+    } );
+
+    $("#AddPremioTbl").on('click',function(){
+        Objtable = $('#tblpRODUCTOS').DataTable();
+        var cod= $( "#ListCatalogo option:selected" ).val();
+        var ttClPts = parseInt($("#PtsClientefrp").val());
+        if (cod != 0){
+            var name = $( "#ListCatalogo option:selected" ).html();
+            var pts    = $("#ValorPtsPremioFRP").val();
+            var cant   = $("#CantPremioFRP").val();
+            var totalPts = parseInt(cant) * parseInt(pts);
+            var ttPts = parseInt($("#idttPtsFRP").text());
+            ttPts = ttPts + totalPts;
+            var remanente = parseInt($("#idttPtsCLsFRP").text());
+            if (ttPts <= ttClPts){
+
+                if (Objtable.data().count()==0 ){
+                    console.log("SIN PRODUCTO");
+                } else {
+                    apliAutomatic(pts);
+                }
+                $("#idttPtsFRP").text(ttPts);
+                $("#idttPtsCLsFRP").text(ttPts);
+                Objtable.row.add( [
+                    cant,
+                    cod,
+                    name,
+                    pts,
+                    totalPts,
+                    '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
+                ] ).draw( false );
+
+            }else{
+                Materialize.toast($('<span class="center">NO CUENTA CON LOS PUNTOS NECESARIOS. </span>'), 3500,'rounded error');
+            }
+        }else{
+            Materialize.toast($('<span class="center">SELECCIONE UN ARTICULO DEL CATALOGO. </span>'), 3500,'rounded error');
+        }
+    });
+
+$("#tblpRODUCTOS").delegate("a", "click", function(){
+    if ( parseInt($("#idttPtsCLsFRP").text()) != 0 ){
+        $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
+        var ttPts = 0;
+        $('#tblpRODUCTOS').DataTable().column(4).data().each( function ( value, index ) {
+            ttPts += parseInt(value);
+        } );
+        $("#idttPtsFRP").text(ttPts);
+        $("#idttPtsCLsFRP").text(ttPts);
+
+    } else {
+        Materialize.toast($('<span class="center">Error: Restaure los puntos. </span>'), 3500,'rounded error');
+    }
+});
+
+    $("#btnProcesar").click(function(){
+        var numFRP = $("#frp").val();
+        var fchFRP = $("#date1").val();
+        var pCambiar = $("#idttPtsCLsFRP").text();
+        tblFactura = $("#tblFacturaFRP").DataTable();
+        tblPremios = $("#tblpRODUCTOS").DataTable();
+
+        if ( (numFRP =="") && (numFRP.length < 4)){
+            $("#frp").focus();
+            Materialize.toast($('<span class="center">INGRESE NUMERO DE FRP. </span>'), 3500,'rounded error');
+        } else {
+            if ( (fchFRP =="") && (fchFRP.length < 4) ){
+                $("#frp").focus();
+                Materialize.toast($('<span class="center">SELECCIONE LA FECHA. </span>'), 3500,'rounded error');
+            } else {
+                if ( !tblFactura.data().any() ){
+                    Materialize.toast($('<span class="center">TABLA DE FACTURAS VACIA. </span>'), 3500,'rounded error');
+                } else {
+                    if ( !tblPremios.data().any() ){
+                        Materialize.toast($('<span class="center">TABLA DE PREMIO VACIA. </span>'), 3500,'rounded error');
+                    } else {
+                        console.log(pCambiar);
+                        if  ( pCambiar != 0){
+                            Materialize.toast($('<span class="center">SELECCIONE LA FACTURAS A APLICAR. </span>'), 3500,'rounded error');
+                        } else {
+                            $('#Dfrp').openModal();
+                        }
+                    }
+                }
+            }
+        }
+    });
 
     function DFactura(factura){
         $("#codFactura").text(factura);
@@ -831,7 +943,7 @@ function subirimagen()
                 { "data": "TT_PUNTOS" }
             ]
         });
-
+        $('#modal3').openModal();
     }
     $( "#ListCatalogo").change(function() {
         if ($("#ListCliente").val()!=0){
@@ -859,59 +971,8 @@ function subirimagen()
         }
     });
 
-    $("#AddPremioTbl").on('click',function(){
-        Objtable = $('#tblpRODUCTOS').DataTable();
-        var cod= $( "#ListCatalogo option:selected" ).val();
-
-        var ttClPts = parseInt($("#PtsClientefrp").val());
-
-        if (cod != 0){
-            var name = $( "#ListCatalogo option:selected" ).html();
-            var pts    = $("#ValorPtsPremioFRP").val();
-            var cant   = $("#CantPremioFRP").val();
-            var totalPts = parseInt(cant) * parseInt(pts);
-
-            var ttPts = parseInt($("#idttPtsFRP").text());
-            console.log(ttPts);
-            ttPts = ttPts + totalPts;
-
-            if (ttPts <= ttClPts){
-                $("#idttPtsFRP").text(ttPts);
-                $("#idttPtsCLsFRP").text(ttPts);
 
 
-                Objtable.row.add( [
-                    cant,
-                    cod,
-                    name,
-                    pts,
-                    totalPts,
-                    '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
-                ] ).draw( false );
-            }else{
-                Materialize.toast($('<span class="center">NO CUENTA CON LOS PUNTOS NECESARIOS. </span>'), 3500,'rounded error');
-            }
-
-        }else{
-            Materialize.toast($('<span class="center">SELECCIONE UN ARTICULO DEL CATALOGO. </span>'), 3500,'rounded error');
-        }
-    });
-    $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
-
-
-
-
-    $("#tblpRODUCTOS").delegate("a", "click", function(){
-        $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
-        var ttPts = 0;
-        $('#tblpRODUCTOS').DataTable().column(4).data().each( function ( value, index ) {
-            ttPts += parseInt(value);
-        } );
-        $("#idttPtsFRP").text(ttPts);
-        $("#idttPtsCLsFRP").text(ttPts);
-    });
     $("#cambiarImagen").on('click',function(){
         $('.cosaEdicion').hide();
         $('.cosa2').show();

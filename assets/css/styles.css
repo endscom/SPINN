@@ -56,6 +56,12 @@
       /* margin-top: 10%; */
   }
 }
+#imgFondo{
+  position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
 .thumb{
   width: 86%;
   border: 2px solid #831F82;
@@ -64,7 +70,7 @@
   text-transform: uppercase!important;
 }
 .mdl-layout__content{
-    background: url('/SPINN/assets/img/trama_blanca.png');
+    /*background: url('/SPINN/assets/img/trama_blanca.png');*/
 }
 #sac{
     width: 100%;
@@ -431,8 +437,8 @@ img.login-logo{
 #user
 {
     margin: 11px -6px 15px;
-    text-align: center;
-    margin-top: 0px;
+    /*text-align: center;
+    margin-top: 0px;*/
 }
 .activo
 {
@@ -626,7 +632,12 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
     background-color: #e7e2f7;
 }
-
+#tblCatalogo2 tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0);
+}
+#tblCatalogo2 tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0);
+}
 .transparente th{
   opacity: 0.0;
 }

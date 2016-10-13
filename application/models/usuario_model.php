@@ -84,7 +84,7 @@ class Usuario_model extends CI_Model
         }
     }
 
-    public function guardarVdor($user,$nombre,$clave,$rol,$vendedor,$idVendedor){
+    public function addUser($user,$nombre,$clave,$rol,$vendedor,$idVendedor){
         $nombre = str_replace('%20', ' ', $nombre);
         $vendedor = str_replace('%20', ' ', $vendedor);
         $user = str_replace('%20', ' ', $user);
@@ -102,7 +102,7 @@ class Usuario_model extends CI_Model
         $query = $this->db->insert('tblusuario', $data);
     }
 
-    public function addUser($user, $nombre, $clave, $rol, $vendedor, $idVendedor) {/*CREACIÓN DE USUARIOS*/
+    public function guardarVdor($user, $nombre, $clave, $rol, $vendedor, $idVendedor) {/*CREACIÓN DE USUARIOS*/
         $nombre = str_replace('%20', ' ', $nombre);
         $vendedor = str_replace('%20', ' ', $vendedor);
         $user = str_replace('%20', ' ', $user); $fecha = date('Y-m-d H:i:s');
@@ -114,7 +114,7 @@ class Usuario_model extends CI_Model
             'IdRol' => $rol,
             'FechaCreacion' => $fecha,
             'Estado'=>1,
-            'Zona' => $idVendedor,
+            'IdVendedor' => $idVendedor,
             'NombreVendedor' =>$vendedor
         );
         $query = $this->db->insert('tblusuario', $data);

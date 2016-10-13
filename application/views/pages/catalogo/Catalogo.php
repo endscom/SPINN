@@ -18,7 +18,6 @@
                 </div>
             </div>
         </div>
-  
         <div class="row ">
             <div class="bold valign-wrapper noMargen left col s12 m12 l4 TextColor">
                 <h6>ARTÍCULOS EN CATÁLOGO DE 
@@ -141,7 +140,7 @@
      
         <div>
             <form id="formimagen" name="formNuevoArto" enctype="multipart/form-data" class="col s6 m6 l6" action="<?PHP echo base_url('index.php/subirImg');?>" method="post">
-                <input id="bandera" name="bandera" type="text" value="0">
+                <input id="bandera" name="bandera" type="hidden" value="0">
                 
                 <div class="articulos">
                     <div id="articulo" class="row">
