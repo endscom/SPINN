@@ -77,7 +77,7 @@
         </div>
 
         <h6 id="Format" class="center Mcolor">FORMATO DE REMISIÓN DE PUNTOS</h6>
-        <div class="row">
+        <div class="row ">
             <div class=" DatoFrp col s2">
                 N° FRP: <input id="frp" type="text" class="validate">
             </div>
@@ -92,11 +92,11 @@
         </div>
 
         <div class="row" >
-            <div class=" DatoFrp input-field line col s2 offset-s1">
-               COD. CLIENTE:<input id="ClienteFRP" type="text" class="validate">
+            <div class=" DatoFrp input-field line col s2 ">
+               COD. CLIENTE:<input disabled id="ClienteFRP"  type="text" class="validate ">
             </div>
 
-            <div class="input-field col s4 m4 l4"  >
+            <div class="input-field col s4 m4 l5"  >
                 <select name="cliente" id="ListCliente">
                     <option value="0" selected>CLIENTES...</option>
                     <?PHP
@@ -111,56 +111,19 @@
             </div>
 
             <div class="input-field col s2 m3 l3">
-                <input  id="PtsClientefrp" type="text" class="validate">
+                <input disabled id="PtsClientefrp" type="text" class="validate">
             </div>
         </div>
 
-        <div class="right row">
-            <div class="col s2 m2 l2">
-                <a href="#Dfrp" class="Procesar waves-effect modal-action modal-close btn modal-trigger">procesar</a>
-            </div>
-        </div>
-        <table id="tblFacturaFRP" class=" TblDatos">
-            <thead>
-                <tr>
-                    <th>FECHA</th>
-                    <th>FACTURA</th>
-                    <th>Pts.</th>
-                    <th>Pts. APLI.</th>
-                    <th>Pts. DISP.</th>
-                    <th> <i class="material-icons">done</i> </th>
-                    <th>ESTADO</th>
-                </tr>
-            </thead>
 
-                
-            <tbody>
-                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            </tbody>
-        </table>
 
-        <div class="row">
-            <div class="offset-l4 s12 col l4">
-                <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
-            </div>
-            <div id="Total" class="right row">
-                <div class="col s12">
-                    <p class="Dato">TOTAL: <span class="dato" id="idttPtsCLsFRP">0</span> Pts.</p>
-                </div>
-            </div>
-        </div>
 
         <!-- datos de los premios a canjear  -->
         <div class="row">
-            <div class=" DatoFrp line input-field col s2 m2 l2">
-                COD. CLIENTE:<input id="ClienteFRPPremio" type="text" class="validate">
-            </div>
-            
             <div class="DatoFrp line input-field col s2 m2 l2">
-                COD. PREMIO:<input   id="CodPremioFRP" type="text" class="validate">
+                COD. PREMIO:<input disabled  id="CodPremioFRP" type="text" class="validate">
             </div>
-            
-            <div class="input-field col s3">
+            <div class="input-field col s3 l5">
                 <select name="PREMIO" id="ListCatalogo">
                     <option value="0" selected>...</option>
                     
@@ -175,12 +138,12 @@
                 </select>
             </div>
             
-            <div class="DatoFrp line input-field col s2  m2 l2 ">
-                <input  id="ValorPtsPremioFRP"  type="text" class="validate">
+            <div class="DatoFrp line input-field col s2  m2 l3 ">
+                <input disabled id="ValorPtsPremioFRP"  type="text" class="validate">
             </div>
             
             <div class="DatoFrp line input-field col s2 m2 l2 ">
-                CANTIDAD DE ARTICULOS:<input  id="CantPremioFRP"  type="text" class="validate">
+                CANTIDAD:<input  id="CantPremioFRP"  type="text" class="validate">
             </div>
         </div>
 
@@ -206,11 +169,34 @@
 
             </tbody>
         </table>
-
         <div id="Total" class="right row text">
             <div class="col s12 m12 l12">
-                <p class="Dato">TOTAL: <span class="dato" id="idttPtsFRP">0</span> Pts.</p>
+                <p class="Dato">A APLICAR: <span class="dato" id="idttPtsFRP">0</span> Pts.</p>
             </div>
+        </div>
+        <table id="tblFacturaFRP" class=" TblDatos">
+            <thead>
+            <tr>
+                <th>FECHA</th>
+                <th>FACTURA</th>
+                <th>Pts.</th>
+                <th>Pts. APLI.</th>
+                <th>Pts. DISP.</th>
+                <th> <i class="material-icons">done</i> </th>
+                <th>ESTADO</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="row">
+            <div id="Total" class="right row">
+                <div class="col s12">
+                    <p class="Dato">PENDIENTES A APLICAR: <span class="dato" id="idttPtsCLsFRP">0</span> Pts.</p>
+                </div>
+            </div>
+        </div>
+        <div class="center row">
+            <a href="#!" id="btnProcesar" class="Procesar waves-effect modal-action modal-close btn modal-trigger">procesar</a>
         </div>
     </div>
 </div>

@@ -295,6 +295,7 @@ class Hana_model extends CI_Model
         while ($fila = odbc_fetch_array($resultado)){
 
             $ID_ROW = "CHK" . $fila['FACTURA'];
+            $ID_LBL = "LBL" . $fila['FACTURA'];
             $ID_APl = "AP1" . $fila['FACTURA'];
             $ID_DIS = "DIS" . $fila['FACTURA'];
             $ID_EST = "EST" . $fila['FACTURA'];
@@ -304,7 +305,7 @@ class Hana_model extends CI_Model
             $json['data'][$i]['DISPONIBLE'] = $fila['DISPONIBLE'];
             $json['data'][$i]['CAM1']       = "<span id='".$ID_APl."'></span>";
             $json['data'][$i]['CAM2']       = "<span id='".$ID_DIS."'></span>";
-            $json['data'][$i]['CAM3']       = "<p><input type='checkbox' onclick='isVerificar(".$i.",".$fila['FACTURA'].")' id='".$ID_ROW."' /><label for='".$ID_ROW."'></label></p>";
+            $json['data'][$i]['CAM3']       = "<p><input type='checkbox' onclick='isVerificar(".$i.",".$fila['FACTURA'].")' id='".$ID_ROW."' /><label id='".$ID_LBL."' for='".$ID_ROW."'></label></p>";
             $json['data'][$i]['CAM4']       = "<span id='".$ID_EST."'></span>";
             $i++;
         }
