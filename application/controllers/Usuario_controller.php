@@ -21,11 +21,11 @@ class Usuario_controller extends CI_Controller
     // AGREGAR USUARIO
     public function addUser($user, $nombre, $clave, $rol, $vendedor, $idVendedor){
         if ($rol == 'Vendedor') {
-            echo "entro a vendedor";
-            $this->usuario_model->guardarVdor($user, $nombre, $clave, $rol,  $vendedor, $idVendedor);
+            echo "entro a usuario";
+            $this->usuario_model->addUser($user, $nombre, md5($clave), $rol,  $vendedor, $idVendedor);
         } else {
-            echo "entro al ultimo";
-            $this->usuario_model->addUser($user, $nombre, $clave, $rol, $vendedor, $idVendedor);
+            echo "entro al vendedor";
+            $this->usuario_model->guardarVdor($user, $nombre, md5($clave), $rol, $vendedor, $idVendedor);
         }
     }
 

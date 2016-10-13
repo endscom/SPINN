@@ -1,7 +1,7 @@
 var activo = false;
 
 $(document).ready(function() {
-//$('#Filtros').openModal();
+//$('#listaArticulosCatalogoActual').openModal();
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -33,12 +33,7 @@ $('#searchCatalogo').on( 'keyup', function () {
 } );
 $('#checkTodos').change(function () {//funcion para seleccionar todos los checks
     var oTable = $('#tblCatalogoPasado').dataTable();
-    var nNodes = oTable.fnGetNodes( );    
-    if($(this).is(':checked') ) {
-    $("label").trigger("click");
-    }else{
-        $("label").trigger("click");
-   }
+    $('input', oTable.fnGetNodes()).prop('checked',this.checked);// change .attr() to .prop()
 });
 
 $('#txtimagen').change(function(){
@@ -526,8 +521,8 @@ function subirimagen()
                 data: form_data,
                 success:
                     function(json){
-                        contador++;
-                        alert(rowCount+" contador "+ contador);
+                        contador++;//alert(bandera);
+                        //alert(rowCount+" contador "+ contador);
                         if (contador==rowCount) {var myVar = setInterval(myTimer2, 3500);};
                     }
                 });}
@@ -831,7 +826,7 @@ function subirimagen()
                 { "data": "TT_PUNTOS" }
             ]
         });
-
+        $('#modal3').openModal();
     }
     $( "#ListCatalogo").change(function() {
         if ($("#ListCliente").val()!=0){

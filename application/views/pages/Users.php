@@ -68,7 +68,7 @@
                             echo "<tr>
                                     <td>".date('d/m/Y',strtotime(substr($user['FechaCreacion'], 0,10)))."</td>
                                     <td>".$user['IdUsuario']."</td>
-                                    <td class='negra'><a href=''>".$user['Nombre']."</td></a>
+                                    <td class='bold'>".$user['Nombre']."</td>
                                     <td id='activo' style='color:".$MColor."'>".$activo."</td>
                                     <td><a data-tooltip='$Mmensaje' class='btn-flat tooltipped' onclick='DellUsers(".'"'.$user['IdUsuario'].'",'.'"'.$user['Estado'].'"'.")'><i style='color:".$mIcono."' class=' material-icons'>$Micono</i></td></a>
                                  </tr>";
@@ -92,36 +92,39 @@
                 </a>
             </div>
         </div>
-
-        <h6 class="center Mcolor AdUser">AGREGAR USUARIO INNOVA </h6>
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="Mcolor AdUser">AGREGAR USUARIO SPINN </h6>
+            </div>
+        </div>
         <div class="row">
             <form class="col s12"  method="post" name="formAddUser">
                 <div class="row">
-                    <div class="input-field col s6">
-                        <input name="user" placeholder="NOMBRE DE USUARIO" id="NombreUser" type="text" class="required">
+                    <div class="input-field col s12 m6 s6">
+                        <input class="mayuscula" name="user" placeholder="NOMBRE DE USUARIO" id="NombreUser" type="text" class="required">
                         <label id="labelNombre" class="labelValidacion">DIGITE EL USUARIO</label>
                     </div>
                     
-                    <div class="input-field col s6">
-                        <input name="user2" placeholder="NOMBRE COMPLETO" id="NombreUser2" type="text" class="required">
+                    <div class="input-field col s12 m6 s6">
+                        <input class="mayuscula" name="user2" placeholder="NOMBRE COMPLETO" id="NombreUser2" type="text" class="required">
                         <label id="labelNombre2" class="labelValidacion">DIGITE EL NOMBRE COMPLETO</label>
                     </div>
                 </div>
                 
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6 s6">
                         <input name="pass" placeholder="CONTRASEÑA" id="Contra" type="password" class="validate">
                         <label id="labelPass" class="labelValidacion">DIGITE LA CONTRASEÑA</label>
                     </div>
                     
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6 s6">
                         <input name="pass2" placeholder="REPITA CONTRASEÑA" id="Contra2" type="password" class="validate">
                         <label id="labelPass2" class="labelValidacion">REPITA LA CONTRASEÑA</label>
                     </div>
                 </div>
                 
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6 s6">
                         <select name="rol" id="rol">
                             <option value="" disabled selected>SELECCIONE UN ROL</option>
                             <?PHP
@@ -135,7 +138,7 @@
                         </select><label id="labelRol" class="labelValidacion">SELECCIONE UN ROL</label>
                     </div>
 
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6 s6">
                         <select name="vendedor" id="vendedorid">
                             <option value="" disabled selected>SELECCIONE VENDEDOR</option>
                             <?PHP

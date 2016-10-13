@@ -57,7 +57,7 @@ $route['DetalleFRP'] = 'impresion_controller/DetalleFRP';
 $route['DetalleFRE'] = 'impresion_controller/DetalleFRE';
 // FIN IMPRESION
 
-// RUTA EXPORTACIÓN
+// RUTA EXPORTACIÓN PDF Y EXCEL
 $route['Exp_Clientes'] = 'exportacion_controller/ExpoClients';
 $route['ExpPDF'] = 'exportacion_controller/ExpoPdf';
 $route['ExpFRP'] = 'exportacion_controller/ExpoFrp';
@@ -69,7 +69,7 @@ $route['ExpPDFEstadoFactura'] = 'exportacion_controller/ExpEstadoFactura';
 
 // FIN EXPORTACIÓN
 
-// RUTAS REPORTES
+// RUTAS VISTA REPORTES
 $route['ajaxEstadoFacturas/(:any)/(:any)/(:any)'] = 'reportes_controller/ajaxEstadoFacturas/$1/$2/$3';
 
 $route['ajaxDisponibilidadPuntos/(:any)/(:any)/(:any)'] = 'reportes_controller/ajaxDisponibilidadPuntos/$1/$2/$3';
