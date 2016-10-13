@@ -8,6 +8,7 @@
   <div class="mdl-grid demo-content">       
     <div class="row TextColor center">catálogo de premios</div>
 
+<div class="row" style="width:100%">
     <div class="container">
       <div class="Buscar row column">               
         <div class="col s1 m1 l1 offset-l3 offset-m1"><i class="material-icons ColorS">search</i></div>
@@ -18,8 +19,8 @@
         </div>
       </div>
     </div>
-
-    <div class="row center">
+</div>
+    <div class="row center" style="width:100%">
       <table id="tblCatalogo2" class="TableBlank transparente">
         <thead>
           <tr> <th></th> <th></th> <th></th> <th></th> </tr>
@@ -46,8 +47,7 @@
                     }else{
                       echo"<td></td>";
                     }
-                  }
-                  
+                  }                  
                   echo "</tr>";
                 }
               }

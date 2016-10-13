@@ -153,7 +153,7 @@
         </div>
         <div id="Iconos" class="center row">
             <div class="col offset-l5 s2 l1">
-                <a class="noHover" href="ajaxDisponibilidadPuntos/CL008205/0/0"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>
+                <a class="noHover" href="#" onclick="exportarEstadoFactura(2)"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>
             </div>
             <div class="col s2 l1">
                 <a class="noHover" href="#" onclick="exportarEstadoFactura(0)" ><img src="<?PHP echo base_url();?>assets/img/icono_excel.png" width="38px"></a>
@@ -233,7 +233,7 @@
         </div>
         <div id="Iconos" class="center row">
             <div class="col offset-l5 s2 l1">
-                <a class="noHover" href="ajaxDisponibilidadPuntos/CL008205/0/0"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>
+                <a class="noHover" href="#" onclick="exportarEstadoFactura(2)"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>
             </div>
             <div class="col s2 l1">
                 <a class="noHover" href="#" onclick="exportarEstadoFactura(0)"><img src="<?PHP echo base_url();?>assets/img/icono_excel.png" width="38px"></a>

@@ -3,9 +3,13 @@
         <header id="MenuFondo" class="demo-drawer-header">
             <img id="imgUser" src="<?PHP echo base_url();?>assets/img/sp_logo_menu.png" width="78%" >
            
-            <div id="user">
-                <i class=" material-icons" >face</i>
-                <span class="Loggen"><?php echo $this->session->userdata('UserN');?></span>
+            <div id="user" class="row">
+                <div class="col l2 center">
+                  <i class=" material-icons">face</i>
+                </div>
+                <div class="col l9 center">
+                  <span class="Loggen"><?php echo $this->session->userdata('UserN');?></span>
+                </div>
             </div>
         </header>
 
