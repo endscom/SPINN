@@ -20,6 +20,10 @@ $('#searchFacturasClientes').on( 'keyup', function () {
     var table = $('#PtosCliente').DataTable();
     table.search( this.value ).draw();
 } );
+    $('#searchFRP').on( 'keyup', function () {
+        var table = $('#FRP').DataTable();
+        table.search( this.value ).draw();
+    } );
 
 $('#searchClientes').on( 'keyup', function () {
     var table = $('#ClienteAdd').DataTable();
@@ -746,54 +750,110 @@ function subirimagen()
             alert("No Selecciono ningun cliente");
         }
     });
+
     function apliAutomatic(pts){
         var obj = $('#tblFacturaFRP').DataTable();
-        obj.rows().data().each( function (index) {
+        var disp = 0;
+        var sFactura = 0;
 
-            var FACTURA   = obj.row(index).data().FACTURA;
-            var apl = parseInt($("#AP1" + FACTURA).text());
-            var dis = parseInt($("#DIS" + FACTURA).text());
 
-            if (dis > 0){
-                apl = apl + parseInt(pts);
-                dis = dis - parseInt(pts);
 
-                $("#AP1" + FACTURA).html(apl);
-                $("#DIS" + FACTURA).html(dis);
-
-            }
-            if (dis == 0){
-                $("#EST" + FACTURA).html("APLICADO");
-            }
+        obj.rows().data().each( function (index,value) {
+            var FACTURA   = obj.row(value).data().FACTURA;
+            $("#AP1" + FACTURA).html("");
+            $("#DIS" + FACTURA).html("");
+            $("#EST" + FACTURA).html("");
+            $("#CHK"+FACTURA).prop('checked', false);
 
         });
 
-        $("#idttPtsCLsFRP").html("0");
+        if (pts >0 ){
+            obj.rows().data().each( function (index,value) {
+                var FACTURA   = obj.row(value).data().FACTURA;
+                disp = parseInt(obj.row(value).data().DISPONIBLE)
+                if (isNaN(parseInt($("#AP1" + FACTURA).text()))){ apl = 0 } else { apl = parseInt($("#AP1" + FACTURA).text()) }
+                if (pts > 0){
+                    if (disp >= pts){
+                        sFactura = disp - pts;
+                        $("#AP1" + FACTURA).html(pts);
+                        pts = 0;
+                        $("#DIS" + FACTURA).html(sFactura);
+                    } else {
+                        pts = pts - disp ;
+                        $("#AP1" + FACTURA).html(disp);
+                        $("#DIS" + FACTURA).html("0");
+                    }
+                }
+                var ESTADO = $("#DIS" + FACTURA).text();
+                if (ESTADO != ""){
+                    if (parseInt(ESTADO) == 0){
+                        $("#EST" + FACTURA).html("APLICADO");
+                    } else {
+                        $("#EST" + FACTURA).html("PARCIAL");
+                    }
+                    $("#CHK"+FACTURA).prop('checked', true);
+                }
+            });
+        }
+
+
+
+        obj.rows().data().each( function (index,value) {
+            var FACTURA   = obj.row(value).data().FACTURA;
+            disp = parseInt(obj.row(value).data().DISPONIBLE)
+            if (isNaN(parseInt($("#AP1" + FACTURA).text()))){ apl = 0 } else { apl = parseInt($("#AP1" + FACTURA).text()) }
+            if (pts > 0){
+                if (disp >= pts){
+                    sFactura = disp - pts;
+                    $("#AP1" + FACTURA).html(pts);
+                    pts = 0;
+                    $("#DIS" + FACTURA).html(sFactura);
+                } else {
+                    pts = pts - disp ;
+                    $("#AP1" + FACTURA).html(disp);
+                    $("#DIS" + FACTURA).html("0");
+                }
+            }
+            var ESTADO = $("#DIS" + FACTURA).text();
+            if (ESTADO != ""){
+                if (parseInt(ESTADO) == 0){
+                    $("#EST" + FACTURA).html("APLICADO");
+                } else {
+                    $("#EST" + FACTURA).html("PARCIAL");
+                }
+                $("#CHK"+FACTURA).prop('checked', true);
+            }
+        });
+
+
     }
+
     function isVerificar(posicion,fact){
         ttFRP = parseInt($("#idttPtsCLsFRP").text());
-
         ptsFRP = parseInt($("#idttPtsFRP").text());
-
         var FACTURA   = $('#tblFacturaFRP').DataTable().row(posicion).data().DISPONIBLE;
         if($("#CHK"+fact).is(':checked') ) {
-
-            if( ptsFRP == 0){
-                ttFRP = 0;
+            if (ttFRP == 0){
                 $("#CHK"+fact).prop('checked', false);
-                Materialize.toast($('<span class="center">Error: SELECCIONE UN ARTICULO. </span>'), 3500,'rounded error');
+                Materialize.toast($('<span class="center">TODOS LOS PUNTOS FUERON APLICADOS. </span>'), 3500,'rounded error');
             } else {
-                if (FACTURA > ttFRP){
-                    $("#AP1" + fact).html(ttFRP);
-                    $("#EST" + fact).html("PARCIAL");
-                    sfactura = FACTURA - ttFRP;
-                    $("#DIS" + fact).html(sfactura);
-                    ttFRP=0;
-                }else{
-                    $("#AP1" + fact).html(FACTURA);
-                    ttFRP = ttFRP - FACTURA;
-                    $("#DIS" + fact).html("0");
-                    $("#EST" + fact).html("APLICADO");
+                if( ptsFRP == 0){
+                    ttFRP = 0;
+                    $("#CHK"+fact).prop('checked', false);
+                    Materialize.toast($('<span class="center">Error: SELECCIONE UN ARTICULO. </span>'), 3500,'rounded error');
+                } else {
+                    if (FACTURA > ttFRP){
+                        $("#AP1" + fact).html(ttFRP);
+                        $("#EST" + fact).html("PARCIAL");
+                        sfactura = FACTURA - ttFRP;
+                        $("#DIS" + fact).html(sfactura);
+                        ttFRP=0;
+                    }else{
+                        $("#AP1" + fact).html(FACTURA);
+                        ttFRP = ttFRP - FACTURA;
+                        $("#DIS" + fact).html("0");
+                        $("#EST" + fact).html("APLICADO");
+                    }
                 }
             }
         }else{
@@ -804,14 +864,17 @@ function subirimagen()
         }
         $("#idttPtsCLsFRP").html(ttFRP)
     }
-    $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
-        if ( parseInt($("#idttPtsCLsFRP").text()) != 0 ){
-            $(this).toggleClass('selected');
-        }
-    } );
+
 
     $("#AddPremioTbl").on('click',function(){
+        var Permitir = 0
         Objtable = $('#tblpRODUCTOS').DataTable();
+        obj = $('#tblFacturaFRP').DataTable();
+        obj.rows().data().each( function (index,value) {
+            if($("#CHK" + obj.row(value).data().FACTURA).is(':checked') ) {
+                Permitir = 1;
+            }
+        });
         var cod= $( "#ListCatalogo option:selected" ).val();
         var ttClPts = parseInt($("#PtsClientefrp").val());
         if (cod != 0){
@@ -821,16 +884,9 @@ function subirimagen()
             var totalPts = parseInt(cant) * parseInt(pts);
             var ttPts = parseInt($("#idttPtsFRP").text());
             ttPts = ttPts + totalPts;
-            var remanente = parseInt($("#idttPtsCLsFRP").text());
-            if (ttPts <= ttClPts){
 
-                if (Objtable.data().count()==0 ){
-                    console.log("SIN PRODUCTO");
-                } else {
-                    apliAutomatic(pts);
-                }
+            if (ttPts <= ttClPts){
                 $("#idttPtsFRP").text(ttPts);
-                $("#idttPtsCLsFRP").text(ttPts);
                 Objtable.row.add( [
                     cant,
                     cod,
@@ -839,6 +895,7 @@ function subirimagen()
                     totalPts,
                     '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
                 ] ).draw( false );
+                apliAutomatic(ttPts);
 
             }else{
                 Materialize.toast($('<span class="center">NO CUENTA CON LOS PUNTOS NECESARIOS. </span>'), 3500,'rounded error');
@@ -848,20 +905,22 @@ function subirimagen()
         }
     });
 
-$("#tblpRODUCTOS").delegate("a", "click", function(){
-    if ( parseInt($("#idttPtsCLsFRP").text()) != 0 ){
-        $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
-        var ttPts = 0;
-        $('#tblpRODUCTOS').DataTable().column(4).data().each( function ( value, index ) {
-            ttPts += parseInt(value);
-        } );
-        $("#idttPtsFRP").text(ttPts);
-        $("#idttPtsCLsFRP").text(ttPts);
 
-    } else {
-        Materialize.toast($('<span class="center">Error: Restaure los puntos. </span>'), 3500,'rounded error');
-    }
-});
+    $("#tblpRODUCTOS").delegate("a", "click", function(){
+            $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
+
+            var ttPts = 0;
+            $('#tblpRODUCTOS').DataTable().column(4).data().each( function ( value, index ) {
+                ttPts += parseInt(value);
+            } );
+
+            apliAutomatic(ttPts);
+
+    });
+    $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    } );
+
 
     $("#btnProcesar").click(function(){
         var numFRP = $("#frp").val();
