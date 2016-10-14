@@ -56,6 +56,13 @@
       /* margin-top: 10%; */
   }
 }
+.noPadding{
+  padding: 0px!important;
+}
+.btnArchivo{
+      background-color: #831f82;
+    border-radius: 20px;
+}
 #imgFondo{
   position: absolute;
     z-index: 1;
@@ -68,6 +75,11 @@
 }
 .mayuscula{
   text-transform: uppercase!important;
+}
+#ListCliente_chosen > a ,#ListCatalogo_chosen > a {
+    text-align: center;
+    padding-top: 8px;
+    height:43px;
 }
 .mdl-layout__content{
     /*background: url('/SPINN/assets/img/trama_blanca.png');*/
@@ -611,7 +623,7 @@ table td
     font-size: 12px;
 }
 #tblReportDetalles th{
-  background: #3e8432;
+  background: #ff9800;
 }
 .datos1{
     font-family: 'robotoblack';

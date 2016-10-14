@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50136
 File Encoding         : 65001
 
-Date: 2016-10-13 16:03:49
+Date: 2016-10-14 16:03:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,6 @@ CREATE TABLE `catalogo` (
 -- ----------------------------
 -- Records of catalogo
 -- ----------------------------
-INSERT INTO `catalogo` VALUES ('18', 'Catalogo de Octubre', '\0', '2016-10-01 00:00:00');
 
 -- ----------------------------
 -- Table structure for catrol
@@ -67,9 +66,6 @@ CREATE TABLE `detallect` (
 -- ----------------------------
 -- Records of detallect
 -- ----------------------------
-INSERT INTO `detallect` VALUES ('18', '104089', 'ARROCERA B&D HC3000', '104089.jpg', '500', '\0');
-INSERT INTO `detallect` VALUES ('18', '105233', 'MUEBLES PEQUEÑOS', '105233.jpg', '1500', '\0');
-INSERT INTO `detallect` VALUES ('18', '105975', 'MUEBLES ROJOS', '105975.jpg', '1500', '\0');
 
 -- ----------------------------
 -- Table structure for tblusuario
@@ -127,7 +123,8 @@ CREATE TABLE `tmp_catalogo` (
 -- ----------------------------
 -- Records of tmp_catalogo
 -- ----------------------------
-INSERT INTO `tmp_catalogo` VALUES ('18', '104089', 'ARROCERA B&D HC3000', '104089.jpg', '500', '18', '105233', 'MUEBLES PEQUEÑOS', '105233.jpg', '1500', '18', '105975', 'MUEBLES ROJOS', '105975.jpg', '1500', '0', '0', '', '', '0');
+INSERT INTO `tmp_catalogo` VALUES ('18', '104089', 'ARROCERA B&D HC3000', '104089.jpg', '600', '18', '105233', 'MUEBLES PEQUEÑOS', '105233.jpg', '1500', '18', '105975', 'MUEBLES ROJOS', '105975.jpg', '1500', '18', '107192', 'MICROONDAS B&D HC3000', '107192.jpg', '1500');
+INSERT INTO `tmp_catalogo` VALUES ('18', '112989', 'ABANICO B&D HC3000', '112989.jpg', '950', '0', '0', '', '', '0', '0', '0', '', '', '0', '0', '0', '', '', '0');
 
 -- ----------------------------
 -- View structure for view_catalogo_activo
@@ -150,9 +147,7 @@ WHERE catalogo.Estado=0 ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `pc_Catalogo`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pc_Catalogo`(
-  IN CATALOGO int
-)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pc_Catalogo`(IN CATALOGO int)
 BEGIN
 		DECLARE v_IdCT, v_CodImg, v_Puntos 	INT;
 		DECLARE v_Nombre VARCHAR(255);
@@ -161,7 +156,7 @@ BEGIN
 		DECLARE cont, conse INT DEFAULT 1;
 		
 		DECLARE CSQL VARCHAR(8000) DEFAULT "(";
-		DECLARE RELLENO, errores, COMAS INT DEFAULT 0;
+		DECLARE RELLENO, errores INT DEFAULT 0;
 		
 		DECLARE data_cursor CURSOR FOR 
 			SELECT detallect.IdCT, detallect.IdIMG, detallect.Nombre, detallect.IMG, detallect.Puntos
@@ -171,15 +166,7 @@ BEGIN
 		DECLARE CONTINUE HANDLER FOR NOT FOUND SET errores = 1;
 
 		SELECT COUNT(IdCT) INTO RELLENO FROM detallect WHERE detallect.IdCT = CATALOGO AND detallect.Estado <> 1;
-        
-        SET COMAS = 4 - (((RELLENO/4) - FLOOR(RELLENO/4)) * 4);
-        
-        IF COMAS <> 4 THEN
-           SET COMAS = RELLENO+1;
-        ELSE
-            SET COMAS = RELLENO;
-        END IF;
-        
+       
         IF RELLENO <> 0 THEN
 		   OPEN data_cursor;
   
@@ -192,38 +179,39 @@ BEGIN
                 
 				SET CSQL = CONCAT(CSQL, v_IdCT, ",", v_CodImg, ",'", v_Nombre, "','", v_Imagen, "',", v_Puntos);
                 
-				IF cont = 4 THEN
-					SET CSQL = CONCAT(CSQL, "),(");
-					SET cont = 0;
-				ELSEIF conse < COMAS THEN
-					SET CSQL = CONCAT(CSQL, ",");
-				END IF;
+				IF cont = 4 THEN                    
+                    IF conse = RELLENO THEN
+                       SET CSQL = CONCAT(CSQL, ")");
+                    ELSE
+                       SET CSQL = CONCAT(CSQL, "),(");
+                    END IF;	
+                    
+                    SET cont = 0;
+				ELSEIF conse < RELLENO THEN
+                    SET CSQL = CONCAT(CSQL, ",");   
+                END IF;
 				
 				SET cont = cont + 1;
 				SET conse = conse + 1;
 		    END LOOP read_data;
 		    
 		    CLOSE data_cursor;
-		    		    
+            	    
 		    SET RELLENO = 4 - (((RELLENO/4) - FLOOR(RELLENO/4)) * 4);
 		    
-		    IF RELLENO = COMAS THEN 
+		    IF RELLENO < 4 THEN 
                SET CSQL = CONCAT(CSQL, ",");
-            END IF;
-		    		        
-		    IF RELLENO <> 4 THEN
+               
 			   WHILE RELLENO <> 0 DO
-				SET CSQL = CONCAT(CSQL, "'0','0','','','0'");
-				SET RELLENO = RELLENO - 1;
+			         SET CSQL = CONCAT(CSQL, "'0','0','','','0'");
+            		 SET RELLENO = RELLENO - 1;
                 
-				IF RELLENO <> 0 THEN
-					SET CSQL = CONCAT(CSQL, ",");
-				END IF;
-			 END WHILE;
+				     IF RELLENO <> 0 THEN
+				        SET CSQL = CONCAT(CSQL, ",");
+                     END IF;
+               END WHILE;
              
-			 SET CSQL = CONCAT(CSQL, ")");
-		   ELSE
-		     SET CSQL=SUBSTRING(CSQL,1,length(CSQL)-2);
+			   SET CSQL = CONCAT(CSQL, ")");
            END IF;
    	       
 		   DELETE FROM tmp_Catalogo;
@@ -233,7 +221,6 @@ BEGIN
 		   PREPARE IC FROM @query; 
 		   EXECUTE IC; 
 		   DEALLOCATE PREPARE IC;
-           
 		END IF;
 END
 ;;

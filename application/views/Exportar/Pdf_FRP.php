@@ -42,7 +42,7 @@
         <div class="col s1" style="height: 10px;">
             <div class="left row">
                 <div class="col s12" >
-                    <img src="<?PHP echo base_url();?>assets/img/sp_logo_para_impresion.png">
+                    <img src="<?PHP echo base_url();?>assets/img/spinnova_logo.png">
                 </div>
             </div>
             <div class="right row">

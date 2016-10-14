@@ -29,35 +29,7 @@ class Hana_model extends CI_Model
         return $json;
     }
 
-    public function LoadClients(){
-        $conn = $this->OPen_database_odbcSAp();
-        if ($this->session->userdata('IdRol')==3) {
-            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
-        } else {
-            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES ';
-        }
-        
-        $resultado =  @odbc_exec($conn,$query);
-        $json = array();
-        $i=0;
-        if (count($resultado)==0) {
-            $json[$i]['CODIGO'] = "";
-            $json[$i]['VENDEDOR'] = "";
-            $json[$i]['NOMBRE'] = "";
-            $json[$i]['RUC'] = "";
-            $json[$i]['DIRECCION'] = "";
-        } else {
-            while ($fila = @odbc_fetch_array($resultado)){
-                $json[$i]['CODIGO'] = $fila['CODIGO'];
-                $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
-                $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);
-                $json[$i]['RUC'] = utf8_encode($fila['RUC']);
-                $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
-                $i++;
-            }
-        }
-        return $json;
-    }
+
 
     public function Factuas(){
         $conn = $this->OPen_database_odbcSAp();
@@ -66,7 +38,7 @@ class Hana_model extends CI_Model
         $json = array();
         $i=0;
         while ($fila = odbc_fetch_array($resultado)){
-            $json[$i]['FECHA'] = $fila['FECHA'];
+            $json[$i]['FECHA'] = $this->formatFechaPHP($fila['FECHA']);
             $json[$i]['FACTURA'] = $fila['FACTURA'];
             $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
             $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
@@ -252,6 +224,35 @@ class Hana_model extends CI_Model
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
                 $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO'],2);
                 $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE'],2);
+                $i++;
+            }
+        }
+        return $json;
+    }
+    public function LoadClients(){
+        $conn = $this->OPen_database_odbcSAp();
+        if ($this->session->userdata('IdRol')==3) {
+            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
+        } else {
+            $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES ';
+        }
+
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+        if (count($resultado)==0) {
+            $json[$i]['CODIGO'] = "";
+            $json[$i]['VENDEDOR'] = "";
+            $json[$i]['NOMBRE'] = "";
+            $json[$i]['RUC'] = "";
+            $json[$i]['DIRECCION'] = "";
+        } else {
+            while ($fila = @odbc_fetch_array($resultado)){
+                $json[$i]['CODIGO'] = $fila['CODIGO'];
+                $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
+                $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);
+                $json[$i]['RUC'] = utf8_encode($fila['RUC']);
+                $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
                 $i++;
             }
         }
