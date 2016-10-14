@@ -43,11 +43,11 @@
                                     <td>".substr($fac['FECHA'],0,10)."</td>
                                     <td>".$fac['FACTURA']." </td>
                                     <td>".$fac['COD_CLIENTE']."</td>
-                                    <td>".utf8_encode($fac['CLIENTE'])."</td>
+                                    <td class='negra'>".utf8_encode($fac['CLIENTE'])."</td>
                                     <td>".number_format($fac['ACUMULADO'])." Pts.</td>
                                     <td>".number_format($fac['DISPONIBLE'])." Pts.</td>
                                     <td>".utf8_encode($fac['VENDEDOR'])."</td>
-                                    <td class='center'><a href='#' onclick='DFactura(".$fac['FACTURA'].")'> <i class='material-icons'>&#xE417;</i></a></td>
+                                    <td class='center'><a href='#' class='noHover' onclick='DFactura(".$fac['FACTURA'].")'> <i class='material-icons'>&#xE417;</i></a></td>
                                   </tr>";
                         }
                     ?>
@@ -76,6 +76,7 @@
         <h6  class="center Mcolor">FACTURA: <span id="codFactura">0.00</span></h6>
         <div class="row">
             <div class="col s12">
+                <div id="progressFact" class="progress progress2" style="display:none"><div class="indeterminate violet"></div></div>
                 <table id="tblModal1">
                     <thead>
                         <tr>

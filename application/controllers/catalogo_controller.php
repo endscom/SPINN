@@ -9,6 +9,7 @@ class Catalogo_controller extends CI_Controller
         if($this->session->userdata('logged')==0){ //No aceptar a usuarios sin loguearse
             redirect(base_url().'index.php/login','refresh');
         }
+        require_once(APPPATH.'libraries/Excel/reader.php');
     }
 
     public function index(){
@@ -68,8 +69,37 @@ class Catalogo_controller extends CI_Controller
         redirect(base_url().'index.php/Catalogo','refresh');
     }
 
+
+    public function subirVariasImagenes(){//Dios me ampare con esta funcion!!
+      $ruta='assets/img/catalogo/';//ruta carpeta donde queremos copiar las imágenes
+      /*$archivoImagen_temporal='';
+      $archivoImagen_nombre='';
+      foreach ($_FILES['imagenes']["name"] as $file=>$key) {
+        echo $_FILES['imagenes']["name"][$file]."<br>";
+        echo $_FILES['imagenes']["type"][$file]."<br>";
+        echo $_FILES['imagenes']["tmp_name"][$file]."<br>";
+      }*/
+      $data = new Spreadsheet_Excel_Reader();
+      $data->setOutputEncoding('CP-1251');
+      $data->read($_FILES["file"]['tmp_name']);
+      error_reporting(E_ALL ^ E_NOTICE);
+      //ANALISIS DE LA HOJA DE DISPONIBILIDAD BANCARIA RESUMEN
+      echo $data->boundsheets[0]['name'].'<br>';
+      for ($i=0; $i <= 20; $i++) {
+        $Cuenta = (@ereg_replace("[^0-9]", "", $data->sheets[0]['cells'][$i][1]));  
+        if ($Cuenta<>0) {
+
+          $SaldoLF    = number_format($data->sheets[0]['cells'][$i][9],2, '.', '');
+          $SaldoB     = number_format($data->sheets[0]['cells'][$i][11],2, '.', '');
+          $SaldoR     = number_format($data->sheets[0]['cells'][$i][13],2, '.', '');
+          
+          $OK         = $this->bancos_modal->Guardar($IdDB,$SaldoLA,$FechaSLA,$MDIDP,$MDINC,$MDECHK,$MDIEND,$SaldoLF,$CHKF,$SaldoB,$DPD,$SaldoR,$FechaM,$IdUS);
+        }
+        
+      }
+    }
    	public function subirImg(){
-      $ruta='assets/img/catalogo/';//ruta carpeta donde queremos copiar las imágenes        
+      $ruta='assets/img/catalogo/';//ruta carpeta donde queremos copiar las imágenes
       if(!@$_FILES['txtimagen']['tmp_name']){
           $uploadfile_temporal='';
           $uploadfile_nombre='';

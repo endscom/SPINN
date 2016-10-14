@@ -1,7 +1,7 @@
 var activo = false;
 
 $(document).ready(function() {
-//$('#listaArticulosCatalogoActual').openModal();
+//$('#nuevoArticuloArchivo').openModal();
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -125,6 +125,7 @@ $('#tblCatalogoActualModal').DataTable({
     $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblFacturas,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblFacturaFRP,#tblpRODUCTOS,#tblModals').DataTable(
         {
             "info":    false,
+            //"order": [[ 2, "asc" ]],
             //"searching": false,
             "bLengthChange": true,
             "lengthMenu": [[10,15,32,100,-1], [10,15,32,100,"Todo"]],
@@ -136,6 +137,7 @@ $('#tblCatalogoActualModal').DataTable({
                     "previous":   "Anterior"
                 },
                 "lengthMenu":"Mostrar _MENU_",
+
                 "emptyTable": "No hay datos disponibles en la tabla",
                 "search":     "" 
             }
@@ -309,44 +311,10 @@ function subirimagen()
             });
         }
 }
-/*funcion para editar un articulo*/
-/*function guardarEditarArticulo()
-{    
-    $('#txtimagen2').hide(); $('#cargar222').hide();
-    var file = $('#txtimagen2').val().replace(/C:\\fakepath\\/i, '');
-    var codigo = file.split(".");
-    $('#labelCodigo2').hide();   $('#labelDescripcion2').hide();
-    $('#labelPuntos2').hide();   $('#labelImagen2').hide();
-    if ($('#txtimagen2').val()=="") {$('#labelImagen2').show(); return false;}   
-    if ($('#codigoArto2').val()=="") {$('#labelCodigo2').show();return false;}
-    if ($('#NombArto2').val()=="") {$('#labelDescripcion2').show();return false;}
-    if ($('#PtArto2').val()=="") {$('#labelPuntos2').show();return false;}
-    if(codigo[0]!=$('#codigoArto2').val()){$('#labelImagen3').show();return false;}
-    else{   
-    $('#agregar2').hide();$('#loadIMG2').show(); 
-            var formData = new FormData($("#formimagen2")[0]);
-            $.ajax({
-                url: "verificarImg",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(datos)
-                {
-                    if (datos!=0) {
-                    $("#mensajeIMG2").html(datos);
-                    $('#modalIMG2').openModal(); 
-                    $('#agregar2').show();
-                    $('#loadIMG').hide();
-                    }else{
-                        $('#formimagen2').submit();
-                    }
-                }
-            });
-        }
-}*/
+
 /*funcion para mandar a traer el catalogo de productos pasado EKISDE*/
     $('#cmbCatalogos').change(function(){
+        $('#checkTodos').attr('checked', false);
         Objtable = $('#tblCatalogoPasado').DataTable();
             Objtable.destroy();
             Objtable.clear();
@@ -929,13 +897,30 @@ $("#tblpRODUCTOS").delegate("a", "click", function(){
     });
 
     function DFactura(factura){
-        $("#codFactura").text(factura);
+        $("#codFactura").text(factura); $('#progressFact').show();
         Objtable = $('#tblModal1').DataTable();
         Objtable.destroy();
         Objtable.clear();
         Objtable.draw();
         $('#tblModal1').DataTable({
             ajax: "getDetalleFactura/"+ factura,
+            "info":    false,
+                "bPaginate": false,
+                "paging": true,
+                "pagingType": "full_numbers",
+                "lengthMenu": [[10, -1], [10, "Todo"]],
+                "language": {
+                    "emptyTable": "No hay datos disponibles en la tabla",
+                    "lengthMenu": '_MENU_ ',
+                    "search": '<i class=" material-icons">search</i>',
+                    "loadingRecords": "",
+                    "paginate": {
+                        "first": "Primera",
+                        "last": "Última ",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                },
             columns: [
                 { "data": "COD_ARTICULO" },
                 { "data": "ARTICULO" },
@@ -944,7 +929,12 @@ $("#tblpRODUCTOS").delegate("a", "click", function(){
             ]
         });
         $('#modal3').openModal();
+        $('#tblModal1').on( 'init.dt', function () {
+                $("#progressFact").hide();
+            }).dataTable();
     }
+
+
     $( "#ListCatalogo").change(function() {
         if ($("#ListCliente").val()!=0){
 
@@ -1076,3 +1066,7 @@ $("#tblpRODUCTOS").delegate("a", "click", function(){
         });
       }
 
+function subirCSV () {
+    //document.getElementById(formVariasImagenes).submit();
+    $('#formVariasImagenes').submit();
+}

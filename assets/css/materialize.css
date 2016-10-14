@@ -6554,7 +6554,7 @@ select:disabled {
   right: 0;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: 100%!important;
   margin: 0;
   padding: 0;
   font-size: 20px;

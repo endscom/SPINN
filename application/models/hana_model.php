@@ -66,7 +66,7 @@ class Hana_model extends CI_Model
         $json = array();
         $i=0;
         while ($fila = odbc_fetch_array($resultado)){
-            $json[$i]['FECHA'] = $fila['FECHA'];
+            $json[$i]['FECHA'] = $this->formatFechaPHP($fila['FECHA']);
             $json[$i]['FACTURA'] = $fila['FACTURA'];
             $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
             $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);

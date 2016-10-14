@@ -69,7 +69,7 @@
 <body>
 <div class="row" style="margin-bottom:0">
     <div class="col l2" style="margin-left:35%;" >
-        <img id="logo" src="<?PHP echo base_url();?>assets/img/sp_logo_para_impresion.png" width="30%">
+        <img id="logo" src="<?PHP echo base_url();?>assets/img/spinnova_logo.png" width="30%">
     </div>
 </div>
 <br>

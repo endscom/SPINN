@@ -45,7 +45,16 @@
                 ?>
             
                 <a onclick=" $('#listaArticulosCatalogoActual').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">format_indent_decrease</i>REUTILIZAR</a>
-                <a id="subir" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>
+                <!--<a id="subir" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>-->
+
+
+                <a class='redondo dropdown-button btn' href='#' data-activates='dropdown1'><i class="material-icons right">file_upload</i>SUBIR</a>
+
+                  <!-- Dropdown Structure -->
+                  <ul id='dropdown1' class='dropdown-content'>
+                    <li class="noPadding" id="subir"><a  href="#!" class="noHover"><i class="material-icons right purple-text">filter_1</i>INDIVIDUAL</a></li>
+                    <li class="noPadding" onclick=" $('#nuevoArticuloArchivo').openModal()"><a href="#!" class="noHover"><i class="material-icons right purple-text">filter_9_plus</i>ARCHIVO</a></li>
+                  </ul>
             </div>
         </div>
 
@@ -162,7 +171,7 @@
                         </div>
                         
                         <div id="BtnAddArto" class="col s3 m2 l6 center">
-                            <a id="agregar" class="waves-effect btn-file waves-light btn" onclick="subirimagen()">AGREGAR</a>
+                            <a id="agregar" class="waves-effect btn-file waves-light btn" onclick="subirimagen()">GUARDAR</a>
                             
                             <div id="loadIMG" style="display:none" class="preloader-wrapper big active">
                                 <div class="spinner-layer spinner-blue-only">
@@ -335,5 +344,66 @@
         </div>
   
         <div class="row center"><a id="addCatalogoAntiguo" class="redondo waves-effect waves-light btn">AGREGAR</a></div>         
+    </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="nuevoArticuloArchivo" class="modal">
+    <div class="btnCerrar right"><i style='color:red;' class="material-icons modal-action modal-close">highlight_off</i></div>
+    
+    <div class="modal-content">
+        <div class="row TextColor center">
+            <div class="col s5 m8 l12">
+                ingreso de artículos atravez de archivo<i class="material-icons">assignment_turned_in</i>
+            </div>
+        </div>
+     
+        <div>
+            <form id="formVariasImagenes" name="formImagenes" enctype="multipart/form-data" class="col s6 m6 l6" action="<?PHP echo base_url('index.php/subirVariasImagenes');?>" method="post">
+                <input id="bandera" name="bandera" type="hidden" value="0">
+                
+                <div class="articulos">
+                    <div id="articulo" class="row">
+                        <div class="input-field col s11 l5" style="margin-top: 0rem;">
+                             <div class="file-field input-field">
+                              <div class="btn btnArchivo">
+                                <span>ARCHIVO CSV</span>
+                                <input name='archivoCSV' id="csv" type="file">
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder"INGRESE EL ARCHIVO CSV">
+                              </div>
+                            </div>
+                        </div>                    
+                        <div class="input-field col s2 m6 l6" style="margin-top: 0rem;">
+                            <div class="file-field input-field">
+                              <div class="btn btnArchivo">
+                                <span>IMAGENES</span>
+                                <input name='imagenes[]' id="imagenes" type="file" multiple>
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder"INGRESE EL ARCHIVO CSV">
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+          
+                    <div class="row">                        
+                        <div id="BtnAddArto" class="col s12 m12 l12 center">
+                            <a id="agregar" class="waves-effect btn-file waves-light btn" onclick="subirCSV()">GUARDAR</a>
+                            
+                            <div id="loadIMG" style="display:none" class="preloader-wrapper big active">
+                                <div class="spinner-layer spinner-blue-only">
+                                    <div class="circle-clipper left"><div class="circle"></div></div>
+                                    <div class="gap-patch"><div class="circle"></div></div>
+                                    <div class="circle-clipper right"><div class="circle"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
