@@ -15,7 +15,7 @@
             </div>
 
             <div class="input-field col s6 m6 l10">
-                <input  id="search" type="text" placeholder="Buscar" class="validate">
+                <input  id="searchFRP" type="text" placeholder="Buscar" class="validate">
                 <label for="search"></label>
             </div>
         </div>
@@ -45,17 +45,13 @@
             <tbody>
                 <?php
                     for ($i = 1; $i <= 100; $i++) {
-                        echo '<tr>
-                                <td> 14/07/2015</td>
-                                <td>00351</td>
-                                <td>01003</td>
-                                <td id="NomCliente">xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
-                                <td>
-                                    <a href="#Dell" class="Icono modal-trigger">
-                                        <i class="material-icons">highlight_off</i>
-                                    </a>
-                                </td>
-                            </tr>';
+                        echo "<tr>
+                                <td></td>
+                                <td></td>
+                                <td>CL".$i."</td>
+                                <td id='NomCliente'>xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
+                                <td><a href='#Dell' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a></td>
+                            </tr>";
                     }
                 ?>
             </tbody>
@@ -95,46 +91,40 @@
             <div class=" DatoFrp input-field line col s2 ">
                COD. CLIENTE:<input disabled id="ClienteFRP"  type="text" class="validate ">
             </div>
-
-            <div class="input-field col s4 m4 l5"  >
-                <select name="cliente" id="ListCliente">
-                    <option value="0" selected>CLIENTES...</option>
+            <div class="input-field col s4 m4 l5" ">
+                <select class="chosen-select browser-default " id="ListCliente">
+                    <option value="0" selected >CLIENTES...</option>
                     <?PHP
-                        if(!$Clientes){
-                        } else {
-                            foreach($Clientes as $cliente){
-                                echo '<option value="'.$cliente['CODIGO'].'">'.$cliente['NOMBRE'].'</option>';
-                            }
+                    if(!$Clientes){
+                    } else {
+                        foreach($Clientes as $cliente){
+                            echo '<option value="'.$cliente['CODIGO'].'">'.$cliente['CLIENTE'].'</option>';
                         }
+                    }
                     ?>
                 </select>
             </div>
-
             <div class="input-field col s2 m3 l3">
                 <input disabled id="PtsClientefrp" type="text" class="validate">
             </div>
         </div>
-
-
-
-
         <!-- datos de los premios a canjear  -->
         <div class="row">
             <div class="DatoFrp line input-field col s2 m2 l2">
                 COD. PREMIO:<input disabled  id="CodPremioFRP" type="text" class="validate">
             </div>
+
             <div class="input-field col s3 l5">
-                <select name="PREMIO" id="ListCatalogo">
+                <select class="chosen-select browser-default " name="PREMIO" id="ListCatalogo"  >
                     <option value="0" selected>...</option>
-                    
                     <?PHP
-                        if(!$Catalogo){
-                        } else {
-                            foreach($Catalogo as $premios){
-                                echo '<option value="'.$premios['IdIMG'].'">'.$premios['Nombre'].'</option>';
-                            }
+                    if(!$Catalogo){
+                    } else {
+                        foreach($Catalogo as $premios){
+                            echo '<option value="'.$premios['IdIMG'].'">'.$premios['Nombre'].'</option>';
                         }
-                    ?>    
+                    }
+                    ?>
                 </select>
             </div>
             
@@ -182,7 +172,7 @@
                 <th>Pts.</th>
                 <th>Pts. APLI.</th>
                 <th>Pts. DISP.</th>
-                <th> <i class="material-icons">done</i> </th>
+                <th></th>
                 <th>ESTADO</th>
             </tr>
             </thead>
