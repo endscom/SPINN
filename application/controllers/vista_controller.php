@@ -57,7 +57,7 @@ class Vista_controller extends CI_Controller
 
     public function CanjeFrp(){
         $this->MYHeaders();
-        $data['Clientes'] = $this->hana_model->LoadClients();
+        $data['Clientes'] = $this->hana_model->ClientesPuntos();
         $data['Catalogo'] = $this->catalogo_model->traerCatalogoImgActual();
         $this->load->view('pages/CanjeFRP',$data); 
         $this->MYFooters();
