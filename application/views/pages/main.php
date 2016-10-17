@@ -35,7 +35,7 @@
                   for($i=1; $i<5; ++$i){
                     if ($key['v_Puntos'.$i]!="0" and $key['v_Nombre'.$i]!="") {
                       echo"<td>
-                              <div class='images_ca'>                              
+                              <div class='images_ca'>
                                 <img src=".base_url()."assets/img/catalogo/".$key['v_IMG'.$i]." alt=''>
                                 <div class='descripImg'>
                                   <p class='codP'>COD: ".$key['v_IdIMG'.$i]."</p>

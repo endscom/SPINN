@@ -5271,7 +5271,7 @@ a.waves-effect .waves-ripple {
    max-height: 90% !important;
 }
  #Filtros,#DisponiblePuntos{
-   height: 65%;
+   height: 50%;
  }
  #Dfre, #SPdet, #cxpdet,#MxPdet, #CanjeSPDdet, #RepFechadet, #MaVinetadet{
    width: 72% !important;

@@ -9,28 +9,28 @@
 
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
-        <div class=" row TextColor">
-            <div class="col s5 m5 l12 offset-m4 offset-s2">
+        <div class=" row center TextColor">
+            <div class="col s12 m12 l12">
                  FACTURAS DE clientes
             </div>
         </div>
 
         <div class="container">
             <div class=" Buscar row column">
-                <div class="col s1 m1 l1 offset-l2 offset-m2 offset-s1">
+                <div class="col s1 m1 l1 offset-l2 offset-m2 ">
                     <i class="material-icons ColorS">search</i>
                 </div>
 
-                <div class="input-field col col s12 m6 l4">
+                <div class="input-field col s6 m4 l4">
                     <input  id="searchFacturasClientes" type="text" placeholder="Buscar" class="validate">
                     <label for="searchFacturasClientes"></label>
                 </div>
 
-                <div class="col offset-s3 s3 m1 l1">
-                    <a href="ExpEXCELpuntosCliente" class="noHover" onclick="exportar(FrmPuntosClientes);"> <img src="<?PHP echo base_url();?>assets/img/icono_excel.png " width="30px"></a>
+                <div class="col s2 m1 l1">
+                    <a href="ExpEXCELpuntosCliente" class="noHover" onclick="exportar(FrmPuntosClientes);"> <img src="<?PHP echo base_url();?>assets/img/icono_excel.svg " width="30px"></a>
                 </div>
-                <div class="col offset-s1 s3 m1 l1 ">
-                    <a href="ExpPDFpuntosCliente" target="_blank" class="noHover" onclick="exportar(FrmPuntosClientes);"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png " width="30px" ></a>
+                <div class="col s1 m1 l1 ">
+                    <a href="ExpPDFpuntosCliente" target="_blank" class="noHover" onclick="exportar(FrmPuntosClientes);"><img src="<?PHP echo base_url();?>assets/img/icono_pdf.svg " width="30px" ></a>
                 </div>
             </div>
         </div>

@@ -8,18 +8,18 @@
 ///////////////////////////////////////////////////////////-->
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
-        <div class=" row TextColor">
-            <div class="col s5 m5 l12">
-               usuarios sistema de puntos
+        <div class="row center TextColor">
+            <div class="col s12 m12 l12">
+               usuarios en sistema de puntos
             </div>
         </div>
 
         <div class="container">
             <div class="Buscar row column">               
-                <div class="col s1 m1 l1 offset-l3">
+                <div class="col s1 m1 l1 offset-l3 offset-m2">
                     <i class="material-icons ColorS">search</i>
                 </div>
-                <div class="input-field col s6 m6 l4">
+                <div class="input-field col s12 m6 l4">
                     <input  id="searchUsuarios" type="text" placeholder="Buscar" class="validate">
                     <label for="search"></label>
                 </div>

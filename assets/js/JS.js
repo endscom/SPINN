@@ -1,6 +1,14 @@
 var activo = false;
 
 $(document).ready(function() {
+        $('.materialboxed').materialbox();
+$(function() {//funcion para agregar el active en el menu, segun la pagina en la que se encuentre el usuario
+        var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/")+1);
+         $("ul a li").each(function(){
+            if($(this).attr("href") == pgurl || $(this).attr("href") == '' || $(this).attr("href")+"#" == pgurl)
+            $(this).addClass("urlActual");
+         })
+    });
 //$('#nuevoArticuloArchivo').openModal();
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
@@ -30,6 +38,10 @@ $('#searchClientes').on( 'keyup', function () {
     table.search( this.value ).draw();
 } );
 
+$('#searchTblCatalogoPasado').on( 'keyup', function () {
+    var table = $('#tblCatalogoPasado').DataTable();
+    table.search( this.value ).draw();
+} );
 
 $('#searchCatalogo').on( 'keyup', function () {
     var table = $('#tblCatalogo2').DataTable();
@@ -1033,10 +1045,10 @@ function subirimagen()
         $( 'img' ).remove( '#quitar' );
         $('#codigoArto').val("");$('#NombArto').val("");$('#PtArto').val("");
     } );
-    function editarArticulo(imagen,codigo,descripcion,puntos) {
+    function editarArticulo(imagen,codigo,descripcion,puntos){
         $('#bandera').val(1);
         $('#codigoArto').val(codigo);
-        $('#NombArto').val(descripcion);
+        $('#NombArto').val(descripcion.replace('pulg','"'));
         $('#PtArto').val(puntos);
         $('#nuevoArticulo').openModal();        
         $("#cargar22").trigger("click");
@@ -1125,7 +1137,23 @@ function subirimagen()
         });
       }
 
-function subirCSV () {
-    //document.getElementById(formVariasImagenes).submit();
-    $('#formVariasImagenes').submit();
+function subirEXCEL () {//funcion para subir el catalogo atravez de excel
+    var imagenes = $('#imagenes').val().replace(/C:\\fakepath\\/i, '');
+    var excel = $('#csv').val().replace(/C:\\fakepath\\/i, '');
+    var tipoExcel = excel.split(".");
+    if (excel=="") {
+        var $toastContent = $('<span class="center">SELECCIONE EL EXCEL DEL CATALOGO</span>');
+        Materialize.toast($toastContent, 3500,'rounded error');
+        return false;
+    }if (tipoExcel[1]!="xls"){
+        var $toastContent = $('<span class="center">EL ARCHIVO NO ES UN EXCEL 97-2003(xls)</span>');
+        Materialize.toast($toastContent, 3500,'rounded error');
+        return false;
+    }if (imagenes=="") {
+        var $toastContent = $('<span class="center">SELECCIONE AL MENOS 1 IMAGEN</span>');
+        Materialize.toast($toastContent, 3500,'rounded error');
+        return false;
+    }else{
+        $('#formVariasImagenes').submit();    
+    }    
 }

@@ -19,22 +19,7 @@
             </div>
         </div>
         <div class="row ">
-            <div class="bold valign-wrapper noMargen left col s12 m12 l4 TextColor">
-                <h6>ARTÍCULOS EN CATÁLOGO DE 
-                    <?php
-                        $Fecha = date_format(date_create($catActual[0]['Fecha']),'m');
-                        
-                        switch ($Fecha) {
-                            case '01':echo "ENERO";break;case '02':echo "FEBRERO";break;case '03':echo "MARZO";break;
-                            case '04':echo "ABRIL";break;case '05':echo "MAYO";break;case '06':echo "JUNIO";break;
-                            case '07':echo "JULIO";break;case '08':echo "AGOSTO";break;case '09':echo "SEPTIEMBRE";break;
-                            case '10':echo "OCTUBRE";break;case '11':echo "NOVIEMBRE";break;case '12':echo "DICIEMBRE";break;
-                            case '': echo "asasa";break;
-                            default: echo "";
-                        }
-                    ?>
-                </h6>
-            </div>
+            
     
             <div class="right derecha col s12 m12 l7">
                 <?php 
@@ -52,9 +37,25 @@
 
                   <!-- Dropdown Structure -->
                   <ul id='dropdown1' class='dropdown-content'>
-                    <li class="noPadding" id="subir"><a  href="#!" class="noHover"><i class="material-icons right purple-text">filter_1</i>INDIVIDUAL</a></li>
-                    <li class="noPadding" onclick=" $('#nuevoArticuloArchivo').openModal()"><a href="#!" class="noHover"><i class="material-icons right purple-text">filter_9_plus</i>ARCHIVO</a></li>
+                    <li class="valign-wrapper noPading" id="subir"><a  href="#!" class="noHover"><i class="material-icons right purple-text">filter_1</i>INDIVIDUAL</a></li>
+                    <li class="valign-wrapper noPading" onclick=" $('#nuevoArticuloArchivo').openModal()"><a href="#!" class="noHover"><i class="material-icons right purple-text">filter_9_plus</i>ARCHIVO</a></li>
                   </ul>
+            </div>
+            <div class="bold valign-wrapper noMargen left col s12 m12 l4 TextColor">
+                <h6>ARTÍCULOS EN CATÁLOGO DE 
+                    <?php
+                        $Fecha = date_format(date_create($catActual[0]['Fecha']),'m');
+                        
+                        switch ($Fecha) {
+                            case '01':echo "ENERO";break;case '02':echo "FEBRERO";break;case '03':echo "MARZO";break;
+                            case '04':echo "ABRIL";break;case '05':echo "MAYO";break;case '06':echo "JUNIO";break;
+                            case '07':echo "JULIO";break;case '08':echo "AGOSTO";break;case '09':echo "SEPTIEMBRE";break;
+                            case '10':echo "OCTUBRE";break;case '11':echo "NOVIEMBRE";break;case '12':echo "DICIEMBRE";break;
+                            case '': echo "asasa";break;
+                            default: echo "";
+                        }
+                    ?>
+                </h6>
             </div>
         </div>
 
@@ -86,7 +87,7 @@
                                                     <p class='ptsdes'>".$key['v_Puntos'.$i]." puntos</p>
                                                 </div>
                                         
-                                                <a href='#' onclick = 'editarArticulo(".'"'.$key['v_IMG'.$i].'","'.$key['v_IdIMG'.$i].'","'.str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%"),array("á", "é", "í","ó","ú","ñ"),  $key['v_Nombre'.$i]).'","'.$key['v_Puntos'.$i].'"'.")' id='modificar' class='btn'>modificar</a>
+                                                <a href='#' onclick = 'editarArticulo(".'"'.$key['v_IMG'.$i].'","'.$key['v_IdIMG'.$i].'","'.str_replace(array("/A%", "/E%","/I%","/O%","/U%","/-%",'"'),array("á", "é", "í","ó","ú","ñ","pulg"),  $key['v_Nombre'.$i]).'","'.$key['v_Puntos'.$i].'"'.")' id='modificar' class='btn'>modificar</a>
                                             </div>
                                         </td>";
                                     } else {
@@ -261,18 +262,18 @@
     
     <div class="modal-content">
         <div class="row noMargen TextColor center">
-            <div class="col s5 m8 l12 offset-m1">AGREGAR ARTÍCULOS A CATALOGO ACTUAL</div>
+            <div class="col s12 m12 l12">AGREGAR ARTÍCULOS A CATALOGO ACTUAL</div>
             
             <div class="row noMargen">
                 <div class="input-field col s12 l3">
                     <select id="cmbCatalogos" class="negra">
-                        <option value="" disabled selected>AGREGAR ARTÍCULOS DE:</option>
-                        
+                        <option value="" disabled selected>AGREGAR ARTÍCULOS DE:</option>                        
                         <?php 
                             if (!($catalogos)){
                             } else {
                                 foreach ($catalogos as $key) {
-                                    echo "<option value='".$key['IdCT']."'>".$key['Descripcion']."</option>";
+                                    $año = date_format(date_create($key['Fecha']),"Y");
+                                    echo "<option value='".$key['IdCT']."'>".$key['Descripcion']." ".$año."</option>";
                                 }
                             }
                         ?>
@@ -317,13 +318,23 @@
     
     <div class="modal-content">
         <div class="row TextColor center">
-            <div class="col s12 m8 l18 offset-m1 offset-l2">reutilización de catálogo</div>
+            <div class="col s12 m12 l18 ">reutilización de catálogo</div>
             
-            <div class="col s12 m4 l2 offset-m1">
+            <div class="col offset-s8 offset-m9 offset-l10 s2 m2 l2 ">
                 <p>
                     <input type="checkbox" id="checkTodos" />
                     <label for="checkTodos">TODOS</label>
                 </p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="Buscar row column">               
+                <div class="col s1 m1 l1 offset-l3 offset-m1"><i class="material-icons ColorS">search</i></div>
+                
+                <div class="input-field col s12 m6 l5 offset-m1">
+                    <input  id="searchTblCatalogoPasado" type="text" placeholder="Buscar" class="validate mayuscula">
+                    <label for="search"></label>
+                </div>
             </div>
         </div>
   
@@ -354,7 +365,7 @@
     
     <div class="modal-content">
         <div class="row TextColor center">
-            <div class="col s5 m8 l12">
+            <div class="col s12 m12 l12">
                 ingreso de artículos atravez de archivo<i class="material-icons">assignment_turned_in</i>
             </div>
         </div>
@@ -363,20 +374,19 @@
             <form id="formVariasImagenes" name="formImagenes" enctype="multipart/form-data" class="col s6 m6 l6" action="<?PHP echo base_url('index.php/subirVariasImagenes');?>" method="post">
                 <input id="bandera" name="bandera" type="hidden" value="0">
                 
-                <div class="articulos">
-                    <div id="articulo" class="row">
-                        <div class="input-field col s11 l5" style="margin-top: 0rem;">
+                    <div class="row">
+                        <div class="input-field offset-l1 col s12 m6 l5" style="margin-top: 0rem;">
                              <div class="file-field input-field">
                               <div class="btn btnArchivo">
                                 <span>ARCHIVO CSV</span>
-                                <input name='archivoCSV' id="csv" type="file">
+                                <input name='file' id="csv" type="file">
                               </div>
                               <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text" placeholder"INGRESE EL ARCHIVO CSV">
                               </div>
                             </div>
                         </div>                    
-                        <div class="input-field col s2 m6 l6" style="margin-top: 0rem;">
+                        <div class="input-field col s12 m6 l6" style="margin-top: 0rem;">
                             <div class="file-field input-field">
                               <div class="btn btnArchivo">
                                 <span>IMAGENES</span>
@@ -391,7 +401,7 @@
           
                     <div class="row">                        
                         <div id="BtnAddArto" class="col s12 m12 l12 center">
-                            <a id="agregar" class="waves-effect btn-file waves-light btn" onclick="subirCSV()">GUARDAR</a>
+                            <a id="agregar" class="waves-effect btn-file waves-light btn" onclick="subirEXCEL()">GUARDAR</a>
                             
                             <div id="loadIMG" style="display:none" class="preloader-wrapper big active">
                                 <div class="spinner-layer spinner-blue-only">
@@ -402,7 +412,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>
