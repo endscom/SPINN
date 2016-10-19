@@ -955,17 +955,89 @@ function subirimagen()
                     if ( !tblPremios.data().any() ){
                         Materialize.toast($('<span class="center">TABLA DE PREMIO VACIA. </span>'), 3500,'rounded error');
                     } else {
-                        console.log(pCambiar);
                         if  ( pCambiar != 0){
                             Materialize.toast($('<span class="center">SELECCIONE LA FACTURAS A APLICAR. </span>'), 3500,'rounded error');
                         } else {
-                            $('#Dfrp').openModal();
+                            SaveFRP(numFRP,fchFRP);
+
+
                         }
                     }
                 }
             }
         }
     });
+
+
+    function SaveFRP(idFrp,Fecha){
+        var detalles  = new Array()
+        var linea = 0;
+        var remamente =0;
+        obj = $('#tblpRODUCTOS').DataTable();
+        ofact = $('#tblFacturaFRP').DataTable();
+        obj.rows().data().each( function (ip) {
+            remamente = ip[4];
+            ofact.rows().data().each( function (index,value) {
+                var FAC = ofact.row(linea).data().FACTURA;
+                var apl = $("#AP1" + FAC).text();
+                if($("#CHK"+FAC).is(':checked')) {
+                    remamente = parseInt(remamente) - parseInt(apl);
+                    console.log(idFrp + "," + FAC + "," + apl + "," +ip[1]+"," +ip[2]+"," +ip[0]+"," +ip[4]);
+                    linea = linea + 1
+                }
+            });
+
+
+        });
+
+        /*var detallesArticulo = new Array();
+        var detallesFactura  = new Array();
+        var logFactura       = new Array();
+        var i=0;
+
+        var IdCliente = $( "#ListCliente option:selected" ).val();
+        var Nombre    = $( "#ListCliente option:selected" ).html();
+
+        obj = $('#tblpRODUCTOS').DataTable();
+        obj.rows().data().each( function (index) {
+            detallesArticulo[i] = idFrp + "," + index[1] + "," + index[2] + "," + index[3] + "," + index[0];
+            i++;
+        });
+        i=0;
+        obj = $('#tblFacturaFRP').DataTable();
+        obj.rows().data().each( function (index,value) {
+            var FAC = obj.row(value).data().FACTURA;
+            var apl = $("#AP1" + FAC).text();
+            if($("#CHK"+FAC).is(':checked') ) {
+                detallesFactura[i] =  idFrp + "," + FAC + "," + apl;
+                logFactura[i]      = IdCliente + "," +FAC + "," + apl;
+                i++;
+            }
+        });
+        console.log(logFactura);
+        var form_data = {
+            top: [idFrp, Fecha, IdCliente,Nombre],
+            art: detallesArticulo,
+            fac: detallesFactura,
+            log: logFactura
+        };
+        $.ajax({
+            url: "saveFRP",
+            type: "post",
+            async:true,
+            data: form_data,
+            success:
+                function(data){
+                    if (data==1){
+                        $('#Dfrp').openModal();
+                    } else {
+                        Materialize.toast($('<span class="center">ERROR AL CREAR EL FRP. </span>'), 3500,'rounded error');
+                    }
+                }
+        });*/
+
+
+    }
 
     function DFactura(factura){
         $("#codFactura").text(factura); $('#progressFact').show();
@@ -1008,7 +1080,8 @@ function subirimagen()
 
     $( "#ListCatalogo").change(function() {
         if ($("#ListCliente").val()!=0){
-
+            $("#AddPremioTbl").hide();
+            $("#prgLoad").show();
             var Prm = $(this).val();
             $("#CodPremioFRP").val(Prm);
             $("#CantPremioFRP").val("1");
@@ -1024,6 +1097,8 @@ function subirimagen()
                 success:
                     function(json){
                         $("#ValorPtsPremioFRP").val(json)
+                        $("#AddPremioTbl").show();
+                        $("#prgLoad").hide();
                     }
             });
 

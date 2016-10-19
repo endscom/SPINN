@@ -43,17 +43,20 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                    for ($i = 1; $i <= 100; $i++) {
-                        echo "<tr>
-                                <td></td>
-                                <td></td>
-                                <td>CL".$i."</td>
-                                <td id='NomCliente'>xxxxxx xxxxxxxx xxxxxx xxxxx x</td>
+            <?PHP
+            if(!$Lista){
+            } else {
+                foreach($Lista as $frp){
+                    echo "<tr>
+                                <td>".date_format(date_create($frp['Fecha']), 'd-m-Y')."</td>
+                                <td>".$frp['IdFRP']."</td>
+                                <td>".$frp['IdCliente']."</td>
+                                <td id='NomCliente'>".$frp['Nombre']."</td>
                                 <td><a href='#Dell' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a></td>
                             </tr>";
-                    }
-                ?>
+                }
+            }
+            ?>
             </tbody>
         </table>
     </div>
@@ -136,8 +139,18 @@
                 CANTIDAD:<input  id="CantPremioFRP"  type="text" class="validate">
             </div>
         </div>
-
         <div class="right row">
+            <div class="preloader-wrapper small active" style="display:none" id="prgLoad">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
             <div class="col s2 m2 l2">
                 <a href="#" id="AddPremioTbl" class="BtnBlue waves-effect  btn ">agregar</a>
             </div>
