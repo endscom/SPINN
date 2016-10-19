@@ -76,6 +76,20 @@
 .mayuscula{
   text-transform: uppercase!important;
 }
+.foterAcercaDe{
+  font-family: 'robotoblack';
+  font-size: 14px;
+  color: #831f82;
+}
+.errorConexion{
+  height: 18px;
+  width: 100%!important;
+  background-color: red!important;
+  z-index: 1;
+  margin: 0px;
+  font-family: 'robotoblack';
+  text-align: center!important;
+}
 .urlActual {
        background-color: #cb6eca;
     }
