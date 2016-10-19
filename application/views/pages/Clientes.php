@@ -1,4 +1,4 @@
-<header class="demo-header mdl-layout__header ">
+<header class="valign-wrapper demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
         <span class=" title">CLIENTES</span>
     </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-
+    <div class="row">
         <form action="" name="FrmClientes" id="FrmClientes" method="post"> <!--Exportar datos a EXCEL -->
             <table id="ClienteAdd" class="table TblDatos">
                 <thead>
@@ -66,6 +66,7 @@
                 </tbody>
             </table>
             </form>
+        </div>
     </div><!-- Fin Contenedor -->
 </main>
 <!--///////////////////////////////////////////////////////////////////////

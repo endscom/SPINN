@@ -26,12 +26,14 @@
             </div>
         </div>
 
-        <div class="right row">
-            <div class="col s2">
-                <a href="#MFrp" class="BtnBlue waves-effect  btn modal-trigger">canje</a>
-            </div>
-        </div>
-
+        <?php if ($this->session->userdata('IdRol')==2) {
+            echo    '<div class="right row">
+                        <div class="col s2">
+                            <a href="#MFrp" class="BtnBlue waves-effect  btn modal-trigger">canje</a>
+                        </div>
+                    </div>';
+            }        
+        ?>
         <table id="FRP" class=" TblDatos">
             <thead>
                 <tr>

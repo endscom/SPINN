@@ -11,7 +11,6 @@
             <a href="#Filtros" class="noHover IconBlue modal-action modal-close modal-trigger ">
                 <i class="medium material-icons iconoCenter">assignment</i>
                 <p class="iconoCenter TextIconos">REPORTES</p>
-
             </a>
         </div>
 </main>
