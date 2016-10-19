@@ -68,8 +68,14 @@ class Catalogo_controller extends CI_Controller
         
         redirect(base_url().'index.php/Catalogo','refresh');
     }
-
-
+    public function activarArticulos($codigo)
+    {
+      $this->catalogo_model->activarArticulos($codigo);
+    }
+    public function getArticulosInactivos()
+    {
+      $this->catalogo_model->getArticulosInactivos();
+    }
     public function subirVariasImagenes(){//Dios me ampare con esta funcion!!
       echo "SUBIENDO CATALOGO, POR FAVOR NO CIERRE SU NAVEGADOR....";
       $ruta='assets/img/catalogo/';//ruta carpeta donde queremos copiar las imágenes
@@ -79,7 +85,7 @@ class Catalogo_controller extends CI_Controller
       error_reporting(E_ALL ^ E_NOTICE);      
       for ($i=0; $i <= count($data->sheets[0]['cells']); $i++) {//recorro toda la hoja de excel
         $Cuenta = (@ereg_replace("[^0-9]", "", $data->sheets[0]['cells'][$i][1]));  
-            if ($Cuenta<>0) {
+        if ($Cuenta<>0){
             $codigo       = $data->sheets[0]['cells'][$i][1];
             $descripcion  = $data->sheets[0]['cells'][$i][2];
             $puntos       = $data->sheets[0]['cells'][$i][6];
@@ -87,19 +93,17 @@ class Catalogo_controller extends CI_Controller
               $archivoImagen = explode(".",$_FILES['imagenes']["name"][$file]);
               $archivoImagen = $archivoImagen[0];
               //echo $archivoImagen."<br>";
-              if ($codigo==$archivoImagen){
+              if (($codigo==$archivoImagen) && ($descripcion!="") && ($codigo!="") && ($puntos!="")){
                 //echo "la imagen". $codigo . "se encontró"."<br>";
                 $uploadfile_temporal = $_FILES['imagenes']["tmp_name"][$file];
                 $uploadfile_nombre = $ruta.$_FILES['imagenes']["name"][$file];
                 if (is_uploaded_file($uploadfile_temporal)){//valido que el archivo no sea malicioso
+                    //echo $descripcion."<br>";
                     move_uploaded_file($uploadfile_temporal,$uploadfile_nombre); 
                     $this->catalogo_model->guardarIMG($codigo,$descripcion,$_FILES['imagenes']["name"][$file],$puntos);//guardo las descripciones
                 }
               }
-              else{
-               //echo "la imagen no se encontró y no se guardo"."<br>"; ESTE ELSE ES INNECESARIO  
-              }
-          }
+            }
         }
       }redirect('Catalogo','refresh');
     }

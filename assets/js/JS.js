@@ -1211,6 +1211,80 @@ function subirimagen()
             }
         });
       }
+function articulosInactivos(){
+    $('#listaArticulosInactivos').openModal();
+    Objtable = $('#tblArticulosInactivos').DataTable();
+        Objtable.destroy();
+        Objtable.clear();
+        Objtable.draw();
+        $('#tblArticulosInactivos').DataTable({
+            ajax: "getArticulosInactivos",
+            "info":    false,
+                "bPaginate": false,
+                "paging": true,
+                "pagingType": "full_numbers",
+                "lengthMenu": [[10, -1], [10, "Todo"]],
+                "language": {
+                    "emptyTable": "No hay datos disponibles en la tabla",
+                    "lengthMenu": '_MENU_ ',
+                    "search": '<i class=" material-icons">search</i>',
+                    "loadingRecords": "",
+                    "paginate": {
+                        "first": "Primera",
+                        "last": "Última ",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                },
+            columns: [
+                { "data": "CodigoImg" },
+                { "data": "Nombre" },
+                { "data": "Imagen" },
+                { "data": "Puntos" },
+                { "data": "check" }
+            ]
+        });
+    $('#tblArticulosInactivos').on( 'init.dt', function () {
+        $("#progressFact").hide();
+    }).dataTable();
+}
+
+$('#guardarActiculosInactivos').click(function(){
+        var table = $('#tblArticulosInactivos').DataTable();
+        var rowCount = table.page.info().recordsTotal;
+        var contador=0; $('#loadArticulosInactivos').show(); $('#guardarActiculosInactivos').hide();
+         $("#tblArticulosInactivos input:checkbox:checked").each(function(index) {
+            var valores = "";
+            //var table = $('#tblCatalogoActualModal').DataTable();
+            var codigo = "";            
+            $(this).parents("tr").find("td").each(function(){
+                switch($(this).parent().children().index($(this))) {//obtengo el index de la columna EKISDE
+                    case 0:
+                        codigo = $(this).html();
+                        break;
+                        default: break;
+                }
+
+            });
+            $.ajax({//AJAX PARA TRAER LOS PUNTOS TOTALES DEL CLIENTE
+                url: "activarArticulos/"+codigo,
+                type: "GET",
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {                    
+                   var $toastContent = $('<span class"center">EL ARTÍCULO "'+codigo+'"  ACTIVADO CORRECTAMENTE</span>');
+                        Materialize.toast($toastContent, 2500,'rounded');
+                }
+            });
+        });
+        var myVar = setInterval(myTimer3, 6000);;
+         
+    });
+
+
+
 
 function subirEXCEL () {//funcion para subir el catalogo atravez de excel
     var imagenes = $('#imagenes').val().replace(/C:\\fakepath\\/i, '');

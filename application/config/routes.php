@@ -52,6 +52,8 @@ $route['AjaxCatalogoPasado/(:any)'] = 'catalogo_controller/CatalogoPasado/$1';
 $route['actualizarPuntos/(:any)/(:any)/(:any)'] = 'catalogo_controller/actualizarPuntos/$1/$2/$3';
 $route['actualizarCatalogo'] = 'catalogo_controller/actualizarCatalogo';//ruta para guardar los nuevos articulos en el catalogo
 $route['subirVariasImagenes'] = 'catalogo_controller/subirVariasImagenes';
+$route['getArticulosInactivos'] = 'catalogo_controller/getArticulosInactivos';
+$route['activarArticulos/(:any)'] = 'catalogo_controller/activarArticulos/$1';
 // FIN CATALOGO
 
 // RUTA IMPRESION
