@@ -39,9 +39,6 @@ class Vista_controller extends CI_Controller
         $this->hana_model->DFacturas($Factura);
     }
     
-    public function getFacturaFRP($Cliente){
-        $this->hana_model->FacturasFRP($Cliente);
-    }
 
     public  function BajaClientes(){
         $this->MYHeaders();
@@ -55,13 +52,7 @@ class Vista_controller extends CI_Controller
         $this->MYFooters();
     }
 
-    public function CanjeFrp(){
-        $this->MYHeaders();
-        $data['Clientes'] = $this->hana_model->ClientesPuntos();
-        $data['Catalogo'] = $this->catalogo_model->traerCatalogoImgActual();
-        $this->load->view('pages/CanjeFRP',$data); 
-        $this->MYFooters();
-    }
+
 
     public function CanjeFre(){
         $this->MYHeaders();
