@@ -6,16 +6,11 @@
     <div class="mdl-grid demo-content">       
         <div class="row TextColor center">catálogo de premios</div>
 
-<<<<<<< HEAD
-        <div class="container">
-            <div class="Buscar row column">               
-                <div class="col s1 m1 l1 offset-l3 offset-m1"><i class="material-icons ColorS">search</i></div>
-=======
 <div class="row" style="width:100%">
     <div class="container">
       <div class="Buscar row column">               
         <div class="col s1 m1 l1 offset-l3 offset-m1"><i class="material-icons ColorS">search</i></div>
->>>>>>> e0f61a578ce2751c2e60bc7f53f2f2bf80e3a498
+
         
                 <div class="input-field col s12 m6 l4 offset-m1">
                     <input  id="searchCatalogo" type="text" placeholder="Buscar" class="validate mayuscula">
@@ -23,7 +18,7 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
+
 
         <div class="row center">
             <table id="tblCatalogo2" class="TableBlank transparente">
@@ -63,7 +58,7 @@
             </table>
         </div>      
     </div>
-=======
+
       </div>
     </div>
 </div>
@@ -103,6 +98,6 @@
     </table>
   </div>      
 </div>
->>>>>>> e0f61a578ce2751c2e60bc7f53f2f2bf80e3a498
+
 </main>
 </div>
