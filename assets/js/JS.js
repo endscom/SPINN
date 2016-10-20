@@ -894,6 +894,7 @@ function subirimagen()
             var cant   = $("#CantPremioFRP").val();
             var totalPts = parseInt(cant) * parseInt(pts);
             var ttPts = parseInt($("#idttPtsFRP").text());
+
             ttPts = ttPts + totalPts;
 
             if (ttPts <= ttClPts){
@@ -919,11 +920,11 @@ function subirimagen()
 
     $("#tblpRODUCTOS").delegate("a", "click", function(){
             $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
-
-            var ttPts = 0;
+            ttPts = 0;
             $('#tblpRODUCTOS').DataTable().column(4).data().each( function ( value, index ) {
                 ttPts += parseInt(value);
             } );
+            $("#idttPtsFRP").text(ttPts);
 
             apliAutomatic(ttPts);
 
@@ -967,7 +968,7 @@ function subirimagen()
 
 
     function SaveFRP(idFrp,Fecha){
-        var detalles  = new Array()
+      /*  var detalles  = new Array()
         var linea = 0;
         //var lineas = 0;
         var menos = 0;
@@ -1008,7 +1009,7 @@ function subirimagen()
 
 
                 linea++
-                /*if (linea <= value){
+                if (linea <= value){
                     if($("#CHK"+FAC).is(':checked')) {
                         /*if ((est == "") || remanente == 0) {
                             return false;
@@ -1025,12 +1026,12 @@ function subirimagen()
                         console.log(idFrp + "," + FAC + "," + remanente + "," +ip[1]+"," +ip[2]+"," +ip[0]+"," +ip[4] + " (" + lineas++ + ") ");
                         linea++
                     }
-                }*/
+                }
 
             });
         });
 
-        /*var detallesArticulo = new Array();
+        var detallesArticulo = new Array();
         var detallesFactura  = new Array();
         var logFactura       = new Array();
         var i=0;
