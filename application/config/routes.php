@@ -24,8 +24,9 @@ $route['PuntosClientes'] = 'clientes_controller/facturasClientes';
 $route['PuntosCliente/(:any)'] = 'clientes_controller/puntosCliente/$1';
 $route['DetalleFact'] = 'vista_controller/DetalleFact';
 $route['getDetalleFactura/(:any)'] = 'vista_controller/getDetalleFactura/$1';
-$route['getFacturaFRP/(:any)'] = 'vista_controller/getFacturaFRP/$1';
-$route['Frp'] = 'vista_controller/CanjeFrp';
+$route['getFacturaFRP/(:any)'] = 'frp_controller/getFacturaFRP/$1';
+$route['Frp'] = 'frp_controller/CanjeFrp';
+$route['saveFRP'] = 'frp_controller/SaverFRP';
 $route['viewPtsItemCatalogo'] = 'vista_controller/getPuntosArticulosCatalogo';
 $route['FRE'] = 'vista_controller/CanjeFre';
 $route['ajaxFacturasXcliente/(:any)'] = 'clientes_controller/ajaxFacturasXcliente/$1';
@@ -51,6 +52,8 @@ $route['AjaxCatalogoPasado/(:any)'] = 'catalogo_controller/CatalogoPasado/$1';
 $route['actualizarPuntos/(:any)/(:any)/(:any)'] = 'catalogo_controller/actualizarPuntos/$1/$2/$3';
 $route['actualizarCatalogo'] = 'catalogo_controller/actualizarCatalogo';//ruta para guardar los nuevos articulos en el catalogo
 $route['subirVariasImagenes'] = 'catalogo_controller/subirVariasImagenes';
+$route['getArticulosInactivos'] = 'catalogo_controller/getArticulosInactivos';
+$route['activarArticulos/(:any)'] = 'catalogo_controller/activarArticulos/$1';
 // FIN CATALOGO
 
 // RUTA IMPRESION

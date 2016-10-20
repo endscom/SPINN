@@ -76,6 +76,23 @@
 .mayuscula{
   text-transform: uppercase!important;
 }
+.foterAcercaDe{
+  font-family: 'robotoblack';
+  font-size: 14px;
+  color: #831f82;
+}
+.errorConexion{
+  height: 18px;
+  width: 100%!important;
+  background-color: red!important;
+  z-index: 1;
+  margin: 0px;
+  font-family: 'robotoblack';
+  text-align: center!important;
+}
+.urlActual {
+       background-color: #cb6eca;
+    }
 #ListCliente_chosen > a ,#ListCatalogo_chosen > a {
     text-align: center;
     padding-top: 8px;
@@ -364,6 +381,9 @@ img.login-logo{
     position: fixed;
     bottom: 15px;
     width: 100%;
+}
+.noPading{
+    padding: 0px 0px 0px!important;
 }
 .Centrado
 {

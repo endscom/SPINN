@@ -1,4 +1,4 @@
-<header class="demo-header mdl-layout__header ">
+<header class="valign-wrapper demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
         <span class=" title">CLIENTES</span>
     </div>
@@ -10,31 +10,31 @@
     <div class="contenedor">
         <div class="center row TextColor">
             <div class="col s12 m12 l12">
-               CLIENTES PARA EL PROGRAMA DE PUNTOS
+               CLIENTES EN EL PROGRAMA DE PUNTOS
             </div>
         </div>
 
         <div class="container">
             <div class=" Buscar row column">
-                <div class="col s1 m1 l1 offset-l3 offset-s1 offset-m2">
+                <div class="col s1 m1 l1 offset-l2 offset-m2 ">
                     <i class="material-icons ColorS">search</i>
                 </div>
                 
-                <div class="input-field col s5 m4 l4">
+                <div class="input-field col s6 m4 l4">
                     <input  id="searchClientes" type="text" placeholder="Buscar" class="validate">
                     <label for="search"></label>
                 </div>
                 
                 <div class="col s2 m1 l1">
-                    <a href="Exp_Clientes" class="noHover" onclick="exportar('FrmClientes');"> <img src="<?PHP echo base_url();?>assets/img/icono_excel.png " width="30px"></a>
+                    <a href="Exp_Clientes" class="noHover" onclick="exportar('FrmClientes');"> <img src="<?PHP echo base_url();?>assets/img/icono_excel.svg " width="30px"></a>
                 </div>
                 
                 <div class="col s1 m1 l1 ">
-                    <a href="ExpPDF" target="_blank" class="noHover" onclick="exportar('FrmClientes');"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png " width="30px" ></a>
+                    <a href="ExpPDF" target="_blank" class="noHover" onclick="exportar('FrmClientes');"><img src="<?PHP echo base_url();?>assets/img/icono_pdf.svg " width="30px" ></a>
                 </div>
             </div>
         </div>
-
+    <div class="row">
         <form action="" name="FrmClientes" id="FrmClientes" method="post"> <!--Exportar datos a EXCEL -->
             <table id="ClienteAdd" class="table TblDatos">
                 <thead>
@@ -66,6 +66,7 @@
                 </tbody>
             </table>
             </form>
+        </div>
     </div><!-- Fin Contenedor -->
 </main>
 <!--///////////////////////////////////////////////////////////////////////
