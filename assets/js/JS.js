@@ -547,10 +547,10 @@ function subirimagen()
         $('#labelDescripcion2').hide();
         if ($('#descripcionCat').val()=="") {$('#labelDescripcion2').show(); return false;}   
         if ($('#fechaCat2').val()=="") {$('#labelFecha2').show();return false;}
-    else{
-        $('#CrearCatalogo').hide();
-        $('#formNuevoCatalogo').submit();
-        }
+        else{
+            $('#CrearCatalogo').hide(); $('#loadCrearCatalogo').show();
+            $('#formNuevoCatalogo').submit();
+            }
     });
 
 
@@ -1442,6 +1442,7 @@ function subirEXCEL () {//funcion para subir el catalogo atravez de excel
         Materialize.toast($toastContent, 3500,'rounded error');
         return false;
     }else{
+        $('#agregarExcel').hide(); $('#loadArchivoExcel').show();
         $('#formVariasImagenes').submit();    
     }    
 }
