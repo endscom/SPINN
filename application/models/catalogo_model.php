@@ -80,7 +80,52 @@ class Catalogo_model extends CI_Model
         $nombre = str_replace(array("á", "é", "í","ó","ú","ñ"), array("/A%", "/E%","/I%","/O%","/U%","/-%"), $nombre);
         return $nombre;
     }
-
+    public function activarArticulos($codigo)
+    {
+        echo $codigo;
+        $this->db->where('Estado',0);
+        $query = $this->db->get('catalogo');
+        if ($query->num_rows() >0){
+            $i=0;
+            $R = $query->row();
+            $data = array('Estado' => 0);
+            $this->db->where('IdCT',$R->IdCT);
+            $this->db->where('IdIMG',$codigo);
+            $this->db->update('detallect',$data);
+        }
+    }
+    public function getArticulosInactivos()
+    {
+        $this->db->where('Estado',0);
+        $query = $this->db->get('catalogo');
+        if ($query->num_rows() >0){
+            $i=0;
+            $R = $query->row();
+            $this->db->where('IdCT',$R->IdCT);
+            $this->db->where('Estado',1);
+            $query2 = $this->db->get('detallect');
+        if($query2->num_rows() <> 0){
+            foreach ($query2->result_array() as $row){                   
+                $json['data'][$i]['CodigoImg']  = $row['IdIMG'];
+                $json['data'][$i]['Nombre']     = $row['Nombre'];
+                $json['data'][$i]['Imagen']     = '<img class="btn-floating materialboxed" data-caption='.$row['Nombre']." ".number_format($row['Puntos'])." PTOS'
+                width='250' src=".base_url().'assets/img/catalogo/'.$row['IMG'].'>';
+                $json['data'][$i]['Puntos']     = $row['Puntos'];
+                $json['data'][$i]['check']      = '<input type="checkbox" id="chk-'.$row['IdIMG'].'" />
+                <label for="chk-'.$row['IdIMG'].'"></label>';
+                $i++;
+            }
+        }   else {   
+                    $json['data'][$i]['CodigoImg']  = "";
+                    $json['data'][$i]['Nombre']     = "";
+                    $json['data'][$i]['Imagen']     = "";
+                    $json['data'][$i]['Puntos']     = "";
+                    $json['data'][$i]['check']      = "";
+                    $json['data'][$i]['idCT']       = "";
+            }
+            echo json_encode($json);
+        }
+    }
     public function traerCatalogoImg(){
         $this->db->where('Estado',0);
         $query = $this->db->get('catalogo');

@@ -29,8 +29,14 @@
                     }
                 ?>
             
-                <a onclick=" $('#listaArticulosCatalogoActual').openModal()" class="redondo waves-effect waves-light btn"><i class="material-icons right">format_indent_decrease</i>REUTILIZAR</a>
+                <a  class="redondo dropdown-button waves-effect waves-light btn" data-activates='dropdown2'><i class="material-icons right">build</i>OPCIONES</a>
                 <!--<a id="subir" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>-->
+
+                <!-- Dropdown Structure -->
+                  <ul id='dropdown2' class='dropdown-content'>
+                    <li class="valign-wrapper noPading" onclick=" $('#listaArticulosCatalogoActual').openModal()"><a  href="#!" class="noHover"><i class="material-icons right purple-text">format_indent_decrease</i>REUTILIZACIÓN DE CATALOGO</a></li>
+                    <li class="valign-wrapper noPading" onclick="articulosInactivos()"><a href="#!" class="noHover"><i class="material-icons right purple-text">filter_9_plus</i>REACTIVACIóN DE ARTÍCULOS</a></li>
+                  </ul>
 
 
                 <a class='redondo dropdown-button btn' href='#' data-activates='dropdown1'><i class="material-icons right">file_upload</i>SUBIR</a>
@@ -262,7 +268,7 @@
     
     <div class="modal-content">
         <div class="row noMargen TextColor center">
-            <div class="col s12 m12 l12">AGREGAR ARTÍCULOS A CATALOGO ACTUAL</div>
+            <div class="col s12 m12 l12">REUTILIZACIÓN DE CATÁLOGO</div>
             
             <div class="row noMargen">
                 <div class="input-field col s12 l3">
@@ -413,6 +419,45 @@
                         </div>
                     </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal Structure lista de articulos INACTIVOS-->
+<div id="listaArticulosInactivos" class="modal">
+    <div class="btnCerrar right"><i style='color:red;' class="material-icons modal-action modal-close">highlight_off</i></div>
+    
+    <div class="modal-content">
+        <div class="row noMargen TextColor center">
+            <div class="col s12 m12 l12">ARTÍCULOS INACTIVOS</div>        
+        </div>
+
+        <div class="progress progress2" style="display:none"><div class="indeterminate violet"></div></div>
+      
+        <div class="row noMargen TextColor center">
+            <table id="tblArticulosInactivos" class="table TblDatos">
+                <thead>
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>ARTÍCULO</th>
+                        <th>MINIATURA</th>
+                        <th>PUNTOS</th>
+                        <th>ACTIVAR</th>
+                    </tr>
+                </thead>        
+                <tbody></tbody>
+            </table>
+        </div><br>
+        <div class="row center">
+            <a id="guardarActiculosInactivos" class="redondo waves-effect waves-light btn">GUARDAR</a>
+            <div id="loadArticulosInactivos" style="display:none" class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left"><div class="circle"></div></div>
+                    <div class="gap-patch"><div class="circle"></div></div>
+                    <div class="circle-clipper right"><div class="circle"></div></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

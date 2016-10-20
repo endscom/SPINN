@@ -33,12 +33,21 @@
                         <a href="Reportes"><li href="Reportes"><i class="material-icons">description</i> reportes</li></a>
                         <a class="modal-trigger" href="#modalAcercaDe"><li href="#"><i class="material-icons">info_outline</i> acerca de</li></a>
                         <a href="salir"> <li href="salir"><i class="material-icons">exit_to_app</i> cerrar sesión</li></a>';
-              }else if($this->session->userdata('IdRol')==2 || $this->session->userdata('IdRol')==6 || $this->session->userdata('IdRol')==3){
+              }else if($this->session->userdata('IdRol')==2){
                 $menuH .= '<a href="Main"><li href="Main"><i class="material-icons">home</i> inicio</li></a>
                         <a href="Facturas"><li href="Facturas"><i class="material-icons">remove_circle</i> Facturas</li></a>
                         <a href="Clientes"><li href="Clientes"><i class="material-icons">supervisor_account</i> clientes</li></a>
                         <a href="PuntosClientes"><li href="PuntosClientes"><i class="material-icons">content_copy</i> puntos clientes</li></a>
                         <a href="Frp"><li href="Frp"><i class="material-icons">payment</i> canje puntos (frp)</li></a>
+                        <a href="Reportes"><li href="Reportes"><i class="material-icons">description</i> reportes</li></a>
+                        <a class="modal-trigger" href="#modalAcercaDe"><li href="#"><i class="material-icons">info_outline</i> acerca de</li></a>
+                        <a href="salir"> <li href="salir"><i class="material-icons">exit_to_app</i> cerrar sesión</li></a>';
+              }else if($this->session->userdata('IdRol')==6 || $this->session->userdata('IdRol')==3){
+                $menuH .= '<a href="Main"><li href="Main"><i class="material-icons">home</i> inicio</li></a>
+                        <a href="Facturas"><li href="Facturas"><i class="material-icons">remove_circle</i> Facturas</li></a>
+                        <a href="Clientes"><li href="Clientes"><i class="material-icons">supervisor_account</i> clientes</li></a>
+                        <a href="PuntosClientes"><li href="PuntosClientes"><i class="material-icons">content_copy</i> puntos clientes</li></a>
+                        <a href="Catalogo"><li href="Catalogo"><i class="material-icons">dashboard</i> catálogo</li></a>
                         <a href="Reportes"><li href="Reportes"><i class="material-icons">description</i> reportes</li></a>
                         <a class="modal-trigger" href="#modalAcercaDe"><li href="#"><i class="material-icons">info_outline</i> acerca de</li></a>
                         <a href="salir"> <li href="salir"><i class="material-icons">exit_to_app</i> cerrar sesión</li></a>';
