@@ -255,9 +255,9 @@
 <div id="Dfrp" class="modal">
     <div class="modal-content">
             <div class="container center">
-                <div class="col s1" style="height: 10px;">
+                <div class="col s1" >
                     <div class="row">
-                        <div class="col s11" >
+                        <div class="col s11 " >
                             <span id="titulM" class="Mcolor"> DETALLE FRP</span>
                         </div>
                         
@@ -266,90 +266,78 @@
                                 <i class="material-icons">highlight_off</i>
                             </a>
                         </div>
+
+                    </div>
+                </div>
+
+                <div class="row center " id="frpProgress">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="col s5">
-                    <span class="center datos1 frpT"> N° FRP 38389</span><br>
-                    <span class="center datos1 lineas"> 24/12/2016</span>
-                </div>
-                
-                <div class="col s1">
-                    <span id="Nfarmacia" class="center Mcolor">COD# 00449 NOMBRE: FARMACIA CASTELLÓN</span>
-                    <br>
-                    <span class="center Datos linea ruc"> Nº RUC 4412000183001H </span>
+                <div id="divTop">
+                    <div class="col s5">
+                        <span class="center datos1 frpT"> N° FRP <span id="spnFRP"> </span></span><br>
+                        <span class="center datos1 lineas"> <span id="spnFecha"></span></span>
+                    </div>
+
+                    <div class="col s1">
+                        <span id="Nfarmacia" class="center Mcolor">COD# <span id="spnCodCls"></span> NOMBRE: <span id="spnNombreCliente"></span></span><br>
+                    </div>
+
                 </div>
             </div>
 
-            <table id="tblModal1" class="TableBlank">
-                <thead>
-                    <tr>
-                        <th>FECHA</th>
-                        <th>BOUCHER</th>
-                        <th>Pts.</th>
-                        <th>Pts. APLI.</th>
-                        <th>Pts. DISP.</th>
-                        <th>ESTADO</th>
-                    </tr>
-                </thead>
+           <div id="divTbl">
+               <table id="tblModal1" class="TblDatos">
+                   <thead>
+                   <tr>
+                       <th>FECHA</th>
+                       <th>BOUCHER</th>
+                       <th>Pts.</th>
+                       <th>Pts. APLI.</th>
+                       <th>Pts. DISP.</th>
+                       <th>ESTADO</th>
+                   </tr>
+                   </thead>
 
-                <tbody>
-                    <tr>
-                        <td>24/01/2016</td>
-                        <td id="black">067792</td>
-                        <td id="black">300,000 Pts.</td>
-                        <td>300,000 Pts.</td>
-                        <td>0 Pts.</td>
-                        <td>APLICADO</td>
-                    </tr>
+                   <tbody>
 
-                    <tr>
-                        <td>24/01/2016</td>
-                        <td id="black">067792</td>
-                        <td id="black">300,000 Pts.</td>
-                        <td>300,000 Pts.</td>
-                        <td>0 Pts.</td>
-                        <td id="parcial">PARCIAL</td>
-                    </tr>
-                </tbody>
-            </table>
-        <h6 class="center Mcolor dat">PUNTOS APLICADOS: <span class="dato">363,522 Pts.</span> </h6>
-        <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
+                   </tbody>
+               </table>
+               <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
 
-        <table id="tblModal1" class="TableBlank">
-            <thead>
-                <tr>
-                    <th>CANT.</th>
-                    <th>COD. PREMIO</th>
-                    <th>DESCRIPCIÓN</th>
-                    <th>Pts. </th>
-                    <th>TOTAL Pts.</th>
-                </tr>
-            </thead>
+               <table id="tblModal2" class="TblDatos">
+                   <thead>
+                   <tr>
+                       <th>CANT.</th>
+                       <th>COD. PREMIO</th>
+                       <th>DESCRIPCIÓN</th>
+                       <th>Pts. </th>
+                       <th>TOTAL Pts.</th>
+                   </tr>
+                   </thead>
 
-            <tbody>
-                <tr>
-                    <td>20</td>
-                    <td id="black">146790</td>
-                    <td id="black">CENTRO ENTRET FAMESA MUNICH</td>
-                    <td>17,998 Pts.</td>
-                    <td>359,960 Pts.</td>
-                </tr>
-                
-                <tr>
-                    <td>20</td>
-                    <td id="black">146790</td>
-                    <td id="black">CENTRO ENTRET FAMESA MUNICH</td>
-                    <td>17,998 Pts.</td>
-                    <td>359,960 Pts.</td>
-                </tr>
-            </tbody>
-        </table>
+                   <tbody>
 
-        <h6 class="center Mcolor dat">TOTAL <span class="dato">363,522 Pts.</span> </h6>
-        <div class="row center">
-                <a href="<?PHP echo base_url('index.php/ExpFRP');?>"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
-        </div>
+                   </tbody>
+               </table>
+               <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnTotalFRP"></span></span> </h6>
+               <div class="row center">
+                   <a href="<?PHP echo base_url('index.php/ExpFRP');?>"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
+               </div>
+           </div>
+
+
     </div>
 </div>
 <!-- Fin de Modal#4-->

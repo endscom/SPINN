@@ -64,7 +64,7 @@ $route['DetalleFRE'] = 'impresion_controller/DetalleFRE';
 // RUTA EXPORTACIÓN PDF Y EXCEL
 $route['Exp_Clientes'] = 'exportacion_controller/ExpoClients';
 $route['ExpPDF'] = 'exportacion_controller/ExpoPdf';
-$route['ExpFRP'] = 'exportacion_controller/ExpoFrp';
+$route['ExpFRP/(:any)'] = 'exportacion_controller/ExpoFrp/$1';
 
 $route['ExpPDFpuntosCliente'] = 'exportacion_controller/ExpoPdfPuntosClientes';
 $route['ExpEXCELpuntosCliente'] = 'exportacion_controller/ExpoExcelPuntosClientes';
