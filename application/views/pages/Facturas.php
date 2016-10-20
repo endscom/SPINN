@@ -1,7 +1,5 @@
 <header class="demo-header mdl-layout__header ">
-    <div class="centrado  ColorHeader">
-        <span class=" title">FACTURAS</span>
-    </div>
+    <div class="centrado  ColorHeader"><span class=" title">FACTURAS</span></div>
 </header>
 
 <!--//////////////////////////////////////////////////////////
@@ -11,9 +9,7 @@
     <div class="contenedor ">
        <div class="container">
            <div id="buscar" class=" row column">
-               <div class="col s1 m1 l1 offset-s3  offset-l2">
-                   <i class="material-icons ColorS">search</i>
-               </div>
+               <div class="col s1 m1 l1 offset-s3  offset-l2"><i class="material-icons ColorS">search</i></div>
 
                <div id="InputSearch" class="input-field col s6 m16 l5">
                    <input  id="sFactura" type="text" placeholder="Buscar Facturas o Cliente" class="validate">
@@ -62,14 +58,11 @@
 <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                             Modales Detalles Facturas
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-
 <div id="modal3" class="modal">
     <div class="modal-content">
         <div class=" row">
             <div class="right col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
-                    <i class="material-icons">highlight_off</i>
-                </a>
+                <a href="#!" class=" BtnClose modal-action modal-close "><i class="material-icons">highlight_off</i></a>
             </div>
         </div>
 
@@ -87,9 +80,7 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

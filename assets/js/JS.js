@@ -975,59 +975,52 @@ function subirimagen()
         obj = $('#tblpRODUCTOS').DataTable();
         ofact = $('#tblFacturaFRP').DataTable();
         total  = parseInt($("#idttPtsFRP").text());
-
+        FPunto = 0;
 
         obj.rows().data().each( function (ip) {
             remanente = parseInt(ip[4]);
             console.log("Arti: " + ip[1] + " Aplica: " + remanente);
-
+            
             ofact.rows().data().each( function (index,value) {
                 var FAC = ofact.row(linea).data().FACTURA;
-                FPunto = ofact.row(linea).data().DISPONIBLE;
+                var FLPunto = ofact.row(linea).data().DISPONIBLE;
                 valor = 0;
                 apl = parseInt($("#AP1" + FAC).text());
                 dis = parseInt($("#DIS" + FAC).text());
                 est = ($("#EST" + FAC).text());
-
+                
+                if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
+                
                 if (remanente > apl){
                     valor = apl;
+                    FPunto = FPunto - apl;
+                }else{
+                    valor = remanente;
+                    FPunto = FPunto - remanente;
+
+                    if (remanente != 0){apl = Math.abs(FPunto);}
                 }
 
                 if (remanente == 0) {
                     return false;
                 }else{
-                    console.log(FAC + "," + "Puntos:" + FPunto +", Aplica: " + apl + ", Pendiente: " + valor);
+                    console.log(FAC + "," + "Puntos:" + FLPunto +", Aplica: " + valor + ", Pendiente: " + apl);
                 }
 
-                if (remanente >= apl) {
+                if (remanente > valor) {
                     remanente = remanente - apl;
                 } else {
-                    valor = remanente;
-                    remanente = 0;
+                    if (FPunto < 0) {
+                        remanente = Math.abs(FPunto);
+                        FPunto = 0;
+                    } else {
+                        remanente = 0;
+                    }
                 }
 
-
                 linea++
-                /*if (linea <= value){
-                    if($("#CHK"+FAC).is(':checked')) {
-                        /*if ((est == "") || remanente == 0) {
-                            return false;
-                        }
-
-                        if (remanente > apl) {
-                            remanente = remanente - apl;
-                        } else {
-                            remanente = apl - remanente;
-                        }
-
-                        console.log( "Puntos:" + FPunto +", Aplica: " + apl + ", Pendiente: " + remanente);
-
-                        console.log(idFrp + "," + FAC + "," + remanente + "," +ip[1]+"," +ip[2]+"," +ip[0]+"," +ip[4] + " (" + lineas++ + ") ");
-                        linea++
-                    }
-                }*/
-
             });
+            linea--
         });
 
         /*var detallesArticulo = new Array();
