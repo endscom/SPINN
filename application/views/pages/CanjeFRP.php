@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <?php if ($this->session->userdata('IdRol')==2) {
+        <?php if (($this->session->userdata('IdRol')==2) || $this->session->userdata('IdRol')==1) {
             echo    '<div class="right row">
                         <div class="col s2">
                             <a href="#MFrp" class="BtnBlue waves-effect  btn modal-trigger">canje</a>
