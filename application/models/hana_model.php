@@ -161,7 +161,6 @@ class Hana_model extends CI_Model
             $json['data'][$i]["CLIENTE"] = utf8_encode($fila['CLIENTE']);
             $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
             $i++;
-
         }
         if ($pdf!=null) {
             return $json;
