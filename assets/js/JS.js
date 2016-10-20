@@ -776,7 +776,6 @@ function subirimagen()
             $("#DIS" + FACTURA).html("");
             $("#EST" + FACTURA).html("");
             $("#CHK"+FACTURA).prop('checked', false);
-
         });
 
         if (pts >0 ){
@@ -959,8 +958,6 @@ function subirimagen()
                             Materialize.toast($('<span class="center">SELECCIONE LA FACTURAS A APLICAR. </span>'), 3500,'rounded error');
                         } else {
                             SaveFRP(numFRP,fchFRP);
-
-
                         }
                     }
                 }
@@ -972,22 +969,65 @@ function subirimagen()
     function SaveFRP(idFrp,Fecha){
         var detalles  = new Array()
         var linea = 0;
-        var remamente =0;
+        //var lineas = 0;
+        var menos = 0;
+        var remanente =0;
         obj = $('#tblpRODUCTOS').DataTable();
         ofact = $('#tblFacturaFRP').DataTable();
+        total  = parseInt($("#idttPtsFRP").text());
+
+
         obj.rows().data().each( function (ip) {
-            remamente = ip[4];
+            remanente = parseInt(ip[4]);
+            console.log("Arti: " + ip[1] + " Aplica: " + remanente);
+
             ofact.rows().data().each( function (index,value) {
                 var FAC = ofact.row(linea).data().FACTURA;
-                var apl = $("#AP1" + FAC).text();
-                if($("#CHK"+FAC).is(':checked')) {
-                    remamente = parseInt(remamente) - parseInt(apl);
-                    console.log(idFrp + "," + FAC + "," + apl + "," +ip[1]+"," +ip[2]+"," +ip[0]+"," +ip[4]);
-                    linea = linea + 1
+                FPunto = ofact.row(linea).data().DISPONIBLE;
+                valor = 0;
+                apl = parseInt($("#AP1" + FAC).text());
+                dis = parseInt($("#DIS" + FAC).text());
+                est = ($("#EST" + FAC).text());
+
+                if (remanente > apl){
+                    valor = apl;
                 }
+
+                if (remanente == 0) {
+                    return false;
+                }else{
+                    console.log(FAC + "," + "Puntos:" + FPunto +", Aplica: " + apl + ", Pendiente: " + valor);
+                }
+
+                if (remanente >= apl) {
+                    remanente = remanente - apl;
+                } else {
+                    valor = remanente;
+                    remanente = 0;
+                }
+
+
+                linea++
+                /*if (linea <= value){
+                    if($("#CHK"+FAC).is(':checked')) {
+                        /*if ((est == "") || remanente == 0) {
+                            return false;
+                        }
+
+                        if (remanente > apl) {
+                            remanente = remanente - apl;
+                        } else {
+                            remanente = apl - remanente;
+                        }
+
+                        console.log( "Puntos:" + FPunto +", Aplica: " + apl + ", Pendiente: " + remanente);
+
+                        console.log(idFrp + "," + FAC + "," + remanente + "," +ip[1]+"," +ip[2]+"," +ip[0]+"," +ip[4] + " (" + lineas++ + ") ");
+                        linea++
+                    }
+                }*/
+
             });
-
-
         });
 
         /*var detallesArticulo = new Array();
