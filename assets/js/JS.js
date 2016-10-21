@@ -906,6 +906,8 @@ function subirimagen()
                     totalPts,
                     '<a href="#!" id="RowDelete" class="BtnClose"><i class="material-icons">highlight_off</i></a>'
                 ] ).draw( false );
+                //$('#ListCatalogo').val("...").trigger('change');
+                $("#CodPremioFRP,#ValorPtsPremioFRP,#CantPremioFRP").val("");
                 apliAutomatic(ttPts);
 
             }else{
@@ -914,6 +916,8 @@ function subirimagen()
         }else{
             Materialize.toast($('<span class="center">SELECCIONE UN ARTICULO DEL CATALOGO. </span>'), 3500,'rounded error');
         }
+
+
     });
 
 
@@ -1177,6 +1181,103 @@ function subirimagen()
 
 
     }
+
+    function callUrlPrint(targetURL,id){
+        var a = document.createElement('a');
+        a.href = targetURL + "/" + $("#" + id ).text();
+        a.target = '_blank';
+        window.open(a);
+    }
+
+    function dellFrp(id){
+        $("#Dell").openModal();
+        $("#spnDellFRP").text(id);
+    }
+    $("#idProcederDell").click(function(){
+        $("#Dell").closeModal();
+        $("#DellRes").openModal();
+        id = $("#spnDellFRP").text();
+        var form_data = {
+            frp: id
+        };
+        $.ajax({
+            url: "delFRP",
+            type: "post",
+            async:true,
+            data: form_data,
+            success:
+                function(data){
+                    console.log(data)
+                    if (data != 1){
+                        Materialize.toast($('<span class="center">SELECCIONE UN CLIENTE PRIMERO. </span>'), 3500,'rounded error');
+                    } else {
+                        window.setTimeout($(location).attr('href',"Frp"), 2000);
+                        $("#dellCorrectoFRP").text(id);
+                    }
+                }
+        });
+
+    });
+
+    function getview(id){
+        $('#idviewFRP').openModal();
+        $("#vfrpProgress").show();
+        $("#vfrpTop,#vfrpTop").hide();
+
+        var form_data = {
+            frp: id
+        };
+
+        $.ajax({
+            url: "getviewFRP",
+            type: "post",
+            async:true,
+            data: form_data,
+            success:
+                function(data){
+                    $("#vfrpProgress").hide();
+                    $("#vfrpTop,#vfrpTop").show();
+
+                    var dataJson = JSON.parse(data);
+                    console.log(dataJson);
+
+                    var DF="",DP="";
+
+                    $("#spnviewFRP").text(dataJson.top[0].IdFRP);
+                    $("#spnviewFecha").text(dataJson.top[0].Fecha);
+                    $("#spnviewCodCls").text(dataJson.top[0].IdCliente);
+                    $("#spnviewNombreCliente").text(dataJson.top[0].Nombre);
+
+                    for (f=0;f<dataJson.DFactura.length;f++){
+
+                        if( dataJson.DFactura[f].SALDO > 0) {ESTAD ="PARCIAL"}else {ESTAD ="APLICADO"}
+                        DF +=   "<tr>" +
+                                    "<td>" +dataJson.DFactura[f].Fecha + "</td>" +
+                                    "<td>" +dataJson.DFactura[f].Factura+ "</td>" +
+                                    "<td>" +dataJson.DFactura[f].Puntos+ "</td>" +
+                                    "<td>" +dataJson.DFactura[f].Faplicado+ "</td>" +
+                                    "<td>" +dataJson.DFactura[f].SALDO+ "</td>" +
+                                    "<td>" +ESTAD+ "</td>" +
+                                    "</tr>"
+                    }
+
+                    for (p=0;p<dataJson.DArticulo.length;p++){
+                        DP +=   "<tr>" +
+                                    "<td>" +dataJson.DArticulo[p].Cantidad + "</td>" +
+                                    "<td>" +dataJson.DArticulo[p].IdArticulo+ "</td>" +
+                                    "<td>" +dataJson.DArticulo[p].Descripcion+ "</td>" +
+                                    "<td>" +dataJson.DArticulo[p].Puntos+ "</td>" +
+                                    "<td>" +dataJson.DArticulo[p].Total+ "</td>" +
+                                "</tr>"
+                    }
+
+                    $("#tblviewDFacturaFRP > tbody").html(DF);
+                    $("#tblviewDPremioFRP > tbody").html(DP);
+                }
+        });
+    }
+
+     
 
     function DFactura(factura){
         $("#codFactura").text(factura); $('#progressFact').show();

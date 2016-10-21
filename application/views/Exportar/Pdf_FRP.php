@@ -39,17 +39,17 @@
 <div id="tbla">
 <div class="content">
     <div class="container center">
-        <div class="col s1" style="height: 10px;">
+        <div class="col s1">
             <div class="left row">
                 <div class="col s12" >
                     <img src="<?PHP echo base_url();?>assets/img/spinnova_logo.png">
                 </div>
             </div>
-            <div class="right row">
-                <div class="col s12" >
-                    <span id="titulM" class="Mcolor"> DETALLE FRP</span>
-                </div>
-            </div>
+            <div class=" right row">
+                
+                <span id="titulM" class="Mcolor"> DETALLE FRP</span>
+                
+            </div
         </div>
         <?PHP
         if(!$top){
@@ -58,7 +58,7 @@
                 echo '
                 <div class="col s1">
                     <span class="center datos1 frpT"> N° FRP '.$tops['IdFRP'].'</span><br>
-                    <span class="center datos1 lineas">'.substr($tops['Fecha'],0,10).'</span>
+                    <span class="center datos1 lineas">'.date_format(date_create($tops['Fecha']), 'd-m-Y').'</span>
                 </div>
                 <div class="col s1">
                     <span id="Nfarmacia" class="Mcolor" >COD# '.$tops['IdCliente'].' NOMBRE: '.$tops['Nombre'].'</span>
@@ -91,7 +91,8 @@
             } else {
                 foreach($DFactura as $des){
                     echo ' <tr>
-                                <td>'.$des['Fecha'].'</td>
+
+                                <td>'.date_format(date_create($des['Fecha']), 'd-m-Y').'</td>
                                 <td id="black">'.$des['Factura'].'</td>
                                 <td id="black">'.$des['Faplicado'].' Pts.</td>
                                 <td>'.$des['Puntos'].' Pts.</td>
@@ -145,7 +146,7 @@
         </tbody>
     </table>
 
-    <div class="row right">
+    <div class="row center">
         <h6 class="center Mcolor dat"><span class="alert">PUNTOS APLICADOS POR EL CANJE: <?php echo $count?> Pts.</span> </h6>
 
     </div>
