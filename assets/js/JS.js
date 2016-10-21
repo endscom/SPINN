@@ -547,10 +547,10 @@ function subirimagen()
         $('#labelDescripcion2').hide();
         if ($('#descripcionCat').val()=="") {$('#labelDescripcion2').show(); return false;}   
         if ($('#fechaCat2').val()=="") {$('#labelFecha2').show();return false;}
-    else{
-        $('#CrearCatalogo').hide();
-        $('#formNuevoCatalogo').submit();
-        }
+        else{
+            $('#CrearCatalogo').hide(); $('#loadCrearCatalogo').show();
+            $('#formNuevoCatalogo').submit();
+            }
     });
 
 
@@ -920,10 +920,11 @@ function subirimagen()
     $("#tblpRODUCTOS").delegate("a", "click", function(){
             $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
 
-            var ttPts = 0;
+            ttPts = 0;
             $('#tblpRODUCTOS').DataTable().column(4).data().each( function ( value, index ) {
                 ttPts += parseInt(value);
             } );
+            $("#idttPtsFRP").text(ttPts);
 
             apliAutomatic(ttPts);
 
@@ -934,6 +935,10 @@ function subirimagen()
 
 
     $("#btnProcesar").click(function(){
+        $('#Dfrp').openModal();
+        $("#frpProgress").show();
+        $("#divTop,#divTbl").hide();
+
         var numFRP = $("#frp").val();
         var fchFRP = $("#date1").val();
         var pCambiar = $("#idttPtsCLsFRP").text();
@@ -967,28 +972,35 @@ function subirimagen()
 
 
     function SaveFRP(idFrp,Fecha){
-        var detalles  = new Array()
         var linea = 0;
-        //var lineas = 0;
         var menos = 0;
         var remanente =0;
+        var detallesFactura  = new Array();
+        var logFactura       = new Array();
+        var detallesArticulo = new Array();
+
+
+        var i=0;
+
+        var IdCliente = $( "#ListCliente option:selected" ).val();
+        var Nombre    = $( "#ListCliente option:selected" ).html();
+
         obj = $('#tblpRODUCTOS').DataTable();
         ofact = $('#tblFacturaFRP').DataTable();
         total  = parseInt($("#idttPtsFRP").text());
         FPunto = 0;
-
+        Posi=0;
         obj.rows().data().each( function (ip) {
             remanente = parseInt(ip[4]);
-            console.log("Arti: " + ip[1] + " Aplica: " + remanente);
-            
+            //console.log("Arti: " + ip[1] + " Aplica: " + remanente);
             ofact.rows().data().each( function (index,value) {
                 var FAC = ofact.row(linea).data().FACTURA;
+                var FCH = ofact.row(linea).data().FECHA;
                 var FLPunto = ofact.row(linea).data().DISPONIBLE;
                 valor = 0;
                 apl = parseInt($("#AP1" + FAC).text());
                 dis = parseInt($("#DIS" + FAC).text());
                 est = ($("#EST" + FAC).text());
-                
                 if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
                 
                 if (remanente > apl){
@@ -1005,6 +1017,10 @@ function subirimagen()
                     return false;
                 }else{
                     console.log(FAC + "," + "Puntos:" + FLPunto +", Aplica: " + valor + ", Pendiente: " + apl);
+                    //console.log(idFrp+","+FAC+","+FLPunto+","+ip[1]+","+ip[2]+","+valor+","+ip[0] + "( " + Posi + " )");
+                    detallesFactura[Posi] = idFrp+","+FAC+","+FLPunto+","+ip[1]+","+ip[2]+","+valor+","+ip[0]+","+FCH;
+                    Posi++;
+
                 }
 
                 if (remanente > valor) {
@@ -1018,42 +1034,64 @@ function subirimagen()
                     }
                 }
 
-                linea++
+
+                linea++;
             });
             linea--
         });
 
-        /*var detallesArticulo = new Array();
-        var detallesFactura  = new Array();
-        var logFactura       = new Array();
-        var i=0;
-
-        var IdCliente = $( "#ListCliente option:selected" ).val();
-        var Nombre    = $( "#ListCliente option:selected" ).html();
+        totalFinalFRP =0;
 
         obj = $('#tblpRODUCTOS').DataTable();
+        var viewProductos     = new Array();
         obj.rows().data().each( function (index) {
+            viewProductos[i]=new Array(5);
             detallesArticulo[i] = idFrp + "," + index[1] + "," + index[2] + "," + index[3] + "," + index[0];
+            viewProductos[i][0] = index[0];
+            viewProductos[i][1] = index[1];
+            viewProductos[i][2] = index[2];
+            viewProductos[i][3] = index[3];
+            viewProductos[i][4] = index[4];
+            totalFinalFRP += parseInt(index[4]);
+
             i++;
         });
         i=0;
         obj = $('#tblFacturaFRP').DataTable();
+        var viewFacturas     = new Array();
         obj.rows().data().each( function (index,value) {
             var FAC = obj.row(value).data().FACTURA;
+            var FCH = ofact.row(linea).data().FECHA;
+            var FLPunto = ofact.row(linea).data().DISPONIBLE;
             var apl = $("#AP1" + FAC).text();
+            dis = parseInt($("#DIS" + FAC).text());
+            est = ($("#EST" + FAC).text());
             if($("#CHK"+FAC).is(':checked') ) {
-                detallesFactura[i] =  idFrp + "," + FAC + "," + apl;
                 logFactura[i]      = IdCliente + "," +FAC + "," + apl;
+                viewFacturas[i]=new Array(6);
+                viewFacturas[i][0] = FCH;
+                viewFacturas[i][1] = FAC;
+                viewFacturas[i][2] = FLPunto;
+                viewFacturas[i][3] = apl;
+                viewFacturas[i][4] = dis;
+                viewFacturas[i][5] = est;
                 i++;
             }
         });
-        console.log(logFactura);
+
+
+
+
+        $('#Dfrp').openModal();
+
+
         var form_data = {
             top: [idFrp, Fecha, IdCliente,Nombre],
             art: detallesArticulo,
             fac: detallesFactura,
             log: logFactura
         };
+
         $.ajax({
             url: "saveFRP",
             type: "post",
@@ -1062,12 +1100,80 @@ function subirimagen()
             success:
                 function(data){
                     if (data==1){
-                        $('#Dfrp').openModal();
+                        $("#spnFRP").text(idFrp);
+                        $("#spnFecha").text(Fecha);
+                        $("#spnCodCls").text(IdCliente);
+                        $("#spnNombreCliente").text(Nombre);
+
+                        $('#tblModal1').DataTable( {
+                            data: viewFacturas,
+                            "info":    false,
+                            //"order": [[ 2, "asc" ]],
+                            //"searching": false,
+                            "bLengthChange": true,
+                            "bPaginate": false,
+                            "lengthMenu": [[10,15,32,100,-1], [10,15,32,100,"Todo"]],
+                            "language": {
+                                "paginate": {
+                                    "first":      "Primera",
+                                    "last":       "Última ",
+                                    "next":       "Siguiente",
+                                    "previous":   "Anterior"
+                                },
+                                "lengthMenu":"Mostrar _MENU_",
+                                "emptyTable": "No hay datos disponibles en la tabla",
+                                "search":     ""},
+                                columns: [
+                                { title: "FECHA" },
+                                { title: "BOUCHER" },
+                                { title: "Pts." },
+                                { title: "Pts. APLI." },
+                                { title: "Pts. DISP." },
+                                { title: "ESTADO" }
+                            ]
+                        } );
+
+                        $('#tblModal2').DataTable( {
+                            data: viewProductos,
+                            "info":    false,
+                            //"order": [[ 2, "asc" ]],
+                            //"searching": false,
+                            "bLengthChange": true,
+                            "bPaginate": false,
+                            "lengthMenu": [[10,15,32,100,-1], [10,15,32,100,"Todo"]],
+                            "language": {
+                                "paginate": {
+                                    "first":      "Primera",
+                                    "last":       "Última ",
+                                    "next":       "Siguiente",
+                                    "previous":   "Anterior"
+                                },
+                                "lengthMenu":"Mostrar _MENU_",
+
+                                "emptyTable": "No hay datos disponibles en la tabla",
+                                "search":     ""
+                            },
+                            columns: [
+                                { title: "CANT." },
+                                { title: "COD. PREMIO" },
+                                { title: "DESCRIPCIÓN" },
+                                { title: "Pts." },
+                                { title: "TOTAL Pts." }
+                            ]
+                        } );
+
+                        $("#spnTotalFRP").text(totalFinalFRP);
+
+
+
+                        $("#frpProgress").hide();
+                        $("#divTop,#divTbl").show();
+
                     } else {
                         Materialize.toast($('<span class="center">ERROR AL CREAR EL FRP. </span>'), 3500,'rounded error');
                     }
                 }
-        });*/
+        });
 
 
     }
@@ -1336,6 +1442,7 @@ function subirEXCEL () {//funcion para subir el catalogo atravez de excel
         Materialize.toast($toastContent, 3500,'rounded error');
         return false;
     }else{
+        $('#agregarExcel').hide(); $('#loadArchivoExcel').show();
         $('#formVariasImagenes').submit();    
     }    
 }

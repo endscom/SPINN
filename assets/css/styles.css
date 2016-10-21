@@ -1109,6 +1109,12 @@ li img{
   font-family: 'robotoregular';
   font-size:12px;
 }
+#agregarExcel{
+   border-radius: 20px;
+  background-color: #831F82;
+  font-family: 'robotoregular';
+  font-size:12px;
+}
 #agregar:hover{
   background: #cb6eca;
   color: #fff;

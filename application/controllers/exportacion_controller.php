@@ -36,8 +36,12 @@ class Exportacion_controller extends CI_Controller
         $this->load->view('Exportar/Excel_PuntosClientes',$data);
     }
 
-    public function ExpoFrp(){
-        $this->load->view('Exportar/Pdf_FRP');
+    public function ExpoFrp($id){
+        $data['top'] = $this->frp_model->getFRP($id,'frp');
+        $data['DFactura'] = $this->frp_model->getFRP($id,"view_frp_factura");
+        $data['DArticulo'] = $this->frp_model->getFRP($id,"view_frp_articulo");
+
+        $this->load->view('Exportar/Pdf_FRP',$data);
     }
     public function ExpEstadoFactura()
     {

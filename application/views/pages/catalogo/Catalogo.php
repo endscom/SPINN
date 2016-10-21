@@ -30,21 +30,20 @@
                 ?>
             
                 <a  class="redondo dropdown-button waves-effect waves-light btn" data-activates='dropdown2'><i class="material-icons right">build</i>OPCIONES</a>
-                <!--<a id="subir" class="redondo waves-effect waves-light btn"><i class="material-icons right">file_upload</i>SUBIR</a>-->
 
-                <!-- Dropdown Structure -->
+                <!-- Dropdown Structure OPCIONES -->
                   <ul id='dropdown2' class='dropdown-content'>
                     <li class="valign-wrapper noPading" onclick=" $('#listaArticulosCatalogoActual').openModal()"><a  href="#!" class="noHover"><i class="material-icons right purple-text">format_indent_decrease</i>REUTILIZACIÓN DE CATALOGO</a></li>
-                    <li class="valign-wrapper noPading" onclick="articulosInactivos()"><a href="#!" class="noHover"><i class="material-icons right purple-text">filter_9_plus</i>REACTIVACIóN DE ARTÍCULOS</a></li>
+                    <li class="valign-wrapper noPading" onclick="articulosInactivos()"><a href="#!" class="noHover"><i class="material-icons right purple-text">thumb_up</i>REACTIVACIóN DE ARTÍCULOS</a></li>
                   </ul>
 
 
                 <a class='redondo dropdown-button btn' href='#' data-activates='dropdown1'><i class="material-icons right">file_upload</i>SUBIR</a>
 
-                  <!-- Dropdown Structure -->
+                  <!-- Dropdown Structure SUBIR-->
                   <ul id='dropdown1' class='dropdown-content'>
                     <li class="valign-wrapper noPading" id="subir"><a  href="#!" class="noHover"><i class="material-icons right purple-text">filter_1</i>INDIVIDUAL</a></li>
-                    <li class="valign-wrapper noPading" onclick=" $('#nuevoArticuloArchivo').openModal()"><a href="#!" class="noHover"><i class="material-icons right purple-text">filter_9_plus</i>ARCHIVO</a></li>
+                    <li class="valign-wrapper noPading" onclick=" $('#nuevoArticuloArchivo').openModal()"><a href="#!" class="noHover"><i style="margin-left:27px;" class="material-icons right purple-text">filter_9_plus</i>ARCHIVO</a></li>
                   </ul>
             </div>
             <div class="bold valign-wrapper noMargen left col s12 m12 l4 TextColor">
@@ -257,8 +256,17 @@
                 </div> 
             </div>
         </form>
-    
-        <div class="row center"><a id="CrearCatalogo" class="redondo waves-effect waves-light btn">GUARDAR</a></div>
+        
+        <div class="row center">
+            <a id="CrearCatalogo" class="redondo waves-effect waves-light btn">GUARDAR</a>
+            <div id="loadCrearCatalogo" style="display:none" class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left"><div class="circle"></div></div>
+                    <div class="gap-patch"><div class="circle"></div></div>
+                    <div class="circle-clipper right"><div class="circle"></div></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -384,7 +392,7 @@
                         <div class="input-field offset-l1 col s12 m6 l5" style="margin-top: 0rem;">
                              <div class="file-field input-field">
                               <div class="btn btnArchivo">
-                                <span>ARCHIVO CSV</span>
+                                <span>ARCHIVO EXCEL</span>
                                 <input name='file' id="csv" type="file">
                               </div>
                               <div class="file-path-wrapper">
@@ -407,9 +415,9 @@
           
                     <div class="row">                        
                         <div id="BtnAddArto" class="col s12 m12 l12 center">
-                            <a id="agregar" class="waves-effect btn-file waves-light btn" onclick="subirEXCEL()">GUARDAR</a>
+                            <a id="agregarExcel" class="waves-effect btn-file waves-light btn" onclick="subirEXCEL()">GUARDAR</a>
                             
-                            <div id="loadIMG" style="display:none" class="preloader-wrapper big active">
+                            <div id="loadArchivoExcel" style="display:none" class="preloader-wrapper big active">
                                 <div class="spinner-layer spinner-blue-only">
                                     <div class="circle-clipper left"><div class="circle"></div></div>
                                     <div class="gap-patch"><div class="circle"></div></div>

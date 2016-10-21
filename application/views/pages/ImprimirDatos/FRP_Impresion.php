@@ -1,4 +1,4 @@
-<body onload="window.print();"><!-- Impresion de la Página al cargar... -->
+<!-- <body onload="window.print();">Impresion de la Página al cargar... -->
 <main class="mdl-layout__contents" >
     <div class="">
 
