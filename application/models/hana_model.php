@@ -62,6 +62,7 @@ class Hana_model extends CI_Model
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
+
         if (count($resultado)==0) {
             $json['data'][$i]["COD_CLIENTE"] = "";
             $json['data'][$i]["FECHA"] = "";
