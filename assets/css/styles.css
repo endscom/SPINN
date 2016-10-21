@@ -976,6 +976,9 @@ table tr:nth-child(even) {
     color: #fff;
     text-transform: uppercase;
 }
+.scrollHorizontal{
+  overflow-x: scroll!important;
+}
 li{
     padding: 6px 8px 6px;
 }
@@ -996,7 +999,7 @@ li img{
     padding: 10px 10px;
     margin: 10px 10px;
     border: 1px solid #831F82;
-    width: 200px;
+    width: 90%;
 }
 .images_ca img {
     max-width: 100%;

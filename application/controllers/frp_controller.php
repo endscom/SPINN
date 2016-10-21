@@ -18,6 +18,16 @@ class Frp_controller extends CI_Controller{
     public function getFacturaFRP($Cliente){
         $this->hana_model->FacturasFRP($Cliente);
     }
+    public function inactivar(){
+        echo $this->frp_model->inactivar($this->input->post('frp'));
+    }
+    public function viewFrp(){
+        $id =  $this->input->post('frp');
+        $data['top'] = $this->frp_model->getFRP($id,'frp');
+        $data['DFactura'] = $this->frp_model->getFRP($id,"view_frp_factura");
+        $data['DArticulo'] = $this->frp_model->getFRP($id,"view_frp_articulo");
+        echo json_encode($data );
+    }
     public function CanjeFrp(){
         $this->MYHeaders();
         $data['Lista']      = $this->frp_model->getAllFRP();

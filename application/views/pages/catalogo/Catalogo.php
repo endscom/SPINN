@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div class="row center">
+        <div class="row center scrollHorizontal">
             <table id="tblCatalogo2" class="TableBlank transparente">
                 <thead>
                     <tr><th></th><th></th><th></th><th></th></tr>
