@@ -357,12 +357,14 @@ class Hana_model extends CI_Model
                                     $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE']);
                                     $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO']);
                                     $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
-                                    $json[$i]['CLIENTE'] = utf8_encode($fila['COD_CLIENTE']);
+                                    $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
                                 }
                             }
                     }
                 }
-            echo json_encode($json);
+                print_r($json);
+            //*echo json_encode($json);
+
             }
         }
     }

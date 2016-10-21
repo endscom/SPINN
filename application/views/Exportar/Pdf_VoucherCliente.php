@@ -88,9 +88,9 @@
                 <div class="col s12">     
                     <p id="acumulado" class="titulos noMargen">CODIGO: <span class="detalles">
                     <?PHP
-                                if(!($data)){echo "string";
-                                    } else {
-                                        foreach($data as $factura){
+                                if(!($data1)){echo "NO ENTROOOOOOO";}
+                                 else {
+                                        foreach($data1 as $factura){
                                             echo $factura['CLIENTE'];
                                     }
                                 }
