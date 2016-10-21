@@ -11,6 +11,7 @@ class Frp_model extends CI_Model{
         $this->load->database();
     }
     public function getAllFRP(){
+
         $query = $this->db->get('frp');
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -26,6 +27,11 @@ class Frp_model extends CI_Model{
             return 0;
 
     }
+    public function inactivar($id){
+        $this->db->where('IdFRP',$id);
+        return $this->db->update('frp',array('Anulado' => 'S'));
+    }
+
 
     public function save($top,$art,$fact,$log){
 
@@ -38,16 +44,6 @@ class Frp_model extends CI_Model{
             'Anulado'   => "N"
         );
         $q = $this->db->insert('frp', $top);
-
-        for ($i=0; $i < count($art); $i++) {
-            $Articulos = explode(",",$art[$i]);
-
-            $InsertArticulos = array(
-                'IdFRP'         => $Articulos[0],
-
-            );
-            //$q = $this->db->insert('detallefrp', $InsertArticulos);
-        }
 
 
         for ($f=0; $f < count($fact); $f++) {
@@ -69,7 +65,7 @@ class Frp_model extends CI_Model{
             $Faclog = explode(",",trim($log[$l]));
             $this->db->query("call pc_RFactura ('".$Faclog[1]."','".$Faclog[2]."','".$Faclog[0]."','".date('Y-m-d h:i:s')."')");
         }
-        $q=1;
+
 
         if ($q) {
             return 1;

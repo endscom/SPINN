@@ -41,7 +41,7 @@
                     <th>#FRP</th>
                     <th>COD. CLIENTE</th>
                     <th>NOMBRE</th>
-                    <th>ELIMINAR</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -49,16 +49,34 @@
             if(!$Lista){
             } else {
                 foreach($Lista as $frp){
+
+                    if ($frp['Anulado'] == "S"){
+                        $delite = "";
+                        $sty = "style='color: #ff002a;'";
+                        $dl  = "<del>";
+                        $dlc  = "</del>";
+                    } else {
+                        $sty ="";
+                        $dl  = "";
+                        $dlc  = "";
+                        $delite = "<a  onclick='dellFrp(".$frp['IdFRP'].")' href='#!' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a>";
+                    }
                     echo "<tr>
-                                <td>".date_format(date_create($frp['Fecha']), 'd-m-Y')."</td>
-                                <td>".$frp['IdFRP']."</td>
-                                <td>".$frp['IdCliente']."</td>
-                                <td id='NomCliente'>".$frp['Nombre']."</td>
-                                <td><a href='#Dell' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a></td>
+                                <td ".$sty.">".$dl.date_format(date_create($frp['Fecha']), 'd-m-Y').$dlc."</td>
+                                <td ".$sty.">".$dl.$frp['IdFRP'].$dlc."</td>
+                                <td ".$sty.">".$dl.$frp['IdCliente'].$dlc."</td>
+                                <td ".$sty." id='NomCliente'>".$dl.$frp['Nombre'].$dlc."</td>
+                                <td>
+                                    <a  onclick='getview(".$frp['IdFRP'].")' href='#!' class='modal-trigger'><i class='material-icons'>&#xE417;</i></a>
+                                    ".$delite."
+                                </td>
                             </tr>";
                 }
             }
+
             ?>
+
+
             </tbody>
         </table>
     </div>
@@ -223,10 +241,10 @@
             </div>
         </div>
 
-        <h6 class="center Mcolor1">DESEA ELIMINAR EL FRP <span class="redT1">#00351</span></h6>
+        <h6 class="center Mcolor1">DESEA ELIMINAR EL FRP #<span class="redT1" id="spnDellFRP">#</span></h6>
         <div class="row">
             <div class="col s2 m2 l2 offset-l4 offset-s3 offset-m4">
-                <a href="#DellRes" class="Procesar modal-action modal-close btn modal-trigger">Procesar</a>
+                <a href="#!" id="idProcederDell" class="Procesar modal-action modal-close btn modal-trigger">Procesar</a>
             </div>
         </div>
     </div>
@@ -243,7 +261,7 @@
                 </a>
             </div>
         </div>
-        <h6 class="center Mcolor1">ELIMINADO CORRECTAMENTE FRP <span class="redT1">#00351</span></h6>
+        <h6 class="center Mcolor1">ELIMINADO CORRECTAMENTE FRP #<span class="redT1" id="dellCorrectoFRP">00351</span></h6>
     </div>
 </div>
 
@@ -333,7 +351,94 @@
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnTotalFRP"></span></span> </h6>
                <div class="row center">
-                   <a href="<?PHP echo base_url('index.php/ExpFRP');?>"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
+                   <a href="#" onclick="callUrlPrint('ExpFRP','spnFRP')"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
+               </div>
+           </div>
+
+
+    </div>
+</div>
+
+<div id="idviewFRP" class="modal">
+    <div class="modal-content">
+            <div class="container center">
+                <div class="col s1" >
+                    <div class="row">
+                        <div class="col s11 " >
+                            <span id="titulM" class="Mcolor"> DETALLE FRP</span>
+                        </div>
+                        
+                        <div class="col s1 m1 l1"  >
+                            <a href="#!" class=" BtnClose modal-action modal-close ">
+                                <i class="material-icons">highlight_off</i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row center " id="vfrpProgress">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="vfrpTop">
+                    <div class="col s5">
+                        <span class="center datos1 frpT"> N° FRP <span id="spnviewFRP"> </span></span><br>
+                        <span class="center datos1 lineas"> <span id="spnviewFecha"></span></span>
+                    </div>
+
+                    <div class="col s1">
+                        <span id="Nfarmacia" class="center Mcolor">COD# <span id="spnviewCodCls"></span> NOMBRE: <span id="spnviewNombreCliente"></span></span><br>
+                    </div>
+
+                </div>
+            </div>
+
+           <div id="vfrpTop">
+               <table id="tblviewDFacturaFRP" class="TblDatos">
+                   <thead>
+                   <tr>
+                       <th>FECHA</th>
+                       <th>FACTURA</th>
+                       <th>Pts.</th>
+                       <th>Pts. APLI.</th>
+                       <th>Pts. DISP.</th>
+                       <th>ESTADO</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+
+                   </tbody>
+               </table>
+               <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
+
+               <table id="tblviewDPremioFRP" class="TblDatos">
+                   <thead>
+                   <tr>
+                       <th>CANT.</th>
+                       <th>COD. PREMIO</th>
+                       <th>DESCRIPCIÓN</th>
+                       <th>Pts. </th>
+                       <th>TOTAL Pts.</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+
+                   </tbody>
+               </table>
+               <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnTotalFRP"></span></span> </h6>
+               <div class="row center">
+                   <a href="#" onclick="callUrlPrint('ExpFRP','spnviewFRP')"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
                </div>
            </div>
 

@@ -68,7 +68,8 @@ $route['ExpFRP/(:any)'] = 'exportacion_controller/ExpoFrp/$1';
 
 $route['ExpPDFpuntosCliente'] = 'exportacion_controller/ExpoPdfPuntosClientes';
 $route['ExpEXCELpuntosCliente'] = 'exportacion_controller/ExpoExcelPuntosClientes';
-
+$route['getviewFRP'] = 'frp_controller/viewFrp';
+$route['delFRP'] = 'frp_controller/inactivar';
 $route['ExpPDFEstadoFactura'] = 'exportacion_controller/ExpEstadoFactura';
 
 // FIN EXPORTACIÓN
@@ -78,4 +79,5 @@ $route['ajaxEstadoFacturas/(:any)/(:any)/(:any)'] = 'reportes_controller/ajaxEst
 
 $route['ajaxDisponibilidadPuntos/(:any)/(:any)/(:any)'] = 'reportes_controller/ajaxDisponibilidadPuntos/$1/$2/$3';
 $route['ajaxDireccionTelefono/(:any)'] = 'reportes_controller/ajaxDireccionTelefono/$1';
+
 
