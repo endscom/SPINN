@@ -59,6 +59,7 @@ $route['activarArticulos/(:any)'] = 'catalogo_controller/activarArticulos/$1';
 // RUTA IMPRESION
 $route['DetalleFRP'] = 'impresion_controller/DetalleFRP';
 $route['DetalleFRE'] = 'impresion_controller/DetalleFRE';
+$route['PdfVoucher/(:any)'] = 'exportacion_controller/PdfVoucher/$1';
 // FIN IMPRESION
 
 // RUTA EXPORTACIÓN PDF Y EXCEL

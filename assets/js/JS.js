@@ -1422,7 +1422,11 @@ $('#guardarActiculosInactivos').click(function(){
          
     });
 
-
+function printVoucher (url) {
+    
+    //var url = url.split('/');
+    window.open(url, '_blank');
+}
 
 
 function subirEXCEL () {//funcion para subir el catalogo atravez de excel

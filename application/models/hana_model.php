@@ -339,8 +339,10 @@ class Hana_model extends CI_Model
                 if($fila['CONTADOR']==0){
                     $json[$i]['DISPONIBLE'] = 0;
                     $json[$i]['ACUMULADO'] = 0;
+                    $json[$i]['COD_CLIENTE'] = "";
+                    $json[$i]['CLIENTE'] = "";
                 } else {
-                    $query = 'SELECT "DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
+                    $query = 'SELECT "COD_CLIENTE","CLIENTE","DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
                     $resultado =  @odbc_exec($conn,$query);
                     if (count($resultado)==0) {
                     } else {
@@ -348,9 +350,13 @@ class Hana_model extends CI_Model
                                 if ($fila['DISPONIBLE']=='') {
                                     $json[$i]['DISPONIBLE'] = 0;
                                     $json[$i]['ACUMULADO'] = 0;
+                                    $json[$i]['COD_CLIENTE'] = 0;
+                                    $json[$i]['CLIENTE'] = 0;
                                 } else {
                                     $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE']);
                                     $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO']);
+                                    $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
+                                    $json[$i]['CLIENTE'] = utf8_encode($fila['COD_CLIENTE']);
                                 }
                             }
                     }

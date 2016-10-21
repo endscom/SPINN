@@ -71,4 +71,12 @@ class Exportacion_controller extends CI_Controller
             }
         }
     }
+    public function PdfVoucher($codigo)
+    {
+        $data = $this->hana_model->puntosCliente($codigo);
+
+        /*$PdfCliente = new mPDF('utf-8',array(76.2,120));
+        $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_VoucherCliente',$data,true));
+        $PdfCliente->Output();*/
+    }
 }
