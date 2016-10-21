@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="<?PHP echo base_url();?>assets/css/jquery.dataTables.css">
     <link rel="stylesheet" href="<?PHP echo base_url();?>assets/css/bootstrap.css">
 <script>
-    window.print();
+   // window.print();
 </script>
 </head>
 <body>
@@ -51,15 +51,23 @@
                 </div>
             </div>
         </div>
-        <div class="col s1">
-            <span class="center datos1 frpT"> N° FRP 38389</span><br>
-            <span class="center datos1 lineas"> 24/12/2016</span>
-        </div>
-        <div class="col s1">
-            <span id="Nfarmacia" class="Mcolor" >COD# 00449 NOMBRE: FARMACIA CASTELLÓN</span>
-            <br>
-            <span class="center Datos linea ruc"> Nº RUC 4412000183001H </span>
-        </div>
+        <?PHP
+        if(!$top){
+        } else {
+            foreach($top as $tops){
+                echo '
+                <div class="col s1">
+                    <span class="center datos1 frpT"> N° FRP '.$tops['IdFRP'].'</span><br>
+                    <span class="center datos1 lineas">'.substr($tops['Fecha'],0,10).'</span>
+                </div>
+                <div class="col s1">
+                    <span id="Nfarmacia" class="Mcolor" >COD# '.$tops['IdCliente'].' NOMBRE: '.$tops['Nombre'].'</span>
+                </div>
+                ';
+            }
+        }
+        ?>
+
 
     </div>
 
@@ -68,7 +76,7 @@
         <thead>
         <tr>
             <th>FECHA</th>
-            <th>BOUCHER</th>
+            <th>FACTURA</th>
             <th>Pts.</th>
             <th>Pts. APLI.</th>
             <th>Pts. DISP.</th>
@@ -77,28 +85,29 @@
         </thead>
 
         <tbody>
-        <tr>
-            <td>24/01/2016</td>
-            <td id="black">067792</td>
-            <td id="black">300,000 Pts.</td>
-            <td>300,000 Pts.</td>
-            <td>0 Pts.</td>
-            <td>APLICADO</td>
-        </tr>
-        <tr>
-            <td>24/01/2016</td>
-            <td id="black">067792</td>
-            <td id="black">300,000 Pts.</td>
-            <td>300,000 Pts.</td>
-            <td>0 Pts.</td>
-            <td id="parcial">PARCIAL</td>
-        </tr>
 
+        <?PHP
+            if(!$DFactura){
+            } else {
+                foreach($DFactura as $des){
+                    echo ' <tr>
+                                <td>'.$des['Fecha'].'</td>
+                                <td id="black">'.$des['Factura'].'</td>
+                                <td id="black">'.$des['Faplicado'].' Pts.</td>
+                                <td>'.$des['Puntos'].' Pts.</td>
+                                <td>'.$des['SALDO'].' Pts.</td>
+                                <td>'.(($des['SALDO'] == 0) ? APLICADO : PARCIAL).'</td>
+                            </tr>
+                    ';
+                }
+            }
+
+
+        ?>
         </tbody>
     </table>
 
     <div class="row">
-        <div class="Mcolor  col s6 offset-s7"><span class="alert">PUNTOS APLICADOS: 363,522 Pts.</span></div>
         <div class="Mcolor center col s12 ">PREMIO A CANJEAR</div>
     </div>
     <table id="tblModal1" class="Blank">
@@ -113,26 +122,31 @@
         </thead>
 
         <tbody>
-        <tr>
-            <td>20</td>
-            <td id="black">146790</td>
-            <td id="black">CENTRO ENTRET FAMESA MUNICH</td>
-            <td>17,998 Pts.</td>
-            <td>359,960 Pts.</td>
-        </tr>
-        <tr>
-            <td>20</td>
-            <td id="black">146790</td>
-            <td id="black">CENTRO ENTRET FAMESA MUNICH</td>
-            <td>17,998 Pts.</td>
-            <td>359,960 Pts.</td>
-        </tr>
+
+        <?PHP
+        if(!$DArticulo){
+        } else {
+            foreach($DArticulo as $dp){
+                echo ' <tr>
+                                <td>'.$dp['Cantidad'].'</td>
+                                <td id="black">'.$dp['IdArticulo'].'</td>
+                                <td id="black">'.$dp['Descripcion'].'</td>
+                                <td>'.number_format($dp['Puntos'],0).' Pts.</td>
+                                <td>'.$dp['Total'].' Pts.</td>
+                            </tr>
+                    ';
+                $count += $dp['Total'];
+            }
+        }
+
+
+        ?>
 
         </tbody>
     </table>
 
     <div class="row right">
-        <h6 class="center Mcolor dat"><span class="alert">PUNTOS APLICADOS POR EL CANJE: 363,522 Pts.</span> </h6>
+        <h6 class="center Mcolor dat"><span class="alert">PUNTOS APLICADOS POR EL CANJE: <?php echo $count?> Pts.</span> </h6>
 
     </div>
 

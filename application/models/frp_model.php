@@ -17,7 +17,18 @@ class Frp_model extends CI_Model{
         }
         return 0;
     }
+    public function getFRP($id,$tabla){
+            $this->db->where('IdFRP', $id);
+            $query = $this->db->get($tabla);
+            if($query->num_rows() > 0){
+                return $query->result_array();
+            }
+            return 0;
+
+    }
+
     public function save($top,$art,$fact,$log){
+
         $top = array(
             'IdFRP'     => $top[0],
             'Fecha'     => date_format(date_create($top[1]), 'Y-m-d H:i:s'),
@@ -33,20 +44,23 @@ class Frp_model extends CI_Model{
 
             $InsertArticulos = array(
                 'IdFRP'         => $Articulos[0],
-                'IdArticulo'    => $Articulos[1],
-                'Descripcion'   => $Articulos[2],
-                'Puntos'        => $Articulos[3],
-                'Cantidad'      => $Articulos[4]
-            );
-            $q = $this->db->insert('detallefrp', $InsertArticulos);
-        }
-        for ($f=0; $f < count($fact); $f++) {
 
+            );
+            //$q = $this->db->insert('detallefrp', $InsertArticulos);
+        }
+
+
+        for ($f=0; $f < count($fact); $f++) {
             $Facturas = explode(",",$fact[$f]);
             $InsertArticulos = array(
                 'IdFRP'         => $Facturas[0],
                 'Factura'       => $Facturas[1],
-                'Faplicado'     => $Facturas[2]
+                'Faplicado'     => $Facturas[2],
+                'IdArticulo'    => $Facturas[3],
+                'Descripcion'   => $Facturas[4],
+                'Puntos'        => $Facturas[5],
+                'Cantidad'      => $Facturas[6],
+                'Fecha'         => $Facturas[7]
             );
             $q = $this->db->insert('detallefrp', $InsertArticulos);
         }

@@ -32,6 +32,8 @@ class Frp_controller extends CI_Controller{
             $this->input->post('art'),
             $this->input->post('fac'),
             $this->input->post('log'));
+
+
     }
 
 }
