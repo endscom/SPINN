@@ -43,6 +43,22 @@ class Vista_model extends CI_Model
             return 0;
         }
     }
+    public function getAplicadoP($cliente) {/*PUNTOS APLICADOS POR CLIENTE*/
+        $conn_sap = $this->hana_model->OPen_database_odbcSAp();
+        $query_sap = "SELECT * from ".$this->hana_model->BD.".SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE='".$cliente."'";
+      
+        $resultado =  @odbc_exec($conn_sap,$query_sap);
+        $fila = @odbc_fetch_array($resultado);
+
+        $query = $this->db->query("call pc_clientes_pa ('".$cliente."')");
+        if($query->num_rows() > 0){
+            $Arestar = $query->result_array()[0]['Puntos'];
+        } else {
+            $Arestar = 0;
+        }
+       
+        return intval($fila['DISPONIBLE']) - intval($Arestar);
+    }
 
     public function LoadClient(){ /* CARGAR CLIENTES */
       $query = $this->sqlsrv -> fetchArray("SELECT CLIENTE, NOMBRE, VENDEDOR FROM Softland.umk.CLIENTE WHERE (ACTIVO = 'S')
