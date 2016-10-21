@@ -43,6 +43,16 @@ class Vista_model extends CI_Model
             return 0;
         }
     }
+    
+    public function getAplicadoP($cliente) {/*PUNTOS APLICADOS POR CLIENTE*/
+        $query = $this->db->query("call pc_clientes_pa ('".$cliente."')");
+            
+        if($query->num_rows() > 0){
+            return $query->result_array()[0]['Puntos'];
+        } else {
+            return 0;
+        }
+    }
 
     public function LoadClient(){ /* CARGAR CLIENTES */
       $query = $this->sqlsrv -> fetchArray("SELECT CLIENTE, NOMBRE, VENDEDOR FROM Softland.umk.CLIENTE WHERE (ACTIVO = 'S')

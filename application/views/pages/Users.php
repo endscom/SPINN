@@ -178,13 +178,12 @@
         </div>
 
         <div class="row">
-            <div class="col s1 m1 l1 offset-l4">
+            <div class="col s1 m1 l1 offset-l4 offset-m3">
                 <a href="#" id="DellUsers" class=" modal-action modal-close ">
                     <i class="material-icons">done_all</i>
                 </a>
             </div>
-
-            <div class="col s1 m1 l1 offset-l2">
+            <div class="col s1 m1 l1 offset-l2 offset-s2 offset-m2">
                 <a href="#!" class=" BtnClose modal-action modal-close ">
                     <i class="material-icons">highlight_off</i>
                 </a>

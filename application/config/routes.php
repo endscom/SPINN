@@ -72,7 +72,7 @@ $route['ExpEXCELpuntosCliente'] = 'exportacion_controller/ExpoExcelPuntosCliente
 $route['getviewFRP'] = 'frp_controller/viewFrp';
 $route['delFRP'] = 'frp_controller/inactivar';
 $route['ExpPDFEstadoFactura'] = 'exportacion_controller/ExpEstadoFactura';
-
+$route['getAplicadoP/(:any)'] = 'frp_controller/getAplicadoP/$1';
 // FIN EXPORTACIÓN
 
 // RUTAS VISTA REPORTES
