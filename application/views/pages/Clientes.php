@@ -44,6 +44,11 @@
                         <th>RUC</th>
                         <th>DIRECCIÓN</th>
                         <th>VENDEDOR</th>
+                        <?php 
+                        if ($this->session->userdata('IdRol')==7) {
+                            echo "<th>VOUCHER</th>";
+                        }
+                         ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,12 +59,15 @@
                                     echo "<tr>
                                             <td>".$cliente['CODIGO']."</td>
                                             <td class='negra'>
-                                            <a href='#modalPtsCliente' onclick='clientesPuntos(".'"'.$cliente['NOMBRE'].'",'.'"'.$cliente['VENDEDOR'].'",'.'"'.$cliente['RUC'].'",'.'"'.$cliente['CODIGO'].'"'.")' class='modal-trigger'>".$cliente['NOMBRE']."</a>
+                                            <a class='noHover' href='#modalPtsCliente' onclick='clientesPuntos(".'"'.$cliente['NOMBRE'].'",'.'"'.$cliente['VENDEDOR'].'",'.'"'.$cliente['RUC'].'",'.'"'.$cliente['CODIGO'].'"'.")' class='modal-trigger'>".$cliente['NOMBRE']."</a>
                                             </td>
                                             <td>".$cliente['RUC']."</td>
                                             <td>".$cliente['DIRECCION']."</td>
-                                            <td>".$cliente['VENDEDOR']."</td>
-                                        </tr>";
+                                            <td>".$cliente['VENDEDOR']."</td>";
+                                        if ($this->session->userdata('IdRol')==7) {
+                                            echo "<td class='center'><a class='noHover' href='#' onclick='printVoucher(".'"'.base_url('index.php/PdfVoucher')."/".$cliente['CODIGO'].'"'.")'><i class='material-icons'>print</i></a></td>";
+                                        }
+                                        echo "</tr>";
                                 }
                         }
                     ?>
