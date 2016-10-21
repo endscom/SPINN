@@ -56,6 +56,7 @@ class Hana_model extends CI_Model
         return $json;
     }
 
+
     public function ajaxFacturasXcliente($IdCliente){
         $conn = $this->OPen_database_odbcSAp();
         $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS WHERE "COD_CLIENTE" = '."'".$IdCliente."'".'';
