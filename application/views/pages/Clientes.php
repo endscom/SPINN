@@ -64,12 +64,15 @@
                                             <td>".$cliente['RUC']."</td>
                                             <td>".$cliente['DIRECCION']."</td>
                                             <td>".$cliente['VENDEDOR']."</td>";
+
+
                             if (($this->session->userdata('IdRol')==7)|| ($this->session->userdata('IdRol')==1)) {
                                 echo "<td class='center'><a class='noHover' href='#' onclick='printVoucher(".'"'.base_url('index.php/PdfVoucher')."/".$cliente['CODIGO'].'"'.")'><i class='material-icons'>print</i></a></td>";
                             }
                             echo "</tr>";
+                                }
                         }
-                    }
+                    
                     ?>
                     </tbody>
                 </table>

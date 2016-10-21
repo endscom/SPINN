@@ -219,6 +219,7 @@ class Hana_model extends CI_Model
         }else{
         $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES_PUNTOS';
         }
+
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
@@ -247,18 +248,16 @@ class Hana_model extends CI_Model
         } else {
             $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES ';
         }
-
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
-        if (count($resultado)==0) {
-            $json[$i]['CODIGO'] = "";
+
+        $json[$i]['CODIGO'] = "";
             $json[$i]['VENDEDOR'] = "";
             $json[$i]['NOMBRE'] = "";
             $json[$i]['RUC'] = "";
             $json[$i]['DIRECCION'] = "";
-        } else {
-            while ($fila = @odbc_fetch_array($resultado)){
+         while ($fila = @odbc_fetch_array($resultado)){
                 $json[$i]['CODIGO'] = $fila['CODIGO'];
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
                 $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);
@@ -266,7 +265,6 @@ class Hana_model extends CI_Model
                 $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
                 $i++;
             }
-        }
         return $json;
     }
 
