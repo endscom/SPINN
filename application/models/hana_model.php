@@ -325,7 +325,7 @@ class Hana_model extends CI_Model
         return $json;
     }
 
-    public function PuntosCliente($IdCliente){
+    public function PuntosCliente($IdCliente,$bandera=null){
         $json = array();
         $i=0;
         $conn = $this->OPen_database_odbcSAp();
@@ -362,9 +362,10 @@ class Hana_model extends CI_Model
                             }
                     }
                 }
-                print_r($json);
-            //*echo json_encode($json);
-
+                if ($bandera!=null) {
+                    return $json;
+                }                
+            echo json_encode($json);
             }
         }
     }

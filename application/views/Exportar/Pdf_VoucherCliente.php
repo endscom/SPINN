@@ -55,29 +55,38 @@
         }.regular{font-family: 'robotoregular'!important;}
         .noMargen{margin: 0px;}
         .Mcolor {
-            color: #831F82;
+            color: black;
             font-size: 16px;
             font-family: 'robotoblack';}
         .titulos{
-            color: #831F82;
-            font-size: 14px;
+            color: black;
+            font-size: 12px;
             font-family: 'robotoblack';
+            font-weight: bold;
+        }
+        .detalleencabezado{
+            color: black;
+            font-size: 11px;
+            font-family: 'robotomedium';
         }
         .detalles{
-            color: #831F82;
+            color: green;
             font-size: 10px;
             font-family: 'robotomedium';
         }.info{
-            color: #831F82;
+            color: black;
             font-size: 12px;
-            font-family: 'robotomedium';
+            font-family: 'robotoblack';
         }
         .row{
             width: 100%!important;
         }
     </style>
 </head>
-    <div id="detalleCliente" class="row noMargen">
+    <div class="row noMargen">
+            <div class="row center">
+                <img id="logo" src="<?PHP echo base_url();?>assets/img/spinnova_logo.png" width="35%">
+            </div>
         <div class="row">
             <div class="center col s12 m12 l12">
                 <h6 class="Mcolor noMargen">ESTADO DE CUENTA</h6>        
@@ -85,29 +94,22 @@
         </div> 
         <div class="row">
             <div class="col s12"><br>
-                <div class="col s12">     
-                    <p id="acumulado" class="titulos noMargen">CODIGO: <span class="detalles">
-                    <?PHP
-                                if(!($data1)){echo "NO ENTROOOOOOO";}
-                                 else {
-                                        foreach($data1 as $factura){
-                                            echo $factura['CLIENTE'];
-                                    }
-                                }
-                    ?>
-                    Pts</span></p>
+                <div class="center">     
+                    <p id="acumulado" class="titulos noMargen">CóDIGO: </p>
+                    <span class="detalleencabezado center"><?php echo $cliente[0]['COD_CLIENTE'];?></span>
                 </div>                
-                <div class="col s12">     
-                    <p id="acumulado" class="titulos noMargen">CLIENTE: <span class="detalles">Pts</span></p>
+                <div class="center row">     
+                    <p id="acumulado" class="titulos noMargen">CLIENTE: </p>
+                    <span class="detalleencabezado center"><?php echo $cliente[0]['CLIENTE']; ?></span>
                 </div><br><br>
                 <div class="col s12">     
-                    <p id="acumulado" class="info noMargen">DISPONIBLE: <span class="detalles">Pts</span></p>
+                    <p id="acumulado" class="info noMargen">DISPONIBLE: <span class="detalles"><?php echo $cliente[0]['DISPONIBLE']; ?> Pts</span></p>
                 </div>                
                 <div class="col s12">
-                    <p id="acumulado" class="info noMargen">ACUMULADO: <span class="detalles">Pts</span></p>
+                    <p id="acumulado" class="info noMargen">ACUMULADO: <span class="detalles"><?php echo $cliente[0]['ACUMULADO']; ?> Pts</span></p>
                 </div>                
                 <div class="col s12">
-                    <p id="acumulado" class="info noMargen">CANJEADO: <span class="detalles">Pts</span></p>
+                    <p id="acumulado" class="info noMargen">CANJEADO: <span class="detalles">PENDIENTE Pts</span></p>
                 </div><br><br>           
                 <div class="row center">
                     <p id="ModalFeet"  class="info noMargen">VENDEDOR:<br><span class="detalles">250,000</span></p>

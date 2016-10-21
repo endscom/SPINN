@@ -73,11 +73,10 @@ class Exportacion_controller extends CI_Controller
     }
     public function PdfVoucher($codigo)
     {
-       $data['Clientes'] = $this->hana_model->ClientesPuntos();
-        $data['Detalles'] = $this->hana_model->PdfFacturasXcliente();//print_r($data['Detalles']);
-        $PdfCliente = new mPDF('utf-8','A4');
-        $PdfCliente->SetFooter("Página {PAGENO} de {nb}");//PARA PONER EL NUMERO DE PAGINA EKISDE
-        $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_PuntosClientes',$data,true));
+        $data["cliente"] = $this->hana_model->puntosCliente($codigo,1);
+
+        $PdfCliente = new mPDF('utf-8',array(76.2,130));
+        $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_VoucherCliente',$data,true));
         $PdfCliente->Output();
     }
 }
