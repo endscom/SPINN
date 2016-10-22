@@ -35,6 +35,8 @@ class Vista_controller extends CI_Controller
         $this->MYFooters();
     }
 
+
+
     public function getDetalleFactura($Factura){
         $this->hana_model->DFacturas($Factura);
     }
