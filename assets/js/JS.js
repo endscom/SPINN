@@ -729,19 +729,18 @@ function subirimagen()
             var aplicados=0;
 
             //COMMIT OBTENCION DE LOS PUNTOS APLICADOS POR CLIENTE
-            console.log(Cls);
+
             $.ajax({
                 url: "getAplicadoP" + "/" + Cls,
                 type: "post",
                 async:true,
                 success:
                     function(clsAplicados){
-                        aplicados = clsAplicados;
-                        
+                        //aplicados = clsAplicados;
+                        $("#PtsClientefrp").val(parseInt(clsAplicados));
                     }
             });
 
-            
             $("#ClienteFRP,#ClienteFRPPremio").val(Cls);
             Objtable = $('#tblFacturaFRP').DataTable();
             Objtable.destroy();
@@ -755,15 +754,20 @@ function subirimagen()
                 "paging": false,
                 "pagingType": "full_numbers",
                 "initComplete": function () {
-                    var Total=0;
-                    $('#tblFacturaFRP').DataTable().column(2).data().each( function ( value, index ) {
+                    /*var Total=0;
+                    /$('#tblFacturaFRP').DataTable().column(2).data().each( function ( value, index ) {
                         Total += parseInt(value);
                     } );
 
-                    Total = parseInt(Total) - parseInt(aplicados);
+                    //Total = parseInt(Total) - parseInt(aplicados);
 
-                    if (isNaN(Total)){ Total = 0;}
-                    $("#PtsClientefrp").val(parseInt(Total));
+                   // if (isNaN(Total)){ Total = 0;}
+                    $("#PtsClientefrp").val(parseInt(Total));*/
+
+                    //Total = parseInt(Total) - parseInt(aplicados);
+
+                    //if (isNaN(Total)){ Total = 0;}
+                    //$("#PtsClientefrp").val(parseInt(Total));
                 },
                 columns: [
                     { "data": "FECHA" },
