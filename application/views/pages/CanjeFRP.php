@@ -41,7 +41,7 @@
                     <th>#FRP</th>
                     <th>COD. CLIENTE</th>
                     <th>NOMBRE</th>
-                    <th></th>
+                    <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,8 +75,6 @@
             }
 
             ?>
-
-
             </tbody>
         </table>
     </div>
@@ -118,12 +116,12 @@
                 <select class="chosen-select browser-default " id="ListCliente">
                     <option value="0" selected >CLIENTES...</option>
                     <?PHP
-                    if(!$Clientes){
-                    } else {
-                        foreach($Clientes as $cliente){
-                            echo '<option value="'.$cliente['CODIGO'].'">'.$cliente['CLIENTE'].'</option>';
+                        if(!$Clientes){
+                        } else {
+                            foreach($Clientes as $cliente){
+                                echo '<option value="'.$cliente['CODIGO'].'">'.$cliente['CLIENTE'].'</option>';
+                            }
                         }
-                    }
                     ?>
                 </select>
             </div>

@@ -58,8 +58,11 @@ class Hana_model extends CI_Model
 
 
     public function ajaxFacturasXcliente($IdCliente){
+        $q_rows       = $this->db->query("call pc_Clientes_Facturas ('".$IdCliente."')");
+        $rows_factura = $q_rows->result_array()[0]['Facturas'];
+
         $conn = $this->OPen_database_odbcSAp();
-        $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS WHERE "COD_CLIENTE" = '."'".$IdCliente."'".'';
+        $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS WHERE "COD_CLIENTE" = '."'".$IdCliente."'".' AND FACTURA NOT IN('.$rows_factura.')';
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
@@ -286,10 +289,46 @@ class Hana_model extends CI_Model
         echo json_encode($json);
     }
 
+    public function getSaldoParcial($id,$pts){
+
+        /* $q_rows_pts = $this->db->query("SELECT Puntos FROM view_frp_factura WHERE SALDO <> 0 AND anulado = 'N' AND Factura = '".$id."'");
+            //$q_rows_pts->store_result();
+            //$this->db->reconnect();
+            $q_rows_pts->next_result();
+            $q_rows_pts->free_result();
+            $rows_factura = $q_rows_pts->result_array()[0]['Puntos'];
+          
+            if($rows_factura == "" ){
+                $rows_factura_ajx = $fila['DISPONIBLE'];
+            } else {
+                $rows_factura_ajx = rows_factura;
+            }
+            return $rows_factura_ajx;*/
+
+            $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
+            mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
+            $query = "SELECT Puntos FROM view_frp_factura WHERE SALDO <> 0 AND anulado = 'N' AND Factura = '".$id."'";
+            $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+            $line = mysql_fetch_array($result, MYSQL_ASSOC);
+            $rows_factura = $line['Puntos'];
+            if($rows_factura == "" ){
+                $rows_factura_ajx = $pts;
+            } else {
+                $rows_factura_ajx = $rows_factura;
+            }
+            return $rows_factura_ajx;
+            
+
+    }
+
     public function FacturasFRP($ID){
+        $q_rows       = $this->db->query("call pc_Clientes_Facturas ('".$ID."')");
+        $rows_factura = $q_rows->result_array()[0]['Facturas'];
+
         $conn = $this->OPen_database_odbcSAp();
 
-        $query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0";
+        //$query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0";
+        $query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0 AND FACTURA NOT IN(".$rows_factura.")";
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
@@ -301,8 +340,13 @@ class Hana_model extends CI_Model
         $json['data'][$i]['CAM2']       = "";
         $json['data'][$i]['CAM3']       = "";
         $json['data'][$i]['CAM4']       = "";
+        
 
+            
         while ($fila = @odbc_fetch_array($resultado)){
+           
+
+
 
             $ID_ROW = "CHK" . $fila['FACTURA'];
             $ID_LBL = "LBL" . $fila['FACTURA'];
@@ -312,7 +356,7 @@ class Hana_model extends CI_Model
 
             $json['data'][$i]['FECHA']      = substr($fila['FECHA'],0,10);
             $json['data'][$i]['FACTURA']    = $fila['FACTURA'];
-            $json['data'][$i]['DISPONIBLE'] = $fila['DISPONIBLE'];
+            $json['data'][$i]['DISPONIBLE'] = $this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']);
             $json['data'][$i]['CAM1']       = "<span id='".$ID_APl."'></span>";
             $json['data'][$i]['CAM2']       = "<span id='".$ID_DIS."'></span>";
             $json['data'][$i]['CAM3']       = "<p><input type='checkbox' onclick='isVerificar(".$i.",".$fila['FACTURA'].")' id='".$ID_ROW."' /><label id='".$ID_LBL."' for='".$ID_ROW."'></label></p>";
