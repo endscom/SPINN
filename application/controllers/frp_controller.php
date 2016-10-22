@@ -21,6 +21,7 @@ class Frp_controller extends CI_Controller{
     public function getAplicadoP($cl){
         echo $this->vista_model->getAplicadoP($cl);
     }
+
     public function inactivar(){
         echo $this->frp_model->inactivar($this->input->post('frp'));
     }

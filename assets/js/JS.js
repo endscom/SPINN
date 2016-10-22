@@ -729,6 +729,7 @@ function subirimagen()
             var aplicados=0;
 
             //COMMIT OBTENCION DE LOS PUNTOS APLICADOS POR CLIENTE
+
             $.ajax({
                 url: "getAplicadoP" + "/" + Cls,
                 type: "post",
@@ -758,11 +759,15 @@ function subirimagen()
                         Total += parseInt(value);
                     } );
 
-                    //alert (Total+"-"+aplicados);
                     //Total = parseInt(Total) - parseInt(aplicados);
 
                    // if (isNaN(Total)){ Total = 0;}
                     $("#PtsClientefrp").val(parseInt(Total));*/
+
+                    //Total = parseInt(Total) - parseInt(aplicados);
+
+                    //if (isNaN(Total)){ Total = 0;}
+                    //$("#PtsClientefrp").val(parseInt(Total));
                 },
                 columns: [
                     { "data": "FECHA" },
@@ -956,9 +961,6 @@ function subirimagen()
 
 
     $("#btnProcesar").click(function(){
-        $('#Dfrp').openModal();
-        $("#frpProgress").show();
-        $("#divTop,#divTbl").hide();
 
         var numFRP = $("#frp").val();
         var fchFRP = $("#date1").val();
@@ -983,6 +985,9 @@ function subirimagen()
                         if  ( pCambiar != 0){
                             Materialize.toast($('<span class="center">SELECCIONE LA FACTURAS A APLICAR. </span>'), 3500,'rounded error');
                         } else {
+                            $('#Dfrp').openModal();
+                            $("#frpProgress").show();
+                            $("#divTop,#divTbl").hide();
                             SaveFRP(numFRP,fchFRP);
                         }
                     }
@@ -1190,11 +1195,15 @@ function subirimagen()
                         $("#frpProgress").hide();
                         $("#divTop,#divTbl").show();
 
+
+
                     } else {
                         Materialize.toast($('<span class="center">ERROR AL CREAR EL FRP. </span>'), 3500,'rounded error');
                     }
                 }
         });
+
+        window.setTimeout($(location).attr('href',"Frp"), 5000);
 
 
     }
@@ -1278,6 +1287,10 @@ function subirimagen()
                                     "</tr>"
                     }
 
+                    var ttff="";
+
+
+
                     for (p=0;p<dataJson.DArticulo.length;p++){
                         DP +=   "<tr>" +
                                     "<td>" +dataJson.DArticulo[p].Cantidad + "</td>" +
@@ -1286,10 +1299,13 @@ function subirimagen()
                                     "<td>" +dataJson.DArticulo[p].Puntos+ "</td>" +
                                     "<td>" +dataJson.DArticulo[p].Total+ "</td>" +
                                 "</tr>"
+
+                        ttff += dataJson.DArticulo[p].Total;
                     }
 
                     $("#tblviewDFacturaFRP > tbody").html(DF);
-                    $("#tblviewDPremioFRP > tbody").html(DP);
+                    $("#tblviewDPremioFRP > tbody").html(DP)
+                    $("#spnttFRP").text(ttff);
                 }
         });
     }

@@ -1,7 +1,13 @@
 <html lang="en">
-<head>
     <meta charset="UTF-8">
-        <style>        
+        <style>
+        tbody td, thead th{ padding: 8px 10px;}
+        #tblEstadoFactura{border-collapse: separate;border-spacing: 2px;color: white; font-family: 'robotoblack';}
+        #tblEstadoFactura tbody td{color:black;font-size: 11px;}
+        #tblEstadoFactura tr:nth-child(even){background: #ffffff;}
+        #tblEstadoFactura tr:nth-child(odd){ background: #e7e2f7; }
+        #tblEstadoFactura th{ background: white;color: black; font-size: 14px;}
+        #tblEstadoFactura td{ font-size: 30px;}
         @font-face {
             font-family: 'robotoblack';
             src: url('roboto-black-webfont.eot');
@@ -47,16 +53,14 @@
             font-style: normal;
         }
         .center{text-align: center!important;}
-        .negra{
-            font-family: 'robotoblack'!important;
-        }
-        .mediana{
-            font-family: 'robotomedium'!important;
+        .negra{font-family: 'robotoblack'!important;}
+        .mediana{font-family: 'robotomedium'!important;
         }.regular{font-family: 'robotoregular'!important;}
         .noMargen{margin: 0px;}
+        .fecha{font-size: 5px;margin-top: 0px;}
         .Mcolor {
             color: black;
-            font-size: 16px;
+            font-size: 15px;
             font-family: 'robotoblack';}
         .titulos{
             color: black;
@@ -70,7 +74,7 @@
             font-family: 'robotomedium';
         }
         .detalles{
-            color: green;
+            color: black;
             font-size: 10px;
             font-family: 'robotomedium';
         }.info{
@@ -82,8 +86,7 @@
             width: 100%!important;
         }
     </style>
-</head>
-    <div class="row noMargen">
+    <div class="row" style="width:288px!important;">
             <div class="row center">
                 <img id="logo" src="<?PHP echo base_url();?>assets/img/spinnova_logo.png" width="35%">
             </div>
@@ -93,28 +96,45 @@
             </div>
         </div> 
         <div class="row">
-            <div class="col s12"><br>
+            <div class="col s12">
                 <div class="center">     
-                    <p id="acumulado" class="titulos noMargen">CóDIGO: </p>
+                    <p id="acumulado" class="titulos noMargen">CÓDIGO: </p>
                     <span class="detalleencabezado center"><?php echo $cliente[0]['COD_CLIENTE'];?></span>
-                </div>                
+                </div>
                 <div class="center row">     
                     <p id="acumulado" class="titulos noMargen">CLIENTE: </p>
                     <span class="detalleencabezado center"><?php echo $cliente[0]['CLIENTE']; ?></span>
-                </div><br><br>
-                <div class="col s12">     
-                    <p id="acumulado" class="info noMargen">DISPONIBLE: <span class="detalles"><?php echo $cliente[0]['DISPONIBLE']; ?> Pts</span></p>
                 </div>                
-                <div class="col s12">
-                    <p id="acumulado" class="info noMargen">ACUMULADO: <span class="detalles"><?php echo $cliente[0]['ACUMULADO']; ?> Pts</span></p>
-                </div>                
-                <div class="col s12">
-                    <p id="acumulado" class="info noMargen">CANJEADO: <span class="detalles">PENDIENTE Pts</span></p>
-                </div><br><br>           
-                <div class="row center">
-                    <p id="ModalFeet"  class="info noMargen">VENDEDOR:<br><span class="detalles">250,000</span></p>
-                </div>
             </div>
+        </div><br>
+        <div class="row">
+            <table id="tblEstadoFactura" style='width: 100%;'>
+                <thead>
+                    <tr>
+                        <th>DISPONIBLE</th>
+                        <th>ACUMULADO</th>
+                        <th>CANJEADO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?PHP
+                        if(!($cliente)){
+                            } else {
+                                foreach($cliente as $factura){
+                                    echo "
+                                    <tr>
+                                        <td class='center'>".$factura['DISPONIBLE']."</td>
+                                        <td class='center'>".$factura['ACUMULADO']."</td>";
+                                        echo "<td class='center'>0</td>";
+                                    echo "</tr>";
+                            }
+                        }
+                ?>
+                </tbody>
+            </table>
+        </div><br>
+        <div class="row" style="text-align:right">
+            <p class="fecha">FECHA: <?php echo date("d-m-Y"); ?></p>
         </div>
     </div>
 </html>
