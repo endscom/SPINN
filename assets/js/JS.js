@@ -775,7 +775,7 @@ function subirimagen()
         var disp = 0;
         var sFactura = 0;
         obj.rows().data().each( function (index,value) {
-            var FACTURA   = index.FACTURA;
+            var FACTURA   = obj.row(value).data().FACTURA;
             $("#AP1" + FACTURA).html("");
             $("#DIS" + FACTURA).html("");
             $("#EST" + FACTURA).html("");
@@ -784,9 +784,9 @@ function subirimagen()
 
         if (pts > 0 ){
             obj.rows().data().each( function (index,value) {
-                var FACTURA   = index.FACTURA;
-                console.log(FACTURA);
-                disp = parseInt(index.DISPONIBLE)
+                var FACTURA   =  obj.row(value).data().FACTURA;
+
+                disp = parseInt(obj.row(value).data().DISPONIBLE)
                 if (isNaN(parseInt($("#AP1" + FACTURA).text()))){ apl = 0 } else { apl = parseInt($("#AP1" + FACTURA).text()) }
                 if (pts > 0){
                     if (disp >= pts){
@@ -1038,9 +1038,9 @@ function subirimagen()
         obj = $('#tblFacturaFRP').DataTable();
         var viewFacturas     = new Array();
         obj.rows().data().each( function (index,value) {
-            var FAC = index.FACTURA;
-            var FCH = index.FECHA;
-            var FLPunto = index.DISPONIBLE;
+            var FAC = obj.row(value).data().FACTURA;
+            var FCH = obj.row(value).data().FECHA;
+            var FLPunto = obj.row(value).data().DISPONIBLE;
             var apl = $("#AP1" + FAC).text();
             dis = parseInt($("#DIS" + FAC).text());
             est = ($("#EST" + FAC).text());
