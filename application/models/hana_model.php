@@ -322,13 +322,16 @@ class Hana_model extends CI_Model
     }
 
     public function FacturasFRP($ID){
-        $q_rows       = $this->db->query("call pc_Clientes_Facturas ('".$ID."')");
-        $rows_factura = $q_rows->result_array()[0]['Facturas'];
+
+        $q_rows = $this->db->query("call pc_Clientes_Facturas ('".$ID."')");
+        if ($q_rows->num_rows() > 0) {
+            $query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0 AND FACTURA NOT IN(".$q_rows->result_array()[0]['Facturas'].")";
+        } else {
+            $query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0 ";
+        }
+
 
         $conn = $this->OPen_database_odbcSAp();
-
-        //$query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0";
-        $query = "SELECT * from ".$this->BD.".SPINN_TTFACTURAS_PUNTOS WHERE COD_CLIENTE='".$ID."' AND ".'"'."DISPONIBLE".'"'." > 0 AND FACTURA NOT IN(".$rows_factura.")";
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
@@ -344,10 +347,6 @@ class Hana_model extends CI_Model
 
             
         while ($fila = @odbc_fetch_array($resultado)){
-           
-
-
-
             $ID_ROW = "CHK" . $fila['FACTURA'];
             $ID_LBL = "LBL" . $fila['FACTURA'];
             $ID_APl = "AP1" . $fila['FACTURA'];

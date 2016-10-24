@@ -138,7 +138,7 @@ $('#tblCatalogoActualModal').DataTable({
     /****** Seccíon del Menú ******/
 
     /**** DATATABLES ****/
-    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblFacturas,#ClienteAdd,#BajaCliente,#PtosCliente,#FRP,#tblFacturaFRP,#tblpRODUCTOS,#tblModals').DataTable(
+    $('#tblFREimpre,#TbCatalogo,#TblMaVinetas,#MCXP,#tblFacturas,#ClienteAdd,#BajaCliente,#PtosCliente,#tblFacturaFRP,#FRP,#tblpRODUCTOS,#tblModals').DataTable(
         {
             "info":    false,
             //"order": [[ 2, "asc" ]],
@@ -159,6 +159,7 @@ $('#tblCatalogoActualModal').DataTable({
             }
         }
     );
+
    /**** END DATATABLES ****/
 
     $('.modal-trigger').leanModal();// INICIAR LOS MODALES
@@ -753,22 +754,6 @@ function subirimagen()
                 "bPaginate": false,
                 "paging": false,
                 "pagingType": "full_numbers",
-                "initComplete": function () {
-                    /*var Total=0;
-                    /$('#tblFacturaFRP').DataTable().column(2).data().each( function ( value, index ) {
-                        Total += parseInt(value);
-                    } );
-
-                    //Total = parseInt(Total) - parseInt(aplicados);
-
-                   // if (isNaN(Total)){ Total = 0;}
-                    $("#PtsClientefrp").val(parseInt(Total));*/
-
-                    //Total = parseInt(Total) - parseInt(aplicados);
-
-                    //if (isNaN(Total)){ Total = 0;}
-                    //$("#PtsClientefrp").val(parseInt(Total));
-                },
                 columns: [
                     { "data": "FECHA" },
                     { "data": "FACTURA" },
@@ -789,21 +774,19 @@ function subirimagen()
         var obj = $('#tblFacturaFRP').DataTable();
         var disp = 0;
         var sFactura = 0;
-
-
-
         obj.rows().data().each( function (index,value) {
-            var FACTURA   = obj.row(value).data().FACTURA;
+            var FACTURA   = index.FACTURA;
             $("#AP1" + FACTURA).html("");
             $("#DIS" + FACTURA).html("");
             $("#EST" + FACTURA).html("");
             $("#CHK"+FACTURA).prop('checked', false);
         });
 
-        if (pts >0 ){
+        if (pts > 0 ){
             obj.rows().data().each( function (index,value) {
-                var FACTURA   = obj.row(value).data().FACTURA;
-                disp = parseInt(obj.row(value).data().DISPONIBLE)
+                var FACTURA   = index.FACTURA;
+                console.log(FACTURA);
+                disp = parseInt(index.DISPONIBLE)
                 if (isNaN(parseInt($("#AP1" + FACTURA).text()))){ apl = 0 } else { apl = parseInt($("#AP1" + FACTURA).text()) }
                 if (pts > 0){
                     if (disp >= pts){
@@ -828,37 +811,6 @@ function subirimagen()
                 }
             });
         }
-
-
-
-        obj.rows().data().each( function (index,value) {
-            var FACTURA   = obj.row(value).data().FACTURA;
-            disp = parseInt(obj.row(value).data().DISPONIBLE)
-            if (isNaN(parseInt($("#AP1" + FACTURA).text()))){ apl = 0 } else { apl = parseInt($("#AP1" + FACTURA).text()) }
-            if (pts > 0){
-                if (disp >= pts){
-                    sFactura = disp - pts;
-                    $("#AP1" + FACTURA).html(pts);
-                    pts = 0;
-                    $("#DIS" + FACTURA).html(sFactura);
-                } else {
-                    pts = pts - disp ;
-                    $("#AP1" + FACTURA).html(disp);
-                    $("#DIS" + FACTURA).html("0");
-                }
-            }
-            var ESTADO = $("#DIS" + FACTURA).text();
-            if (ESTADO != ""){
-                if (parseInt(ESTADO) == 0){
-                    $("#EST" + FACTURA).html("APLICADO");
-                } else {
-                    $("#EST" + FACTURA).html("PARCIAL");
-                }
-                $("#CHK"+FACTURA).prop('checked', true);
-            }
-        });
-
-
     }
 
     function isVerificar(posicion,fact){
@@ -1020,14 +972,14 @@ function subirimagen()
             remanente = parseInt(ip[4]);
             //console.log("Arti: " + ip[1] + " Aplica: " + remanente);
             ofact.rows().data().each( function (index,value) {
-                var FAC = ofact.row(linea).data().FACTURA;
-                var FCH = ofact.row(linea).data().FECHA;
-                var FLPunto = ofact.row(linea).data().DISPONIBLE;
+                var FAC = index.FACTURA;
+                var FCH = index.FECHA;
+                var FLPunto = index.DISPONIBLE;
                 valor = 0;
                 apl = parseInt($("#AP1" + FAC).text());
                 dis = parseInt($("#DIS" + FAC).text());
                 est = ($("#EST" + FAC).text());
-                if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
+                if (FPunto == 0){FPunto = index.DISPONIBLE;}
                 
                 if (remanente > apl){
                     valor = apl;
@@ -1086,9 +1038,9 @@ function subirimagen()
         obj = $('#tblFacturaFRP').DataTable();
         var viewFacturas     = new Array();
         obj.rows().data().each( function (index,value) {
-            var FAC = obj.row(value).data().FACTURA;
-            var FCH = ofact.row(linea).data().FECHA;
-            var FLPunto = ofact.row(linea).data().DISPONIBLE;
+            var FAC = index.FACTURA;
+            var FCH = index.FECHA;
+            var FLPunto = index.DISPONIBLE;
             var apl = $("#AP1" + FAC).text();
             dis = parseInt($("#DIS" + FAC).text());
             est = ($("#EST" + FAC).text());
@@ -1203,7 +1155,7 @@ function subirimagen()
                 }
         });
 
-        window.setTimeout($(location).attr('href',"Frp"), 5000);
+        //window.setTimeout($(location).attr('href',"Frp"), 100000);
 
 
     }
@@ -1287,7 +1239,7 @@ function subirimagen()
                                     "</tr>"
                     }
 
-                    var ttff="";
+                    var ttff=0;
 
 
 
@@ -1300,7 +1252,7 @@ function subirimagen()
                                     "<td>" +dataJson.DArticulo[p].Total+ "</td>" +
                                 "</tr>"
 
-                        ttff += dataJson.DArticulo[p].Total;
+                        ttff += parseInt(dataJson.DArticulo[p].Total);
                     }
 
                     $("#tblviewDFacturaFRP > tbody").html(DF);
