@@ -104,7 +104,7 @@
         <div id="detalleCliente" class="row noMargen">
             <div class="row">
                 <div class="right col s3 m3 l3">
-                    <a href="#!" class=" BtnClose modal-action modal-close ">
+                    <a href="#!" class=" BtnClose modal-action modal-close noHover">
                         <i class="material-icons">highlight_off</i>
                     </a>
                 </div>

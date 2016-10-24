@@ -70,7 +70,7 @@
                                     <td>".$user['IdUsuario']."</td>
                                     <td class='bold'>".$user['Nombre']."</td>
                                     <td id='activo' style='color:".$MColor."'>".$activo."</td>
-                                    <td><a data-tooltip='$Mmensaje' class='btn-flat tooltipped' onclick='DellUsers(".'"'.$user['IdUsuario'].'",'.'"'.$user['Estado'].'"'.")'><i style='color:".$mIcono."' class=' material-icons'>$Micono</i></td></a>
+                                    <td><a data-tooltip='$Mmensaje' class='btn-flat tooltipped noHover' onclick='DellUsers(".'"'.$user['IdUsuario'].'",'.'"'.$user['Estado'].'"'.")'><i style='color:".$mIcono."' class=' material-icons'>$Micono</i></td></a>
                                  </tr>";
                         }
                     }
@@ -87,7 +87,7 @@
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
+                <a href="#!" class=" BtnClose modal-action modal-close noHover">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>

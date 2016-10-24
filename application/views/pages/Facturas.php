@@ -62,7 +62,7 @@
     <div class="modal-content">
         <div class=" row">
             <div class="right col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close "><i class="material-icons">highlight_off</i></a>
+                <a href="#!" class=" BtnClose modal-action modal-close noHover"><i class="material-icons">highlight_off</i></a>
             </div>
         </div>
 

@@ -58,11 +58,16 @@ class Hana_model extends CI_Model
 
 
     public function ajaxFacturasXcliente($IdCliente){
-        $q_rows       = $this->db->query("call pc_Clientes_Facturas ('".$IdCliente."')");
-        $rows_factura = $q_rows->result_array()[0]['Facturas'];
+        $q_rows     = $this->db->query("call pc_Clientes_Facturas ('".$IdCliente."')");
+        if ($q_rows->num_rows()<1) {
+            $consulta = '.SPINN_TTFACTURAS_PUNTOS WHERE "COD_CLIENTE" = '."'".$IdCliente."'".'';
+        }else{
+            $rows_factura = $q_rows->result_array()[0]['Facturas'];
+            $consulta = '.SPINN_TTFACTURAS_PUNTOS WHERE "COD_CLIENTE" = '."'".$IdCliente."'".' AND FACTURA NOT IN('.$rows_factura.')';
+        }
 
         $conn = $this->OPen_database_odbcSAp();
-        $query = 'SELECT * from '.$this->BD.'.SPINN_TTFACTURAS_PUNTOS WHERE "COD_CLIENTE" = '."'".$IdCliente."'".' AND FACTURA NOT IN('.$rows_factura.')';
+        $query = 'SELECT * from '.$this->BD.$consulta;
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
@@ -251,23 +256,25 @@ class Hana_model extends CI_Model
         } else {
             $query = 'SELECT * from '.$this->BD.'.SPINN_CLIENTES ';
         }
+
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
 
-        $json[$i]['CODIGO'] = "";
+            $json[$i]['CODIGO'] = "";
             $json[$i]['VENDEDOR'] = "";
             $json[$i]['NOMBRE'] = "";
             $json[$i]['RUC'] = "";
             $json[$i]['DIRECCION'] = "";
-         while ($fila = @odbc_fetch_array($resultado)){
+        while ($fila = @odbc_fetch_array($resultado)){
+                //echo utf8_encode($fila['NOMBRE'])."<br>";
                 $json[$i]['CODIGO'] = $fila['CODIGO'];
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
                 $json[$i]['NOMBRE'] = utf8_encode($fila['NOMBRE']);
                 $json[$i]['RUC'] = utf8_encode($fila['RUC']);
                 $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
                 $i++;
-            }
+        }
         return $json;
     }
 
