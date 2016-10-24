@@ -972,14 +972,14 @@ function subirimagen()
             remanente = parseInt(ip[4]);
             //console.log("Arti: " + ip[1] + " Aplica: " + remanente);
             ofact.rows().data().each( function (index,value) {
-                var FAC = index.FACTURA;
-                var FCH = index.FECHA;
-                var FLPunto = index.DISPONIBLE;
+                var FAC = ofact.row(linea).data().FACTURA;
+                var FCH = ofact.row(linea).data().FECHA;
+                var FLPunto = ofact.row(linea).data().DISPONIBLE;
                 valor = 0;
                 apl = parseInt($("#AP1" + FAC).text());
                 dis = parseInt($("#DIS" + FAC).text());
                 est = ($("#EST" + FAC).text());
-                if (FPunto == 0){FPunto = index.DISPONIBLE;}
+                if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
                 
                 if (remanente > apl){
                     valor = apl;
