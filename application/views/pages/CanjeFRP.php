@@ -348,7 +348,7 @@
                    </tbody>
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnTotalFRP"></span></span> </h6>
-               <div class="row center">
+               <div class="row center" style="">
                    <a href="#" onclick="callUrlPrint('ExpFRP','spnFRP')"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
                </div>
            </div>
@@ -435,9 +435,9 @@
                    </tbody>
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnttFRP"></span> Pts.</span> </h6>
-               <div class="row center">
+               <!--<div class="row center">
                    <a href="#" onclick="callUrlPrint('ExpFRP','spnviewFRP')"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
-               </div>
+               </div>-->
            </div>
 
 
