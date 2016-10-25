@@ -3749,7 +3749,7 @@ input[type=range] + .thumb {
     right: auto;
   }
    .row .col.m3 {
-    /*width: 25%;*/
+    width: 25%;
     margin-left: auto;
     left: auto;
     right: auto;

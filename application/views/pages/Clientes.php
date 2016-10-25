@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="col s12">
-                        <p id="acumulado" class="center Datos negra">CANJEADO: <span id="AcuT"></span> Pts.</p>
+                        <p id="acumulado" class="center Datos negra">CANJEADO: <span id="Canj"></span> Pts.</p>
                     </div>
 
                     <div class="row noMargen">

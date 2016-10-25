@@ -4,7 +4,7 @@
             <img id="imgUser" src="<?PHP echo base_url();?>assets/img/sp_logo_menu.png" width="78%" >
            
             <div id="user" class="row">
-                <div class="col l2 center">
+                <div class="col l2 center carita">
                   <i class=" material-icons">face</i>
                 </div>
                 <div class="col l9 center">
@@ -32,7 +32,8 @@
                         <a href="Usuarios"><li href="Usuarios"><i class="material-icons">account_box</i> usuarios</li></a>
                         <a href="Reportes"><li href="Reportes"><i class="material-icons">description</i> reportes</li></a>
                         <a class="modal-trigger" href="#modalAcercaDe"><li href="#"><i class="material-icons">info_outline</i> acerca de</li></a>
-                        <a href="salir"> <li href="salir"><i class="material-icons">exit_to_app</i> cerrar sesión</li></a>';
+                        <a href="salir"><li><i class="material-icons">exit_to_app</i> cerrar sesión</li></a>';
+                
               }else if($this->session->userdata('IdRol')==2){
                 $menuH .= '<a href="Main"><li href="Main"><i class="material-icons">home</i> inicio</li></a>
                         <a href="Facturas"><li href="Facturas"><i class="material-icons">remove_circle</i> Facturas</li></a>
@@ -41,7 +42,7 @@
                         <a href="Frp"><li href="Frp"><i class="material-icons">payment</i> canje puntos (frp)</li></a>
                         <a href="Reportes"><li href="Reportes"><i class="material-icons">description</i> reportes</li></a>
                         <a class="modal-trigger" href="#modalAcercaDe"><li href="#"><i class="material-icons">info_outline</i> acerca de</li></a>
-                        <a href="salir"> <li href="salir"><i class="material-icons">exit_to_app</i> cerrar sesión</li></a>';
+                        <a href="salir"><li><i class="material-icons">exit_to_app</i> cerrar sesión</li></a>';
               }else if( $this->session->userdata('IdRol')==3){
                 $menuH .= '<a href="Main"><li href="Main"><i class="material-icons">home</i> inicio</li></a>
                         <a href="Facturas"><li href="Facturas"><i class="material-icons">remove_circle</i> Facturas</li></a>
@@ -60,8 +61,7 @@
                            <a href="Facturas"><li href="Facturas"><i class="material-icons">remove_circle</i> Facturas</li></a>
                            <a href="Clientes"><li href="Clientes"><i class="material-icons">supervisor_account</i> clientes</li></a>
                            <a href="PuntosClientes"><li href="PuntosClientes"><i class="material-icons">content_copy</i> puntos clientes</li></a>
-                           <div id="sac"><img src="'.base_url().'assets/img/sac_atencion.png" alt="Icon" /></div>';
-                
+                           <div id="sac"><img src="'.base_url().'assets/img/sac_atencion.png" alt="Icon" /></div>';                
                 echo $menuF; 
               }
 

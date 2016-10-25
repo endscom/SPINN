@@ -19,7 +19,7 @@
                <div class="col s1 m1 l1 offset-s2 offset-m2 offset-l3"><i class="material-icons ColorS">search</i></div>
 
                <div id="InputSearch" class="input-field col s6 m16 l4">
-                   <input  id="sFactura" type="text" placeholder="Buscar Facturas o Cliente" class="validate">
+                   <input  id="sFRP" type="text" placeholder="Buscar" class="validate">
                    <label for="search"></label>
                </div>           
             <?php if (($this->session->userdata('IdRol')==2) || $this->session->userdata('IdRol')==1) {
@@ -47,29 +47,24 @@
                 foreach($Lista as $frp){
 
                     if ($frp['Anulado'] == "S"){
-                        $delite = "";
-                        $sty = "style='color: #ff002a;'";
-                        $dl  = "<del>";
-                        $dlc  = "</del>";
+                        $clase="tachado";
+                        $delete="";
                     } else {
-                        $sty ="";
-                        $dl  = "";
-                        $dlc  = "";
-                        $delite = "<a  onclick='dellFrp(".$frp['IdFRP'].")' href='#!' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a>";
+                        $clase="";
+                        $delete = "<a  onclick='dellFrp(".$frp['IdFRP'].")' href='#!' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a>";
                     }
                     echo "<tr>
-                                <td ".$sty.">".$dl.date_format(date_create($frp['Fecha']), 'd-m-Y').$dlc."</td>
-                                <td ".$sty.">".$dl.$frp['IdFRP'].$dlc."</td>
-                                <td ".$sty.">".$dl.$frp['IdCliente'].$dlc."</td>
-                                <td ".$sty." id='NomCliente'>".$dl.$frp['Nombre'].$dlc."</td>
-                                <td>
+                                <td class='".$clase."'>".date_format(date_create($frp['Fecha']), 'd-m-Y')."</td>
+                                <td class='".$clase."'>".$frp['IdFRP']."</td>
+                                <td class='".$clase."'>".$frp['IdCliente']."</td>
+                                <td class='".$clase."' id='NomCliente'>".$frp['Nombre']."</td>
+                                <td class='center'>
                                     <a  onclick='getview(".$frp['IdFRP'].")' href='#!' class='modal-trigger'><i class='material-icons'>&#xE417;</i></a>
-                                    ".$delite."
+                                    ".$delete."
                                 </td>
                             </tr>";
                 }
             }
-
             ?>
             </tbody>
         </table>
@@ -122,7 +117,7 @@
                     ?>
                 </select>
             </div>
-            <div class=" DatoFrp input-field line col s12 m9 l2">
+            <div class=" DatoFrp input-field line col s12 m12 l2">
                 PUNTOS:<input disabled id="PtsClientefrp" type="text" class="validate">
             </div>
         </div>
@@ -146,11 +141,11 @@
                 </select>
             </div>
             
-            <div class="DatoFrp line input-field col s6 l2 ">
+            <div class="DatoFrp line input-field col s12 m9 l2 ">
                 <input disabled id="ValorPtsPremioFRP"  type="text" class="validate">
             </div>
             
-            <div class="DatoFrp line input-field col s6 l2 ">
+            <div class="DatoFrp line input-field col s12 m3 l2 ">
                 CANTIDAD:<input  id="CantPremioFRP"  type="text" class="validate">
             </div>
         </div>
@@ -228,19 +223,18 @@
 <!-- Modal Structure -->
 <div id="Dell" class="modal">
     <div class="modal-content">
-        <div class="right row">
+        <div class="right row noMargen">
             <div class="col s1 m1 l1">
                 <a href="#!" class=" BtnClose modal-action modal-close ">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
         </div>
-
-        <h6 class="center Mcolor1">DESEA ELIMINAR EL FRP #<span class="redT1" id="spnDellFRP">#</span></h6>
-        <div class="row">
-            <div class="col s2 m2 l2 offset-l4 offset-s3 offset-m4">
+        <div class="row center ">
+        <h6 class="Mcolor1">DESEA ELIMINAR EL FRP #<span class="redT1" id="spnDellFRP">#</span></h6>
+        </div>
+        <div class="row center">
                 <a href="#!" id="idProcederDell" class="Procesar modal-action modal-close btn modal-trigger">Procesar</a>
-            </div>
         </div>
     </div>
 </div>

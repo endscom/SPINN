@@ -10,6 +10,15 @@ $(function() {//funcion para agregar el active en el menu, segun la pagina en la
          })
     });
 //$('#MFrp').openModal();
+
+$(".carita").mouseenter(function(){
+    $(".carita").empty();
+    $(".carita").append('<i class="material-icons">sentiment_satisfied</i>');
+});
+$(".carita").mouseleave(function(){
+    $(".carita").empty();
+    $(".carita").append('<i class="material-icons">face</i>');
+});
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -41,6 +50,14 @@ $('#searchClientes').on( 'keyup', function () {
 $('#searchTblCatalogoPasado').on( 'keyup', function () {
     var table = $('#tblCatalogoPasado').DataTable();
     table.search( this.value ).draw();
+} );
+
+$('#sFactura').on( 'keyup', function () {
+    $('#tblFacturas').DataTable().search( this.value ).draw();
+} );
+
+$('#sFRP').on( 'keyup', function () {
+    $('#FRP').DataTable().search( this.value ).draw();
 } );
 
 $('#searchCatalogo').on( 'keyup', function () {
@@ -221,7 +238,7 @@ function EnviodeDatos(){
             async:true,
             success:
                 function(json){
-                    Materialize.toast('EL USUARIO SE AGREGÓ CORRECTAMENTE', 3000);
+                    mensaje("EL USUARIO SE AGREGÓ CORRECTAMENTE","");
                     var myVar = setInterval(myTimer, 2000);
                 }
             });
@@ -332,10 +349,7 @@ function subirimagen()
 /*funcion para mandar a traer el catalogo de productos pasado EKISDE*/
     $('#cmbCatalogos').change(function(){
         $('#checkTodos').attr('checked', false);
-        Objtable = $('#tblCatalogoPasado').DataTable();
-            Objtable.destroy();
-            Objtable.clear();
-            Objtable.draw();
+        limpiarTabla(tblCatalogoPasado);
             $('#tblCatalogoPasado').DataTable({
                 "order": [[ 1, "desc" ]],
                 ajax: "AjaxCatalogoPasado/"+ this.value,
@@ -412,8 +426,8 @@ function subirimagen()
                         campo2,
                         campo3,
                         campo4
-                    ]).draw(false);var $toastContent = $('<span class"center">ARTÍCULO AGREGADO</span>');
-            Materialize.toast($toastContent, 2500,'rounded');
+                    ]).draw(false);
+            mensaje("ARTÍCULO AGREGADO","");
             }
             else{
                 var $toastContent = $('<span class="center">EL ARTICULO: <h6 class="negra noMargen">"'+campo2+'"</h6> YA ESTA AGREGADO</span>');
@@ -454,7 +468,7 @@ function subirimagen()
                 });
     });
     function myTimer3() {
-        Materialize.toast('SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE..', 1000);
+        mensaje("SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE..","");
         $(location).attr('href',"Catalogo");
     }
      /*metodo para guardar el catalogo, con los nuevos articulos agregados*/
@@ -518,7 +532,7 @@ function subirimagen()
             });
     });
     function myTimer2() {
-        Materialize.toast('SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE...', 3000);
+        mensaje("SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE...","");
         $(location).attr('href',"Catalogo");
     }
 
@@ -613,10 +627,7 @@ function subirimagen()
             $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").hide();
         }
         if($('#R1').is(':checked') ){$("#reporte").val(0);
-            Objtable = $('#tblEstadoFactura').DataTable();
-            Objtable.destroy();
-            Objtable.clear();
-            Objtable.draw();
+            limpiarTabla(tblEstadoFactura);
             $('#tblEstadoFactura').DataTable({
                 "order": [[ 1, "desc" ]],
                 ajax: "ajaxEstadoFacturas/"+Cls+"/"+f1+"/"+f2,
@@ -657,10 +668,7 @@ function subirimagen()
             $('#rpCodCliente2').text(Cls);   $("#reporte").val(1);
             $('#rpNomCliente2').text($("#idCliente option:selected").html());
             $('#loadDisponiblePuntos').show();
-            Objtable = $('#tblDisponibilidadPuntos').DataTable();
-            Objtable.destroy();
-            Objtable.clear();
-            Objtable.draw();
+            limpiarTabla(tblDisponibilidadPuntos);
             $('#tblDisponibilidadPuntos').DataTable({
                 "order": [[ 1, "desc" ]],
                 ajax: "ajaxDisponibilidadPuntos/"+Cls+"/"+f1+"/"+f2,
@@ -699,9 +707,8 @@ function subirimagen()
         }        
     });
 
-    $('#sFactura').on( 'keyup', function () {
-        $('#tblFacturas').DataTable().search( this.value ).draw();
-    } );
+
+    
 
     /*$("#idPreloader,#getOneFactura,#getAllFactura").hide();
     $("#search").keypress(function(e) {
@@ -743,11 +750,7 @@ function subirimagen()
             });
 
             $("#ClienteFRP,#ClienteFRPPremio").val(Cls);
-            Objtable = $('#tblFacturaFRP').DataTable();
-            Objtable.destroy();
-            Objtable.clear();
-            Objtable.draw();
-
+            limpiarTabla(tblFacturaFRP);
             $('#tblFacturaFRP').DataTable({
                 ajax: "getFacturaFRP/"+ Cls,
                 "info":    false,
@@ -820,12 +823,12 @@ function subirimagen()
         if($("#CHK"+fact).is(':checked') ) {
             if (ttFRP == 0){
                 $("#CHK"+fact).prop('checked', false);
-                Materialize.toast($('<span class="center">TODOS LOS PUNTOS FUERON APLICADOS. </span>'), 3500,'rounded error');
+                mensaje("TODOS LOS PUNTOS FUERON APLICADOS","error");
             } else {
                 if( ptsFRP == 0){
                     ttFRP = 0;
                     $("#CHK"+fact).prop('checked', false);
-                    Materialize.toast($('<span class="center">Error: SELECCIONE UN ARTICULO. </span>'), 3500,'rounded error');
+                    mensaje("Error: SELECCIONE UN ARTICULO","error");
                 } else {
                     if (FACTURA > ttFRP){
                         $("#AP1" + fact).html(ttFRP);
@@ -885,10 +888,10 @@ function subirimagen()
                 apliAutomatic(ttPts);
 
             }else{
-                Materialize.toast($('<span class="center">NO CUENTA CON LOS PUNTOS NECESARIOS. </span>'), 3500,'rounded error');
+                mensaje("NO CUENTA CON LOS PUNTOS NECESARIOS","error");
             }
         }else{
-            Materialize.toast($('<span class="center">SELECCIONE UN ARTICULO DEL CATALOGO. </span>'), 3500,'rounded error');
+            mensaje("SELECCIONE UN ARTICULO DEL CATALOGO","error");
         }
 
 
@@ -922,20 +925,20 @@ function subirimagen()
 
         if ( (numFRP =="") && (numFRP.length < 4)){
             $("#frp").focus();
-            Materialize.toast($('<span class="center">INGRESE NUMERO DE FRP. </span>'), 3500,'rounded error');
+            mensaje("INGRESE NUMERO DE FRP","error");
         } else {
             if ( (fchFRP =="") && (fchFRP.length < 4) ){
                 $("#frp").focus();
-                Materialize.toast($('<span class="center">SELECCIONE LA FECHA. </span>'), 3500,'rounded error');
+                mensaje("SELECCIONE LA FECHA","error");
             } else {
                 if ( !tblFactura.data().any() ){
-                    Materialize.toast($('<span class="center">TABLA DE FACTURAS VACIA. </span>'), 3500,'rounded error');
+                    mensaje("TABLA DE FACTURAS VACIA","error");
                 } else {
                     if ( !tblPremios.data().any() ){
-                        Materialize.toast($('<span class="center">TABLA DE PREMIO VACIA. </span>'), 3500,'rounded error');
+                        mensaje("TABLA DE PREMIO VACIA","error");
                     } else {
                         if  ( pCambiar != 0){
-                            Materialize.toast($('<span class="center">SELECCIONE LA FACTURAS A APLICAR. </span>'), 3500,'rounded error');
+                            mensaje("SELECCIONE LA FACTURAS A APLICAR","error");
                         } else {
                             $('#Dfrp').openModal();
                             $("#frpProgress").show();
@@ -1150,7 +1153,7 @@ function subirimagen()
 
 
                     } else {
-                        Materialize.toast($('<span class="center">ERROR AL CREAR EL FRP. </span>'), 3500,'rounded error');
+                        mensaje("ERROR AL CREAR EL FRP","error");
                     }
                 }
         });
@@ -1187,7 +1190,7 @@ function subirimagen()
                 function(data){
                     console.log(data)
                     if (data != 1){
-                        Materialize.toast($('<span class="center">SELECCIONE UN CLIENTE PRIMERO. </span>'), 3500,'rounded error');
+                        mensaje("SELECCIONE UN CLIENTE PRIMERO","error");
                     } else {
                         window.setTimeout($(location).attr('href',"Frp"), 2000);
                         $("#dellCorrectoFRP").text(id);
@@ -1265,11 +1268,8 @@ function subirimagen()
      
 
     function DFactura(factura){
-        $("#codFactura").text(factura); $('#progressFact').show();
-        Objtable = $('#tblModal1').DataTable();
-        Objtable.destroy();
-        Objtable.clear();
-        Objtable.draw();
+        $("#codFactura").text(factura); $('#progressFact').show();        
+        limpiarTabla(tblModal1);
         $('#tblModal1').DataTable({
             ajax: "getDetalleFactura/"+ factura,
             "info":    false,
@@ -1328,7 +1328,7 @@ function subirimagen()
             });
 
         }else{
-            Materialize.toast($('<span class="center">SELECCIONE UN CLIENTE PRIMERO. </span>'), 3500,'rounded error');
+            mensaje("SELECCIONE UN CLIENTE PRIMERO","error");
         }
     });
 
@@ -1370,6 +1370,7 @@ function subirimagen()
                     $.each(datos, function(i, item) {
                         $("#AcuT").html(item.ACUMULADO);
                         $("#Disp").html(item.DISPONIBLE);
+                        $("#Canj").html(item.CANJEADO);
                     });
                     $('#detalleCliente').show();
                     $('#loadIMG').hide();
@@ -1438,10 +1439,7 @@ function subirimagen()
       }
 function articulosInactivos(){
     $('#listaArticulosInactivos').openModal();
-    Objtable = $('#tblArticulosInactivos').DataTable();
-        Objtable.destroy();
-        Objtable.clear();
-        Objtable.draw();
+    limpiarTabla(tblArticulosInactivos);
         $('#tblArticulosInactivos').DataTable({
             ajax: "getArticulosInactivos",
             "info":    false,
@@ -1498,9 +1496,8 @@ $('#guardarActiculosInactivos').click(function(){
                 contentType: false,
                 processData: false,
                 success: function(datos)
-                {                    
-                   var $toastContent = $('<span class"center">EL ARTÍCULO "'+codigo+'"  ACTIVADO CORRECTAMENTE</span>');
-                        Materialize.toast($toastContent, 2500,'rounded');
+                {      
+                    mensaje('EL ARTÍCULO "'+codigo+'" FUE ACTIVADO CORRECTAMENTE','');
                 }
             });
         });
@@ -1509,27 +1506,34 @@ $('#guardarActiculosInactivos').click(function(){
     });
 
 function printVoucher (url) {
-    
-    //var url = url.split('/');
-    window.open(url, '_blank');
+        window.open(url, '_blank');
 }
-
+function limpiarTabla (idTabla) {
+        idTabla = $(idTabla).DataTable();
+        idTabla.destroy();
+        idTabla.clear();
+        idTabla.draw();
+}
+function mensaje (mensaje,clase) {
+    var $toastContent = $('<span class="center">'+mensaje+'</span>');
+    if (clase == 'error'){
+        return Materialize.toast($toastContent, 3500,'rounded error');
+    }
+    return  Materialize.toast($toastContent, 3500,'rounded');    
+}
 
 function subirEXCEL () {//funcion para subir el catalogo atravez de excel
     var imagenes = $('#imagenes').val().replace(/C:\\fakepath\\/i, '');
     var excel = $('#csv').val().replace(/C:\\fakepath\\/i, '');
     var tipoExcel = excel.split(".");
     if (excel=="") {
-        var $toastContent = $('<span class="center">SELECCIONE EL EXCEL DEL CATALOGO</span>');
-        Materialize.toast($toastContent, 3500,'rounded error');
+        mensaje("SELECCIONE EL EXCEL DEL CATALOGO","error")
         return false;
     }if (tipoExcel[1]!="xls"){
-        var $toastContent = $('<span class="center">EL ARCHIVO NO ES UN EXCEL 97-2003(xls)</span>');
-        Materialize.toast($toastContent, 3500,'rounded error');
+        mensaje("EL ARCHIVO NO ES UN EXCEL 97-2003(xls)","error")        
         return false;
     }if (imagenes=="") {
-        var $toastContent = $('<span class="center">SELECCIONE AL MENOS 1 IMAGEN</span>');
-        Materialize.toast($toastContent, 3500,'rounded error');
+        mensaje("SELECCIONE AL MENOS 1 IMAGEN","error")
         return false;
     }else{
         $('#agregarExcel').hide(); $('#loadArchivoExcel').show();

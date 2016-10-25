@@ -124,9 +124,9 @@
                                     echo "
                                     <tr>
                                         <td class='center'>".$factura['DISPONIBLE']."</td>
-                                        <td class='center'>".$factura['ACUMULADO']."</td>";
-                                        echo "<td class='center'>0</td>";
-                                    echo "</tr>";
+                                        <td class='center'>".$factura['ACUMULADO']."</td>
+                                        <td class='center'>".$factura['CANJEADO']."</td>
+                                    </tr>";
                             }
                         }
                 ?>

@@ -361,7 +361,7 @@ class Hana_model extends CI_Model
             $ID_DIS = "DIS" . $fila['FACTURA'];
             $ID_EST = "EST" . $fila['FACTURA'];
 
-            $json['data'][$i]['FECHA']      = substr($fila['FECHA'],0,10);
+            $json['data'][$i]['FECHA']      = date_format(date_create($fila['FECHA']), 'Y-m-d');
             $json['data'][$i]['FACTURA']    = $fila['FACTURA'];
             $json['data'][$i]['DISPONIBLE'] = $this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']);
             $json['data'][$i]['CAM1']       = "<span id='".$ID_APl."'></span>";
@@ -383,33 +383,37 @@ class Hana_model extends CI_Model
         
         if (count($resultado)==0){
             echo " ERROR AL CARGAR LOS PUNTOS ";
-        } else {  
+        } else {
 
             while ($fila = @odbc_fetch_array($resultado)){
                 if($fila['CONTADOR']==0){
                     $json[$i]['DISPONIBLE'] = 0;
                     $json[$i]['ACUMULADO'] = 0;
+                    $json[$i]['CANJEADO'] = 0;
                     $json[$i]['COD_CLIENTE'] = "";
                     $json[$i]['CLIENTE'] = "";
                 } else {
                     $query = 'SELECT "COD_CLIENTE","CLIENTE","DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
                     $resultado =  @odbc_exec($conn,$query);
-                    if (count($resultado)==0) {
-                    } else {
+                    $query = $this->db->query('CALL pc_clientes_pa ("'.$IdCliente.'")');
+                    if($query->num_rows() > 0){
+                        $canjeado = $query->result_array()[0]['Puntos'];
+                    }else{
+                        $canjeado = 0;
+                    }
                             while ($fila = @odbc_fetch_array($resultado)){
-                                if ($fila['DISPONIBLE']=='') {
                                     $json[$i]['DISPONIBLE'] = 0;
                                     $json[$i]['ACUMULADO'] = 0;
+                                    $json[$i]['CANJEADO'] = 0;
                                     $json[$i]['COD_CLIENTE'] = 0;
                                     $json[$i]['CLIENTE'] = 0;
-                                } else {
+
                                     $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE']);
                                     $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO']);
+                                    $json[$i]['CANJEADO'] = number_format($canjeado);
                                     $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
                                     $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
-                                }
                             }
-                    }
                 }
                 if ($bandera!=null) {
                     return $json;

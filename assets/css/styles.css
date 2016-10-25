@@ -769,6 +769,11 @@ table tr:nth-child(even) {
     color: #4CAF50;
     font-size: 20px;
 }
+#Canj{
+    font-family: 'robotoblack';
+    color: #4CAF50;
+    font-size: 20px;
+}
 #contenedor{
     margin-top: 15%;
 }
@@ -1235,4 +1240,9 @@ label>select {
 }
 #modalPtsCliente{
   width: 50%;
+}
+
+.tachado{
+  text-decoration: line-through;
+  color: #ff002a;
 }
