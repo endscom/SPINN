@@ -1,14 +1,16 @@
 var activo = false;
 
 $(document).ready(function() {
-        $('.materialboxed').materialbox();
-$(function() {//funcion para agregar el active en el menu, segun la pagina en la que se encuentre el usuario
+    $('.materialboxed').materialbox();
+    
+    $(function() {//funcion para agregar el active en el menu, segun la pagina en la que se encuentre el usuario
         var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/")+1);
-         $("ul a li").each(function(){
+        $("ul a li").each(function(){
             if($(this).attr("href") == pgurl || $(this).attr("href") == '' || $(this).attr("href")+"#" == pgurl)
             $(this).addClass("urlActual");
          })
     });
+
 //$('#MFrp').openModal();
 
 $(".carita").mouseenter(function(){
@@ -19,6 +21,9 @@ $(".carita").mouseleave(function(){
     $(".carita").empty();
     $(".carita").append('<i class="material-icons">face</i>');
 });
+
+//$('#nuevoArticuloArchivo').openModal();
+
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -292,9 +297,7 @@ function AddClients(){
                    $(location).attr('Clientes');
                 }
             });
-
         }
-
     });
 }
     function exportar(formulario)
@@ -380,12 +383,15 @@ function subirimagen()
             });
         $('#listaArticulos').openModal();
     });
+
     $("#aceptarIMG2").click(function(){
         $('#formimagen2').submit();
     });
+
     $("#aceptarIMG").click(function(){
         $('#formimagen').submit();
     });
+
     /*RECORRER LAS FILAS CHEKEADAS Y AGREGARLAS A LA TABLA DE CATALOGO ACTUAL EKISDE*/
     $('#addCatalogoAntiguo').click(function(){
          $("#tblCatalogoPasado input:checkbox:checked").each(function(index) {
@@ -467,10 +473,12 @@ function subirimagen()
                     }
                 });
     });
+
     function myTimer3() {
         mensaje("SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE..","");
         $(location).attr('href',"Catalogo");
     }
+
      /*metodo para guardar el catalogo, con los nuevos articulos agregados*/
     $("#guardarCatalogo").on('click',function(){
             var contador = 0; var table2 = $('#tblCatalogoActualModal').DataTable();
@@ -531,6 +539,7 @@ function subirimagen()
                 }
             });
     });
+
     function myTimer2() {
         mensaje("SE GUARDARON LOS CAMBIOS EN EL CATALOGO, ESPERE...","");
         $(location).attr('href',"Catalogo");
@@ -552,11 +561,13 @@ function subirimagen()
                 table.row('.selected').remove().draw( false );
             } );
     }
+
     function darBaja(idImagen,IdCatalogo){
          $('#darBaja').openModal();
          idImagenGlobal = idImagen;
          IdCatalogoGlobal = IdCatalogo;
       } 
+
     $("#CrearCatalogo").on('click',function(){
         $('#labelDescripcion').hide();  $('#labelFecha2').hide();
         $('#labelDescripcion2').hide();
@@ -567,8 +578,6 @@ function subirimagen()
             $('#formNuevoCatalogo').submit();
             }
     });
-
-
 
     function traerDireccionTelefono (IdCLiente){
         $.ajax({//AJAX PARA TRAER LA DIRECCION Y EL TELEFONO DEL CLIENTE
@@ -600,9 +609,11 @@ function subirimagen()
         $('#txtFecha2').val(($("#fecha2").val()=="")? "0":$("#fecha2").val());
         $('#FrmEstadoFactura').submit();
     }
+
     function ExportardisponibilidadPuntos() {
         // body...
     }
+
     function limpiar () {
         $('#rpCodCliente').empty();     $('#rpNomCliente').empty();
         $('#rpCodCliente2').empty();    $('#rpNomCliente2').empty();
@@ -623,9 +634,11 @@ function subirimagen()
             f1=0;f2=0;
             $("#divFecha,#divFecha2").hide();
         };
+
         if(Cls == 0){
             $("#tituloReport1,#tituloReport2,#divCliente,#divCliente2").hide();
         }
+
         if($('#R1').is(':checked') ){$("#reporte").val(0);
             limpiarTabla(tblEstadoFactura);
             $('#tblEstadoFactura').DataTable({
@@ -663,6 +676,7 @@ function subirimagen()
             }).dataTable();
             
         }
+
         if($('#R2').is(':checked') ){$("#reporte").val(1);
             $("#Modal1Fecha12").html(f1);    $("#Modal1Fecha22").html(f2);
             $('#rpCodCliente2').text(Cls);   $("#reporte").val(1);
@@ -734,17 +748,12 @@ function subirimagen()
     $( "#ListCliente").change(function() {
         var Cls = $(this).val();
         if(Cls !=0){
-            var aplicados=0;
-
-            //COMMIT OBTENCION DE LOS PUNTOS APLICADOS POR CLIENTE
-
             $.ajax({
                 url: "getAplicadoP" + "/" + Cls,
                 type: "post",
                 async:true,
                 success:
                     function(clsAplicados){
-                        //aplicados = clsAplicados;
                         $("#PtsClientefrp").val(parseInt(clsAplicados));
                     }
             });
@@ -820,6 +829,7 @@ function subirimagen()
         ttFRP = parseInt($("#idttPtsCLsFRP").text());
         ptsFRP = parseInt($("#idttPtsFRP").text());
         var FACTURA   = $('#tblFacturaFRP').DataTable().row(posicion).data().DISPONIBLE;
+        
         if($("#CHK"+fact).is(':checked') ) {
             if (ttFRP == 0){
                 $("#CHK"+fact).prop('checked', false);
@@ -836,7 +846,7 @@ function subirimagen()
                         sfactura = FACTURA - ttFRP;
                         $("#DIS" + fact).html(sfactura);
                         ttFRP=0;
-                    }else{
+                    } else {
                         $("#AP1" + fact).html(FACTURA);
                         ttFRP = ttFRP - FACTURA;
                         $("#DIS" + fact).html("0");
@@ -844,7 +854,7 @@ function subirimagen()
                     }
                 }
             }
-        }else{
+        } else {
             ttFRP = ttFRP + parseInt($("#AP1" + fact).text());
             $("#AP1" + fact).html("");
             $("#DIS" + fact).html("");
@@ -852,7 +862,6 @@ function subirimagen()
         }
         $("#idttPtsCLsFRP").html(ttFRP)
     }
-
 
     $("#AddPremioTbl").on('click',function(){
         var Permitir = 0
@@ -863,6 +872,7 @@ function subirimagen()
                 Permitir = 1;
             }
         });
+
         var cod= $( "#ListCatalogo option:selected" ).val();
         var ttClPts = parseInt($("#PtsClientefrp").val());
         if (cod != 0){
@@ -893,10 +903,7 @@ function subirimagen()
         }else{
             mensaje("SELECCIONE UN ARTICULO DEL CATALOGO","error");
         }
-
-
     });
-
 
     $("#tblpRODUCTOS").delegate("a", "click", function(){
             $('#tblpRODUCTOS').DataTable().row('.selected').remove().draw( false );
@@ -908,37 +915,49 @@ function subirimagen()
             $("#idttPtsFRP").text(ttPts);
 
             apliAutomatic(ttPts);
-
     });
+
     $('#tblpRODUCTOS tbody').on( 'click', 'tr', function () {
         $(this).toggleClass('selected');
     } );
 
-
     $("#btnProcesar").click(function(){
-
-        var numFRP = $("#frp").val();
+        numFRP = $("#frp").val();
         var fchFRP = $("#date1").val();
         var pCambiar = $("#idttPtsCLsFRP").text();
         tblFactura = $("#tblFacturaFRP").DataTable();
         tblPremios = $("#tblpRODUCTOS").DataTable();
+        mss = 'INGRESE NUMERO DE FRP.';
 
-        if ( (numFRP =="") && (numFRP.length < 4)){
+        $.ajax({
+            url: "BuscaFRP/" + numFRP,
+            type: "post",
+            async:false,
+            success:
+                function(clsAplicados){
+                    if (parseInt(clsAplicados) > 0) {
+                        mss = 'NUMERO YA EXISTE!!!, INGRESE OTRO NUMERO DE FRP.';
+                        numFRP = "";
+                    }
+                }
+        });
+
+        if ( (numFRP =="") || (numFRP.length < 4)){
             $("#frp").focus();
-            mensaje("INGRESE NUMERO DE FRP","error");
+            mensaje(mss, "error");
         } else {
             if ( (fchFRP =="") && (fchFRP.length < 4) ){
                 $("#frp").focus();
-                mensaje("SELECCIONE LA FECHA","error");
+                mensaje("SELECCIONE LA FECHA.", "error");
             } else {
                 if ( !tblFactura.data().any() ){
-                    mensaje("TABLA DE FACTURAS VACIA","error");
+                    mensaje("TABLA DE FACTURAS VACIA.", "error");
                 } else {
                     if ( !tblPremios.data().any() ){
-                        mensaje("TABLA DE PREMIO VACIA","error");
+                        mensaje("TABLA DE PREMIO VACIA.", "error");
                     } else {
                         if  ( pCambiar != 0){
-                            mensaje("SELECCIONE LA FACTURAS A APLICAR","error");
+                            mensaje("SELECCIONE LA FACTURAS A APLICAR.", "error");
                         } else {
                             $('#Dfrp').openModal();
                             $("#frpProgress").show();
@@ -951,7 +970,6 @@ function subirimagen()
         }
     });
 
-
     function SaveFRP(idFrp,Fecha){
         var linea = 0;
         var menos = 0;
@@ -959,7 +977,6 @@ function subirimagen()
         var detallesFactura  = new Array();
         var logFactura       = new Array();
         var detallesArticulo = new Array();
-
 
         var i=0;
 
@@ -973,7 +990,7 @@ function subirimagen()
         Posi=0;
         obj.rows().data().each( function (ip) {
             remanente = parseInt(ip[4]);
-            //console.log("Arti: " + ip[1] + " Aplica: " + remanente);
+            
             ofact.rows().data().each( function (index,value) {
                 var FAC = ofact.row(linea).data().FACTURA;
                 var FCH = ofact.row(linea).data().FECHA;
@@ -982,6 +999,7 @@ function subirimagen()
                 apl = parseInt($("#AP1" + FAC).text());
                 dis = parseInt($("#DIS" + FAC).text());
                 est = ($("#EST" + FAC).text());
+                
                 if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
                 
                 if (remanente > apl){
@@ -996,12 +1014,10 @@ function subirimagen()
 
                 if (remanente == 0) {
                     return false;
-                }else{
+                } else {
                     console.log(FAC + "," + "Puntos:" + FLPunto +", Aplica: " + valor + ", Pendiente: " + apl);
-                    //console.log(idFrp+","+FAC+","+FLPunto+","+ip[1]+","+ip[2]+","+valor+","+ip[0] + "( " + Posi + " )");
                     detallesFactura[Posi] = idFrp+","+FAC+","+FLPunto+","+ip[1]+","+ip[2]+","+valor+","+ip[0]+","+FCH;
                     Posi++;
-
                 }
 
                 if (remanente > valor) {
@@ -1014,8 +1030,6 @@ function subirimagen()
                         remanente = 0;
                     }
                 }
-
-
                 linea++;
             });
             linea--
@@ -1037,9 +1051,11 @@ function subirimagen()
 
             i++;
         });
+
         i=0;
         obj = $('#tblFacturaFRP').DataTable();
         var viewFacturas     = new Array();
+
         obj.rows().data().each( function (index,value) {
             var FAC = obj.row(value).data().FACTURA;
             var FCH = obj.row(value).data().FECHA;
@@ -1047,8 +1063,9 @@ function subirimagen()
             var apl = $("#AP1" + FAC).text();
             dis = parseInt($("#DIS" + FAC).text());
             est = ($("#EST" + FAC).text());
+            
             if($("#CHK"+FAC).is(':checked') ) {
-                logFactura[i]      = IdCliente + "," +FAC + "," + apl;
+                logFactura[i]      = IdCliente + "," + FAC + "," + apl+ "," + FLPunto;
                 viewFacturas[i]=new Array(6);
                 viewFacturas[i][0] = FCH;
                 viewFacturas[i][1] = FAC;
@@ -1060,11 +1077,7 @@ function subirimagen()
             }
         });
 
-
-
-
         $('#Dfrp').openModal();
-
 
         var form_data = {
             top: [idFrp, Fecha, IdCliente,Nombre],
@@ -1149,18 +1162,11 @@ function subirimagen()
 
                         $("#frpProgress").hide();
                         $("#divTop,#divTbl").show();
-
-
-
                     } else {
                         mensaje("ERROR AL CREAR EL FRP","error");
                     }
                 }
         });
-
-        //window.setTimeout($(location).attr('href',"Frp"), 100000);
-
-
     }
 
     function callUrlPrint(targetURL,id){
@@ -1174,6 +1180,7 @@ function subirimagen()
         $("#Dell").openModal();
         $("#spnDellFRP").text(id);
     }
+
     $("#idProcederDell").click(function(){
         $("#Dell").closeModal();
         $("#DellRes").openModal();
@@ -1181,6 +1188,7 @@ function subirimagen()
         var form_data = {
             frp: id
         };
+
         $.ajax({
             url: "delFRP",
             type: "post",
@@ -1197,7 +1205,6 @@ function subirimagen()
                     }
                 }
         });
-
     });
 
     function getview(id){
@@ -1215,7 +1222,7 @@ function subirimagen()
             async:true,
             data: form_data,
             success:
-                function(data){
+            function(data){
                     $("#vfrpProgress").hide();
                     $("#vfrpTop,#vfrpTop").show();
 
@@ -1244,8 +1251,6 @@ function subirimagen()
 
                     var ttff=0;
 
-
-
                     for (p=0;p<dataJson.DArticulo.length;p++){
                         DP +=   "<tr>" +
                                     "<td>" +dataJson.DArticulo[p].Cantidad + "</td>" +
@@ -1264,8 +1269,6 @@ function subirimagen()
                 }
         });
     }
-
-     
 
     function DFactura(factura){
         $("#codFactura").text(factura); $('#progressFact').show();        
@@ -1302,7 +1305,6 @@ function subirimagen()
             }).dataTable();
     }
 
-
     $( "#ListCatalogo").change(function() {
         if ($("#ListCliente").val()!=0){
             $("#AddPremioTbl").hide();
@@ -1326,25 +1328,24 @@ function subirimagen()
                         $("#prgLoad").hide();
                     }
             });
-
         }else{
             mensaje("SELECCIONE UN CLIENTE PRIMERO","error");
         }
     });
-
-
 
     $("#cambiarImagen").on('click',function(){
         $('.cosaEdicion').hide();
         $('.cosa2').show();
         $(this).hide();
     });
+
      $('#subir').click( function () {
         $('#nuevoArticulo').openModal();$('#bandera').val(0);
         //$('#cargar22').trigger('click');
         $( 'img' ).remove( '#quitar' );
         $('#codigoArto').val("");$('#NombArto').val("");$('#PtArto').val("");
     } );
+
     function editarArticulo(imagen,codigo,descripcion,puntos){
         $('#bandera').val(1);
         $('#codigoArto').val(codigo);
@@ -1354,6 +1355,7 @@ function subirimagen()
         $("#cargar22").trigger("click");
         document.getElementById("ImgContenedor").innerHTML = ['<img id="quitar" src="../assets/img/catalogo/'+imagen+'" title="', escape('Imagen_Actual'), '"/>'].join('');
     }
+
     function clientesPuntos(cliente,vendedor,ruc,codigo) {
         $('#loadIMG').show();$('#detalleCliente').hide();$('#modalPtsCliente').openModal();
         $('#nomCliente').text(cliente);$('#codCliente').text("COD: "+codigo);$('#rucCliente').text("RUC: "+ruc);
@@ -1377,6 +1379,7 @@ function subirimagen()
                 }
             });
     }
+
     // agrego evento para abrir y cerrar los detalles
     $('#PtosCliente').on('click', 'tbody .detallesFactura', function () {
         var table = $('#PtosCliente').DataTable();
@@ -1397,6 +1400,7 @@ function subirimagen()
             tr.addClass('shown');
         }           
     });
+
     function format(callback,noPedido,div) {//funcion para traer llos datos y tabla de detalles
       var ia=0;
             $.ajax({
@@ -1437,6 +1441,7 @@ function subirimagen()
             }
         });
       }
+
 function articulosInactivos(){
     $('#listaArticulosInactivos').openModal();
     limpiarTabla(tblArticulosInactivos);
@@ -1487,8 +1492,8 @@ $('#guardarActiculosInactivos').click(function(){
                         break;
                         default: break;
                 }
-
             });
+
             $.ajax({//AJAX PARA TRAER LOS PUNTOS TOTALES DEL CLIENTE
                 url: "activarArticulos/"+codigo,
                 type: "GET",

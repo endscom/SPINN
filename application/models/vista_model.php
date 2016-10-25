@@ -30,6 +30,7 @@ class Vista_model extends CI_Model
             return 0;
         }
     }
+
     public function getAplicadoP($cliente) {/*PUNTOS APLICADOS POR CLIENTE*/
         $conn_sap = $this->hana_model->OPen_database_odbcSAp();
         $query_sap = "SELECT * from ".$this->hana_model->BD.".SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE='".$cliente."'";
@@ -46,6 +47,19 @@ class Vista_model extends CI_Model
         return intval($fila['DISPONIBLE']) - intval($Arestar);
     }
 
+    public function BuscaFRP($FRP) {//BUSCA SI EXISTE UN FRP EN LA BASE DE MYSQL
+        $this->db->select('IdFRP');
+        $this->db->from('frp');
+        $this->db->where('IdFRP',$FRP);
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0){
+            return $query->result_array()[0]['IdFRP'];
+        } else {
+            return 0;
+        }
+    }
+
     public function LoadVendedor() {/*CARGAR VENDEDOR*/
         $this->db->select('*');
         $this->db->from('Vendedor');
@@ -58,7 +72,6 @@ class Vista_model extends CI_Model
             return 0;
         }
     }
-
 
     public function LoadClient(){ /* CARGAR CLIENTES */
       $query = $this->sqlsrv -> fetchArray("SELECT CLIENTE, NOMBRE, VENDEDOR FROM Softland.umk.CLIENTE WHERE (ACTIVO = 'S')

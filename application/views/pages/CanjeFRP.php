@@ -9,24 +9,23 @@
 
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
-        
+        <div id="search" class=" right Buscar row column">
+            <div class="col s1 m1 l2"><i class="material-icons ColorS">search</i></div>
 
-        <div class=" row TextColor center">
-               canje de puntos
+            <div class="input-field col s6 m6 l10">
+                <input  id="searchFRP" type="text" placeholder="Buscar" class="validate">
+                <label for="search"></label>
+            </div>
         </div>
-        
-        <div id="buscar" class=" row column">
-               <div class="col s1 m1 l1 offset-s2 offset-m2 offset-l3"><i class="material-icons ColorS">search</i></div>
 
-               <div id="InputSearch" class="input-field col s6 m16 l4">
-                   <input  id="sFRP" type="text" placeholder="Buscar" class="validate">
-                   <label for="search"></label>
-               </div>           
-            <?php if (($this->session->userdata('IdRol')==2) || $this->session->userdata('IdRol')==1) {
-            echo    '<div class="col s12 m2 l2 offset-s4      offset-m1 offset-l2">
+        <div class=" row TextColor"><div class="col s5 m5 l12">canje puntos</div></div>
+
+        <?php if (($this->session->userdata('IdRol')==2) || $this->session->userdata('IdRol')==1) {
+            echo    '<div class="right row">
+                        <div class="col s2">
                             <a href="#MFrp" class="BtnBlue waves-effect  btn modal-trigger">canje</a>
                         </div>';
-                }        
+                }
             ?>
         </div>
         
@@ -83,6 +82,7 @@
                 </a>
             </div>
         </div>
+
         <div class="row center TextColor">
             FORMATO DE REMISIÓN DE PUNTOS
         </div>    
@@ -98,6 +98,7 @@
             <div class="DatoFrp col col s4 m3 l2 offset-l8 offset-m4 offset-s4">
                 FECHA:<input  type="text" id="date1" class="datepicker1">
             </div>
+
         </div>
 
         <div class="row" >
@@ -107,6 +108,7 @@
             <div class="input-field col s12 m8 l8">
                 <select class="chosen-select browser-default " id="ListCliente">
                     <option value="0" selected >CLIENTES...</option>
+                    
                     <?PHP
                         if(!$Clientes){
                         } else {
@@ -130,17 +132,17 @@
             <div class="input-field col s6 m8 l6">
                 <select class="chosen-select browser-default " name="PREMIO" id="ListCatalogo"  >
                     <option value="0" selected>...</option>
-                    <?PHP
-                    if(!$Catalogo){
-                    } else {
-                        foreach($Catalogo as $premios){
-                            echo '<option value="'.$premios['IdIMG'].'">'.$premios['Nombre'].'</option>';
-                        }
-                    }
-                    ?>
+                        <?PHP
+                            if(!$Catalogo){
+                            } else {
+                                foreach($Catalogo as $premios){
+                                    echo '<option value="'.$premios['IdIMG'].'">'.$premios['Nombre'].'</option>';
+                                }
+                            }
+                        ?>
                 </select>
             </div>
-            
+
             <div class="DatoFrp line input-field col s12 m9 l2 ">
                 <input disabled id="ValorPtsPremioFRP"  type="text" class="validate">
             </div>
@@ -151,14 +153,9 @@
         </div>
         <div class="right row">
             <div class="preloader-wrapper small active" style="display:none" id="prgLoad">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                        <div class="circle"></div>
-                    </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
+                <div class="spinner-layer spinner-green-only"><div class="circle-clipper left"><div class="circle"></div></div>
+                    <div class="gap-patch"><div class="circle"></div></div>
+                    <div class="circle-clipper right"><div class="circle"></div></div>
                 </div>
             </div>
             <div class="col s2 m2 l2">
@@ -178,34 +175,29 @@
                 </tr>
             </thead>
 
-            <tbody>
-
-            </tbody>
+            <tbody></tbody>
         </table>
         <div id="Total" class="right row text">
-            <div class="col s12 m12 l12">
-                <p class="Dato">A APLICAR: <span class="dato" id="idttPtsFRP">0</span> Pts.</p>
-            </div>
+            <div class="col s12 m12 l12"><p class="Dato">A APLICAR: <span class="dato" id="idttPtsFRP">0</span> Pts.</p></div>
         </div>
+
         <table id="tblFacturaFRP" class=" TblDatos">
             <thead>
-            <tr>
-                <th>FECHA</th>
-                <th>FACTURA</th>
-                <th>Pts.</th>
-                <th>Pts. APLI.</th>
-                <th>Pts. DISP.</th>
-                <th></th>
-                <th>ESTADO</th>
-            </tr>
+                <tr>
+                    <th>FECHA</th>
+                    <th>FACTURA</th>
+                    <th>Pts.</th>
+                    <th>Pts. APLI.</th>
+                    <th>Pts. DISP.</th>
+                    <th></th>
+                    <th>ESTADO</th>
+                </tr>
             </thead>
             <tbody></tbody>
         </table>
         <div class="row">
             <div id="Total" class="right row">
-                <div class="col s12">
-                    <p class="Dato">PENDIENTES A APLICAR: <span class="dato" id="idttPtsCLsFRP">0</span> Pts.</p>
-                </div>
+                <div class="col s12"><p class="Dato">PENDIENTES A APLICAR: <span class="dato" id="idttPtsCLsFRP">0</span> Pts.</p></div>
             </div>
         </div>
         <div class="center row noMargen">
@@ -264,29 +256,22 @@
             <div class="container center">
                 <div class="col s1" >
                     <div class="row">
-                        <div class="col s11 " >
-                            <span id="titulM" class="Mcolor"> DETALLE FRP</span>
-                        </div>
+                        <div class="col s11"><span id="titulM" class="Mcolor"> DETALLE FRP</span></div>
                         
-                        <div class="col s1 m1 l1"  >
+                        <div class="col s1 m1 l1" >
                             <a href="#!" class=" BtnClose modal-action modal-close ">
                                 <i class="material-icons">highlight_off</i>
                             </a>
                         </div>
-
                     </div>
                 </div>
 
                 <div class="row center " id="frpProgress">
                     <div class="preloader-wrapper big active">
                         <div class="spinner-layer spinner-blue-only">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div><div class="gap-patch">
-                                <div class="circle"></div>
-                            </div><div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
+                            <div class="circle-clipper left"><div class="circle"></div></div>
+                            <div class="gap-patch"><div class="circle"></div></div>
+                            <div class="circle-clipper right"><div class="circle"></div></div>
                         </div>
                     </div>
                 </div>
@@ -300,43 +285,38 @@
                     <div class="col s1">
                         <span id="Nfarmacia" class="center Mcolor">COD# <span id="spnCodCls"></span> NOMBRE: <span id="spnNombreCliente"></span></span><br>
                     </div>
-
                 </div>
             </div>
 
            <div id="divTbl">
                <table id="tblModal1" class="TblDatos">
                    <thead>
-                   <tr>
-                       <th>FECHA</th>
-                       <th>BOUCHER</th>
-                       <th>Pts.</th>
-                       <th>Pts. APLI.</th>
-                       <th>Pts. DISP.</th>
-                       <th>ESTADO</th>
-                   </tr>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>VOUCHER</th>
+                        <th>Pts.</th>
+                        <th>Pts. APLI.</th>
+                        <th>Pts. DISP.</th>
+                        <th>ESTADO</th>
+                    </tr>
                    </thead>
 
-                   <tbody>
-
-                   </tbody>
+                   <tbody></tbody>
                </table>
                <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
 
                <table id="tblModal2" class="TblDatos">
                    <thead>
-                   <tr>
-                       <th>CANT.</th>
-                       <th>COD. PREMIO</th>
-                       <th>DESCRIPCIÓN</th>
-                       <th>Pts. </th>
-                       <th>TOTAL Pts.</th>
-                   </tr>
+                    <tr>
+                        <th>CANT.</th>
+                        <th>COD. PREMIO</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>Pts. </th>
+                        <th>TOTAL Pts.</th>
+                    </tr>
                    </thead>
 
-                   <tbody>
-
-                   </tbody>
+                   <tbody></tbody>
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnTotalFRP"></span></span> </h6>
                <div class="row center" style="">
@@ -353,29 +333,22 @@
             <div class="container center">
                 <div class="col s1" >
                     <div class="row">
-                        <div class="col s11 " >
-                            <span id="titulM" class="Mcolor"> DETALLE FRP</span>
-                        </div>
+                        <div class="col s11"><span id="titulM" class="Mcolor"> DETALLE FRP</span></div>
                         
                         <div class="col s1 m1 l1"  >
                             <a href="#!" class=" BtnClose modal-action modal-close ">
                                 <i class="material-icons">highlight_off</i>
                             </a>
                         </div>
-
                     </div>
                 </div>
 
                 <div class="row center " id="vfrpProgress">
                     <div class="preloader-wrapper big active">
                         <div class="spinner-layer spinner-blue-only">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div><div class="gap-patch">
-                                <div class="circle"></div>
-                            </div><div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
+                            <div class="circle-clipper left"><div class="circle"></div></div>
+                            <div class="gap-patch"><div class="circle"></div></div>
+                            <div class="circle-clipper right"><div class="circle"></div></div>
                         </div>
                     </div>
                 </div>
@@ -389,49 +362,44 @@
                     <div class="col s1">
                         <span id="Nfarmacia" class="center Mcolor">COD# <span id="spnviewCodCls"></span> NOMBRE: <span id="spnviewNombreCliente"></span></span><br>
                     </div>
-
                 </div>
             </div>
 
            <div id="vfrpTop">
                <table id="tblviewDFacturaFRP" class="TblDatos">
                    <thead>
-                   <tr>
-                       <th>FECHA</th>
-                       <th>FACTURA</th>
-                       <th>Pts.</th>
-                       <th>Pts. APLI.</th>
-                       <th>Pts. DISP.</th>
-                       <th>ESTADO</th>
-                   </tr>
+                        <tr>
+                            <th>FECHA</th>
+                            <th>FACTURA</th>
+                            <th>Pts.</th>
+                            <th>Pts. APLI.</th>
+                            <th>Pts. DISP.</th>
+                            <th>ESTADO</th>
+                        </tr>
                    </thead>
-                   <tbody>
-
-                   </tbody>
+                   
+                   <tbody></tbody>
                </table>
                <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
 
                <table id="tblviewDPremioFRP" class="TblDatos">
                    <thead>
-                   <tr>
-                       <th>CANT.</th>
-                       <th>COD. PREMIO</th>
-                       <th>DESCRIPCIÓN</th>
-                       <th>Pts. </th>
-                       <th>TOTAL Pts.</th>
-                   </tr>
+                        <tr>
+                            <th>CANT.</th>
+                            <th>COD. PREMIO</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>Pts. </th>
+                            <th>TOTAL Pts.</th>
+                        </tr>
                    </thead>
-                   <tbody>
-
-                   </tbody>
+                   
+                   <tbody></tbody>
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnttFRP"></span> Pts.</span> </h6>
                <!--<div class="row center">
                    <a href="#" onclick="callUrlPrint('ExpFRP','spnviewFRP')"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
                </div>-->
            </div>
-
-
     </div>
 </div>
 <!-- Fin de Modal#4-->
