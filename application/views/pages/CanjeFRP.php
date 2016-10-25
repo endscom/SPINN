@@ -1,6 +1,6 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
-        <span class=" title">frp</span>
+        <span class=" title">caje de puntos</span>
     </div>
 </header>
 <!--//////////////////////////////////////////////////////////
@@ -9,31 +9,27 @@
 
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
-        <div id="search" class=" right Buscar row column">
-            <div class="col s1 m1 l2">
-                <i class="material-icons ColorS">search</i>
-            </div>
+        
 
-            <div class="input-field col s6 m6 l10">
-                <input  id="searchFRP" type="text" placeholder="Buscar" class="validate">
-                <label for="search"></label>
-            </div>
+        <div class=" row TextColor center">
+               canje de puntos
         </div>
+        
+        <div id="buscar" class=" row column">
+               <div class="col s1 m1 l1 offset-s2 offset-m2 offset-l3"><i class="material-icons ColorS">search</i></div>
 
-        <div class=" row TextColor">
-            <div class="col s5 m5 l12">
-               canje puntos
-            </div>
-        </div>
-
-        <?php if (($this->session->userdata('IdRol')==2) || $this->session->userdata('IdRol')==1) {
-            echo    '<div class="right row">
-                        <div class="col s2">
+               <div id="InputSearch" class="input-field col s6 m16 l4">
+                   <input  id="sFactura" type="text" placeholder="Buscar Facturas o Cliente" class="validate">
+                   <label for="search"></label>
+               </div>           
+            <?php if (($this->session->userdata('IdRol')==2) || $this->session->userdata('IdRol')==1) {
+            echo    '<div class="col s12 m2 l2 offset-s4      offset-m1 offset-l2">
                             <a href="#MFrp" class="BtnBlue waves-effect  btn modal-trigger">canje</a>
-                        </div>
-                    </div>';
-            }        
-        ?>
+                        </div>';
+                }        
+            ?>
+        </div>
+        
         <table id="FRP" class=" TblDatos">
             <thead>
                 <tr>
@@ -92,27 +88,28 @@
                 </a>
             </div>
         </div>
-
-        <h6 id="Format" class="center Mcolor">FORMATO DE REMISIÓN DE PUNTOS</h6>
-        <div class="row ">
-            <div class=" DatoFrp col s2">
+        <div class="row center TextColor">
+            FORMATO DE REMISIÓN DE PUNTOS
+        </div>    
+        
+        <div class="row noMargen center Mcolor">
+            CLIENTE
+        </div>
+        <div class="row">
+            <div class=" DatoFrp col s4 m3 l2">
                 N° FRP: <input id="frp" type="text" class="validate">
-            </div>
+            </div>            
 
-            <div class="col s5 offset-s1" >
-                <h6 id="Format" class="center Mcolor">CLIENTE</h6>
-            </div>
-
-            <div class="DatoFrp col s2 offset-s2">
+            <div class="DatoFrp col col s4 m3 l2 offset-l8 offset-m4 offset-s4">
                 FECHA:<input  type="text" id="date1" class="datepicker1">
             </div>
         </div>
 
         <div class="row" >
-            <div class=" DatoFrp input-field line col s2 ">
+            <div class=" DatoFrp input-field line col s12 m4 l2 ">
                COD. CLIENTE:<input disabled id="ClienteFRP"  type="text" class="validate ">
             </div>
-            <div class="input-field col s4 m4 l5" ">
+            <div class="input-field col s12 m8 l8">
                 <select class="chosen-select browser-default " id="ListCliente">
                     <option value="0" selected >CLIENTES...</option>
                     <?PHP
@@ -125,17 +122,17 @@
                     ?>
                 </select>
             </div>
-            <div class="input-field col s2 m3 l3">
-                <input disabled id="PtsClientefrp" type="text" class="validate">
+            <div class=" DatoFrp input-field line col s12 m9 l2">
+                PUNTOS:<input disabled id="PtsClientefrp" type="text" class="validate">
             </div>
         </div>
         <!-- datos de los premios a canjear  -->
         <div class="row">
-            <div class="DatoFrp line input-field col s2 m2 l2">
+            <div class="DatoFrp line input-field col s6 m4 l2">
                 COD. PREMIO:<input disabled  id="CodPremioFRP" type="text" class="validate">
             </div>
 
-            <div class="input-field col s3 l5">
+            <div class="input-field col s6 m8 l6">
                 <select class="chosen-select browser-default " name="PREMIO" id="ListCatalogo"  >
                     <option value="0" selected>...</option>
                     <?PHP
@@ -149,11 +146,11 @@
                 </select>
             </div>
             
-            <div class="DatoFrp line input-field col s2  m2 l3 ">
+            <div class="DatoFrp line input-field col s6 l2 ">
                 <input disabled id="ValorPtsPremioFRP"  type="text" class="validate">
             </div>
             
-            <div class="DatoFrp line input-field col s2 m2 l2 ">
+            <div class="DatoFrp line input-field col s6 l2 ">
                 CANTIDAD:<input  id="CantPremioFRP"  type="text" class="validate">
             </div>
         </div>
@@ -216,7 +213,7 @@
                 </div>
             </div>
         </div>
-        <div class="center row">
+        <div class="center row noMargen">
             <a href="#!" id="btnProcesar" class="Procesar waves-effect modal-action modal-close btn modal-trigger">procesar</a>
         </div>
     </div>

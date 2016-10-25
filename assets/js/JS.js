@@ -9,7 +9,7 @@ $(function() {//funcion para agregar el active en el menu, segun la pagina en la
             $(this).addClass("urlActual");
          })
     });
-//$('#nuevoArticuloArchivo').openModal();
+$('#MFrp').openModal();
 $('.datepicker').pickadate({ 
         selectMonths: true,selectYears: 15,format: 'dd-mm-yyyy',
         monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
