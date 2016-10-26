@@ -71,14 +71,13 @@ class Hana_model extends CI_Model
         $json = array();
         $i=0;
 
-        if (count($resultado)==0) {
             $json['data'][$i]["COD_CLIENTE"] = "";
             $json['data'][$i]["FECHA"] = "";
-            $json['data'][$i]["FACTURA"] = "";
+            $json['data'][$i]["FACTURA"] = "NO HAY DATOS";
             $json['data'][$i]["VENDEDOR"] = "";
             $json['data'][$i]["ACUMULADO"] = "";
             $json['data'][$i]["DISPONIBLE"] = "";
-        } else {
+
             while ($fila = @odbc_fetch_array($resultado)){
                 $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
                 $json['data'][$i]["FECHA"] = $this->formatFechaPHP($fila['FECHA']);
@@ -87,7 +86,7 @@ class Hana_model extends CI_Model
                 $json['data'][$i]["ACUMULADO"] = number_format($fila['ACUMULADO'],2);
                 $json['data'][$i]["DISPONIBLE"] = number_format($fila['DISPONIBLE'],2);
                 $i++;
-            }
+            
         }
         echo json_encode($json);
     }
