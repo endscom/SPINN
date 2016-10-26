@@ -38,6 +38,7 @@ class Vista_model extends CI_Model
         $resultado =  @odbc_exec($conn_sap,$query_sap);
         $fila = @odbc_fetch_array($resultado);
         $query = $this->db->query("call pc_clientes_pa ('".$cliente."')");
+        
         if($query->num_rows() > 0){
             $Arestar = $query->result_array()[0]['Puntos'];
         } else {

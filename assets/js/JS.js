@@ -1386,7 +1386,7 @@ function subirimagen()
         var tr = $(this).closest('tr'); $(this).addClass("detallesFacturOrange");
         var row = table.row(tr);
         var data = table.row( $(this).parents('tr') ).data();//obtengo todos los datos de la fila que di click
-        //alert (data[1]); este es el dato de la segunda columna
+        //alert (data[1]); //este es el dato de la segunda columna
 
         if (row.child.isShown()) {// esta fila ya se encuentra visible - cierrala
             row.child.hide();
