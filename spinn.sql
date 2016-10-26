@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2016 a las 22:22:58
+-- Tiempo de generación: 26-10-2016 a las 16:55:57
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -112,6 +112,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pc_factura_parcial` (IN `cfact` INT
   SELECT SUM(Puntos) 
   FROM view_frp_factura
   WHERE SALDO <> 0 AND anulado = 'N' AND Factura = cfact;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pc_mfactura` (IN `infactura` NCHAR(20), IN `inpuntos` INT, IN `fecha` DATETIME)  BEGIN
+     UPDATE rfactura SET Puntos = (Puntos + INPUNTOS), FechaActualizacion = FECHA  WHERE Factura = INFACTURA;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pc_RFactura` (IN `INFACTURA` CHAR(20), IN `INPUNTOS` INT, IN `CLIENTE` CHAR(30), IN `FECHA` DATETIME, IN `ttpuntos` INTEGER)  BEGIN
@@ -377,11 +381,7 @@ CREATE TABLE `detallefrp` (
 --
 
 INSERT INTO `detallefrp` (`IdFRP`, `Factura`, `Fecha`, `Faplicado`, `IdArticulo`, `Descripcion`, `Puntos`, `Cantidad`) VALUES
-(1234, '10001956', '20160614', 7500, 149863, 'MINICOMP LG CM4560 8000W', 7500, 1),
-(1234, '10001991', '20160628', 7500, 149863, 'MINICOMP LG CM4560 8000W', 7500, 1),
-(1234, '10002039', '20160715', 15000, 149863, 'MINICOMP LG CM4560 8000W', 238, 1),
-(1234, '10002039', '20160715', 15000, 151325, 'OLLA ARROC B&amp;D RC5200M INOX 20TZ', 2329, 1),
-(4321, '10002039', '20160715', 12433, 146981, 'PERCOLADOR HBEACH 40516 42TZ', 3191, 1);
+(1234, '10002019', '2016-07-08', 3000, 150022, 'PLANCHA B&amp;D IR1820 VAPOR', 1161, 1);
 
 -- --------------------------------------------------------
 
@@ -403,8 +403,7 @@ CREATE TABLE `frp` (
 --
 
 INSERT INTO `frp` (`IdFRP`, `Fecha`, `IdCliente`, `Nombre`, `IdUsuario`, `Anulado`) VALUES
-(1234, '2016-10-25 00:00:00', 'CL008227', 'LACTEOS CENTROAMERICANOS, S.A', 1, 'N'),
-(4321, '2016-10-25 00:00:00', 'CL008227', 'LACTEOS CENTROAMERICANOS, S.A', 1, 'S');
+(1234, '2016-10-26 00:00:00', 'CL000003', 'BAYARDO ALEJANDRO ROMERO', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -425,9 +424,7 @@ CREATE TABLE `rfactura` (
 --
 
 INSERT INTO `rfactura` (`IdCliente`, `Factura`, `ttPuntos`, `Puntos`, `FechaActualizacion`) VALUES
-('CL008227', '10001956', 7500, 0, '2016-10-25 05:47:03'),
-('CL008227', '10001991', 7500, 0, '2016-10-25 05:47:03'),
-('CL008227', '10002039', 15000, 9242, '2016-10-25 06:22:53');
+('CL000003', '10002019', 3000, 1839, '2016-10-26 04:48:05');
 
 -- --------------------------------------------------------
 
