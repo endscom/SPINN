@@ -53,7 +53,7 @@
                         $delete = "<a  onclick='dellFrp(".$frp['IdFRP'].")' href='#!' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a>";
                     }
                     echo "<tr>
-                                <td class='".$clase."'>".date_format(date_create($frp['Fecha']), 'd-m-Y')."</td>
+                                <td class='".$clase."'>".$frp['Fecha']."</td>
                                 <td class='".$clase."'>".$frp['IdFRP']."</td>
                                 <td class='".$clase."'>".$frp['IdCliente']."</td>
                                 <td class='".$clase."' id='NomCliente'>".$frp['Nombre']."</td>
