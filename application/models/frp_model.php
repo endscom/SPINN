@@ -30,9 +30,22 @@ class Frp_model extends CI_Model{
     }
 
     public function inactivar($id){
+        //Retornamos los Puntos a la Factura
+        $this->FRPInac($id);
+
         $this->db->where('IdFRP',$id);
         return $this->db->update('frp',array('Anulado' => 'S'));
     }
+    
+    public function FRPInac($FRP){
+        $this->db->where('IdFRP',$FRP);
+        $query = $this->db->get('detalleFRP');
+        
+        foreach ($query->result_array() as $row){
+            $this->db->query("call pc_MFactura ('".$row['Factura']."','".$row['Puntos']."','".date('Y-m-d h:i:s')."')");
+        }     
+    }
+
 
     public function save($top,$art,$fact,$log){
         $top = array(
