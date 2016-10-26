@@ -258,7 +258,7 @@ class Hana_model extends CI_Model
         if ($this->session->userdata('IdRol')==4) {
             $query = 'SELECT * FROM '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
         } else {
-            $query = 'SELECT * FROM '.$this->BD.'.SPINN_CLIENTES ';
+            $query = 'SELECT * FROM '.$this->BD.'.SPINN_BORRAR ';
         }
 
         $resultado =  @odbc_exec($conn,$query);
@@ -382,7 +382,7 @@ class Hana_model extends CI_Model
         $conn = $this->OPen_database_odbcSAp();
         $query = 'SELECT count(*) AS "CONTADOR" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
         $resultado =  @odbc_exec($conn,$query);
-        
+        $contador = 0;
         if (count($resultado)==0){
             echo " ERROR AL CARGAR LOS PUNTOS ";
         } else {
@@ -396,9 +396,10 @@ class Hana_model extends CI_Model
                     $json[$i]['CLIENTE'] = "";
                 } else {
                     $query = 'SELECT "COD_CLIENTE","CLIENTE","DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
-                    $resultado =  @odbc_exec($conn,$query);
+                    $resultado =  @odbc_exec($conn,$query); $contador=1;
                     $query = $this->db->query('CALL pc_clientes_pa ("'.$IdCliente.'")');
                     if($query->num_rows() > 0){
+                        $contador = 1;
                         $canjeado = $query->result_array()[0]['Puntos'];
                     }else{
                         $canjeado = 0;
@@ -411,17 +412,19 @@ class Hana_model extends CI_Model
                                     $json[$i]['COD_CLIENTE'] = 0;
                                     $json[$i]['CLIENTE'] = 0;
 
-                                    $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE']);
-                                    $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO']);
-                                    $json[$i]['CANJEADO'] = number_format($canjeado);
+                                    $json[$i]['DISPONIBLE'] = $fila['DISPONIBLE'];
+                                    $json[$i]['ACUMULADO'] = $fila['ACUMULADO'];
+                                    $json[$i]['CANJEADO'] = $canjeado;
                                     $json[$i]['COD_CLIENTE'] = $fila['COD_CLIENTE'];
                                     $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
                             }
+                }//echo $contador;
+                if($contador == 1){
+                    $query->next_result();
                 }
-                
                 if ($bandera!=null) {
                     return $json;
-                }                
+                }
             echo json_encode($json);
             }
         }

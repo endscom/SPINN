@@ -111,8 +111,8 @@
             <table id="tblEstadoFactura" style='width: 100%;'>
                 <thead>
                     <tr>
-                        <th>DISPONIBLE</th>
                         <th>ACUMULADO</th>
+                        <th>DISPONIBLE</th>                        
                         <th>CANJEADO</th>
                     </tr>
                 </thead>
@@ -123,9 +123,9 @@
                                 foreach($cliente as $factura){
                                     echo "
                                     <tr>
-                                        <td class='center'>".$factura['DISPONIBLE']."</td>
-                                        <td class='center'>".$factura['ACUMULADO']."</td>
-                                        <td class='center'>".$factura['CANJEADO']."</td>
+                                        <td class='center'>".number_format($factura['ACUMULADO'])."</td>
+                                        <td class='center'>".number_format(($factura['DISPONIBLE']-$factura['CANJEADO']))."</td>
+                                        <td class='center'>".number_format($factura['CANJEADO'])."</td>
                                     </tr>";
                             }
                         }

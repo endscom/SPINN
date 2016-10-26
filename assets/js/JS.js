@@ -1370,9 +1370,9 @@ function subirimagen()
                 {                    
                     //$("#AcuT").html(datos[0]['ACUMULADO']);
                     $.each(datos, function(i, item) {
-                        $("#AcuT").html(item.ACUMULADO);
-                        $("#Disp").html(item.DISPONIBLE);
-                        $("#Canj").html(item.CANJEADO);
+                        $("#AcuT").html(formatNumber(item.ACUMULADO));
+                        $("#Disp").html(formatNumber(item.DISPONIBLE-item.CANJEADO));
+                        $("#Canj").html(formatNumber(item.CANJEADO));
                     });
                     $('#detalleCliente').show();
                     $('#loadIMG').hide();
@@ -1380,6 +1380,10 @@ function subirimagen()
             });
     }
 
+    function formatNumber(x) {//solo funciona con exteros
+        return isNaN(x)?"":x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
     // agrego evento para abrir y cerrar los detalles
     $('#PtosCliente').on('click', 'tbody .detallesFactura', function () {
         var table = $('#PtosCliente').DataTable();

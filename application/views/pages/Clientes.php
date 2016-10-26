@@ -128,11 +128,11 @@
                     </div>
 
                     <div class="col s12">
-                        <p id="acumulado" class="center Datos negra noMargen">DISPONIBLE: <span id="Disp"></span> Pts.</p>
+                        <p id="acumulado" class="center Datos negra noMargen">ACUMULADO: <span id="AcuT"></span> Pts.</p>
                     </div>
 
                     <div class="col s12">
-                        <p id="acumulado" class="center Datos negra noMargen">ACUMULADO: <span id="AcuT"></span> Pts.</p>
+                        <p id="acumulado" class="center Datos negra noMargen">DISPONIBLE: <span id="Disp"></span> Pts.</p>
                     </div>
 
                     <div class="col s12">
