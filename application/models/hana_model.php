@@ -391,9 +391,13 @@ class Hana_model extends CI_Model
                 if($fila['CONTADOR']==0){
                     $json[$i]['DISPONIBLE'] = 0;
                     $json[$i]['ACUMULADO'] = 0;
-                    $json[$i]['CANJEADO'] = 0;
-                    $json[$i]['COD_CLIENTE'] = "";
-                    $json[$i]['CLIENTE'] = "";
+                    $json[$i]['CANJEADO'] = 0; 
+                    $query2 = 'SELECT "CODIGO","NOMBRE" FROM '.$this->BD.'.SPINN_CLIENTES WHERE CODIGO = '."'".$IdCliente."'".'';
+                    $resultado2 =  @odbc_exec($conn,$query2);
+                     while ($fila2 = @odbc_fetch_array($resultado2)){
+                        $json[$i]['COD_CLIENTE'] = $fila2['CODIGO'];
+                        $json[$i]['CLIENTE'] = utf8_encode($fila2['NOMBRE']);
+                    }
                 } else {
                     $query = 'SELECT "COD_CLIENTE","CLIENTE","DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
                     $resultado =  @odbc_exec($conn,$query); $contador=1;

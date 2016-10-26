@@ -76,7 +76,7 @@ class Exportacion_controller extends CI_Controller
         $data["cliente"] = $this->hana_model->puntosCliente($codigo,1);
         $data["aplicado"] = $this->vista_model->getAplicadoP($codigo);
 
-        $PdfCliente = new mPDF('utf-8',array(76.2,100));
+        $PdfCliente = new mPDF('utf-8',array(80,80),0,0,4,4,0);
         $PdfCliente -> writeHTML($this->load->view('Exportar/Pdf_VoucherCliente',$data,true));
         $PdfCliente->Output();
     }
