@@ -1405,6 +1405,26 @@ function subirimagen()
         }           
     });
 
+     $('#ClienteAdd tbody').on('click', 'tr td.searchDireccion', function () {
+        var table = $('#ClienteAdd').DataTable();
+        var data = table.row( this ).data();
+        var cell = table.cell( this );
+        cell.data('<div class="progress"><div class="indeterminate"></div></div>').draw();
+        $.ajax({//AJAX PARA TRAER LA DIRECCION COMPLETA DEL CLIENTE
+                url: "ajaxDireccionCliente/"+data[0],
+                type: "GET",
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    $.each(datos, function(i, item) {
+                        cell.data(item.DIRECCION).draw();                        
+                    });
+                }
+            });
+    } );
+
     function format(callback,noPedido,div) {//funcion para traer llos datos y tabla de detalles
       var ia=0;
             $.ajax({

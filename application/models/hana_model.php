@@ -84,7 +84,7 @@ class Hana_model extends CI_Model
                 $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
                 $json['data'][$i]["VENDEDOR"] = utf8_encode($fila['VENDEDOR']);
                 $json['data'][$i]["ACUMULADO"] = number_format($fila['ACUMULADO'],2);
-                $json['data'][$i]["DISPONIBLE"] = number_format($this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']),2);//number_format($fila['DISPONIBLE'],2);
+                $json['data'][$i]["DISPONIBLE"] = number_format($fila['DISPONIBLE'],2);
                 $i++;
             
         }
@@ -234,8 +234,6 @@ class Hana_model extends CI_Model
         $resultado =  @odbc_exec($conn,$query);
         $json = array();
         $i=0;
-        $query= "";
-
         if (count($resultado)==0) {
             $json[$i]['CODIGO'] = "";
             $json[$i]['CLIENTE'] = "";
@@ -248,7 +246,7 @@ class Hana_model extends CI_Model
                 $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
                 $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO'],2);
-                $json[$i]['DISPONIBLE'] = number_format($this->getPuntosAPL($fila['COD_CLIENTE'],$fila['DISPONIBLE']),2);//number_format($fila['DISPONIBLE'],2);
+                $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE'],2);
                 $i++;
             }
         }
@@ -258,9 +256,10 @@ class Hana_model extends CI_Model
     public function LoadClients(){
         $conn = $this->OPen_database_odbcSAp();
         if ($this->session->userdata('IdRol')==4) {
-            $query = 'SELECT * FROM '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
+
+            $query = 'SELECT "COD_VENDEDOR","VENDEDOR","CODIGO","RUC","NOMBRE","DIRECCION" FROM '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
         } else {
-            $query = 'SELECT * FROM '.$this->BD.'.SPINN_BORRAR ';
+            $query = 'SELECT "COD_VENDEDOR","VENDEDOR","CODIGO","RUC","NOMBRE","ABREV" AS "DIRECCION" FROM '.$this->BD.'.SPINN_CLIENTES';
         }
 
         $resultado =  @odbc_exec($conn,$query);
@@ -282,8 +281,21 @@ class Hana_model extends CI_Model
                 $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
                 $i++;
         }
-        //echo $i;
         return $json;
+    }
+
+    public function ajaxDireccionCliente($IdCliente)
+    {
+        $conn = $this->OPen_database_odbcSAp();
+        $query = "SELECT * FROM ".$this->BD.".SPINN_CLIENTES WHERE CODIGO = '".$IdCliente."'"; 
+        //echo $query;
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+        while ($fila = @odbc_fetch_array($resultado)){
+            $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
+        }
+        echo json_encode($json);
     }
 
     public function DFacturas($ID){
@@ -304,53 +316,23 @@ class Hana_model extends CI_Model
         echo json_encode($json);
     }
 
-    //OBTENER LOS DATOS QUE HAN SIDO CANGEADOS POR EL CLIENTE EN MYSQL Y LO RESTAMOS AL TOTAL DE SAP
-    public function getPuntosAPL($id, $pts){
-            /*$query = $this->db->query('call pc_clientes_pa("'.$id.'")');
+    public function getSaldoParcial($id,$pts){
+
+            $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
+            mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
+            //$query = "SELECT Puntos FROM view_frp_factura WHERE SALDO <> 0 AND anulado = 'N' AND Factura = '".$id."'";
+            $query = "SELECT Puntos FROM rfactura WHERE Puntos <> 0 AND Factura = '".$id."'";
+
+            $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+            $line = mysql_fetch_array($result, MYSQL_ASSOC);
+            $rows_factura = $line['Puntos'];
             
-            if ($query->num_rows() == 0){
+            if($rows_factura == "" ){
                 $rows_factura_ajx = $pts;
             } else {
-                $rows_factura_ajx = $pts - $query->result_array()[0]['Puntos'];
+                $rows_factura_ajx = $rows_factura;
             }
-
-            $query->next_result();
-            $query->free_result();
-            return $rows_factura_ajx;*/
-
-
-        $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
-        mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
-        $query = "SELECT SUM(T0.Puntos) AS Puntos FROM view_frp_factura T0 WHERE T0.Anulado = 'N' AND T0.IdCliente = '".$id."'";
-
-        $result = mysql_query($query) or die('Consulta fallida: '.mysql_error());
-        $line = mysql_fetch_array($result, MYSQL_ASSOC);
-        $rows_factura = $line['Puntos'];
-            
-        if($rows_factura == 0 ){
-            $rows_factura_ajx = $pts;
-        } else {
-            $rows_factura_ajx = $pts - $rows_factura;
-        }
-        return $rows_factura_ajx;
-    }
-
-    //VERIFICAR SI UNA FACTURA CONTIENE AUN SALDO DE PUNTOS
-    public function getSaldoParcial($id,$pts){
-        $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
-        mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
-        $query = "SELECT Puntos FROM rfactura WHERE Puntos <> 0 AND Factura = '".$id."'";
-
-        $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
-        $line = mysql_fetch_array($result, MYSQL_ASSOC);
-        $rows_factura = $line['Puntos'];
-            
-        if($rows_factura == "" ){
-            $rows_factura_ajx = $pts;
-        } else {
-            $rows_factura_ajx = $rows_factura;
-        }
-        return $rows_factura_ajx;
+            return $rows_factura_ajx;
     }
 
     public function FacturasFRP($ID){
@@ -381,7 +363,7 @@ class Hana_model extends CI_Model
             $ID_DIS = "DIS" . $fila['FACTURA'];
             $ID_EST = "EST" . $fila['FACTURA'];
 
-            $json['data'][$i]['FECHA']      = $fila['FECHA'];
+            $json['data'][$i]['FECHA']      = date_format(date_create($fila['FECHA']), 'Y-m-d');
 
             $json['data'][$i]['FACTURA']    = $fila['FACTURA'];
             $json['data'][$i]['DISPONIBLE'] = $this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']);
@@ -410,9 +392,13 @@ class Hana_model extends CI_Model
                 if($fila['CONTADOR']==0){
                     $json[$i]['DISPONIBLE'] = 0;
                     $json[$i]['ACUMULADO'] = 0;
-                    $json[$i]['CANJEADO'] = 0;
-                    $json[$i]['COD_CLIENTE'] = "";
-                    $json[$i]['CLIENTE'] = "";
+                    $json[$i]['CANJEADO'] = 0; 
+                    $query2 = 'SELECT "CODIGO","NOMBRE" FROM '.$this->BD.'.SPINN_CLIENTES WHERE CODIGO = '."'".$IdCliente."'".'';
+                    $resultado2 =  @odbc_exec($conn,$query2);
+                     while ($fila2 = @odbc_fetch_array($resultado2)){
+                        $json[$i]['COD_CLIENTE'] = $fila2['CODIGO'];
+                        $json[$i]['CLIENTE'] = utf8_encode($fila2['NOMBRE']);
+                    }
                 } else {
                     $query = 'SELECT "COD_CLIENTE","CLIENTE","DISPONIBLE", "ACUMULADO" FROM '.$this->BD.'.SPINN_CLIENTES_PUNTOS WHERE COD_CLIENTE = '."'".$IdCliente."'".'';
                     $resultado =  @odbc_exec($conn,$query); $contador=1;

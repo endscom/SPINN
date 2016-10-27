@@ -27,6 +27,11 @@ class Clientes_controller extends CI_Controller
         $this->load->view('footer/footer');
     }
 
+    public function ajaxDireccionCliente($IdCliente)
+    {
+        $this->hana_model->ajaxDireccionCliente($IdCliente);
+    }
+    
     public function FindClient($cond){
          $this->cliente_model($cond);
     }
