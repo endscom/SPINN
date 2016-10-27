@@ -84,7 +84,7 @@ class Hana_model extends CI_Model
                 $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
                 $json['data'][$i]["VENDEDOR"] = utf8_encode($fila['VENDEDOR']);
                 $json['data'][$i]["ACUMULADO"] = number_format($fila['ACUMULADO'],2);
-                $json['data'][$i]["DISPONIBLE"] = number_format($fila['DISPONIBLE'],2);
+                $json['data'][$i]["DISPONIBLE"] = number_format($this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']),2);//number_format($fila['DISPONIBLE'],2);
                 $i++;
             
         }
@@ -246,7 +246,7 @@ class Hana_model extends CI_Model
                 $json[$i]['CLIENTE'] = utf8_encode($fila['CLIENTE']);
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
                 $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO'],2);
-                $json[$i]['DISPONIBLE'] = number_format($fila['DISPONIBLE'],2);
+                $json[$i]['DISPONIBLE'] = number_format($this->getPuntosAPL($fila['COD_CLIENTE'],$fila['DISPONIBLE']),2);//number_format($fila['DISPONIBLE'],2);
                 $i++;
             }
         }
