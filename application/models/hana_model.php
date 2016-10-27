@@ -121,13 +121,13 @@ class Hana_model extends CI_Model
         return $json;
     }
 
-    public function formatFechaPHP($fecha){//funcion para formatear la fecha en d-m-Y para mostrarlo en vistas
+    public function formatFechaPHP($fecha){ //funcion para formatear la fecha en d-m-Y para mostrarlo en vistas
         $fecha = strtotime($fecha);
         $newFecha = date('d-m-Y',$fecha);
         return $newFecha;
     }
 
-    public function formatFechaHana($fecha)//funcion para formatear la fecha en Ymd para que hana lo acepte
+    public function formatFechaHana($fecha) //funcion para formatear la fecha en Ymd para que hana lo acepte
     {
         $date = date_create($fecha);
         $date = date_format($date, 'Y-m-d');
@@ -306,18 +306,6 @@ class Hana_model extends CI_Model
 
     //OBTENER LOS DATOS QUE HAN SIDO CANGEADOS POR EL CLIENTE EN MYSQL Y LO RESTAMOS AL TOTAL DE SAP
     public function getPuntosAPL($id, $pts){
-            /*$query = $this->db->query('call pc_clientes_pa("'.$id.'")');
-            
-            if ($query->num_rows() == 0){
-                $rows_factura_ajx = $pts;
-            } else {
-                $rows_factura_ajx = $pts - $query->result_array()[0]['Puntos'];
-            }
-
-            $query->next_result();
-            $query->free_result();
-            return $rows_factura_ajx;*/
-
 
         $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
         mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
