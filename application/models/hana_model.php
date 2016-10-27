@@ -259,7 +259,6 @@ class Hana_model extends CI_Model
 
             $query = 'SELECT "COD_VENDEDOR","VENDEDOR","CODIGO","RUC","NOMBRE","DIRECCION" FROM '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
         } else {
-            echo "entroooooo";
             $query = 'SELECT "COD_VENDEDOR","VENDEDOR","CODIGO","RUC","NOMBRE","ABREV" AS "DIRECCION" FROM '.$this->BD.'.SPINN_CLIENTES';
         }
 
@@ -285,6 +284,20 @@ class Hana_model extends CI_Model
         return $json;
     }
 
+    public function ajaxDireccionCliente($IdCliente)
+    {
+        $conn = $this->OPen_database_odbcSAp();
+        $query = "SELECT * FROM ".$this->BD.".SPINN_CLIENTES WHERE CODIGO = '".$IdCliente."'"; 
+        //echo $query;
+        $resultado =  @odbc_exec($conn,$query);
+        $json = array();
+        $i=0;
+        while ($fila = @odbc_fetch_array($resultado)){
+            $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
+        }
+        echo json_encode($json);
+    }
+
     public function DFacturas($ID){
         $conn = $this->OPen_database_odbcSAp();
         $query = "SELECT * from ".$this->BD.".SPINN_FACTURA_PUNTOS WHERE FACTURA='".$ID."'";
@@ -304,19 +317,6 @@ class Hana_model extends CI_Model
     }
 
     public function getSaldoParcial($id,$pts){
-        /* $q_rows_pts = $this->db->query("SELECT Puntos FROM view_frp_factura WHERE SALDO <> 0 AND anulado = 'N' AND Factura = '".$id."'");
-            //$q_rows_pts->store_result();
-            //$this->db->reconnect();
-            $q_rows_pts->next_result();
-            $q_rows_pts->free_result();
-            $rows_factura = $q_rows_pts->result_array()[0]['Puntos'];
-          
-            if($rows_factura == "" ){
-                $rows_factura_ajx = $fila['DISPONIBLE'];
-            } else {
-                $rows_factura_ajx = rows_factura;
-            }
-            return $rows_factura_ajx;*/
 
             $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
             mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');

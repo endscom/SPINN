@@ -28,7 +28,13 @@
         .fecha{font-size: 5px;margin-top: 0px;}
         .Mcolor {
             color: black;
-            font-size: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            font-family: verdana!important;
+        }
+        .Mcolor2 {
+            color: black;
+            font-size: 12px;
             font-weight: bold;
             font-family: verdana!important;
         }
@@ -58,22 +64,26 @@
         }
     </style>
     <div class="row" style="width:288px!important; margin-top:0px; padding:0px;">
-        <div class="row">
-            <div class="center col s12 m12 l12">
-                <p class="Mcolor noMargen">ESTADO DE CUENTA</p>
+         <div class="row">
+            <div class="center">
+                <p class="Mcolor noMargen">INNOVA INDUSTRIAS S.A SPINN</p>
             </div>
         </div>
-        <div class="row" style="margin-top:10px;">
-
-            <div class="col">
+        <div class="row">
+            <div class="center">
+                <p class="Mcolor2 noMargen">ESTADO DE CUENTA</p>
+            </div>
+        </div>
+                <div style="float:left;width: 58%;outline: green solid thin">
+                    <p id="acumulado" class="titulos noMargen">FECHA: <span class="detalleencabezado center"><?php echo date("d/m/Y H:i:s"); ?></span></p>
+                </div>
+                <div style="float:left;width: 40%;outline: green solid thin; text-align:left;">
+                    <p id="acumulado" class="titulos noMargen">COD: <span class="detalleencabezado center"><?php echo $cliente[0]['COD_CLIENTE'];?></span></p>
+                </div>
+        <div class="row">            
                 <div class="row">     
                     <p id="acumulado" class="titulos noMargen">CLIENTE: <span class="detalleencabezado center"><?php echo $cliente[0]['CLIENTE']; ?></span></p>
-                </div>
-                <div class="">     
-                    <p id="acumulado" class="titulos noMargen">COD: <span class="detalleencabezado center"><?php echo $cliente[0]['COD_CLIENTE'];?></span></p></p>
-                </div>
-                       
-            </div>
+                </div>                                       
         </div>
         <div class="row" style="margin-top:7px;">
             <div class="row center">
@@ -104,9 +114,9 @@
                 </tbody>
             </table>
         </div>
-        <span class="detalleencabezado center">FECHA: <?php echo date("d/m/Y H:i:s"); ?></span>
-        <div class="row center footer" style="margin-top:5px;">
-            INNOVA INDUSTRIAS S.A SPINN
-        </div><hr>       
+        <div class="row center" style="margin-top: 5px;">
+            <p class="Mcolor2 noMargen">Siga participando!</p>
+        </div>
+        <hr>
     </div>
 </html>
