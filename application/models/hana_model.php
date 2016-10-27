@@ -121,13 +121,13 @@ class Hana_model extends CI_Model
         return $json;
     }
 
-    public function formatFechaPHP($fecha){//funcion para formatear la fecha en d-m-Y para mostrarlo en vistas
+    public function formatFechaPHP($fecha){ //funcion para formatear la fecha en d-m-Y para mostrarlo en vistas
         $fecha = strtotime($fecha);
         $newFecha = date('d-m-Y',$fecha);
         return $newFecha;
     }
 
-    public function formatFechaHana($fecha)//funcion para formatear la fecha en Ymd para que hana lo acepte
+    public function formatFechaHana($fecha) //funcion para formatear la fecha en Ymd para que hana lo acepte
     {
         $date = date_create($fecha);
         $date = date_format($date, 'Y-m-d');
@@ -316,23 +316,43 @@ class Hana_model extends CI_Model
         echo json_encode($json);
     }
 
-    public function getSaldoParcial($id,$pts){
 
-            $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
-            mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
-            //$query = "SELECT Puntos FROM view_frp_factura WHERE SALDO <> 0 AND anulado = 'N' AND Factura = '".$id."'";
-            $query = "SELECT Puntos FROM rfactura WHERE Puntos <> 0 AND Factura = '".$id."'";
+    //OBTENER LOS DATOS QUE HAN SIDO CANGEADOS POR EL CLIENTE EN MYSQL Y LO RESTAMOS AL TOTAL DE SAP
+    public function getPuntosAPL($id, $pts){
 
-            $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
-            $line = mysql_fetch_array($result, MYSQL_ASSOC);
-            $rows_factura = $line['Puntos'];
+        $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
+        mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
+        $query = "SELECT SUM(T0.Puntos) AS Puntos FROM view_frp_factura T0 WHERE T0.Anulado = 'N' AND T0.IdCliente = '".$id."'";
+
+        $result = mysql_query($query) or die('Consulta fallida: '.mysql_error());
+        $line = mysql_fetch_array($result, MYSQL_ASSOC);
+        $rows_factura = $line['Puntos'];
             
-            if($rows_factura == "" ){
-                $rows_factura_ajx = $pts;
-            } else {
-                $rows_factura_ajx = $rows_factura;
-            }
-            return $rows_factura_ajx;
+        if($rows_factura == 0 ){
+            $rows_factura_ajx = $pts;
+        } else {
+            $rows_factura_ajx = $pts - $rows_factura;
+        }
+        return $rows_factura_ajx;
+    }
+
+    //VERIFICAR SI UNA FACTURA CONTIENE AUN SALDO DE PUNTOS
+    public function getSaldoParcial($id,$pts){
+        $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
+        mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
+        $query = "SELECT Puntos FROM rfactura WHERE Puntos <> 0 AND Factura = '".$id."'";
+
+        $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+        $line = mysql_fetch_array($result, MYSQL_ASSOC);
+        $rows_factura = $line['Puntos'];
+            
+        if($rows_factura == "" ){
+            $rows_factura_ajx = $pts;
+        } else {
+            $rows_factura_ajx = $rows_factura;
+        }
+        return $rows_factura_ajx;
+
     }
 
     public function FacturasFRP($ID){
