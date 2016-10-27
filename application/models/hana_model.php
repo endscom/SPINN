@@ -256,9 +256,11 @@ class Hana_model extends CI_Model
     public function LoadClients(){
         $conn = $this->OPen_database_odbcSAp();
         if ($this->session->userdata('IdRol')==4) {
-            $query = 'SELECT * FROM '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
+
+            $query = 'SELECT "COD_VENDEDOR","VENDEDOR","CODIGO","RUC","NOMBRE","DIRECCION" FROM '.$this->BD.'.SPINN_CLIENTES WHERE COD_VENDEDOR = '.$this->session->userdata('IdVendedor').'';
         } else {
-            $query = 'SELECT * FROM '.$this->BD.'.SPINN_CLIENTES ';
+            echo "entroooooo";
+            $query = 'SELECT "COD_VENDEDOR","VENDEDOR","CODIGO","RUC","NOMBRE","ABREV" AS "DIRECCION" FROM '.$this->BD.'.SPINN_CLIENTES';
         }
 
         $resultado =  @odbc_exec($conn,$query);
@@ -280,7 +282,6 @@ class Hana_model extends CI_Model
                 $json[$i]['DIRECCION'] = utf8_encode($fila['DIRECCION']);
                 $i++;
         }
-        //echo $i;
         return $json;
     }
 
