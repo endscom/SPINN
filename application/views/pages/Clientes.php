@@ -61,10 +61,14 @@
                                             <td class='negra'>
                                             <a class='noHover' href='#modalPtsCliente' onclick='clientesPuntos(".'"'.$cliente['NOMBRE'].'",'.'"'.$cliente['VENDEDOR'].'",'.'"'.$cliente['RUC'].'",'.'"'.$cliente['CODIGO'].'"'.")' class='modal-trigger'>".$cliente['NOMBRE']."</a>
                                             </td>
-                                            <td>".$cliente['RUC']."</td>
-                                            <td class='searchDireccion'>".$cliente['DIRECCION']."</td>
-                                            <td>".$cliente['VENDEDOR']."</td>";
-                      if ($this->session->userdata('IdRol')==7 || $this->session->userdata('IdRol')==1) {
+                                            <td>".$cliente['RUC']."</td>";
+                        if ($this->session->userdata('IdRol')==7 || $this->session->userdata('IdRol')==1) {
+                                            echo "<td class='searchDireccion'>".$cliente['DIRECCION']."</td>";
+                                        }else{
+                                            echo "<td>".$cliente['DIRECCION']."</td>";
+                                        }
+                                            echo "<td>".$cliente['VENDEDOR']."</td>";
+                        if ($this->session->userdata('IdRol')==7 || $this->session->userdata('IdRol')==1) {
                                             echo "<td class='center'><a class='noHover' href='#' onclick='printVoucher(".'"'.base_url('index.php/PdfVoucher')."/".$cliente['CODIGO'].'"'.")'><i class='material-icons'>print</i></a></td>";
                                         }
                                         echo "</tr>";

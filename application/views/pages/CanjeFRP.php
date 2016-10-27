@@ -9,16 +9,15 @@
 
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
-        <div id="search" class=" right Buscar row column">
-            <div class="col s1 m1 l2"><i class="material-icons ColorS">search</i></div>
-
-            <div class="input-field col s6 m6 l10">
+        
+        <div class=" row TextColor"><div class="col s5 m5 l12">canje puntos</div></div>
+        <div id="search" class="Buscar row">
+            <div class="offset-l3 col s1 m1 l1"><i class="material-icons ColorS">search</i></div>
+            <div class="input-field col s6 m6 l3">
                 <input  id="searchFRP" type="text" placeholder="Buscar" class="validate">
                 <label for="search"></label>
             </div>
         </div>
-
-        <div class=" row TextColor"><div class="col s5 m5 l12">canje puntos</div></div>
 
         <?php if (($this->session->userdata('IdRol')==2) || $this->session->userdata('IdRol')==1) {
             echo    '<div class="right row">

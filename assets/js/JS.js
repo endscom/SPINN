@@ -1409,6 +1409,7 @@ function subirimagen()
         var table = $('#ClienteAdd').DataTable();
         var data = table.row( this ).data();
         var cell = table.cell( this );
+        cell.data('<div class="progress"><div class="indeterminate"></div></div>').draw();
         $.ajax({//AJAX PARA TRAER LA DIRECCION COMPLETA DEL CLIENTE
                 url: "ajaxDireccionCliente/"+data[0],
                 type: "GET",
