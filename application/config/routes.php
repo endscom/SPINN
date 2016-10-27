@@ -20,6 +20,7 @@ $route['Clientes'] = 'clientes_controller/Clientes';
 $route['FindClient/(:any)'] = 'clientes_controller/FindClient/$1';
 $route['BajaClientes'] = 'vista_controller/BajaClientes';
 $route['PuntosClientes'] = 'clientes_controller/facturasClientes';
+$route['ajaxDireccionCliente/(:any)'] = 'clientes_controller/ajaxDireccionCliente/$1';
 
 $route['PuntosCliente/(:any)'] = 'clientes_controller/puntosCliente/$1';
 $route['DetalleFact'] = 'vista_controller/DetalleFact';
