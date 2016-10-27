@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50136
 File Encoding         : 65001
 
-Date: 2016-10-27 09:14:58
+Date: 2016-10-27 16:30:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -250,7 +250,10 @@ CREATE TABLE `detallefrp` (
 -- ----------------------------
 -- Records of detallefrp
 -- ----------------------------
-INSERT INTO `detallefrp` VALUES ('1234', '10002019', '2016-07-08', '3000', '150022', 'PLANCHA B&amp;D IR1820 VAPOR', '1161', '1');
+INSERT INTO `detallefrp` VALUES ('1123', '10002024', '2016-07-11', '1500', '112989', 'ABAN PIE LASKO 1827 18\"', '1500', '1');
+INSERT INTO `detallefrp` VALUES ('1123', '10002181', '2016-08-18', '1500', '112989', 'ABAN PIE LASKO 1827 18\"', '1377', '1');
+INSERT INTO `detallefrp` VALUES ('44444', '10002024', '2016-07-11', '1500', '112991', 'ABAN PIE LASKO 1824 18\"', '1500', '1');
+INSERT INTO `detallefrp` VALUES ('44444', '10002181', '2016-08-18', '1500', '112991', 'ABAN PIE LASKO 1824 18\"', '198', '1');
 
 -- ----------------------------
 -- Table structure for frp
@@ -268,7 +271,8 @@ CREATE TABLE `frp` (
 -- ----------------------------
 -- Records of frp
 -- ----------------------------
-INSERT INTO `frp` VALUES ('1234', '2016-10-26 00:00:00', 'CL000003', 'BAYARDO ALEJANDRO ROMERO', '1', 'N');
+INSERT INTO `frp` VALUES ('1123', '2016-10-27 00:00:00', 'CL000126', 'BAYARDO ANTONIO DUARTE', '1', 'S');
+INSERT INTO `frp` VALUES ('44444', '2016-10-27 00:00:00', 'CL000126', 'BAYARDO ANTONIO DUARTE', '1', 'N');
 
 -- ----------------------------
 -- Table structure for rfactura
@@ -285,7 +289,8 @@ CREATE TABLE `rfactura` (
 -- ----------------------------
 -- Records of rfactura
 -- ----------------------------
-INSERT INTO `rfactura` VALUES ('CL000003', '10002019', '3000', '1839', '2016-10-26 04:48:05');
+INSERT INTO `rfactura` VALUES ('CL000126', '10002024', '1500', '0', '2016-10-27 04:29:31');
+INSERT INTO `rfactura` VALUES ('CL000126', '10002181', '1500', '1302', '2016-10-27 04:29:31');
 
 -- ----------------------------
 -- Table structure for tblusuario
