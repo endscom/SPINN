@@ -26,7 +26,7 @@ class Frp_model extends CI_Model{
         if($query->num_rows() > 0){
             return $query->result_array();
         }
-            return 0;
+        return 0;
     }
 
     public function inactivar($id){

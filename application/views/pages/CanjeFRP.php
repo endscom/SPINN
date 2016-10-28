@@ -1,6 +1,6 @@
 <header class="demo-header mdl-layout__header ">
     <div class="centrado  ColorHeader">
-        <span class=" title">caje de puntos</span>
+        <span class=" title">canje de puntos</span>
     </div>
 </header>
 <!--//////////////////////////////////////////////////////////
@@ -10,10 +10,10 @@
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
         
-        <div class=" row TextColor"><div class="col s5 m5 l12">canje puntos</div></div>
+        <div class=" row TextColor center"><div class="col s12 m12 l12">canje de puntos</div></div>
         <div id="search" class="Buscar row">
-            <div class="offset-l3 col s1 m1 l1"><i class="material-icons ColorS">search</i></div>
-            <div class="input-field col s6 m6 l3">
+            <div class="offset-m2 offset-l3 col s1 m1 l1"><i class="material-icons ColorS">search</i></div>
+            <div class="input-field col s11 m6 l3">
                 <input  id="searchFRP" type="text" placeholder="Buscar" class="validate">
                 <label for="search"></label>
             </div>
@@ -49,7 +49,7 @@
                         $delete="";
                     } else {
                         $clase="";
-                        $delete = "<a  onclick='dellFrp(".$frp['IdFRP'].")' href='#!' class='Icono modal-trigger'><i class='material-icons'>highlight_off</i></a>";
+                        $delete = "<a  onclick='dellFrp(".$frp['IdFRP'].")' href='#!' class='Icono noHover modal-trigger'><i class='material-icons'>highlight_off</i></a>";
                     }
                     echo "<tr>
                                 <td class='".$clase."'>".$frp['Fecha']."</td>
@@ -57,7 +57,7 @@
                                 <td class='".$clase."'>".$frp['IdCliente']."</td>
                                 <td class='".$clase."' id='NomCliente'>".$frp['Nombre']."</td>
                                 <td class='center'>
-                                    <a  onclick='getview(".$frp['IdFRP'].")' href='#!' class='modal-trigger'><i class='material-icons'>&#xE417;</i></a>
+                                    <a  onclick='getview(".$frp['IdFRP'].")' href='#!' class='modal-trigger noHover'><i class='material-icons'>&#xE417;</i></a>
                                     ".$delete."
                                 </td>
                             </tr>";
@@ -76,7 +76,7 @@
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
+                <a href="#!" class=" BtnClose modal-action modal-close noHover">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
@@ -91,7 +91,7 @@
         </div>
         <div class="row">
             <div class=" DatoFrp col s4 m3 l2">
-                N° FRP: <input id="frp" type="text" class="validate">
+                N° FRP: <input onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="frp" type="text" class="validate">
             </div>            
 
             <div class="DatoFrp col col s4 m3 l2 offset-l8 offset-m4 offset-s4">
@@ -216,7 +216,7 @@
     <div class="modal-content">
         <div class="right row noMargen">
             <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
+                <a href="#!" class=" BtnClose modal-action modal-close noHover">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
@@ -236,7 +236,7 @@
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
+                <a href="#!" class=" BtnClose modal-action modal-close noHover">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
@@ -258,7 +258,7 @@
                         <div class="col s11"><span id="titulM" class="Mcolor"> DETALLE FRP</span></div>
                         
                         <div class="col s1 m1 l1" >
-                            <a href="#!" class=" BtnClose modal-action modal-close ">
+                            <a href="#!" class=" BtnClose modal-action modal-close noHover">
                                 <i class="material-icons">highlight_off</i>
                             </a>
                         </div>
@@ -319,7 +319,7 @@
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnTotalFRP"></span></span> </h6>
                <div class="row center" style="">
-                   <a href="#" onclick="callUrlPrint('ExpFRP','spnFRP')"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
+                   <a class="noHover" href="#" onclick="callUrlPrint('ExpFRP','spnFRP')"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
                </div>
            </div>
 
@@ -330,17 +330,16 @@
 <div id="idviewFRP" class="modal">
     <div class="modal-content">
             <div class="container center">
-                <div class="col s1" >
-                    <div class="row">
-                        <div class="col s11"><span id="titulM" class="Mcolor"> DETALLE FRP</span></div>
-                        
-                        <div class="col s1 m1 l1"  >
-                            <a href="#!" class=" BtnClose modal-action modal-close ">
-                                <i class="material-icons">highlight_off</i>
-                            </a>
-                        </div>
-                    </div>
+                <div class="row">
+                <div class="right col s3 m3 l3">
+                    <a href="#!" class=" BtnClose modal-action modal-close noHover">
+                        <i class="material-icons">highlight_off</i>
+                    </a>
                 </div>
+                <div class="center col s12 m12 l12">
+                    <h6 class="Mcolor noMargen">DETALLE FRP</h6>
+                </div>
+            </div>
 
                 <div class="row center " id="vfrpProgress">
                     <div class="preloader-wrapper big active">
@@ -395,9 +394,9 @@
                    <tbody></tbody>
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnttFRP"></span> Pts.</span> </h6>
-               <!--<div class="row center">
-                   <a href="#" onclick="callUrlPrint('ExpFRP','spnviewFRP')"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
-               </div>-->
+               <div style = "display:none;" id = "iconoPrint" class="row center">
+                   <a class="noHover" href="#" onclick="callUrlPrint('ExpFRP','spnviewFRP')"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
+               </div>
            </div>
     </div>
 </div>

@@ -1168,6 +1168,7 @@ function subirimagen()
                 }
         });
     }
+    
 
     function callUrlPrint(targetURL,id){
         var a = document.createElement('a');
@@ -1211,7 +1212,7 @@ function subirimagen()
         $('#idviewFRP').openModal();
         $("#vfrpProgress").show();
         $("#vfrpTop,#vfrpTop").hide();
-
+        $('#iconoPrint').hide();
         var form_data = {
             frp: id
         };
@@ -1230,7 +1231,9 @@ function subirimagen()
                     console.log(dataJson);
 
                     var DF="",DP="";
-
+                    if (dataJson.DFactura[0].Anulado == "N"){
+                        $('#iconoPrint').show();
+                    }
                     $("#spnviewFRP").text(dataJson.top[0].IdFRP);
                     $("#spnviewFecha").text(dataJson.top[0].Fecha);
                     $("#spnviewCodCls").text(dataJson.top[0].IdCliente);
@@ -1242,9 +1245,9 @@ function subirimagen()
                         DF +=   "<tr>" +
                                     "<td>" +dataJson.DFactura[f].Fecha + "</td>" +
                                     "<td>" +dataJson.DFactura[f].Factura+ "</td>" +
-                                    "<td>" +dataJson.DFactura[f].Puntos+ "</td>" +
-                                    "<td>" +dataJson.DFactura[f].Faplicado+ "</td>" +
-                                    "<td>" +dataJson.DFactura[f].SALDO+ "</td>" +
+                                    "<td>" +formatNumber(dataJson.DFactura[f].Puntos)+ "</td>" +
+                                    "<td>" +formatNumber(dataJson.DFactura[f].Faplicado)+ "</td>" +
+                                    "<td>" +formatNumber(dataJson.DFactura[f].SALDO)+ "</td>" +
                                     "<td>" +ESTAD+ "</td>" +
                                     "</tr>"
                     }
@@ -1256,8 +1259,8 @@ function subirimagen()
                                     "<td>" +dataJson.DArticulo[p].Cantidad + "</td>" +
                                     "<td>" +dataJson.DArticulo[p].IdArticulo+ "</td>" +
                                     "<td>" +dataJson.DArticulo[p].Descripcion+ "</td>" +
-                                    "<td>" +dataJson.DArticulo[p].Puntos+ "</td>" +
-                                    "<td>" +dataJson.DArticulo[p].Total+ "</td>" +
+                                    "<td>" +formatNumber(dataJson.DArticulo[p].Puntos)+ "</td>" +
+                                    "<td>" +formatNumber(dataJson.DArticulo[p].Total)+ "</td>" +
                                 "</tr>"
 
                         ttff += parseInt(dataJson.DArticulo[p].Total);
