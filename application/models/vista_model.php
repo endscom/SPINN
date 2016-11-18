@@ -41,7 +41,7 @@ class Vista_model extends CI_Model
         
         if($query->num_rows() > 0){
             $Arestar = $query->result_array()[0]['Puntos'];
-        } else {
+        }else{
             $Arestar = 0;
         }
 
@@ -52,6 +52,7 @@ class Vista_model extends CI_Model
         $this->db->select('IdFRP');
         $this->db->from('frp');
         $this->db->where('IdFRP',$FRP);
+        $this->db->where('Anulado','N');
         $query = $this->db->get();
         
         if($query->num_rows() > 0){

@@ -230,6 +230,10 @@
                 </table>
             </form>
         </div>
+        <div class="row Mcolor">
+            <h6 class="">TOTAL ACUMULADO: <span class="red-text" id="ttAcumulado"></span></h6>
+            <h6 class="">TOTAL DISPONIBLE: <span class="red-text" id="ttDisponible"></span></h6>
+        </div>
         <div id="Iconos" class="center row">
             <div class="col offset-l5 s2 l1">
                 <a class="noHover" href="#" onclick="exportarEstadoFactura(2)"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>

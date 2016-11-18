@@ -240,6 +240,7 @@ class Hana_model extends CI_Model
             $json[$i]['VENDEDOR'] = "";
             $json[$i]['ACUMULADO'] = "";
             $json[$i]['DISPONIBLE'] = "";
+            $json[$i]['TOTAL'] = "";
         } else {
             while ($fila = @odbc_fetch_array($resultado)){
                 $json[$i]['CODIGO'] = $fila['COD_CLIENTE'];
@@ -247,6 +248,7 @@ class Hana_model extends CI_Model
                 $json[$i]['VENDEDOR'] = utf8_encode($fila['VENDEDOR']);
                 $json[$i]['ACUMULADO'] = number_format($fila['ACUMULADO'],2);
                 $json[$i]['DISPONIBLE'] = number_format($this->getPuntosAPL($fila['COD_CLIENTE'],$fila['DISPONIBLE']),2);//number_format($fila['DISPONIBLE'],2);
+                $json[$i]['TOTAL'] = number_format( $fila['ACUMULADO']+$this->getPuntosAPL($fila['COD_CLIENTE'],$fila['DISPONIBLE']),2);
                 $i++;
             }
         }

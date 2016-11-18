@@ -678,6 +678,7 @@ function subirimagen()
         }
 
         if($('#R2').is(':checked') ){$("#reporte").val(1);
+            var totalAcumulado=0; var totalDisponible=0;
             $("#Modal1Fecha12").html(f1);    $("#Modal1Fecha22").html(f2);
             $('#rpCodCliente2').text(Cls);   $("#reporte").val(1);
             $('#rpNomCliente2').text($("#idCliente option:selected").html());
@@ -716,6 +717,14 @@ function subirimagen()
             });
             $('#tblDisponibilidadPuntos').on( 'init.dt', function () {
                 $("#loadDisponiblePuntos").hide();
+                obj = $('#tblDisponibilidadPuntos').DataTable();
+                obj.rows().data().each( function (index,value) {
+                    totalAcumulado += parseInt(obj.row(value).data().P_ACUMULADOS);
+                    totalDisponible += parseInt(obj.row(value).data().P_DISPONIBLES);
+                    //alert (obj.row(value).data().P_DISPONIBLES);
+                });
+                $("#ttAcumulado").text(formatNumber(totalAcumulado));
+                $("#ttDisponible").text(formatNumber(totalDisponible));
             }).dataTable();
             $('#DisponiblePuntos').openModal();            
         }        
@@ -903,6 +912,7 @@ function subirimagen()
         }else{
             mensaje("SELECCIONE UN ARTICULO DEL CATALOGO","error");
         }
+        $('#float-select-producto > option[value="0"]').attr('selected', 'selected');
     });
 
     $("#tblpRODUCTOS").delegate("a", "click", function(){

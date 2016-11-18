@@ -45,6 +45,7 @@
                         <th>VENDEDOR</th>
                         <th>ACUMULADO</th>
                         <th>DISPONIBLE</th>
+                        <th>TOTAL FACTURADO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,6 +72,7 @@
                                         <td>".$cliente['VENDEDOR']."</td>
                                         <td>".$cliente['ACUMULADO']."</td>
                                         <td>".$cliente['DISPONIBLE']."</td>
+                                        <td>".$cliente['TOTAL']."</td>
                                     </tr>";
                             }
                         }

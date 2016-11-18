@@ -30,6 +30,7 @@
                 <th>VENDEDOR</th>
                 <th>ACUMULADO</th>
                 <th>DISPONIBLE</th>
+                <th>TOTAL FACTURADO</th>
             </tr>
         </thead>
         <tbody>
@@ -39,11 +40,12 @@
             foreach($Clientes as $cliente){
                 echo "
                 <tr>
-                <td>".$cliente['CODIGO']."</td>
-                <td class='negra'>".$cliente['CLIENTE']."</td>
-                <td>".$cliente['VENDEDOR']."</td>
-                <td>".$cliente['ACUMULADO']."</td>
-                <td>".$cliente['DISPONIBLE']."</td>
+                    <td>".$cliente['CODIGO']."</td>
+                    <td class='negra'>".$cliente['CLIENTE']."</td>
+                    <td>".$cliente['VENDEDOR']."</td>
+                    <td>".$cliente['ACUMULADO']."</td>
+                    <td>".$cliente['DISPONIBLE']."</td>
+                    <td>".$cliente['TOTAL']."</td>
                 </tr>
                 ";
             }

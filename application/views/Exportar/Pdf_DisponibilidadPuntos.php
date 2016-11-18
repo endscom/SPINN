@@ -16,6 +16,12 @@
         .mediana{
             font-family: 'robotomedium'!important;
         }
+        .red-text{color: red;}
+        .Mcolor {
+            color: #831F82;
+            font-size: 19px;
+            font-family: 'robotoblack';
+        }
         @font-face {
             font-family: 'robotoblack';
             src: url('roboto-black-webfont.eot');
@@ -94,9 +100,13 @@
     </thead>
     <tbody>
     <?PHP
+            $totalAcumulado =0;
+            $totalDisponible =0;
             if(!($data)){
                 } else {
                     foreach($data as $factura){
+                        $totalDisponible += $factura['P_DISPONIBLES'];
+                        $totalAcumulado += $factura['P_ACUMULADOS'];
                         echo "
                         <tr>
                             <td>".$factura['NUMERO']."</td>
@@ -104,8 +114,8 @@
                             <td>".$factura['FACTURA']."</td>
                             <td>".$factura['COD_CLIENTE']."</td>
                             <td class='negra'>".$factura['CLIENTE']."</td>
-                            <td>".$factura['P_ACUMULADOS']."</td>
-                            <td>".$factura['P_DISPONIBLES']."</td>
+                            <td>".number_format($factura['P_ACUMULADOS'],2)."</td>
+                            <td>".number_format($factura['P_DISPONIBLES'],2)."</td>
                             <td>".$factura['ESTADO']."</td>
                         </tr>
                     ";
@@ -114,6 +124,10 @@
     ?>
     </tbody>
 </table>
+</div>
+<div class="row Mcolor">
+    <h6 class="">TOTAL ACUMULADO: <span class="red-text" id="ttAcumulado"><?php echo number_format($totalAcumulado,2); ?></span></h6>
+    <h6 class="">TOTAL DISPONIBLE: <span class="red-text" id="ttDisponible"><?php echo number_format($totalDisponible,2); ?></span></h6>
 </div>
 </body>
 </html>

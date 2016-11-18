@@ -556,7 +556,9 @@ img.login-logo{
   width: 75%;
 }
 #DisponiblePuntos{
-  width: 75%;  
+  width: 75%;
+  max-height: 100%!important;
+  height: 85%!important;
 }
 .BtnClose
  {

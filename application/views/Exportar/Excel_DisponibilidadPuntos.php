@@ -16,6 +16,14 @@
         #tblEstadoFactura tr:nth-child(odd){ background: #ffffff; }
         #tblEstadoFactura th{ background: #811A80;color: #fff; font-size: 14px;}
         #logo{margin: 10px 15px 10px;}
+        .row{width: 100%;}
+        .center{text-align: center!important;}
+        .red-text{color: red;}
+        .Mcolor {
+            color: #831F82;
+            font-size: 19px;
+            font-family: 'robotoblack';
+        }
     </style>
 </head>
 <body>
@@ -37,9 +45,13 @@
     </thead>
     <tbody>
     <?PHP
+            $totalAcumulado =0;
+            $totalDisponible =0;
             if(!($data)){
                 } else {
                     foreach($data as $factura){
+                        $totalDisponible += $factura['P_DISPONIBLES'];
+                        $totalAcumulado += $factura['P_ACUMULADOS'];
                         echo "
                         <tr>
                             <td>".$factura['NUMERO']."</td>
@@ -57,3 +69,7 @@
     ?>
     </tbody>
 </table>
+<div class="row Mcolor">
+    <h6 class="">TOTAL ACUMULADO: <span class="red-text" id="ttAcumulado"><?php echo $totalAcumulado; ?></span></h6>
+    <h6 class="">TOTAL DISPONIBLE: <span class="red-text" id="ttDisponible"><?php echo $totalDisponible; ?></span></h6>
+</div>

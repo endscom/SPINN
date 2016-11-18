@@ -52,6 +52,6 @@
     </style>
 </head>
 <body>
-<div >
+<div>
     <img id="imgFondo" src="<?PHP echo base_url();?>assets/img/trama_blanca.png" alt="">
 </div>

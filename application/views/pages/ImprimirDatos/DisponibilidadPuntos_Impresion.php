@@ -8,18 +8,13 @@
         .Blank td {
             background: #ffffff;
         }
-        .alert{
-            color: #e74c3c ;
-        }
-        #view-source {
-            position: fixed;
-            display: block;
-            right: 0;
-            bottom: 0;
-            margin-right: 40px;
-            margin-bottom: 40px;
-            z-index: 900;
-        }
+        .row{width: 100%;}
+        .red-text{color: red;}
+        .Mcolor {
+            color: #831F82;
+            font-size: 19px;
+            font-family: 'robotoblack';
+        }table{width: 100%;}
     </style>
 <div id="DisponiblePuntos" class="modal">
     <div class="modal-content">
@@ -74,9 +69,13 @@
                     </thead>
                     <tbody>
                     	<?PHP
+                        $totalAcumulado =0;
+                        $totalDisponible =0;
 					            if(!($data)){
 					                } else {
 					                    foreach($data as $factura){
+                                            $totalDisponible += $factura['P_DISPONIBLES'];
+                                            $totalAcumulado += $factura['P_ACUMULADOS'];
 					                        echo "
 					                        <tr>
 					                            <td>".$factura['NUMERO']."</td>
@@ -95,6 +94,10 @@
                     </tbody>
                 </table>
             </form>
+        </div>
+        <div class="row Mcolor">
+            <h6 class="">TOTAL ACUMULADO: <span class="red-text" id="ttAcumulado"><?php echo number_format($totalAcumulado,2); ?></span></h6>
+            <h6 class="">TOTAL DISPONIBLE: <span class="red-text" id="ttDisponible"><?php echo number_format($totalDisponible,2); ?></span></h6>
         </div>
     </div>
 </div>
