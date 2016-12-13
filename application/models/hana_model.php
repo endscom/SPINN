@@ -6,7 +6,7 @@ class Hana_model extends CI_Model
         $this->load->database();
     }
 
-    public $BD = 'INNOVAINDUSTRIAS';
+    public $BD = 'SBO_INNOVA_INDUSTRIAS';
 
     public  function OPen_database_odbcSAp(){//CONEXION A HANA INNOVA      
          $conn = @odbc_connect("HANA","SYSTEM","B1Adminhana", SQL_CUR_USE_ODBC);
