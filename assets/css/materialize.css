@@ -6176,8 +6176,8 @@ form p:last-child {
 }
 
 [type="checkbox"]:not(:checked):disabled + label:before {
-  border: none;
-  background-color: rgba(0, 0, 0, 0.26);
+  /*border: none;*/
+  background-color: rgb(255, 255, 255); 
 }
 
 [type="checkbox"].tabbed:focus + label:after {
@@ -6207,8 +6207,8 @@ form p:last-child {
 }
 
 [type="checkbox"]:checked:disabled + label:before {
-  border-right: 2px solid rgba(0, 0, 0, 0.26);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.26);
+  border-right: 2px solid #831f82;
+  border-bottom: 2px solid #831f82;
 }
 
 /* Indeterminate checkbox */

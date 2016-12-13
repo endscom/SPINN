@@ -997,11 +997,16 @@ function subirimagen()
         ofact = $('#tblFacturaFRP').DataTable();
         total  = parseInt($("#idttPtsFRP").text());
         FPunto = 0;
-        Posi=0;
+        Posi=0;     
+        var bandera=0;   
+        var contador = ofact.rows().count();
+        var contador2 = ofact.rows().count();
+
         obj.rows().data().each( function (ip) {
+
             remanente = parseInt(ip[4]);
-            
             ofact.rows().data().each( function (index,value) {
+            if (linea<contador) {
                 var FAC = ofact.row(linea).data().FACTURA;
                 var FCH = ofact.row(linea).data().FECHA;
                 var FLPunto = ofact.row(linea).data().DISPONIBLE;
@@ -1009,7 +1014,7 @@ function subirimagen()
                 apl = parseInt($("#AP1" + FAC).text());
                 dis = parseInt($("#DIS" + FAC).text());
                 est = ($("#EST" + FAC).text());
-                
+                if (FPunto>0) {apl=FPunto;}
                 if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
                 
                 if (remanente > apl){
@@ -1041,10 +1046,11 @@ function subirimagen()
                     }
                 }
                 linea++;
-            });
-            linea--
+            }
+            });            
+            linea --;
         });
-
+    
         totalFinalFRP =0;
 
         obj = $('#tblpRODUCTOS').DataTable();
@@ -1255,8 +1261,8 @@ function subirimagen()
                         DF +=   "<tr>" +
                                     "<td>" +dataJson.DFactura[f].Fecha + "</td>" +
                                     "<td>" +dataJson.DFactura[f].Factura+ "</td>" +
-                                    "<td>" +formatNumber(dataJson.DFactura[f].Puntos)+ "</td>" +
                                     "<td>" +formatNumber(dataJson.DFactura[f].Faplicado)+ "</td>" +
+                                    "<td>" +formatNumber(dataJson.DFactura[f].Puntos)+ "</td>" +
                                     "<td>" +formatNumber(dataJson.DFactura[f].SALDO)+ "</td>" +
                                     "<td>" +ESTAD+ "</td>" +
                                     "</tr>"

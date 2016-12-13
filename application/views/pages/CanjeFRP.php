@@ -215,14 +215,12 @@
 <div id="Dell" class="modal">
     <div class="modal-content">
         <div class="right row noMargen">
-            <div class="col s1 m1 l1">
                 <a href="#!" class=" BtnClose modal-action modal-close noHover">
                     <i class="material-icons">highlight_off</i>
                 </a>
-            </div>
         </div>
         <div class="row center ">
-        <h6 class="Mcolor1">DESEA ELIMINAR EL FRP #<span class="redT1" id="spnDellFRP">#</span></h6>
+            <h6 class="Mcolor1">DESEA ELIMINAR EL FRP #<span class="redT1" id="spnDellFRP">#</span></h6>
         </div>
         <div class="row center">
                 <a href="#!" id="idProcederDell" class="Procesar modal-action modal-close btn modal-trigger">Procesar</a>
@@ -235,11 +233,9 @@
 <div id="DellRes" class="modal">
     <div class="modal-content">
         <div class="right row">
-            <div class="col s1 m1 l1">
                 <a href="#!" class=" BtnClose modal-action modal-close noHover">
                     <i class="material-icons">highlight_off</i>
                 </a>
-            </div>
         </div>
         <h6 class="center Mcolor1">ELIMINADO CORRECTAMENTE FRP #<span class="redT1" id="dellCorrectoFRP">00351</span></h6>
     </div>
@@ -252,16 +248,15 @@
 <!-- Modal #4 Modal Structure -->
 <div id="Dfrp" class="modal">
     <div class="modal-content">
+        <div class="row right">
+            <a href="#!" class=" BtnClose modal-action modal-close noHover">
+                <i class="material-icons">highlight_off</i>
+            </a>
+        </div>
             <div class="container center">
                 <div class="col s1" >
                     <div class="row">
-                        <div class="col s11"><span id="titulM" class="Mcolor"> DETALLE FRP</span></div>
-                        
-                        <div class="col s1 m1 l1" >
-                            <a href="#!" class=" BtnClose modal-action modal-close noHover">
-                                <i class="material-icons">highlight_off</i>
-                            </a>
-                        </div>
+                        <div class="col s11"><span id="titulM" class="Mcolor"> DETALLE FRP</span></div>                        
                     </div>
                 </div>
 
@@ -322,20 +317,18 @@
                    <a class="noHover" href="#" onclick="callUrlPrint('ExpFRP','spnFRP')"  target="_blank"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png " width="45px" ></a>
                </div>
            </div>
-
-
     </div>
 </div>
 
 <div id="idviewFRP" class="modal">
     <div class="modal-content">
-            <div class="container center">
-                <div class="row">
-                <div class="right col s3 m3 l3">
+            <div class="row right">
                     <a href="#!" class=" BtnClose modal-action modal-close noHover">
                         <i class="material-icons">highlight_off</i>
                     </a>
-                </div>
+            </div>
+            <div class="container center">            
+            <div class="row">
                 <div class="center col s12 m12 l12">
                     <h6 class="Mcolor noMargen">DETALLE FRP</h6>
                 </div>
@@ -376,7 +369,7 @@
                         </tr>
                    </thead>
                    
-                   <tbody></tbody>
+                   <tbody class="center"></tbody>
                </table>
                <h6 class="center Mcolor">PREMIO A CANJEAR</h6>
 
@@ -391,7 +384,7 @@
                         </tr>
                    </thead>
                    
-                   <tbody></tbody>
+                   <tbody class="center"></tbody>
                </table>
                <h6 class="center Mcolor dat">TOTAL FRP <span class="dato"><span id="spnttFRP"></span> Pts.</span> </h6>
                <div style = "display:none;" id = "iconoPrint" class="row center">
