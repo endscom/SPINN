@@ -167,7 +167,7 @@ class Hana_model extends CI_Model
             $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
             $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
             $json['data'][$i]["CLIENTE"] = utf8_encode($fila['CLIENTE']);
-            $json['data'][$i]["ESTADO"] = ($this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']) > 0) ? 'DISPONIBLE' : 'NO DISPONIBLE';//$fila['TP_PUNTOS'];
+            $json['data'][$i]["ESTADO"] = ($this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']) > 0) ? 'DISPONIBLE' : 'APLICADO';//$fila['TP_PUNTOS'];
             $i++;
         }
 
@@ -212,7 +212,7 @@ class Hana_model extends CI_Model
             $json['data'][$i]["CLIENTE"] = utf8_encode($fila['CLIENTE']);
             $json['data'][$i]["P_ACUMULADOS"] = $fila['ACUMULADO'];
             $json['data'][$i]["P_DISPONIBLES"] = $this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']);
-            $json['data'][$i]["ESTADO"] = ($json['data'][$i]["P_DISPONIBLES"] > 0) ? 'DISPONIBLE' : 'NO DISPONIBLE';//$fila['TP_PUNTOS'];
+            $json['data'][$i]["ESTADO"] = ($json['data'][$i]["P_DISPONIBLES"] > 0) ? 'DISPONIBLE' : 'APLICADO';//$fila['TP_PUNTOS'];
             $i++;
 
         }
