@@ -642,7 +642,7 @@ function subirimagen()
         if($('#R1').is(':checked') ){$("#reporte").val(0);
             limpiarTabla(tblEstadoFactura);
             $('#tblEstadoFactura').DataTable({
-                "order": [[ 1, "desc" ]],
+                "order": [[ 2, "desc" ]],
                 ajax: "ajaxEstadoFacturas/"+Cls+"/"+f1+"/"+f2,
                 "info":    false,
                 "bPaginate": false,
@@ -982,7 +982,6 @@ function subirimagen()
 
     function SaveFRP(idFrp,Fecha){
         var linea = 0;
-        var menos = 0;
         var remanente =0;
         var detallesFactura  = new Array();
         var logFactura       = new Array();
@@ -997,58 +996,76 @@ function subirimagen()
         ofact = $('#tblFacturaFRP').DataTable();
         total  = parseInt($("#idttPtsFRP").text());
         FPunto = 0;
-        Posi=0;     
-        var bandera=0;   
+        Posi=0;
+        var ultima = -1;
+        var global = 0;
         var contador = ofact.rows().count();
-        var contador2 = ofact.rows().count();
-
+        
         obj.rows().data().each( function (ip) {
-
             remanente = parseInt(ip[4]);
+            if (ultima!=-1) {
+                        linea = ultima;
+                        ultima = -1;
+                    };
             ofact.rows().data().each( function (index,value) {
-            if (linea<contador) {
-                var FAC = ofact.row(linea).data().FACTURA;
-                var FCH = ofact.row(linea).data().FECHA;
-                var FLPunto = ofact.row(linea).data().DISPONIBLE;
-                valor = 0;
-                apl = parseInt($("#AP1" + FAC).text());
-                dis = parseInt($("#DIS" + FAC).text());
-                est = ($("#EST" + FAC).text());
-                if (FPunto>0) {apl=FPunto;}
-                if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
-                
-                if (remanente > apl){
-                    valor = apl;
-                    FPunto = FPunto - apl;
-                }else{
-                    valor = remanente;
-                    FPunto = FPunto - remanente;
+                    
+                    if (linea<contador) {
+                        if($('#CHK'+ofact.row(linea).data().FACTURA).is(':checked')) { 
+                        
+                        var FAC = ofact.row(linea).data().FACTURA;
+                        var FCH = ofact.row(linea).data().FECHA;
+                        var FLPunto = ofact.row(linea).data().DISPONIBLE;
+                        valor = 0;
+                        apl = parseInt($("#AP1" + FAC).text());
+                        dis = parseInt($("#DIS" + FAC).text());
+                        est = ($("#EST" + FAC).text());
 
-                    if (remanente != 0){apl = Math.abs(FPunto);}
-                }
+                        if (FPunto>0) {apl=FPunto;}
+                        if (FPunto == 0){FPunto = ofact.row(linea).data().DISPONIBLE;}
+                        
+                        if (remanente > apl){
+                            valor = apl;
+                            FPunto = FPunto - apl;
+                        }else{
+                            valor = remanente;
+                            FPunto = FPunto - remanente;
+                            if (remanente != 0){apl = Math.abs(FPunto);}
+                        }
+                        if (FPunto==dis) {
+                            FPunto=0;
+                        }
+                        if (remanente == 0) {
+                            return false;
+                        } else {
+                            console.log(FAC + "," + "Puntos:" + FLPunto +", Aplica: " + valor + ", Pendiente: " + apl);
+                            detallesFactura[Posi] = idFrp+","+FAC+","+FLPunto+","+ip[1]+","+ip[2]+","+valor+","+ip[0]+","+FCH;
+                            Posi++;
+                        }
 
-                if (remanente == 0) {
-                    return false;
-                } else {
-                    console.log(FAC + "," + "Puntos:" + FLPunto +", Aplica: " + valor + ", Pendiente: " + apl);
-                    detallesFactura[Posi] = idFrp+","+FAC+","+FLPunto+","+ip[1]+","+ip[2]+","+valor+","+ip[0]+","+FCH;
-                    Posi++;
-                }
-
-                if (remanente > valor) {
-                    remanente = remanente - apl;
-                } else {
-                    if (FPunto < 0) {
-                        remanente = Math.abs(FPunto);
-                        FPunto = 0;
-                    } else {
-                        remanente = 0;
+                        if (remanente > valor) {
+                            remanente = remanente - apl;
+                        } else {
+                            if (FPunto < 0) {
+                                remanente = Math.abs(FPunto);
+                                FPunto = 0;
+                            } else {
+                                remanente = 0;                                
+                            }
+                        }
+                        linea++;
+                    }
+                    else{
+                        linea++;
+                    }
+                    if (remanente==0 && (FLPunto-valor)>0) {
+                        ultima = linea-1;
                     }
                 }
-                linea++;
+            });
+            if (remanente!=0) {
+                linea--;    
             }
-            });            
-            linea --;
+            
         });
     
         totalFinalFRP =0;
@@ -1274,9 +1291,9 @@ function subirimagen()
                         DP +=   "<tr>" +
                                     "<td>" +dataJson.DArticulo[p].Cantidad + "</td>" +
                                     "<td>" +dataJson.DArticulo[p].IdArticulo+ "</td>" +
-                                    "<td>" +dataJson.DArticulo[p].Descripcion+ "</td>" +
-                                    "<td>" +formatNumber(dataJson.DArticulo[p].Puntos)+ "</td>" +
-                                    "<td>" +formatNumber(dataJson.DArticulo[p].Total)+ "</td>" +
+                                    "<td class='negra'>" +dataJson.DArticulo[p].Descripcion+ "</td>" +
+                                    "<td>" +formatNumber(parseInt(dataJson.DArticulo[p].Puntos))+ "</td>" +
+                                    "<td>" +formatNumber(parseInt(dataJson.DArticulo[p].Cantidad*dataJson.DArticulo[p].Puntos))+ "</td>" +
                                 "</tr>"
 
                         ttff += parseInt(dataJson.DArticulo[p].Total);

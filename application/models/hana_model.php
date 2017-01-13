@@ -7,6 +7,7 @@ class Hana_model extends CI_Model
     }
 
     public $BD = 'SBO_INNOVA_INDUSTRIAS';
+    //public $BD = 'INNOVA201608';
 
     public  function OPen_database_odbcSAp(){//CONEXION A HANA INNOVA      
          $conn = @odbc_connect("HANA","SYSTEM","B1Adminhana", SQL_CUR_USE_ODBC);
@@ -166,7 +167,7 @@ class Hana_model extends CI_Model
             $json['data'][$i]["FACTURA"] = $fila['FACTURA'];
             $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
             $json['data'][$i]["CLIENTE"] = utf8_encode($fila['CLIENTE']);
-            $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
+            $json['data'][$i]["ESTADO"] = ($this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']) > 0) ? 'DISPONIBLE' : 'NO DISPONIBLE';//$fila['TP_PUNTOS'];
             $i++;
         }
 
@@ -210,8 +211,8 @@ class Hana_model extends CI_Model
             $json['data'][$i]["COD_CLIENTE"] = $fila['COD_CLIENTE'];
             $json['data'][$i]["CLIENTE"] = utf8_encode($fila['CLIENTE']);
             $json['data'][$i]["P_ACUMULADOS"] = $fila['ACUMULADO'];
-            $json['data'][$i]["P_DISPONIBLES"] = $fila['DISPONIBLE'];
-            $json['data'][$i]["ESTADO"] = $fila['TP_PUNTOS'];
+            $json['data'][$i]["P_DISPONIBLES"] = $this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']);
+            $json['data'][$i]["ESTADO"] = ($json['data'][$i]["P_DISPONIBLES"] > 0) ? 'DISPONIBLE' : 'NO DISPONIBLE';//$fila['TP_PUNTOS'];
             $i++;
 
         }
@@ -342,7 +343,8 @@ class Hana_model extends CI_Model
     public function getSaldoParcial($id,$pts){
         $link = @mysql_connect('localhost', 'root', 'a7m1425.')or die('No se pudo conectar: ' . mysql_error());            
         mysql_select_db('spinn') or die('No se pudo seleccionar la base de datos');
-        $query = "SELECT Puntos FROM rfactura WHERE Puntos <> 0 AND Factura = '".$id."'";
+        //$query = "SELECT Puntos FROM rfactura WHERE Puntos <> 0 AND Factura = '".$id."'";
+        $query = "SELECT Puntos FROM rfactura WHERE Factura = '".$id."'";
 
         $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
         $line = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -391,7 +393,7 @@ class Hana_model extends CI_Model
             $json['data'][$i]['DISPONIBLE'] = $this->getSaldoParcial($fila['FACTURA'],$fila['DISPONIBLE']);
             $json['data'][$i]['CAM1']       = "<span id='".$ID_APl."'></span>";
             $json['data'][$i]['CAM2']       = "<span id='".$ID_DIS."'></span>";
-            $json['data'][$i]['CAM3']       = "<p><input disabled='disabled' type='checkbox' onclick='isVerificar(".$i.",".$fila['FACTURA'].")' id='".$ID_ROW."' /><label id='".$ID_LBL."' for='".$ID_ROW."'></label></p>";
+            $json['data'][$i]['CAM3']       = "<p><input type='checkbox' onclick='isVerificar(".$i.",".$fila['FACTURA'].")' id='".$ID_ROW."' /><label id='".$ID_LBL."' for='".$ID_ROW."'></label></p>";
             $json['data'][$i]['CAM4']       = "<span id='".$ID_EST."'></span>";
             $i++;
         }

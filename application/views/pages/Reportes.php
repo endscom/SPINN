@@ -23,7 +23,7 @@
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
+                <a href="#!" class="noHover BtnClose modal-action modal-close ">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="right row">
             <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
+                <a href="#!" class="noHover BtnClose modal-action modal-close ">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
@@ -174,7 +174,7 @@
         </div>
         <div class="right row">
             <div class="col s1 m1 l1">
-                <a href="#!" class=" BtnClose modal-action modal-close ">
+                <a href="#!" class="noHover BtnClose modal-action modal-close ">
                     <i class="material-icons">highlight_off</i>
                 </a>
             </div>
@@ -214,7 +214,7 @@
                 <table id="tblDisponibilidadPuntos" class=" TblDatos">
                     <thead>
                     <tr>
-                        <th>Nº</th>
+                        <th>Nº</th> 
                         <th>FECHA</th>
                         <th>FACTURA</th>
                         <th>COD.</th>
@@ -235,13 +235,13 @@
             <h6 class="">TOTAL DISPONIBLE: <span class="red-text" id="ttDisponible"></span></h6>
         </div>
         <div id="Iconos" class="center row">
-            <div class="col offset-l5 s2 l1">
+            <div class="col offset-l5 offset-m5 offset-s2 s2 m1 l1">
                 <a class="noHover" href="#" onclick="exportarEstadoFactura(2)"><img src="<?PHP echo base_url();?>assets/img/ico_imprimir.png" width="38px"></a>
             </div>
-            <div class="col s2 l1">
+            <div class="col s2 m1 l1">
                 <a class="noHover" href="#" onclick="exportarEstadoFactura(0)"><img src="<?PHP echo base_url();?>assets/img/icono_excel.png" width="38px"></a>
             </div>
-            <div class="col s2 l1">
+            <div class="col s2 m1 l1">
                 <a class="noHover" href="#" onclick="exportarEstadoFactura(1)"><img src="<?PHP echo base_url();?>assets/img/icono-pdf.png" width="38px"></a>
             </div>
         </div>

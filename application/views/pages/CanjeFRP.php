@@ -57,7 +57,7 @@
                                 <td class='".$clase."'>".$frp['IdCliente']."</td>
                                 <td class='".$clase."' id='NomCliente'>".$frp['Nombre']."</td>
                                 <td class='center'>
-                                    <a  onclick='getview(".$frp['IdFRP'].")' href='#!' class='modal-trigger noHover'><i class='material-icons'>&#xE417;</i></a>
+                                    <a  onclick='getview(".$frp['IdFRP'].")' href='#' class='noHover'><i class='material-icons'>&#xE417;</i></a>
                                     ".$delete."
                                 </td>
                             </tr>";
