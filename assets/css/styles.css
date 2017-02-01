@@ -1010,6 +1010,8 @@ li img{
 }
 .images_ca img {
     max-width: 100%;
+    /*width: 221px;
+    height: 184px;*/
 }
 .images_ca i{
     color: red;
